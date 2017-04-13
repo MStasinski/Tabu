@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "417225176060",
+    "firebase_url": "https://bary-i-restauracje.firebaseio.com",
+    "project_id": "bary-i-restauracje",
+    "storage_bucket": "bary-i-restauracje.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:417225176060:android:7e2d596d707b2bfc",
+        "android_client_info": {
+          "package_name": "com.michal_stasinski.tabu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "417225176060-ssp3s8htkv4qqqrqpt152icglfuhdh8r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.michal_stasinski.tabu",
+            "certificate_hash": "1eac8cf4f0e34492d0428b66dad91a06747a8bd5"
+          }
+        },
+        {
+          "client_id": "417225176060-q4lf5krm5ccfnmitpf0ehn915isqc241.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuDSRBMtZMMn5ghOTYo_-rtP7N-yqpP74"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "417225176060-q4lf5krm5ccfnmitpf0ehn915isqc241.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "417225176060-vpl3udd5kgi7du0at8872n0687f8be0h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.monimaxprojekt.diStradaTrattoria"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

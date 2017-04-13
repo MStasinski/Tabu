@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--draver header-->
+
+    <ImageView
+        android:id="@+id/etHeader"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:scaleType="centerInside" />
+
+    <com.michal_stasinski.tabu.Utils.BounceListView
+        android:id="@+id/left_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etHeader"
+        android:layout_gravity="start"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="20dp"
+        android:background="#00000000"
+        android:choiceMode="singleChoice"
+
+        android:dividerHeight="1dp"
+        android:scrollbarSize="16dp">
+
+    </com.michal_stasinski.tabu.Utils.BounceListView>
+</LinearLayout>
+
