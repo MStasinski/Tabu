@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#7799a6</color>
+    <color name="colorPrimary">#F55514</color>
+    <color name="colorSecond">#C1C1C3</color>
+
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="color_KONTAKTY">#e47302</color>

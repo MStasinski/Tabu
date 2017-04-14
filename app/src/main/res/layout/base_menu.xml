@@ -16,10 +16,11 @@
             android:id="@+id/actionbar_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <include
                 layout="@layout/action_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -31,10 +32,13 @@
             android:layout_below="@id/actionbar_frame"
             android:orientation="vertical">
 
-
+            <ViewStub
+                android:id="@+id/layout_stub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inflatedId="@+id/message_layout" />
 
         </LinearLayout>
-
 
 
     </RelativeLayout>
@@ -43,11 +47,11 @@
     <!--pierwszy drawer -->
     <RelativeLayout
 
+        style="@style/NavDrawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/NavDrawer"
         android:layout_gravity="start"
-        android:background="#cc000000">
+        android:background="#00ffffff">
 
         <include
             layout="@layout/custom_drawer_left_side"

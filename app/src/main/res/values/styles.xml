@@ -15,7 +15,7 @@
 
     <!-- szerokośc draver -->
     <style name="NavDrawer">
-        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginRight">-80dp</item>
     </style>
 
     <style name="GalaxyZooThemeToolbarDarkOverflow" parent="Theme.AppCompat.NoActionBar">

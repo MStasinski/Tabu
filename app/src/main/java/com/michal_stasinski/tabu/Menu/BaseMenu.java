@@ -12,13 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
+import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -47,35 +51,36 @@ public class BaseMenu extends AppCompatActivity {
             R.color.color_PIZZA,
             R.color.color_STARTERY,
             R.color.color_SALATKI,
-            R.color.color_ZUPY,
-            R.color.color_ALFORNO,
-            R.color.color_MAKARONY,
-            R.color.color_DRUGIE_DANIE,
-            R.color.color_DESERY,
+            R.color.color_ZUPY
     };
 
     public String[] largeTextArr = {
-            "AKTUALNOŚCI",
-            "KONTAKT",
+            "START",
             "PIZZA",
-            "STARTERY",
             "SAŁATKI",
-            "ZUPY",
-            "MAKARONY ZAPIEKANE",
-            "MAKARONY",
-            "DRUGIE DANIA",
-            "NAPOJE i DESERY"
+            "SOSY",
+            "KONTAKT",
+            "DANE DO DOSTAWY"
     };
 
 
+    public Integer[] imgid = {
+            R.mipmap.home_icon,
+            R.mipmap.pizza_icon,
+            R.mipmap.salad_icon,
+            R.mipmap.sauce_icon,
+            R.mipmap.contact_icon,
+            R.mipmap.person_icon
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-      /*  ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
+        ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
         stub.setLayoutResource(R.layout.left_bounce_list_view);
-        View inflated = stub.inflate();*/
+        View inflated = stub.inflate();
 
 
     }
@@ -84,17 +89,18 @@ public class BaseMenu extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
-        mToolBar.setBackgroundResource(colorToolBar[currentActivity]);
+        mToolBar.setBackgroundResource(R.color.colorPrimary);
         setSupportActionBar(mToolBar);
         content = (LinearLayout) findViewById(R.id.content_frame);
+
         //base_menu.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
             @Override
             public void onDrawerSlide(View view, float slideOffset) {
-               // imgBackground.setAlpha(slideOffset);
+                // imgBackground.setAlpha(slideOffset);
                 // mListViewMenu.setAlpha(1 - slideOffset);
-                content.setAlpha(1 - slideOffset);
+                //content.setAlpha(1 - slideOffset);
                 //imageDrawer.setAlpha(slideOffset);
                 // mtoolBarLayout.setAlpha(1 - slideOffset);
             }
@@ -117,7 +123,13 @@ public class BaseMenu extends AppCompatActivity {
         mToggle.syncState();
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
         mListViewDrawer.setScrollingCacheEnabled(false);
+
+        CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
+        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+        toolBarTitle.setText((largeTextArr[currentActivity]).toString());
+        mListViewDrawer.setAdapter(adapter);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -145,5 +157,43 @@ public class BaseMenu extends AppCompatActivity {
         return true;
     }
 
+    public void loadFireBaseData(String databaseReference, Boolean loadData) {
+        if (loadData == true) {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            myRef = database.getReference(databaseReference);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    menuItem = new ArrayList<MenuItemProduct>();
+                    for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+                        DataSnapshot dataitem = item;
+                        Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                        String name = (String) map.get("name");
+                        String rank = (String) map.get("rank").toString();
+                        String desc = (String) map.get("desc");
+                        Number price = (Number) map.get("price");
+
+                        MenuItemProduct menuItemProduct = new MenuItemProduct();
+
+                        menuItemProduct.setNameProduct(name);
+                        menuItemProduct.setRank(rank);
+                        menuItemProduct.setDesc(desc);
+                        menuItemProduct.setDesc(desc);
+                        menuItemProduct.setPrice(price);
+                        menuItem.add(menuItemProduct);
+
+                    }
+                    CustomListViewAdapter arrayAdapter = new CustomListViewAdapter(getApplicationContext(), menuItem, colorToolBar[3], true);
+                    mListViewMenu.setAdapter(arrayAdapter);
+                    mListViewMenu.setScrollingCacheEnabled(false);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
 
 }

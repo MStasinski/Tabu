@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.michal_stasinski.distrada.Utils.BounceListView
+    <com.michal_stasinski.tabu.Utils.BounceListView
         android:id="@+id/mListView_BaseMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,0 +1,17 @@
+<resources>
+    <!-- wielkości w menu w listview: tytuł, cena, opis -->
+
+    <dimen name="menu_list_view_title">18sp</dimen>
+    <dimen name="menu_list_view_price">18sp</dimen>
+    <dimen name="menu_list_view_desc">14sp</dimen>
+
+    <!-- wlewy drawer: ikonka, tekst główny, opis -->
+
+    <dimen name="left_drawer_icon">24dp</dimen>
+    <dimen name="left_drawer_top_text">16sp</dimen>
+    <dimen name="left_drawer_down_text">12sp</dimen>
+    <dimen name="left_drawer_margin_left">60dp</dimen>
+
+    <!-- actionbar header text -->
+    <dimen name="actionbar_header_text">18dp</dimen>
+</resources>

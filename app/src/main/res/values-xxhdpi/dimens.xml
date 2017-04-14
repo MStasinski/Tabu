@@ -1,0 +1,35 @@
+<resources>
+    <!-- wielkości w menu w listview: tytuł, cena, opis -->
+
+    <dimen name="menu_list_view_title">18sp</dimen>
+    <dimen name="menu_list_view_price">18sp</dimen>
+    <dimen name="menu_list_view_desc">14sp</dimen>
+    <dimen name="menu_list_view_shape_position">38dp</dimen>
+    <!-- wlewy drawer: ikonka, tekst główny, opis -->
+
+    <dimen name="left_drawer_icon">30dp</dimen>
+    <dimen name="left_drawer_top_text">14sp</dimen>
+    <dimen name="left_drawer_down_text">14sp</dimen>
+    <dimen name="left_drawer_margin_left">80dp</dimen>
+
+    <!-- actionbar header text -->
+    <dimen name="actionbar_header_text">18dp</dimen>
+
+    <!-- news -->
+    <dimen name="news_image_size">200dp</dimen>
+
+    <dimen name="news_layout_marginTop">16dp</dimen>
+    <dimen name="news_layout_marginLeft">14dp</dimen>
+    <dimen name="news_layout_marginRight">14dp</dimen>
+    <dimen name="news_layout_marginBottom">14dp</dimen>
+    <dimen name="news_data_text_size">12sp</dimen>
+    <dimen name="news_title_text_size">18sp</dimen>
+    <dimen name="news_message_text_size">16dp</dimen>
+    <!-- kontakt -->
+    <dimen name="contact_button_size">48dp</dimen>
+    <dimen name="contact_margin_left">50dp</dimen>
+    <dimen name="contact_margin_right">50dp</dimen>
+    <dimen name="contact_text_size">16dp</dimen>
+
+
+</resources>
