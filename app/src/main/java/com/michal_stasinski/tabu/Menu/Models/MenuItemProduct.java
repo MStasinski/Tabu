@@ -1,5 +1,7 @@
 package com.michal_stasinski.tabu.Menu.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by win8 on 27.12.2016.
  */
@@ -10,6 +12,15 @@ public class MenuItemProduct {
     private String name;
     private String desc;
     private Number price;
+    private ArrayList<Number> priceArr;
+
+    public ArrayList<Number> getPriceArr() {
+        return priceArr;
+    }
+
+    public void setPriceArr(ArrayList<Number> priceArr) {
+        this.priceArr = priceArr;
+    }
 
     public Number getPrice() {
 

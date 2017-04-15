@@ -9,10 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
+import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.Pizza;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -107,10 +110,17 @@ public class BaseMenu extends AppCompatActivity {
 
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-
+                mDrawerLayout.setEnabled(false);
+                Intent intent = new Intent();
+                Log.i("info","jakie activity____________________________________________"+choicetActivity);
                 if (currentActivity != choicetActivity) {
-                    mDrawerLayout.setEnabled(false);
+                    if (choicetActivity == 1) {
+                        Log.i("info","idz do____________________________________________"+choicetActivity);
+                        intent.setClass(getBaseContext(), Pizza.class);
+                    }
 
+                    //TODO dodaj animacje
+                    startActivity(intent);
                 }
             }
         };
@@ -128,6 +138,20 @@ public class BaseMenu extends AppCompatActivity {
         TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
         toolBarTitle.setText((largeTextArr[currentActivity]).toString());
         mListViewDrawer.setAdapter(adapter);
+        mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg) {
+                choicetActivity = position;
+                if (currentActivity != choicetActivity) {
+                    //TODO odblokuj to
+                   // BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
+                  //  v.setEnabled(false);
+                   // mDrawerLayout.setEnabled(false);
+                   // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                }
+                mDrawerLayout.closeDrawer(GravityCompat.START, true);
+            }
+        });
     }
 
     @Override
@@ -159,6 +183,7 @@ public class BaseMenu extends AppCompatActivity {
 
     public void loadFireBaseData(String databaseReference, Boolean loadData) {
         if (loadData == true) {
+            Log.i("info","loadFireBaseData(____________________________________________"+choicetActivity);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             myRef = database.getReference(databaseReference);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -172,15 +197,16 @@ public class BaseMenu extends AppCompatActivity {
                         String name = (String) map.get("name");
                         String rank = (String) map.get("rank").toString();
                         String desc = (String) map.get("desc");
-                        Number price = (Number) map.get("price");
-
+                        //Number price = (Number) map.get("price");
+                        ArrayList <Number> price = (ArrayList) map.get("price");
                         MenuItemProduct menuItemProduct = new MenuItemProduct();
 
                         menuItemProduct.setNameProduct(name);
                         menuItemProduct.setRank(rank);
                         menuItemProduct.setDesc(desc);
                         menuItemProduct.setDesc(desc);
-                        menuItemProduct.setPrice(price);
+                        menuItemProduct.setPrice(10);
+                        menuItemProduct.setPriceArr(price);
                         menuItem.add(menuItemProduct);
 
                     }
