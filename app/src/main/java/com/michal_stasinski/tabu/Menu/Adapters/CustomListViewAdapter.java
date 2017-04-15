@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
@@ -89,9 +91,20 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.titleItem);
             viewHolder.textDesc = (TextView) view.findViewById(R.id.txtDesc);
-            viewHolder.textPrice = (TextView) view.findViewById(R.id.txtPrice);
+            //viewHolder.textPrice = (TextView) view.findViewById(R.id.txtPrice);
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
+
             view.setTag(viewHolder);
+            ArrayList <Number> price = arr.get(position).getPriceArr();
+            for (int i = 0; i < price.size(); i++)
+            {
+
+                Button myButton = new Button(mContext);
+                myButton.setText(price.get(i).toString().toUpperCase() + " ZŁ");
+                LinearLayout list= (LinearLayout) view.findViewById(R.id.buttonlayout);
+                //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                list.addView(myButton);
+            }
 
         } else {
             viewHolder = (ViewHolderItem) view.getTag();
@@ -99,18 +112,13 @@ public class CustomListViewAdapter extends BaseAdapter {
 
 
         viewHolder.title.setText(arr.get(position).getNameProduct().toUpperCase());
-        viewHolder.colorShape.setText(arr.get(position).getRank());
+        viewHolder.colorShape.setText("- "+arr.get(position).getRank()+" -");
 
 
-        ((GradientDrawable) viewHolder.colorShape.getBackground()).setColor(mContext.getResources().getColor(this.color));
+        //((GradientDrawable) viewHolder.colorShape.getBackground()).setColor(mContext.getResources().getColor(this.color));
         viewHolder.textDesc.setText(arr.get(position).getDesc().toLowerCase());
        // viewHolder.textPrice.setText(arr.get(position).getPrice().toString().toUpperCase() + " ZŁ");
-        ArrayList <Number> price = arr.get(position).getPriceArr();
-        viewHolder.textPrice.setText(price.get(0).toString().toUpperCase() + " ZŁ");
-
-
-
-
+        //viewHolder.textPrice.setText(price.get(0).toString().toUpperCase() + " ZŁ");
         return view;
     }
 

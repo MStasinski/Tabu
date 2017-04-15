@@ -2,10 +2,12 @@
 <resources>
     <color name="colorPrimary">#F55514</color>
     <color name="colorSecond">#C1C1C3</color>
-
+    <color name="colorSecondGrey">#555555</color>
+    <color name="colorActionBar">#B1B2B4</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+
     <color name="color_KONTAKTY">#e47302</color>
     <color name="color_AKTUALNOSCI">#A95432</color>
     <color name="color_PIZZA">#F58600</color>

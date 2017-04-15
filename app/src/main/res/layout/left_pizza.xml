@@ -8,13 +8,12 @@
         android:id="@+id/specialText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_gravity="center"
 
         android:background="@drawable/customshape_black"
-        android:text="W skład każdej pizzy(32 cm) wchodzą:\n
-ser Mozzarella i sos pomidorowy"
+        android:text="Do każdej pizzy jeden sos czosnkowy gratis!"
 
-        android:textAlignment="textEnd"
+        android:textAlignment="center"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/menu_list_view_desc" />
 
