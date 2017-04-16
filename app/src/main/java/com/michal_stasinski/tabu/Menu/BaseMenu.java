@@ -3,6 +3,7 @@ package com.michal_stasinski.tabu.Menu;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,9 +28,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.Pizza;
+import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.Salad;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.TintIcon;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -39,7 +43,7 @@ public class BaseMenu extends AppCompatActivity {
     private DatabaseReference myRef;
     private LinearLayout content;
     private ArrayList<MenuItemProduct> menuItem;
-
+    private ImageView drawerBackgroud;
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
@@ -65,8 +69,7 @@ public class BaseMenu extends AppCompatActivity {
             "KONTAKT",
             "DANE DO DOSTAWY"
     };
-
-
+    
     public Integer[] imgid = {
             R.mipmap.home_icon,
             R.mipmap.pizza_icon,
@@ -76,11 +79,13 @@ public class BaseMenu extends AppCompatActivity {
             R.mipmap.person_icon
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_menu);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
         stub.setLayoutResource(R.layout.left_bounce_list_view);
         View inflated = stub.inflate();
@@ -92,16 +97,18 @@ public class BaseMenu extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
-        mToolBar.setBackgroundResource(R.color.colorPrimary);
+        mToolBar.setBackgroundResource(R.color.colorWhite);
         setSupportActionBar(mToolBar);
         content = (LinearLayout) findViewById(R.id.content_frame);
-
+        drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
+        drawerBackgroud.setAlpha(0.f);
         //base_menu.xml
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
             @Override
             public void onDrawerSlide(View view, float slideOffset) {
-                // imgBackground.setAlpha(slideOffset);
+                drawerBackgroud.setAlpha(slideOffset);
                 // mListViewMenu.setAlpha(1 - slideOffset);
                 //content.setAlpha(1 - slideOffset);
                 //imageDrawer.setAlpha(slideOffset);
@@ -111,12 +118,16 @@ public class BaseMenu extends AppCompatActivity {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 mDrawerLayout.setEnabled(false);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 Intent intent = new Intent();
-                Log.i("info","jakie activity____________________________________________"+choicetActivity);
+                Log.i("info", "jakie activity____________________________________________" + choicetActivity);
                 if (currentActivity != choicetActivity) {
                     if (choicetActivity == 1) {
-                        Log.i("info","idz do____________________________________________"+choicetActivity);
+                        Log.i("info", "idz do____________________________________________" + choicetActivity);
                         intent.setClass(getBaseContext(), Pizza.class);
+                    }
+                    if (choicetActivity == 2) {
+                        intent.setClass(getBaseContext(), Salad.class);
                     }
 
                     //TODO dodaj animacje
@@ -129,11 +140,12 @@ public class BaseMenu extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true); // show or hide the default home button
         getSupportActionBar().setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
 
         mToggle.syncState();
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
         mListViewDrawer.setScrollingCacheEnabled(false);
-
+        mDrawerLayout.setEnabled(false);
         CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
         TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
         toolBarTitle.setText((largeTextArr[currentActivity]).toString());
@@ -144,10 +156,10 @@ public class BaseMenu extends AppCompatActivity {
                 choicetActivity = position;
                 if (currentActivity != choicetActivity) {
                     //TODO odblokuj to
-                   // BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
-                  //  v.setEnabled(false);
-                   // mDrawerLayout.setEnabled(false);
-                   // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    // BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
+                    //  v.setEnabled(false);
+                    // mDrawerLayout.setEnabled(false);
+                    // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START, true);
             }
@@ -158,7 +170,7 @@ public class BaseMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
+        Log.i("info", "Action bar menu_----------------------" + id);
         if (id == R.id.share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -167,8 +179,12 @@ public class BaseMenu extends AppCompatActivity {
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
             return true;
+        } else if (id == R.id.right_menu) {
+            mDrawerLayout.openDrawer(GravityCompat.END, true);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
             mDrawerLayout.openDrawer(GravityCompat.START, true);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -178,12 +194,20 @@ public class BaseMenu extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // na stworzenie menu --dodanie przycisków w menu
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem1 = menu.findItem(R.id.right_menu);
+        MenuItem menuItem2 = menu.findItem(R.id.share);
+        if (menuItem1 != null) {
+            TintIcon.tintMenuIcon(BaseMenu.this, menuItem1, R.color.colorPrimary);
+        }
+
+        if (menuItem2 != null) {
+            TintIcon.tintMenuIcon(BaseMenu.this, menuItem2, R.color.colorPrimary);
+        }
         return true;
     }
 
     public void loadFireBaseData(String databaseReference, Boolean loadData) {
         if (loadData == true) {
-            Log.i("info","loadFireBaseData(____________________________________________"+choicetActivity);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             myRef = database.getReference(databaseReference);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -198,14 +222,14 @@ public class BaseMenu extends AppCompatActivity {
                         String rank = (String) map.get("rank").toString();
                         String desc = (String) map.get("desc");
                         //Number price = (Number) map.get("price");
-                        ArrayList <Number> price = (ArrayList) map.get("price");
+                        ArrayList<Number> price = (ArrayList) map.get("price");
                         MenuItemProduct menuItemProduct = new MenuItemProduct();
-
+                        for (int i = 0; i < price.size(); i++) {
+                            Log.i("info", "arr _________________________  " + price.get(i));
+                        }
                         menuItemProduct.setNameProduct(name);
                         menuItemProduct.setRank(rank);
                         menuItemProduct.setDesc(desc);
-                        menuItemProduct.setDesc(desc);
-                        menuItemProduct.setPrice(10);
                         menuItemProduct.setPriceArr(price);
                         menuItem.add(menuItemProduct);
 
@@ -221,5 +245,6 @@ public class BaseMenu extends AppCompatActivity {
             });
         }
     }
+
 
 }

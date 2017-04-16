@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Menu.LeftDrawerMenu.Pizza" />
+        <activity android:name=".Menu.LeftDrawerMenu.Salad" />
     </application>
 
 </manifest>

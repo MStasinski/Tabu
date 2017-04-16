@@ -14,6 +14,7 @@
         android:scaleType="centerInside"
         android:src="@mipmap/ic_launcher"/>-->
 
+
     <com.michal_stasinski.tabu.Utils.BounceListView
         android:id="@+id/left_drawer"
         android:layout_width="match_parent"

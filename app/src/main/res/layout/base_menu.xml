@@ -35,11 +35,32 @@
             <ViewStub
                 android:id="@+id/layout_stub"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:inflatedId="@+id/message_layout" />
+            <LinearLayout
+                android:id="@+id/bottomActionBar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:background="@color/colorSecondGrey"
+                />
 
         </LinearLayout>
 
+
+        <ImageView
+            android:id="@+id/black_shape_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/customshape_alpha" />
 
     </RelativeLayout>
 
@@ -50,8 +71,8 @@
         style="@style/NavDrawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#00ffffff">
+        android:clickable="true"
+        android:layout_gravity="start">
 
         <include
             layout="@layout/custom_drawer_left_side"
@@ -61,6 +82,20 @@
     </RelativeLayout>
 
     <!--drugi drawer -->
+    <RelativeLayout
+
+    style="@style/NavDrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:layout_gravity="end">
+
+    <include
+        layout="@layout/custom_drawer_right_side"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
 
 
 </android.support.v4.widget.DrawerLayout>

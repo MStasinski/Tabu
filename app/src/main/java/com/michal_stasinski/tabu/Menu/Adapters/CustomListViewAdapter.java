@@ -1,7 +1,9 @@
 package com.michal_stasinski.tabu.Menu.Adapters;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,26 +87,37 @@ public class CustomListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         ViewHolderItem viewHolder;
+        final int clikPos = position;
 
         if (convertView == null) {
+            ArrayList<Number> price = arr.get(position).getPriceArr();
             view = View.inflate(mContext, R.layout.left_menu_listview_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.titleItem);
             viewHolder.textDesc = (TextView) view.findViewById(R.id.txtDesc);
             //viewHolder.textPrice = (TextView) view.findViewById(R.id.txtPrice);
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
+            viewHolder.price = price;
+            viewHolder.buttonArray = new ArrayList<Button>();
+            for (int i = 0; i < price.size(); i++) {
+                LinearLayout list = (LinearLayout) view.findViewById(R.id.buttonlayout);
+                Button priceBtn = new Button(mContext);
 
-            view.setTag(viewHolder);
-            ArrayList <Number> price = arr.get(position).getPriceArr();
-            for (int i = 0; i < price.size(); i++)
-            {
+                final int priceId = i;
 
-                Button myButton = new Button(mContext);
-                myButton.setText(price.get(i).toString().toUpperCase() + " ZŁ");
-                LinearLayout list= (LinearLayout) view.findViewById(R.id.buttonlayout);
-                //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                list.addView(myButton);
+                int priceBtn_height = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_height);
+                int priceBtn_width = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_width);
+
+                android.widget.LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
+                lp.setMargins(30, 0, 30, 0); // left, top, right, bottom
+                priceBtn.setBackgroundResource(R.drawable.price_shape);
+                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/arial.ttf"));
+                priceBtn.setTextSize(14);
+                priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                viewHolder.buttonArray.add(priceBtn);
+                list.addView(priceBtn, lp);
             }
+            view.setTag(viewHolder);
 
         } else {
             viewHolder = (ViewHolderItem) view.getTag();
@@ -112,13 +125,21 @@ public class CustomListViewAdapter extends BaseAdapter {
 
 
         viewHolder.title.setText(arr.get(position).getNameProduct().toUpperCase());
-        viewHolder.colorShape.setText("- "+arr.get(position).getRank()+" -");
-
-
-        //((GradientDrawable) viewHolder.colorShape.getBackground()).setColor(mContext.getResources().getColor(this.color));
+        viewHolder.colorShape.setText("- " + arr.get(position).getRank() + " -");
         viewHolder.textDesc.setText(arr.get(position).getDesc().toLowerCase());
-       // viewHolder.textPrice.setText(arr.get(position).getPrice().toString().toUpperCase() + " ZŁ");
-        //viewHolder.textPrice.setText(price.get(0).toString().toUpperCase() + " ZŁ");
+
+
+        for (int i = 0; i < viewHolder.price.size(); i++) {
+            viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArr().get(i).toString().toUpperCase() + " zł");
+            viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    Log.i("info", "clic" + clikPos);
+                }
+            });
+        }
+
         return view;
     }
 
@@ -128,6 +149,9 @@ public class CustomListViewAdapter extends BaseAdapter {
         TextView textDesc;
         TextView textPrice;
         TextView colorShape;
+        Button bt;
+        ArrayList<Button> buttonArray;
+        ArrayList<Number> price;
 
     }
 }

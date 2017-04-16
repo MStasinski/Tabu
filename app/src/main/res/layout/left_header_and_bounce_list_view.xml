@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/addonText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customshape_black"
+        android:gravity="end"
+        android:textAlignment="textEnd"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/menu_list_view_desc" />
+
+    <com.michal_stasinski.tabu.Utils.BounceListView
+        android:id="@+id/mListView_BaseMenu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_below="@id/addonText"
+        android:layout_centerVertical="true"
+        android:animationCache="false"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.05sp"
+        android:layout_marginBottom="1dp"
+        android:scrollingCache="false" />
+</LinearLayout>
