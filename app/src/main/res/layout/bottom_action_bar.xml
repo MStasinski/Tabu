@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSecondGrey"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ImageButton
+            android:id="@+id/bottom_action_bar_btn0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/circle_background_drawer_icon"
+            android:backgroundTint="@color/colorWhite"
+            android:src="@mipmap/kosz_icon"
+            android:tint="@color/colorPrimary" />
+
+        <ImageButton
+            android:id="@+id/bottom_action_bar_btn1"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="100dp"
+            android:background="@drawable/circle_background_drawer_icon"
+            android:backgroundTint="@color/colorWhite"
+            android:src="@mipmap/kosz_icon"
+            android:tint="@color/colorPrimary" />
+
+    </RelativeLayout>
+</LinearLayout>

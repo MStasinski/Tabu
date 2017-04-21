@@ -9,15 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Menu.BaseMenu">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Menu.MainActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+        <activity
+            android:name=".Menu.Pop"
+            android:theme="@style/AppTheme.PopUpWindow">
+
         </activity>
-        <activity android:name=".Menu.LeftDrawerMenu.Pizza" />
-        <activity android:name=".Menu.LeftDrawerMenu.Salad" />
     </application>
 
 </manifest>

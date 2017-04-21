@@ -1,9 +1,12 @@
 package com.michal_stasinski.tabu.Menu.Adapters;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.util.Log;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.OrderCompositorFragment;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
@@ -111,10 +115,12 @@ public class CustomListViewAdapter extends BaseAdapter {
                 android.widget.LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
                 lp.setMargins(30, 0, 30, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
+                priceBtn.setTextColor(Color.BLACK);
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/arial.ttf"));
                 priceBtn.setTextSize(14);
                 priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 viewHolder.buttonArray.add(priceBtn);
+
                 list.addView(priceBtn, lp);
             }
             view.setTag(viewHolder);
@@ -131,11 +137,25 @@ public class CustomListViewAdapter extends BaseAdapter {
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
             viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArr().get(i).toString().toUpperCase() + " zł");
+            final int butId = i;
             viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View arg0) {
-                    Log.i("info", "clic" + clikPos);
+                    // Intent intent = new Intent();
+                    // intent.setClass(mContext, Pop.class);
+                    // mContext.startActivity(intent);
+                    FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
+                    OrderCompositorFragment fragment = new OrderCompositorFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", arr.get(clikPos).getNameProduct());
+                    bundle.putInt("position", clikPos);
+                    bundle.putString("desc",arr.get(clikPos).getDesc());
+                    bundle.putInt("size", butId);
+                    bundle.putString("price", arr.get(clikPos).getPriceArr().get(butId).toString());
+
+
+                    fragment.setArguments(bundle);
+                    ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
                 }
             });
         }
@@ -147,9 +167,7 @@ public class CustomListViewAdapter extends BaseAdapter {
 
         TextView title;
         TextView textDesc;
-        TextView textPrice;
         TextView colorShape;
-        Button bt;
         ArrayList<Button> buttonArray;
         ArrayList<Number> price;
 

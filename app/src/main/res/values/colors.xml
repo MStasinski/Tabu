@@ -3,6 +3,7 @@
     <color name="colorPrimary">#F55514</color>
     <color name="colorSecond">#C1C1C3</color>
     <color name="colorSecondGrey">#B1B2B4</color>
+    <color name="colorThirdGrey">#555555</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -17,5 +18,7 @@
     <color name="color_ALFORNO">#F44336</color>
     <color name="color_DRUGIE_DANIE">#00D0CA</color>
     <color name="color_DESERY">#4F095B</color>
+
+    <color name="transparent">#80000000</color>
 
 </resources>

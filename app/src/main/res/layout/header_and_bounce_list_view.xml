@@ -24,6 +24,5 @@
         android:animationCache="false"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.05sp"
-        android:layout_marginBottom="1dp"
         android:scrollingCache="false" />
 </LinearLayout>

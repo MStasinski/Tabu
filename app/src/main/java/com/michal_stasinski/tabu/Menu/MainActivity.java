@@ -1,0 +1,236 @@
+package com.michal_stasinski.tabu.Menu;
+
+
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
+import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
+import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.TintIcon;
+
+import java.util.ArrayList;
+
+
+public class MainActivity extends AppCompatActivity {
+
+    private DatabaseReference myRef;
+    private LinearLayout content;
+    private ArrayList<MenuItemProduct> menuItem;
+    private ImageView drawerBackgroud;
+    protected Toolbar mToolBar;
+    protected DrawerLayout mDrawerLayout;
+    protected ActionBarDrawerToggle mToggle;
+    protected int currentActivity = 0;
+    protected int choicetActivity = 0;
+    protected BounceListView mListViewDrawer;
+    protected BounceListView mListViewMenu;
+
+    protected int[] colorToolBar = {
+            R.color.color_AKTUALNOSCI,
+            R.color.color_KONTAKTY,
+            R.color.color_PIZZA,
+            R.color.color_STARTERY,
+            R.color.color_SALATKI,
+            R.color.color_ZUPY
+    };
+
+    protected String[] largeTextArr = {
+            "START",
+            "PIZZA",
+            "SAŁATKI",
+            "SOSY",
+            "KONTAKT",
+            "DANE DO DOSTAWY"
+    };
+
+    protected Integer[] imgid = {
+            R.mipmap.home_icon,
+            R.mipmap.pizza_icon,
+            R.mipmap.salad_icon,
+            R.mipmap.sauce_icon,
+            R.mipmap.contact_icon,
+            R.mipmap.person_icon
+
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Log.i("informacja","MainActivity_________onCreate");
+        setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+       /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
+        stub.setLayoutResource(R.layout.bounce_list_view);
+        View inflated = stub.inflate();*/
+
+
+
+        //-------------------------- bottom menu button------------------------------------
+        ImageButton bottom_action_bar_btn0 = (ImageButton) findViewById(R.id.bottom_action_bar_btn0);
+        bottom_action_bar_btn0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START, true);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            }
+        });
+
+        ImageButton bottom_action_bar_btn1 = (ImageButton) findViewById(R.id.bottom_action_bar_btn1);
+        bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), Pop.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("informacja","MainActivity________onStart");
+
+        mToolBar = (Toolbar) findViewById(R.id.nav_action);
+        mToolBar.setBackgroundResource(R.color.colorWhite);
+        setSupportActionBar(mToolBar);
+        // content = (LinearLayout) findViewById(R.id.content_frame);
+        drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
+        drawerBackgroud.setAlpha(0.f);
+        //activity_main.xml.xml
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
+            @Override
+            public void onDrawerSlide(View view, float slideOffset) {
+                drawerBackgroud.setAlpha(slideOffset);
+                // mListViewMenu.setAlpha(1 - slideOffset);
+                //content.setAlpha(1 - slideOffset);
+                //imageDrawer.setAlpha(slideOffset);
+                // mtoolBarLayout.setAlpha(1 - slideOffset);
+            }
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                mDrawerLayout.setEnabled(false);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                Intent intent = new Intent();
+                Log.i("info", "jakie activity____________________________________________" + choicetActivity);
+                if (currentActivity != choicetActivity) {
+                    if (choicetActivity == 1) {
+                        Log.i("info", "idz do____________________________________________" + choicetActivity);
+                       //intent.setClass(getBaseContext(), Pizza.class);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        MenuFragment fragment = MenuFragment.newInstance("Pizza");
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+                    }
+                    if (choicetActivity == 2) {
+                       // intent.setClass(getBaseContext(), Salad.class)
+                        FragmentManager fragmentManager = getFragmentManager();
+                        MenuFragment fragment = MenuFragment.newInstance("Salad");
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+                    }
+
+                    //TODO dodaj animacje
+                    //startActivity(intent);
+                }
+            }
+        };
+        mDrawerLayout.addDrawerListener(mToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false); // show or hide the default home button
+        getSupportActionBar().setDisplayShowCustomEnabled(false); // enable overriding the default toolbar layout
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+       // getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+
+        mToggle.syncState();
+        mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
+        mListViewDrawer.setScrollingCacheEnabled(false);
+        mDrawerLayout.setEnabled(false);
+        CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
+        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+        toolBarTitle.setText((largeTextArr[currentActivity]).toString());
+        mListViewDrawer.setAdapter(adapter);
+        mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg) {
+                choicetActivity = position;
+                if (currentActivity != choicetActivity) {
+                    //TODO odblokuj to
+                    // BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
+                    //  v.setEnabled(false);
+                    // mDrawerLayout.setEnabled(false);
+                    // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                }
+                mDrawerLayout.closeDrawer(GravityCompat.START, true);
+            }
+        });
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        Log.i("info", "Action bar menu_----------------------" + id);
+        if (id == R.id.share) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBodyText = "Check it out. Your message goes here";
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+            startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+            return true;
+        } else if (id == R.id.right_menu) {
+            mDrawerLayout.openDrawer(GravityCompat.END, true);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        } else {
+            mDrawerLayout.openDrawer(GravityCompat.START, true);
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // na stworzenie menu --dodanie przycisków w menu
+        getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem1 = menu.findItem(R.id.right_menu);
+        MenuItem menuItem2 = menu.findItem(R.id.share);
+        if (menuItem1 != null) {
+            TintIcon.tintMenuIcon(MainActivity.this, menuItem1, R.color.colorPrimary);
+        }
+
+        if (menuItem2 != null) {
+            TintIcon.tintMenuIcon(MainActivity.this, menuItem2, R.color.colorPrimary);
+        }
+        return true;
+    }
+}
