@@ -9,7 +9,7 @@
 
     <com.michal_stasinski.tabu.Utils.CustomTextView
 
-        android:id="@+id/order_compozytor_positionInList"
+        android:id="@+id/order_composer_positionInList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -20,7 +20,7 @@
         android:textSize="@dimen/menu_list_view_number" />
 
     <com.michal_stasinski.tabu.Utils.CustomTextView
-        android:id="@+id/order_compozytor_titleItem"
+        android:id="@+id/order_composer_titleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -31,7 +31,7 @@
         android:textSize="@dimen/menu_list_view_title" />
 
     <com.michal_stasinski.tabu.Utils.CustomTextView
-        android:id="@+id/order_compozytor_desc"
+        android:id="@+id/order_composer_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -44,7 +44,7 @@
         android:textSize="@dimen/menu_list_view_desc" />
 
     <com.michal_stasinski.tabu.Utils.CustomTextView
-        android:id="@+id/order_compozytor_price"
+        android:id="@+id/order_composer_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -57,7 +57,7 @@
         android:textSize="@dimen/menu_list_view_desc" />
 
     <com.michal_stasinski.tabu.Utils.BounceListView
-        android:id="@+id/order_compozytor_listview"
+        android:id="@+id/order_composer_listView"
         android:layout_width="match_parent"
         android:layout_marginTop="10dp"
         android:layout_height="0dp"
@@ -67,6 +67,18 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.05sp"
         android:scrollingCache="false" />
+
+    <Button
+        android:id="@+id/order_composer_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
+        android:text="Button"
+        />
 
 
 

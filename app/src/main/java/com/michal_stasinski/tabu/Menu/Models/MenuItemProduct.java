@@ -3,62 +3,65 @@ package com.michal_stasinski.tabu.Menu.Models;
 import java.util.ArrayList;
 
 /**
- * Created by win8 on 27.12.2016.
+ * Created by Michal Stasiński on 27.12.2016.
  */
 
 public class MenuItemProduct {
-
+    /**
+     * @param rank  - position in firebase
+     * @param HowManyItemWereSelected  - state [0- not selected ,1,2 ]in Order Composer when user choose "Extras"  in AddonsPopUp
+     * @param priceArray - load from firebase  -price depends on pizzasize
+     */
     private String rank;
     private String name;
-    private String desc;
-    private Number price;
-    private ArrayList<Number> priceArr;
+    private String description;
+    private ArrayList<Number> priceArray;
+    private int HowManyItemWereSelected;
 
-    public ArrayList<Number> getPriceArr() {
-        return priceArr;
+
+
+
+
+    public int getHowManyItemWereSelected() {
+        return HowManyItemWereSelected;
     }
 
-    public void setPriceArr(ArrayList<Number> priceArr) {
-        this.priceArr = priceArr;
+    public void setHowManyItemWereSelected(int howManyItemWereSelected) {
+        this.HowManyItemWereSelected = howManyItemWereSelected;
     }
 
-    public Number getPrice() {
-
-        return price;
+    public ArrayList<Number> getPriceArray() {
+        return priceArray;
     }
 
-    public void setPrice(Number price) {
-
-        this.price = price;
+    public void setPriceArray(
+            ArrayList<Number> priceArray) {
+        this.priceArray = priceArray;
     }
 
-    public String getDesc() {
-
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
 
-        this.desc = desc;
+    public void setDescription(String desc) {
+        this.description = desc;
     }
 
-    public String getNameProduct() {
-
+    public String getName() {
         return name;
     }
 
-    public void setNameProduct(String nameProduct) {
-
-        this.name = nameProduct;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRank() {
-
         return rank;
     }
 
     public void setRank(String rank) {
-
         this.rank = rank;
     }
+
 }

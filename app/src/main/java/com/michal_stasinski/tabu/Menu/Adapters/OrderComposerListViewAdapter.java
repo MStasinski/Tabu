@@ -8,17 +8,14 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
 
-/**
- * Created by win8 on 27.12.2016.
- */
 
-public class OrderCompositorListViewAdapter extends BaseAdapter {
+public class OrderComposerListViewAdapter extends BaseAdapter {
 
     private String[] titleArr;
     private String[] descArr;
     private Context mContext;
 
-    public OrderCompositorListViewAdapter(Context context, String[] titleArr, String[] descArr) {
+    public OrderComposerListViewAdapter(Context context, String[] titleArr, String[] descArr) {
 
         this.titleArr = titleArr;
         this.descArr = descArr;

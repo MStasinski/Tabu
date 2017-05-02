@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:screenOrientation="portrait"
-    tools:context="com.michal_stasinski.tabu.Menu.MainActivity">
+    tools:context="com.michal_stasinski.tabu.MainActivity">
 
     <RelativeLayout
         android:id="@+id/main_frame_pizza"

@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu;
 
 
 import android.app.FragmentManager;
@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Menu.PizzaSizePopUp;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.TintIcon;
 
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), Pop.class);
+                intent.setClass(getBaseContext(), PizzaSizePopUp.class);
                 startActivity(intent);
             }
         });
@@ -142,19 +141,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 Log.i("info", "jakie activity____________________________________________" + choicetActivity);
                 if (currentActivity != choicetActivity) {
-                    if (choicetActivity == 1) {
-                        Log.i("info", "idz do____________________________________________" + choicetActivity);
-                       //intent.setClass(getBaseContext(), Pizza.class);
+
+
                         FragmentManager fragmentManager = getFragmentManager();
-                        MenuFragment fragment = MenuFragment.newInstance("Pizza");
+                        MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
-                    }
-                    if (choicetActivity == 2) {
-                       // intent.setClass(getBaseContext(), Salad.class)
-                        FragmentManager fragmentManager = getFragmentManager();
-                        MenuFragment fragment = MenuFragment.newInstance("Salad");
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
-                    }
+
 
                     //TODO dodaj animacje
                     //startActivity(intent);
@@ -198,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        Log.i("info", "Action bar menu_----------------------" + id);
         if (id == R.id.share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");

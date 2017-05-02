@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="@color/colorThirdGrey"
-            android:textSize="20dp" />
+            android:textSize="16dp" />
+
+
 
         <TextView
             android:id="@+id/checkmark"
@@ -26,8 +28,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:text="\u2713"
-            android:textColor="@color/colorThirdGrey"
-            android:textSize="20dp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="14dp" />
 
     </RelativeLayout>
 

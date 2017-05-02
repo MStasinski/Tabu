@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.OrderCompositorFragment;
+import com.michal_stasinski.tabu.Menu.OrderComposerFragment;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
@@ -89,17 +89,18 @@ public class CustomListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View view = convertView;
         ViewHolderItem viewHolder;
+
         final int clikPos = position;
 
         if (convertView == null) {
-            ArrayList<Number> price = arr.get(position).getPriceArr();
+            ArrayList<Number> price = arr.get(position).getPriceArray();
             view = View.inflate(mContext, R.layout.left_menu_listview_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.titleItem);
             viewHolder.textDesc = (TextView) view.findViewById(R.id.txtDesc);
-            //viewHolder.textPrice = (TextView) view.findViewById(R.id.txtPrice);
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
             viewHolder.price = price;
             viewHolder.buttonArray = new ArrayList<Button>();
@@ -118,7 +119,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                 priceBtn.setTextColor(Color.BLACK);
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/arial.ttf"));
                 priceBtn.setTextSize(14);
-                priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+              //  priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 viewHolder.buttonArray.add(priceBtn);
 
                 list.addView(priceBtn, lp);
@@ -129,30 +130,24 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolderItem) view.getTag();
         }
 
-
-        viewHolder.title.setText(arr.get(position).getNameProduct().toUpperCase());
+        viewHolder.title.setText(arr.get(position).getName().toUpperCase());
         viewHolder.colorShape.setText("- " + arr.get(position).getRank() + " -");
-        viewHolder.textDesc.setText(arr.get(position).getDesc().toLowerCase());
-
+        viewHolder.textDesc.setText(arr.get(position).getDescription().toLowerCase());
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
-            viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArr().get(i).toString().toUpperCase() + " zł");
+            viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArray().get(i).toString().toUpperCase() + " zł");
             final int butId = i;
             viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    // Intent intent = new Intent();
-                    // intent.setClass(mContext, Pop.class);
-                    // mContext.startActivity(intent);
                     FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
-                    OrderCompositorFragment fragment = new OrderCompositorFragment();
+                    OrderComposerFragment fragment = new OrderComposerFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putString("name", arr.get(clikPos).getNameProduct());
+                    bundle.putString("name", arr.get(clikPos).getName());
                     bundle.putInt("position", clikPos);
-                    bundle.putString("desc",arr.get(clikPos).getDesc());
+                    bundle.putString("desc",arr.get(clikPos).getDescription());
                     bundle.putInt("size", butId);
-                    bundle.putString("price", arr.get(clikPos).getPriceArr().get(butId).toString());
-
+                    bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
                     fragment.setArguments(bundle);
                     ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
@@ -164,12 +159,10 @@ public class CustomListViewAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-
         TextView title;
         TextView textDesc;
         TextView colorShape;
         ArrayList<Button> buttonArray;
         ArrayList<Number> price;
-
     }
 }

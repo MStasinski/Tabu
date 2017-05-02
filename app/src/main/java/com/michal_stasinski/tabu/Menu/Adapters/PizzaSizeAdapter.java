@@ -2,12 +2,9 @@ package com.michal_stasinski.tabu.Menu.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
@@ -17,30 +14,29 @@ import java.util.ArrayList;
 
 public class PizzaSizeAdapter extends BaseAdapter {
 
-    private ArrayList<MenuItemProduct> arr;
-
-
-
+    private ArrayList<MenuItemProduct> pizzaSizesArr;
+    private ArrayList<MenuItemProduct> pizzas;
     private ArrayList<Integer> markSignArr;
     private Context mContext;
     private String mark = "";
+    private int positionInMenuListView;
 
-    public PizzaSizeAdapter(Context context, ArrayList<MenuItemProduct> mListArray, ArrayList<Integer> markSign) {
-
-
-        this.arr = mListArray;
+    public PizzaSizeAdapter(Context context, int positioninMenu, ArrayList<MenuItemProduct> pizzas, ArrayList<MenuItemProduct> pizzaSizes, ArrayList<Integer> markSign) {
+        this.pizzaSizesArr = pizzaSizes;
         this.markSignArr = markSign;
+        this.pizzas = pizzas;
         this.mContext = context;
+        this.positionInMenuListView = positioninMenu;
     }
 
     @Override
     public int getCount() {
-        return arr.size();
+        return pizzaSizesArr.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return arr.get(position);
+        return pizzaSizesArr.get(position);
     }
 
     @Override
@@ -50,28 +46,29 @@ public class PizzaSizeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View view = convertView;
         ViewHolderItem viewHolder;
 
         if (convertView == null) {
-            view = View.inflate(mContext, R.layout.pizza_size_row, null);
+            view = View.inflate(mContext, R.layout.pop_up_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.pizza_size_text);
             viewHolder.check = (TextView) view.findViewById(R.id.checkmark);
-
-
             view.setTag(viewHolder);
 
         } else {
+
             viewHolder = (ViewHolderItem) view.getTag();
         }
 
-        viewHolder.title.setText(arr.get(position).getNameProduct());
-        if(this.markSignArr.get(position)==1){
+        viewHolder.title.setText(pizzaSizesArr.get(position).getName() +" (" +this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position)+" zł)");
+
+        if (this.markSignArr.get(position) == 1) {
             viewHolder.check.setText("\u2713");
             viewHolder.title.setTextColor(Color.GRAY);
-            viewHolder.check.setTextColor(Color.rgb(255,126,0));
-        }else{
+            viewHolder.check.setTextColor(Color.rgb(255, 126, 0));
+        } else {
             viewHolder.check.setText("");
             viewHolder.title.setTextColor(Color.BLACK);
             viewHolder.check.setTextColor(Color.BLACK);
@@ -83,8 +80,8 @@ public class PizzaSizeAdapter extends BaseAdapter {
 
         TextView title;
         TextView check;
-
     }
+
     public ArrayList<Integer> getMarkSignArr() {
         return markSignArr;
     }
