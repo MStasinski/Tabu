@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu.Menu.LeftDrawerMenu;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class MenuFragment extends Fragment {
     protected BounceListView mListViewMenu;
     private View myView;
     private int fireBaseRef;
+    private CustomListViewAdapter arrayAdapter;
     private ArrayList<MenuItemProduct> menuArrayList;
 
 
@@ -72,7 +74,7 @@ public class MenuFragment extends Fragment {
         }
 
 
-        CustomListViewAdapter arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
+        arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
 
         mListViewMenu.setAdapter(arrayAdapter);
         mListViewMenu.setScrollingCacheEnabled(false);
@@ -80,5 +82,16 @@ public class MenuFragment extends Fragment {
         return myView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        arrayAdapter.setButton_flag_enabled(true);
+        Log.i("informacja","onResume w MenuFragement");
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("informacja","onResume w MenuFragement");
+    }
 }

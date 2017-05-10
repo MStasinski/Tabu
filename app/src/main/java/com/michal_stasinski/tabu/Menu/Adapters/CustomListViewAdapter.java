@@ -3,6 +3,7 @@ package com.michal_stasinski.tabu.Menu.Adapters;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -16,7 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.OrderComposer;
 import com.michal_stasinski.tabu.Menu.OrderComposerFragment;
+import com.michal_stasinski.tabu.Menu.PizzaSizePopUp;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
@@ -36,6 +39,16 @@ public class CustomListViewAdapter extends BaseAdapter {
     private int color;
     private boolean sortOption;
     private Boolean specialSign;
+
+    public Boolean getButton_flag_enabled() {
+        return button_flag_enabled;
+    }
+
+    public void setButton_flag_enabled(Boolean button_flag_enabled) {
+        this.button_flag_enabled = button_flag_enabled;
+    }
+
+    private Boolean button_flag_enabled = true;
 
     public CustomListViewAdapter(Context context, ArrayList<MenuItemProduct> mListArray, int color, Boolean sort) {
         sortOption = sort;
@@ -119,7 +132,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                 priceBtn.setTextColor(Color.BLACK);
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/arial.ttf"));
                 priceBtn.setTextSize(14);
-              //  priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                //  priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 viewHolder.buttonArray.add(priceBtn);
 
                 list.addView(priceBtn, lp);
@@ -137,10 +150,21 @@ public class CustomListViewAdapter extends BaseAdapter {
         for (int i = 0; i < viewHolder.price.size(); i++) {
             viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArray().get(i).toString().toUpperCase() + " zł");
             final int butId = i;
+
             viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
+                    if (button_flag_enabled) {
+                        button_flag_enabled = false;
+                        Intent intent = new Intent();
+                        intent.setClass(mContext, OrderComposer.class);
+                        Activity activity = (Activity) mContext;
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
+                    }
+
+
+                   /*FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
                     OrderComposerFragment fragment = new OrderComposerFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("name", arr.get(clikPos).getName());
@@ -150,8 +174,11 @@ public class CustomListViewAdapter extends BaseAdapter {
                     bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
                     fragment.setArguments(bundle);
-                    ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+                    ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();*/
+
+
                 }
+
             });
         }
 

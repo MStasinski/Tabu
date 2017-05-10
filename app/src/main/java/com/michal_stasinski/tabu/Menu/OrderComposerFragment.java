@@ -15,9 +15,9 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 
-import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.Menu.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
+import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 
 /**
  * Created by  Michał Stasińskion 27.12.2016.
@@ -30,7 +30,7 @@ public class OrderComposerFragment extends Fragment {
     private int itemPositionInMenuListView;
     private OrderComposerListViewAdapter adapter;
     private static int size = 0;
-    private int quantity=1;
+    private int quantity = 1;
     private String[] titleText = {
             "Rozmiar",
             "Dodatki",
@@ -47,6 +47,7 @@ public class OrderComposerFragment extends Fragment {
     };
 
     private float sum = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +65,17 @@ public class OrderComposerFragment extends Fragment {
         CustomTextView nameTxt = (CustomTextView) myView.findViewById(R.id.order_composer_titleItem);
         CustomTextView descTxt = (CustomTextView) myView.findViewById(R.id.order_composer_desc);
         CustomTextView priceTxt = (CustomTextView) myView.findViewById(R.id.order_composer_price);
-        Button addToCartBtn = (Button) myView.findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ "+quantity + " DO KOSZYKA    "+ sum);
+        final Button addToCartBtn = (Button) myView.findViewById(R.id.order_composer_button);
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
         final BounceListView listView = (BounceListView) myView.findViewById(R.id.order_composer_listView);
 
+
+        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Log.i("informacja","dodaj do koszyka");
+            }
+        });
 
         Bundle bundle = this.getArguments();
 
@@ -138,7 +146,6 @@ public class OrderComposerFragment extends Fragment {
         sum = pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).floatValue();
 
 
-
         if (addonsPopUpAdapter != null) {
             String txt = "";
             Boolean start = true;
@@ -156,7 +163,7 @@ public class OrderComposerFragment extends Fragment {
 
                     } else {
                         txt += addonsPopUpAdapter.getItemArray().get(i).getName() + " x2";
-                        sum += 2*addonsPopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
+                        sum += 2 * addonsPopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
                     }
                 }
             }
@@ -182,7 +189,7 @@ public class OrderComposerFragment extends Fragment {
                         sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
                     } else {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName() + " x2";
-                        sum += 2*saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
+                        sum += 2 * saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
                     }
                 }
             }
@@ -194,7 +201,7 @@ public class OrderComposerFragment extends Fragment {
 
         }
         Button addToCartBtn = (Button) myView.findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ "+quantity + " DO KOSZYKA    " + sum + " zł");
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
         CustomTextView priceTxt = (CustomTextView) myView.findViewById(R.id.order_composer_price);
         priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).toString() + " zł");
 

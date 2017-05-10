@@ -16,16 +16,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".Menu.PizzaSizePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".Menu.AddonsPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
             android:name=".Menu.SaucePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
+
+        <activity
+            android:name=".Menu.OrderComposer"
+            android:theme="@style/Theme.Swipe.Back" />
+
     </application>
 
 </manifest>

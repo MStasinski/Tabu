@@ -4,6 +4,7 @@ package com.michal_stasinski.tabu;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -77,14 +78,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("informacja","MainActivity_________onCreate");
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
        /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
         stub.setLayoutResource(R.layout.bounce_list_view);
         View inflated = stub.inflate();*/
-
 
 
         //-------------------------- bottom menu button------------------------------------
@@ -113,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i("informacja","MainActivity________onStart");
 
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
         mToolBar.setBackgroundResource(R.color.colorWhite);
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         // content = (LinearLayout) findViewById(R.id.content_frame);
         drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
         drawerBackgroud.setAlpha(0.f);
-        //activity_main.xml.xml
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close) {
@@ -139,14 +137,11 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 Intent intent = new Intent();
-                Log.i("info", "jakie activity____________________________________________" + choicetActivity);
                 if (currentActivity != choicetActivity) {
 
-
-                        FragmentManager fragmentManager = getFragmentManager();
-                        MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
-
+                    FragmentManager fragmentManager = getFragmentManager();
+                    MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
                     //TODO dodaj animacje
                     //startActivity(intent);
@@ -154,11 +149,13 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mDrawerLayout.addDrawerListener(mToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false); // show or hide the default home button
-        getSupportActionBar().setDisplayShowCustomEnabled(false); // enable overriding the default toolbar layout
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true); // show or hide the default home button
+        getSupportActionBar().setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-       // getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorPrimary)));
+       // getSupportActionBar().hide();
+
 
         mToggle.syncState();
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
