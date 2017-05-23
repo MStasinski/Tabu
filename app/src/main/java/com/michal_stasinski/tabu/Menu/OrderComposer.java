@@ -50,7 +50,6 @@ public class OrderComposer extends SwipeBackActivity {
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +82,7 @@ public class OrderComposer extends SwipeBackActivity {
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-       // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+        // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
@@ -151,7 +150,7 @@ public class OrderComposer extends SwipeBackActivity {
 
                 for (int i = 0; i < orderList.size(); i++) {
                     String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce();
-                    Log.i("informacja","|" +actualOrder +"|" + st+"|"+st.equals(actualOrder));
+                    Log.i("informacja", "|" + actualOrder + "|" + st + "|" + st.equals(actualOrder));
 
                     if (st.equals(actualOrder)) {
 
@@ -164,15 +163,14 @@ public class OrderComposer extends SwipeBackActivity {
                 if (isAlready == -1) {
                     order.setQuantity(1);
                     orderList.add(order);
-                   // orderList.get(0).setQuantity(1);
-                }else{
+                    // orderList.get(0).setQuantity(1);
+                } else {
                     //orderList.add(order);
                     int quantity = orderList.get(isAlready).getQuantity();
-                    Log.i("informacja","quantity_" +quantity);
-                    orderList.get(isAlready).setQuantity(quantity+1);
-                    Log.i("informacja", "quantity "+orderList.get(isAlready).getQuantity());
+                    Log.i("informacja", "quantity_" + quantity);
+                    orderList.get(isAlready).setQuantity(quantity + 1);
+                    Log.i("informacja", "quantity " + orderList.get(isAlready).getQuantity());
                 }
-
 
 
             }
@@ -213,6 +211,7 @@ public class OrderComposer extends SwipeBackActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.i("informacja", "________onResume() " + getSize());
 
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
         descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
@@ -260,10 +259,10 @@ public class OrderComposer extends SwipeBackActivity {
                     start = false;
                     if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemWereSelected() == 1) {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName();
-                        sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
+                         sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
                     } else {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName() + " x2";
-                        sum += 2 * saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
+                        sum += 2 * saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
                     }
                 }
             }
@@ -278,6 +277,7 @@ public class OrderComposer extends SwipeBackActivity {
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
         priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).toString() + " zł");
+
 
         adapter.setDescArr(descText);
         adapter.notifyDataSetChanged();

@@ -26,7 +26,7 @@ public class SaucePopUp extends Activity {
 
     private static Context contex;
     private BounceListView mListViewMenu;
-    private static final String TAG = PizzaSizePopUp.class.getSimpleName();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
