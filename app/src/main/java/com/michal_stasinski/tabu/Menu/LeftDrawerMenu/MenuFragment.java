@@ -74,6 +74,8 @@ public class MenuFragment extends Fragment {
         }
 
 
+
+
         arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
 
         mListViewMenu.setAdapter(arrayAdapter);
@@ -92,6 +94,6 @@ public class MenuFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("informacja","onResume w MenuFragement");
+        Log.i("informacja","onDestroyw MenuFragement");
     }
 }

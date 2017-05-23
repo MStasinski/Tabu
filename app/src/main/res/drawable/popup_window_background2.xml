@@ -16,5 +16,5 @@
         android:topLeftRadius="5dip"
         android:topRightRadius="5dip" />
 
-    <solid android:color="@color/colorSecond" />
+    <solid android:color="@color/colorWhite" />
 </shape>

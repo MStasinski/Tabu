@@ -59,7 +59,7 @@ public class PizzaSizePopUp extends Activity {
             }
             positionIteminMenuListView = bundle.getInt("position");
             size = bundle.getInt("size");
-            OrderComposerFragment.setSize(size);
+            OrderComposer.setSize(size);
             pizzaSizes_CheckMark.set(size, 1);
         }
 
@@ -77,7 +77,7 @@ public class PizzaSizePopUp extends Activity {
                 for (int i = 0; i < pizzaSizes_CheckMark.size(); i++) {
                     pizzaSizes_CheckMark.set(i, 0);
                 }
-                OrderComposerFragment.setSize(position);
+                OrderComposer.setSize(position);
                 pizzaSizes_CheckMark.set(position, 1);
                 adapterek.notifyDataSetChanged();
 
@@ -98,12 +98,7 @@ public class PizzaSizePopUp extends Activity {
         Log.i("informacja", "PopUp_onDestroy");
     }
 
-    @Override
-    public void onPanelClosed(int featureId, Menu menu) {
-        super.onPanelClosed(featureId, menu);
-        Log.i("informacja", "PopUp__onPanelClosed");
 
-    }
 
     public int getChooseSize() {
         return chooseSize;

@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,6 +30,8 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaSauces;
     public static ArrayList<Integer> pizzaSizes_CheckMark;
     public static ArrayList<Integer> pizzaAddons_CheckMark;
+
+    public static ArrayList<OrderListItem> orderList;
 
     /**
      * Duration of wait
@@ -53,6 +56,7 @@ public class SplashScreen extends Activity {
         pizzaWegetables = new ArrayList<MenuItemProduct>();
         pizzaSpices = new ArrayList<MenuItemProduct>();
         pizzaSauces = new ArrayList<MenuItemProduct>();
+        orderList = new ArrayList<OrderListItem>();
 
         Task<?>[] tasks = new Task[]{
                 loadPizzaSizes("PizzaSizes", 0),

@@ -14,7 +14,6 @@ import com.michal_stasinski.tabu.Menu.Adapters.SauceAdapter;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
-import static com.michal_stasinski.tabu.SplashScreen.pizzaSizes_CheckMark;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 
 /**

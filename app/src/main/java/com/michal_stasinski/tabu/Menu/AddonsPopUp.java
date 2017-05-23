@@ -56,6 +56,7 @@ public class AddonsPopUp extends Activity {
 
         addonsPopUpAdapter = new AddonsAdapter(this);
         addonsPopUpAdapter.setChooseSize(size);
+
         for (int i = 0; i < pizzaSpices.size(); i++) {
             if (i == 0) {
                 String name = ("PRZYPRAWY");

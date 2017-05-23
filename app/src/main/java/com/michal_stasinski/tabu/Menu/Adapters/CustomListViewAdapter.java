@@ -1,13 +1,12 @@
 package com.michal_stasinski.tabu.Menu.Adapters;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,6 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.OrderComposer;
-import com.michal_stasinski.tabu.Menu.OrderComposerFragment;
-import com.michal_stasinski.tabu.Menu.PizzaSizePopUp;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
@@ -158,24 +155,21 @@ public class CustomListViewAdapter extends BaseAdapter {
                         button_flag_enabled = false;
                         Intent intent = new Intent();
                         intent.setClass(mContext, OrderComposer.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", arr.get(clikPos).getName());
+                        bundle.putInt("position", clikPos);
+                        bundle.putString("desc",arr.get(clikPos).getDescription());
+                        bundle.putInt("size", butId);
+                        bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
+
+                        intent.putExtras(bundle);
                         Activity activity = (Activity) mContext;
                         activity.startActivity(intent);
                         activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
+
+                        Log.i("informacja", "clikPos"+clikPos+""+butId);
                     }
-
-
-                   /*FragmentManager fragmentManager = ((Activity) mContext).getFragmentManager();
-                    OrderComposerFragment fragment = new OrderComposerFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", arr.get(clikPos).getName());
-                    bundle.putInt("position", clikPos);
-                    bundle.putString("desc",arr.get(clikPos).getDescription());
-                    bundle.putInt("size", butId);
-                    bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
-
-                    fragment.setArguments(bundle);
-                    ((Activity) mContext).getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();*/
-
 
                 }
 

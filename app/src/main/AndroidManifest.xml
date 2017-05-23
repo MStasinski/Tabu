@@ -24,13 +24,21 @@
             android:name=".Menu.AddonsPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
+            android:name=".Menu.AddRemoveOrderPopUp"
+            android:theme="@style/AppTheme.PopUpWindow" />
+        <activity
             android:name=".Menu.SaucePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
-
         <activity
             android:name=".Menu.OrderComposer"
             android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".Menu.ShopingCardListView"
+            android:theme="@style/Theme.Swipe.Back" />
 
+        <activity
+            android:name=".Menu.TimeOfDeliveryPopUp"
+            android:theme="@style/AppTheme.PopUpWindow" />
     </application>
 
 </manifest>

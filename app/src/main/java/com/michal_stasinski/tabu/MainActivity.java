@@ -4,14 +4,12 @@ package com.michal_stasinski.tabu;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.PizzaSizePopUp;
+import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.TintIcon;
 
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), PizzaSizePopUp.class);
+                intent.setClass(getBaseContext(), ShopingCardListView.class);
                 startActivity(intent);
             }
         });
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 Intent intent = new Intent();
-                if (currentActivity != choicetActivity) {
+                if (currentActivity != choicetActivity && choicetActivity!=5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
@@ -154,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true); // show or hide the default home button
         getSupportActionBar().setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-       // getSupportActionBar().hide();
+        // getSupportActionBar().hide();
 
 
         mToggle.syncState();
