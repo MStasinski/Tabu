@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.OrderComposer;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.MathUtils;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -127,7 +129,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                 lp.setMargins(30, 0, 30, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
                 priceBtn.setTextColor(Color.BLACK);
-                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/arial.ttf"));
+                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/0248EU27.ttf"));
                 priceBtn.setTextSize(14);
                 //  priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 viewHolder.buttonArray.add(priceBtn);
@@ -145,7 +147,9 @@ public class CustomListViewAdapter extends BaseAdapter {
         viewHolder.textDesc.setText(arr.get(position).getDescription().toLowerCase());
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
-            viewHolder.buttonArray.get(i).setText(arr.get(position).getPriceArray().get(i).toString().toUpperCase() + " zł");
+            String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i),2);
+            viewHolder.buttonArray.get(i).setText( output.toString()+ (" zł").toLowerCase());
+
             final int butId = i;
 
             viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {

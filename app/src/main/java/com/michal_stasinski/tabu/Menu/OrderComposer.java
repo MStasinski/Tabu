@@ -17,6 +17,9 @@ import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.MathUtils;
+
+import java.text.NumberFormat;
 
 import static com.michal_stasinski.tabu.Menu.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
@@ -83,7 +86,8 @@ public class OrderComposer extends SwipeBackActivity {
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
+        String output = MathUtils.formatDecimal(sum,2);
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
 
@@ -104,7 +108,7 @@ public class OrderComposer extends SwipeBackActivity {
         adapter = new OrderComposerListViewAdapter(this, titleText, descText);
         adapter.notifyDataSetChanged();
 
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output+ " zł");
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,9 +278,12 @@ public class OrderComposer extends SwipeBackActivity {
 
         }
         Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + sum + " zł");
+        String output = MathUtils.formatDecimal(sum,2);
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
-        priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).toString() + " zł");
+
+        String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()),2);
+        priceTxt.setText(oputput+ " zł");
 
 
         adapter.setDescArr(descText);

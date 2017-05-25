@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -135,7 +136,8 @@ public class ShopingCardAdapter extends BaseAdapter {
             viewHolder.desc.setText(String.valueOf(arr.get(position).getDesc()));
         }
         if(viewHolder.price != null){
-            viewHolder.price.setText(String.valueOf(arr.get(position).getSumOfPrices()));
+            String output = MathUtils.formatDecimal(arr.get(position).getSumOfPrices(),2);
+            viewHolder.price.setText(String.valueOf(output));
         }
         return convertView;
     }

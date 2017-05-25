@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
 
@@ -61,8 +62,8 @@ public class PizzaSizeAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) view.getTag();
         }
-
-        viewHolder.title.setText(pizzaSizesArr.get(position).getName() +" (" +this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position)+" zł)");
+        String output = MathUtils.formatDecimal(this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position),2);
+        viewHolder.title.setText(pizzaSizesArr.get(position).getName() +" (" +output+" zł)");
 
         if (this.markSignArr.get(position) == 1) {
             viewHolder.check.setText("\u2713");
