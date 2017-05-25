@@ -1,31 +1,41 @@
 package com.michal_stasinski.tabu.Menu;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
+import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
-import java.sql.Array;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-import java.util.TimeZone;
+import java.util.Map;
 
 public class TimeOfDeliveryPopUp extends AppCompatActivity {
     private BounceListView timeOfDeliveryListView;
+    public static ArrayList<TimeListItem> timeList;
+    private BounceListView mListViewMenu;
+    private TimeOfDeliveryAdapter adapterek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_of_delivery_pop_up);
+        //setContentView(R.layout.activity_time_of_delivery_pop_up);
 
+        setContentView(R.layout.bounce_list_view);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -37,14 +47,40 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         String strDate = mdformat.format(calendar.getTime());
         String[] gg = strDate.split(":");
         Log.i("informacja", "time__________" + strDate);
+// Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("SendOrderOnlines");
 
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                   // String end = (String) map.get("end");
+                    ArrayList<Number> price = (ArrayList) map.get("end");
+                    Log.i("informacja", "end__________" +price);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
         Date Start = null;
         Date End = null;
+
+        int endHoure = 32;
+        int startMinute = 15;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         try {
             Start = simpleDateFormat.parse(strDate);
-            End = simpleDateFormat.parse(22 + ":" + 15);
+            End = simpleDateFormat.parse(endHoure + ":" + startMinute);
         } catch (ParseException e) {
             //Some thing if its not working
         }
@@ -63,16 +99,49 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         }
         String c = hours + ":" + min;
         String[] d = c.split(":");
-        int f = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / 30;
-
-
+        int realizationTime = 30;
+        int f = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / realizationTime;
+        timeList = new ArrayList<TimeListItem>();
+        adapterek = new TimeOfDeliveryAdapter(this);
         for (int i = 0; i < f; i++) {
-            String output = MathUtils.formatDecimal((22 * 60 + 15 - 30 * i) / 60,2);
-          //  int rest = (22 * 60 + 15 - 30 * i) / 60  - Integer.parseInt(output);
+            TimeListItem time = new TimeListItem();
 
-            Log.i("informacja",  ((22 * 60 + 15) - (30 * i+1)) / 60 +"___ans__________" + output );
 
+            float h = (float) ((endHoure * 60 + startMinute) - (realizationTime * (i + 1))) / (float) 60;
+            int ff = ((endHoure * 60 + 15) - (realizationTime * (i + 1))) / 60;
+            float g = ((endHoure * 60 + 15) - (realizationTime * (i + 1))) / 60;
+            String output = MathUtils.formatDecimal(h, 0);
+            String r = MathUtils.formatDecimal((h - g) * 60, 0);
+            String hh = MathUtils.formatDecimal((h - g) * 60, 2);
+            if (Math.ceil((h - g) * 60) < 10) {
+                r = "0" + r;
+            }
+            if (Math.ceil(ff) >= 24) {
+                ff = ff - 24;
+            }
+
+
+            //Log.i("informacja", ((endHoure * 60 + 15) - (realizationTime * (i + 1))) / 60 + "___ans__________" + ff + ":" + r);
+            time.setTime(ff + ":" + r);
+            time.setMark(false);
+            timeList.add(time);
+            //adapterek.addItem(time);
         }
+        Collections.reverse(timeList);
+
+
+        for (int i = 0; i <timeList.size(); i++) {
+            Log.i("informacja", "c  "+timeList.get(i).getTime());
+            adapterek.addItem(timeList.get(i));
+        }
+
+
+
+
+        mListViewMenu = (BounceListView) findViewById(R.id.mListView_BaseMenu);
+        mListViewMenu.setAdapter(adapterek);
+
+        mListViewMenu.setScrollingCacheEnabled(false);
        /* long currentTime = System.currentTimeMillis();
         int edtOffset = TimeZone.getTimeZone("EST").getOffset(currentTime);
         int gmtOffset = TimeZone.getTimeZone("GMT").getOffset(currentTime);

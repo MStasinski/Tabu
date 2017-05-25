@@ -19,8 +19,6 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
-import java.text.NumberFormat;
-
 import static com.michal_stasinski.tabu.Menu.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
@@ -226,14 +224,14 @@ public class OrderComposer extends SwipeBackActivity {
             String txt = "";
             Boolean start = true;
             for (int i = 0; i < addonsPopUpAdapter.getItemArray().size(); i++) {
-                if (addonsPopUpAdapter.getItemArray().get(i).getHowManyItemWereSelected() != 0) {
+                if (addonsPopUpAdapter.getItemArray().get(i).getHowManyItemSelected() != 0) {
 
                     if (!start) {
 
                         txt += ", ";
                     }
                     start = false;
-                    if (addonsPopUpAdapter.getItemArray().get(i).getHowManyItemWereSelected() == 1) {
+                    if (addonsPopUpAdapter.getItemArray().get(i).getHowManyItemSelected() == 1) {
                         txt += addonsPopUpAdapter.getItemArray().get(i).getName();
                         sum += addonsPopUpAdapter.getItemArray().get(i).getPriceArray().get(getSize()).floatValue();
 
@@ -255,13 +253,13 @@ public class OrderComposer extends SwipeBackActivity {
             String txt = "";
             Boolean start = true;
             for (int i = 0; i < saucePopUpAdapter.getItemArray().size(); i++) {
-                if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemWereSelected() != 0) {
+                if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemSelected() != 0) {
                     if (!start) {
 
                         txt += ", ";
                     }
                     start = false;
-                    if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemWereSelected() == 1) {
+                    if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemSelected() == 1) {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName();
                          sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
                     } else {

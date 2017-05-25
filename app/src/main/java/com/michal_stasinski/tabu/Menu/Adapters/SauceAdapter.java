@@ -58,8 +58,8 @@ public class SauceAdapter extends BaseAdapter {
 
         viewHolder.title.setText(this.souceArray.get(position).getName() + " (" + this.souceArray.get(position).getPriceArray().get(chooseSize) + " zł)");
         if (viewHolder.check != null) {
-            if (this.souceArray.get(position).getHowManyItemWereSelected() != 0) {
-                viewHolder.check.setText("x" + this.souceArray.get(position).getHowManyItemWereSelected());
+            if (this.souceArray.get(position).getHowManyItemSelected() != 0) {
+                viewHolder.check.setText("x" + this.souceArray.get(position).getHowManyItemSelected());
 
             } else {
                 viewHolder.check.setText("");
@@ -85,17 +85,17 @@ public class SauceAdapter extends BaseAdapter {
 
     public void setChoooseHowManyItemYouOrder(int position) {
 
-        if (this.souceArray.get(position).getHowManyItemWereSelected() == 0) {
+        if (this.souceArray.get(position).getHowManyItemSelected() == 0) {
 
-            this.souceArray.get(position).setHowManyItemWereSelected(1);
+            this.souceArray.get(position).setHowManyItemSelected(1);
 
-        } else if (this.souceArray.get(position).getHowManyItemWereSelected() == 1) {
+        } else if (this.souceArray.get(position).getHowManyItemSelected() == 1) {
 
-            this.souceArray.get(position).setHowManyItemWereSelected(2);
+            this.souceArray.get(position).setHowManyItemSelected(2);
 
-        } else if (this.souceArray.get(position).getHowManyItemWereSelected() == 2) {
+        } else if (this.souceArray.get(position).getHowManyItemSelected() == 2) {
 
-            this.souceArray.get(position).setHowManyItemWereSelected(0);
+            this.souceArray.get(position).setHowManyItemSelected(0);
         }
     }
 

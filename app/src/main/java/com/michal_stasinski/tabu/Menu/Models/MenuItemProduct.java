@@ -9,25 +9,25 @@ import java.util.ArrayList;
 public class MenuItemProduct {
     /**
      * @param rank  - position in firebase
-     * @param HowManyItemWereSelected  - state [0- not selected ,1,2 ]in Order Composer when user choose "Extras"  in AddonsPopUp
+     * @param HowManyItemSelected  - state [0- not selected ,1,2 ]in Order Composer when user choose "Extras"  in AddonsPopUp
      * @param priceArray - load from firebase  -price depends on pizzasize
      */
     private String rank;
     private String name;
     private String description;
     private ArrayList<Number> priceArray;
-    private int HowManyItemWereSelected;
+    private int HowManyItemSelected;
 
 
 
 
 
-    public int getHowManyItemWereSelected() {
-        return HowManyItemWereSelected;
+    public int getHowManyItemSelected() {
+        return HowManyItemSelected;
     }
 
-    public void setHowManyItemWereSelected(int howManyItemWereSelected) {
-        this.HowManyItemWereSelected = howManyItemWereSelected;
+    public void setHowManyItemSelected(int howManyItemSelected) {
+        this.HowManyItemSelected = howManyItemSelected;
     }
 
     public ArrayList<Number> getPriceArray() {

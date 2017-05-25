@@ -146,7 +146,7 @@ public class SplashScreen extends Activity {
                     menuItemProduct.setRank(rank);
                     menuItemProduct.setDescription(desc);
                     menuItemProduct.setPriceArray(price);
-                    menuItemProduct.setHowManyItemWereSelected(0);
+                    menuItemProduct.setHowManyItemSelected(0);
                     nameArrayList.add(menuItemProduct);
                 }
             }

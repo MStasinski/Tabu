@@ -93,8 +93,8 @@ public class AddonsAdapter extends BaseAdapter {
         }
 
         if (viewHolder.check != null) {
-            if (arr.get(position).getHowManyItemWereSelected() != 0) {
-                viewHolder.check.setText("x" + arr.get(position).getHowManyItemWereSelected());
+            if (arr.get(position).getHowManyItemSelected() != 0) {
+                viewHolder.check.setText("x" + arr.get(position).getHowManyItemSelected());
 
             } else {
                 viewHolder.check.setText("");
@@ -123,17 +123,17 @@ public class AddonsAdapter extends BaseAdapter {
 
     public void setChoooseHowManyItemYouOrder(int position) {
 
-        if (arr.get(position).getHowManyItemWereSelected() == 0) {
+        if (arr.get(position).getHowManyItemSelected() == 0) {
 
-            arr.get(position).setHowManyItemWereSelected(1);
+            arr.get(position).setHowManyItemSelected(1);
 
-        } else if (arr.get(position).getHowManyItemWereSelected() == 1) {
+        } else if (arr.get(position).getHowManyItemSelected() == 1) {
 
-            arr.get(position).setHowManyItemWereSelected(2);
+            arr.get(position).setHowManyItemSelected(2);
 
-        } else if (arr.get(position).getHowManyItemWereSelected() == 2) {
+        } else if (arr.get(position).getHowManyItemSelected() == 2) {
 
-            arr.get(position).setHowManyItemWereSelected(0);
+            arr.get(position).setHowManyItemSelected(0);
         }
     }
 
