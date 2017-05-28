@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <com.liuguangqiang.swipeback.SwipeBackLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/closeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_google_signin_btn_text_dark_pressed" />
+
+            <com.michal_stasinski.tabu.Utils.CustomTextView
+                android:id="@+id/data_cost_of_delivery_text"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimary"
+                android:paddingTop="18dp"
+                android:text="Koszt dostawy"
+                android:textAlignment="center"
+
+                android:textSize="18dp" />
+
+            <com.michal_stasinski.tabu.Utils.BounceListView
+                android:id="@+id/data_delivery_listView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:animationCache="false"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0.05sp"
+                android:scrollingCache="false" />
+
+        </LinearLayout>
+
+
+    </com.liuguangqiang.swipeback.SwipeBackLayout>
+
+</LinearLayout>

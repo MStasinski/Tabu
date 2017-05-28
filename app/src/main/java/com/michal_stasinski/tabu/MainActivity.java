@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
+import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
@@ -91,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.START, true);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                // Intent intent = new Intent();
+                //intent.setClass(getBaseContext(), DataForDeliveryListView.class);
+                //startActivity(intent);
             }
         });
 
@@ -134,8 +138,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerClosed(view);
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-                Intent intent = new Intent();
-                if (currentActivity != choicetActivity && choicetActivity!=5) {
+
+                if (currentActivity != choicetActivity && choicetActivity != 5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
@@ -143,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
 
                     //TODO dodaj animacje
                     //startActivity(intent);
+                }
+
+                if (currentActivity != choicetActivity && choicetActivity == 5) {
+                    Intent intent = new Intent();
+                    choicetActivity =0;
+                    intent.setClass(getBaseContext(), DataForDeliveryListView.class);
+                    startActivity(intent);
                 }
             }
         };

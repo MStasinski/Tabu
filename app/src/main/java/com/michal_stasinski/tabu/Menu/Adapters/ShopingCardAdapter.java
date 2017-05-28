@@ -90,7 +90,7 @@ public class ShopingCardAdapter extends BaseAdapter {
                 case TYPE_SEPARATOR:
                     Log.i("informacja","TYPE_SEPARATOR");
                     convertView = mInflater.inflate(R.layout.order_separator_row, null);
-                    viewHolder.title = (TextView) convertView.findViewById(R.id.order_separator_title);
+                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_separator_title);
 
                     break;
 
