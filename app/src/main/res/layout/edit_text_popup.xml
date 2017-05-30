@@ -5,27 +5,54 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/title_edit_popup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Product name"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecond"
+        android:textSize="@dimen/left_drawer_top_text" />
+
+    <Button
+        android:id="@+id/btm_save"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:background="@color/transparent2"
+
+        />
+
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:text="ZAPISZ"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/left_drawer_top_text" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="12dp"
+        android:textSize="@dimen/left_drawer_top_text">
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
-            android:id="@+id/title_edit_popup"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Product name"
-            android:layout_marginBottom="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/left_drawer_top_text" />
-
-        <View android:background="@color/colorPrimaryDark"
-            android:layout_width = "match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark" />
 
         <EditText
+            android:id="@+id/edit_text_popup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"

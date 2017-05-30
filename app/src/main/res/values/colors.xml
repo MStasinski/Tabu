@@ -20,5 +20,6 @@
     <color name="color_DESERY">#4F095B</color>
 
     <color name="transparent">#80000000</color>
+    <color name="transparent2">#00000000</color>
 
 </resources>

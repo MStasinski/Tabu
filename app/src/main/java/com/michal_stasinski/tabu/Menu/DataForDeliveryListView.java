@@ -1,5 +1,6 @@
 package com.michal_stasinski.tabu.Menu;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,6 +17,7 @@ import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomTextView;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,7 +25,8 @@ import java.util.Locale;
 
 public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
-
+    private BounceListView listView;
+    private Boolean isClick = false;
     private String[] titleText = {
             "Zamawiający",
             "Imię",
@@ -65,22 +68,40 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
 
 
-        Address address0 = (Address) getCoordinatesFromAddresse("Gdynia Jaskółcza 20");
+        setContentView(R.layout.activity_data_for_delivery_list_view);
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
-        Address address1 = (Address) getCoordinatesFromAddresse("Gdynia Morska 2");
+        listView = (BounceListView) findViewById(R.id.data_delivery_listView);
 
 
-        Location locationA = new Location("point A");
+        adapter = new DataForDeliveryAdapter(this, imgid);
 
-        locationA.setLatitude(address0.getLatitude());
-        locationA.setLongitude(address0.getLongitude());
+        for (int i = 0; i < titleText.length; i++) {
 
-        Location locationB = new Location("point B");
+            ShopingCardItem produkt = new ShopingCardItem();
 
-        locationB.setLatitude(address1.getLatitude());
-        locationB.setLongitude(address1.getLongitude());
+            if (i == 0 || i == 5 || i == 12) {
+                produkt.setType(0);
+            } else {
+                produkt.setType(1);
+            }
+            produkt.setTitle(titleText[i]);
+            adapter.addItem(produkt);
+        }
 
-        float distance = locationA.distanceTo(locationB);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        Button closeButton = (Button) findViewById(R.id.closeBtn);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                finish();
+                overridePendingTransition(R.anim.from_left, R.anim.to_right);
+            }
+        });
 
 
         // Log.i("informacja", "Delivery " + getCoordinatesFromAddresse("Gdynia Jana Brzechwy"));
@@ -126,61 +147,129 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             e.printStackTrace();
         }
 
+        if (addresses.size() > 0) {
+            Address address = addresses.get(0);
+            return address;
+        } else {
+            return null;
+        }
+    }
 
-        Address address = addresses.get(0);
-        return address;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                String result = data.getStringExtra("edit_text");
+                Integer pos = data.getIntExtra("pos", 1);
+                ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
+
+                item.setTitle(result);
+
+                adapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        setContentView(R.layout.activity_data_for_delivery_list_view);
-        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
-        final BounceListView listView = (BounceListView) findViewById(R.id.data_delivery_listView);
+        Address address0 = (Address) getCoordinatesFromAddresse("Gdynia Jaskółcza 20");
 
-        adapter = new DataForDeliveryAdapter(this, imgid);
+        ShopingCardItem item0 = (ShopingCardItem) adapter.getItem(6);
+        ShopingCardItem item1 = (ShopingCardItem) adapter.getItem(7);
+        ShopingCardItem item2 = (ShopingCardItem) adapter.getItem(8);
 
-        for (int i = 0; i < titleText.length; i++) {
+        String town = item0.getTitle();
+        String street = item1.getTitle();
+        String nr = item2.getTitle();
 
-            ShopingCardItem produkt = new ShopingCardItem();
+        Address address1;
 
-            if (i == 0 || i == 5 || i == 12) {
-                produkt.setType(0);
-            } else {
-                produkt.setType(1);
-            }
-            produkt.setTitle(titleText[i]);
-            adapter.addItem(produkt);
+        if (town.toUpperCase().equals("MIASTO")) {
+            address1 = null;
+        } else if (street.toUpperCase().equals("ULICA")) {
+            address1 = null;
+        } else if (nr.toUpperCase().equals("NR DOMU")) {
+            address1 = (Address) getCoordinatesFromAddresse(town + " " + street);
+        } else {
+            address1 = (Address) getCoordinatesFromAddresse(town + " " + street + " " + nr);
         }
 
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        Log.i("informacja", "distance address1 is " + address1);
+        CustomTextView text_cost_delivery = (CustomTextView) findViewById(R.id.data_cost_of_delivery_text);
+        if (address1 != null) {
 
+            Log.i("informacja", "distance address1" + address1);
+            Location locationA = new Location("point A");
+
+            locationA.setLatitude(address0.getLatitude());
+            locationA.setLongitude(address0.getLongitude());
+
+            Location locationB = new Location("point B");
+
+            locationB.setLatitude(address1.getLatitude());
+            locationB.setLongitude(address1.getLongitude());
+
+            float distance = locationA.distanceTo(locationB);
+
+            if (distance > 7000) {
+                text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
+            } else if (distance > 5000) {
+                text_cost_delivery.setText("Koszt dostawy 5zł");
+            } else if (distance > 3000) {
+                text_cost_delivery.setText("Koszt dostawy 4zł");
+            } else if (distance <= 3000) {
+                text_cost_delivery.setText("Koszt dostawy 3zł");
+            }
+
+
+            Log.i("informacja", "miasto" + address1.getLocality());
+            Log.i("informacja", "ulica" + address1.getThoroughfare());
+            Log.i("informacja", "numer" + address1.getFeatureName());
+
+            ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
+            ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
+            ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
+
+            townEdit.setTitle(address1.getAddressLine(1));
+            streetEdit.setTitle(address1.getThoroughfare());
+            nrEdit.setTitle(address1.getFeatureName());
+            adapter.notifyDataSetChanged();
+        }
+        if (address1 == null) {
+            text_cost_delivery.setText("Nie ma takiego adresu");
+        }
+
+        isClick = false;
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 
             @Override
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
-                Object listItem = listView.getItemAtPosition(position);
-                Log.i("informacja", "________ " + position);
-                Intent intent = new Intent();
-                //intent.putExtra("size", getSize());
-                //  intent.putExtra("position", itemPositionInMenuListView);
-                intent.setClass(view.getContext(), EditTextPopUp.class);
-                startActivity(intent);
+                if (isClick == false) {
+                    isClick = true;
+                    Object listItem = listView.getItemAtPosition(position);
 
+                    if (position != 0 || position != 5 || position != 12) {
+                        // view.setOnClickListener(null);
+
+                        Intent intent = new Intent(view.getContext(), EditTextPopUp.class);
+                        intent.putExtra("title", titleText[position]);
+                        intent.putExtra("position", position);
+                        intent.setClass(view.getContext(), EditTextPopUp.class);
+                        startActivityForResult(intent, 1);
+                    }
+                }
             }
         });
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                finish();
-                overridePendingTransition(R.anim.from_left, R.anim.to_right);
-            }
-        });
     }
+
+
 }

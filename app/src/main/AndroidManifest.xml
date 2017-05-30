@@ -46,7 +46,7 @@
 
         <activity
             android:name=".Menu.EditTextPopUp"
-            android:theme="@style/AppTheme.PopUpWindow" />
+            android:theme="@style/AppTheme.PopUpWindow2" />
 
         <activity android:name=".Menu.DataForDeliveryListView"></activity>
     </application>
