@@ -28,6 +28,7 @@ public class EditTextPopUp extends Activity {
 
     private static Context contex;
     private int pos;
+    private String actualText;
     private String title;
 
 
@@ -50,10 +51,12 @@ public class EditTextPopUp extends Activity {
         if (bundle != null) {
             pos = bundle.getInt("position");
             title = bundle.getString("title");
+            actualText = bundle.getString("actualText");
             CustomTextView titleTxt = (CustomTextView) findViewById(R.id.title_edit_popup);
             titleTxt.setText(title.toUpperCase());
         }
-
+        EditText editText = (EditText) findViewById(R.id.edit_text_popup);
+        editText.setText(actualText);
         Button saveButton = (Button) findViewById(R.id.btm_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
 

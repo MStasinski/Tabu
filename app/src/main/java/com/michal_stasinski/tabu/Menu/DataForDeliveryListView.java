@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu.Menu;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -11,22 +12,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
+import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
     private BounceListView listView;
     private Boolean isClick = false;
+
+    private ArrayList<DeliveryCostItem> deliveryCostArray;
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+
+
     private String[] titleText = {
             "Zamawiający",
             "Imię",
@@ -67,13 +81,10 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_data_for_delivery_list_view);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
         listView = (BounceListView) findViewById(R.id.data_delivery_listView);
-
-
         adapter = new DataForDeliveryAdapter(this, imgid);
 
         for (int i = 0; i < titleText.length; i++) {
@@ -103,10 +114,17 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        for (int i = 0; i < 12; i++) {
+            String item = prefs.getString(titleText[i], null);
+            Log.i("informacja", "create  " + item);
+            if (item != null) {
+                ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
+                el.setTitle(item);
+                adapter.notifyDataSetChanged();
 
-        // Log.i("informacja", "Delivery " + getCoordinatesFromAddresse("Gdynia Jana Brzechwy"));
-
-
+            }
+        }
     }
 
     /* public double CalculationByDistance(LatLng StartP, LatLng EndP) {
@@ -133,6 +151,52 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
          return Radius * c;
      }*/
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("DeliveryCosts");
+
+        deliveryCostArray = new ArrayList<DeliveryCostItem>();
+
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+
+                    Number price = (Number) map.get("price");
+                    Number dist = (Number) map.get("dist");
+
+                   // MenuItemProduct menuItemProduct = new MenuItemProduct();
+                    DeliveryCostItem deliveryCostItem = new DeliveryCostItem();
+                    deliveryCostItem.setPrice(price);
+                    deliveryCostItem.setDistacne(dist);
+
+                    deliveryCostArray.add(deliveryCostItem);
+                    Log.i("informacja", "  deliveryCostArray start " +   deliveryCostArray.get(0).getPrice());
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+
+        });
+
+
+    }
+
+
     private Address getCoordinatesFromAddresse(String txt) {
 
         double latitude = 0;
@@ -157,6 +221,8 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("informacja", "onActivityResult  ");
+
         if (requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
@@ -179,7 +245,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     protected void onResume() {
         super.onResume();
 
-
+        Log.i("informacja", "onResume");
         Address address0 = (Address) getCoordinatesFromAddresse("Gdynia Jaskółcza 20");
 
         ShopingCardItem item0 = (ShopingCardItem) adapter.getItem(6);
@@ -192,6 +258,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
         Address address1;
 
+
         if (town.toUpperCase().equals("MIASTO")) {
             address1 = null;
         } else if (street.toUpperCase().equals("ULICA")) {
@@ -202,7 +269,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             address1 = (Address) getCoordinatesFromAddresse(town + " " + street + " " + nr);
         }
 
-        Log.i("informacja", "distance address1 is " + address1);
+
         CustomTextView text_cost_delivery = (CustomTextView) findViewById(R.id.data_cost_of_delivery_text);
         if (address1 != null) {
 
@@ -218,6 +285,9 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             locationB.setLongitude(address1.getLongitude());
 
             float distance = locationA.distanceTo(locationB);
+
+
+            Log.i("informacja", "deliveryCostArray____ " + deliveryCostArray);
 
             if (distance > 7000) {
                 text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
@@ -238,7 +308,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
             ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
 
-            townEdit.setTitle(address1.getAddressLine(1));
+            townEdit.setTitle(address1.getLocality());
             streetEdit.setTitle(address1.getThoroughfare());
             nrEdit.setTitle(address1.getFeatureName());
             adapter.notifyDataSetChanged();
@@ -262,6 +332,14 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                         Intent intent = new Intent(view.getContext(), EditTextPopUp.class);
                         intent.putExtra("title", titleText[position]);
                         intent.putExtra("position", position);
+                        ShopingCardItem item = (ShopingCardItem) adapter.getItem(position);
+
+                        if (item.getTitle().toUpperCase().equals(titleText[position].toUpperCase())) {
+                            intent.putExtra("actualText", "");
+                        } else {
+                            intent.putExtra("actualText", item.getTitle());
+                        }
+
                         intent.setClass(view.getContext(), EditTextPopUp.class);
                         startActivityForResult(intent, 1);
                     }
@@ -269,7 +347,21 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             }
         });
 
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+
+        for (int i = 0; i < 12; i++) {
+            ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
+            editor.putString(titleText[i], item.getTitle().toString());
+        }
+        editor.commit();
+
+
+    }
 }

@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
+import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -48,6 +49,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         String[] gg = strDate.split(":");
         Log.i("informacja", "time__________" + strDate);
 // Write a message to the database
+
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SendOrderOnlines");
 
