@@ -20,12 +20,32 @@
             android:background="@color/colorWhite"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/closeBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:background="@mipmap/back_button"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
+
+                <Button
+                    android:id="@+id/closeBtn"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@mipmap/back_button" />
+
+                <com.michal_stasinski.tabu.Utils.CustomTextView
+                    android:id="@+id/title_shoping_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:text="DANE DO DOSTAWY"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+
+
+            </RelativeLayout>
 
             <com.michal_stasinski.tabu.Utils.CustomTextView
                 android:id="@+id/data_cost_of_delivery_text"
@@ -36,11 +56,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorPrimary"
-                android:paddingTop="18dp"
+                android:paddingTop="16dp"
                 android:text="Koszt dostawy"
                 android:textAlignment="center"
-
-                android:textSize="18dp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <com.michal_stasinski.tabu.Utils.BounceListView
                 android:id="@+id/data_delivery_listView"

@@ -24,9 +24,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static com.michal_stasinski.tabu.SplashScreen.MY_PREFS_NAME;
+import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
+import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
-import static com.michal_stasinski.tabu.SplashScreen.titleText;
+import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 
 public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
@@ -53,6 +54,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_data_for_delivery_list_view);
@@ -61,7 +63,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         listView = (BounceListView) findViewById(R.id.data_delivery_listView);
         adapter = new DataForDeliveryAdapter(this, imgid);
 
-        for (int i = 0; i < titleText.length; i++) {
+        for (int i = 0; i < dataDeliveryTextFieldName.length; i++) {
 
             ShopingCardItem produkt = new ShopingCardItem();
 
@@ -70,7 +72,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             } else {
                 produkt.setType(1);
             }
-            produkt.setTitle(titleText[i]);
+            produkt.setTitle(dataDeliveryTextFieldName[i]);
             adapter.addItem(produkt);
         }
 
@@ -83,14 +85,24 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
             @Override
             public void onClick(View v) {
+
+                Log.i("informacja", " clik data");
+                SharedPreferences.Editor editor = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE).edit();
+
+                for (int i = 0; i < 12; i++) {
+                    ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
+                    editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
+                }
+                editor.commit();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
         });
 
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
         for (int i = 0; i < 12; i++) {
-            String item = prefs.getString(titleText[i], null);
+            String item = prefs.getString(dataDeliveryTextFieldName[i], null);
             if (item != null) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
                 el.setTitle(item);
@@ -142,7 +154,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                 ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
 
                 if (result.equals("")) {
-                    item.setTitle(titleText[pos]);
+                    item.setTitle(dataDeliveryTextFieldName[pos]);
 
                 } else {
                     item.setTitle(result);
@@ -160,7 +172,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     protected void onResume() {
         super.onResume();
 
-        Address address0 = (Address) getCoordinatesFromAddresse("Gdynia Jaskółcza 20");
+        Address address0 = (Address) getCoordinatesFromAddresse(RESTAURANT_ADDRES);
 
         ShopingCardItem item0 = (ShopingCardItem) adapter.getItem(6);
         ShopingCardItem item1 = (ShopingCardItem) adapter.getItem(7);
@@ -228,18 +240,21 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
                 if (isClick == false) {
-                    isClick = true;
+
                     Object listItem = listView.getItemAtPosition(position);
 
-                    if (position != 0 || position != 5 || position != 12) {
+                    Log.i("informacja", "dataaaaaaaaaa" +position+(position == 0 || position == 5 || position == 12));
+                    if (position == 0 || position == 5 || position == 12) {
+                    }else{
+                        isClick = true;
                         // view.setOnClickListener(null);
 
                         Intent intent = new Intent(view.getContext(), EditTextPopUp.class);
-                        intent.putExtra("title", titleText[position]);
+                        intent.putExtra("title", dataDeliveryTextFieldName[position]);
                         intent.putExtra("position", position);
                         ShopingCardItem item = (ShopingCardItem) adapter.getItem(position);
 
-                        if (item.getTitle().toUpperCase().equals(titleText[position].toUpperCase())) {
+                        if (item.getTitle().toUpperCase().equals(dataDeliveryTextFieldName[position].toUpperCase())) {
                             intent.putExtra("actualText", "");
                         } else {
                             intent.putExtra("actualText", item.getTitle());
@@ -254,15 +269,4 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-
-        for (int i = 0; i < 12; i++) {
-            ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
-            editor.putString(titleText[i], item.getTitle().toString());
-        }
-        editor.commit();
-    }
 }

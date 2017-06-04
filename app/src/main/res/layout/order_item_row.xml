@@ -18,11 +18,11 @@
             android:layout_height="38dp"
             android:layout_marginLeft="10dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/list_row_position_shape"
+            android:background="@drawable/price_shape"
             android:gravity="center"
             android:textAlignment="center" />
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:textColor="@color/colorThirdGrey"
             android:textSize="16dp" />
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             android:textColor="@color/colorThirdGrey"
             android:textSize="16dp" />
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -7,36 +7,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         android:background="@drawable/order_compozitor_grey_title_shape"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
 
         <TextView
             android:id="@+id/order_row_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorSecondGrey"
-            android:textSize="16dp" />
+            android:text="TextView"
+            android:textColor="@color/colorThirdGrey"
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_width = "match_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight= "20dp"
             android:layout_alignParentRight="true"
-            android:textColor="@color/colorSecondGrey"
+            android:layout_marginRight="20dp"
             android:gravity="right"
             android:text="ZMIEŃ"
-            android:textSize="16dp" />
+            android:textColor="@color/colorSecondGrey"
+            android:textSize="12sp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
-        android:paddingTop="16dp"
+        android:paddingTop="14dp"
         android:paddingBottom="16dp"
         android:orientation="horizontal">
 
@@ -44,11 +45,11 @@
             android:id="@+id/order_row_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
+            android:text="TextView"
             android:textColor="@color/colorThirdGrey"
-            android:textSize="14dp" />
+            android:textSize="14sp" />
 
 
     </LinearLayout>

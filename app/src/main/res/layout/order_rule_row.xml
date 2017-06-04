@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_rule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,17 +20,17 @@
             android:textSize="12dp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_rule_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="wwwwwwwwwwwwwwwww"
             android:layout_marginTop="5dp"
             android:layout_below ="@id/order_rule_title"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp" />
+            android:textColor="@color/colorThirdGrey"
+            android:textSize="16dp" />
 
-        <TextView
+        <com.michal_stasinski.tabu.Utils.CustomTextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

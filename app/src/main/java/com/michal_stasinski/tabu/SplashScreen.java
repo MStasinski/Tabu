@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -34,8 +35,11 @@ public class SplashScreen extends Activity {
     public static ArrayList<Integer> pizzaAddons_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
-    public static String[] titleText = {
+    public static final String DATA_FOR_DELIVERY = "DataForDelivery";
+    public static final String SHOPING_CARD_PREF = "ShopingCardPref";
+    public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
+
+    public static String[] dataDeliveryTextFieldName = {
             "Zamawiający",
             "Imię",
             "Nazwisko",
@@ -61,6 +65,13 @@ public class SplashScreen extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
+        String itemo = prefs.getString(dataDeliveryTextFieldName[0], null);
+        Log.i("informacja", dataDeliveryTextFieldName[0] + "splashhhh c " + itemo);
+
+
     }
 
     @Override

@@ -17,9 +17,11 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
-import static com.michal_stasinski.tabu.SplashScreen.MY_PREFS_NAME;
+import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
+import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
+import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
+import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
-import static com.michal_stasinski.tabu.SplashScreen.titleText;
 
 public class ShopingCardListView extends SwipeBackActivity {
     private ShopingCardAdapter adapter;
@@ -42,17 +44,14 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-       //for (int i = 0; i < 12; i++) {
-           // String item = prefs.getString(titleText[i], null);
 
-       //}
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
 
         if (orderList.size() == 0) {
             finish();
@@ -69,10 +68,29 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         adapter = new ShopingCardAdapter(this);
 
-        Log.i("informacja", "onCreateonCreateonCreate" + adapter.getCount());
+
+        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
+        String firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
+        String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
+        String email = prefs.getString(dataDeliveryTextFieldName[3], null);
+        String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
+
+
         ShopingCardItem produkt = new ShopingCardItem();
-        produkt.setTitle("imie");
-        produkt.setDesc("");
+        if (firstname != null && !firstname.equals("Imię") &&
+                lastname != null && !lastname.equals("Nazwisko") &&
+                email != null && !email.equals("E-Mail") &&
+                phone != null && !phone.equals("Telefon")) {
+
+            produkt.setTitle(firstname + " " + lastname + "\n" + email + "\n" + phone);
+            produkt.setDesc("");
+        } else {
+            produkt.setTitle("DANE UŻYTKOWNIKA.\nUzupełnij.");
+            produkt.setDesc("");
+        }
+
+
         produkt.setNr(1);
         produkt.setType(ShopingCardAdapter.TYPE_PURCHASER);
         adapter.addItem(produkt);
@@ -131,14 +149,46 @@ public class ShopingCardListView extends SwipeBackActivity {
 
 
         ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(4);
-        if (timeList!=null) {
+        if (timeList != null) {
             TimeListItem timeItem = (TimeListItem) timeList.get(selected_time);
             selectedItem.setDesc(timeItem.getTime());
         }
 
 
+        SharedPreferences prefs0 = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE);
+        String delivery_mode = prefs0.getString("delivery_mode", null);
+        String street2 = prefs0.getString("street", null);
+
+
+        String street = prefs.getString("Ulica", null);
+        Log.i("informacja", delivery_mode + "street u " + street2);
+
+        if (street2 != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
+            ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
+            el.setDesc(street2);
+            adapter.notifyDataSetChanged();
+
+        } else {
+            ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
+            el0.setDesc("ODBIÓR WŁASNY");
+            ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
+            el1.setDesc(RESTAURANT_ADDRES);
+        }
+
+        if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
+            ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
+            el.setDesc(delivery_mode);
+            adapter.notifyDataSetChanged();
+
+        } else {
+            ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
+            el0.setDesc("ODBIÓR WŁASNY");
+            ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
+            el1.setDesc(RESTAURANT_ADDRES);
+        }
 
         listView.setAdapter(adapter);
+
         adapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,20 +200,41 @@ public class ShopingCardListView extends SwipeBackActivity {
                 Log.i("informacja", "position " + position);
 
                 if (position == 0) {
-
+                    save_state();
                     intent.setClass(view.getContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
 
                 if (position == 2) {
                     ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(2);
-                    if (selectedItem.getDesc() == "Odbiór osobisty") {
-                        selectedItem.setDesc("Dostawa");
+
+                    if (selectedItem.getDesc() == "ODBIÓR WŁASNY") {
+                        selectedItem.setDesc("DOSTAWA");
+                        ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
+
+                        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
+                        String street = prefs.getString("Ulica", null);
+
+                        if (street != null && !street.equals("Ulica")) {
+                            selectedAddres.setDesc(street);
+                        } else {
+                            selectedAddres.setDesc("komunikat ffffff");
+                        }
+                        //TODO Ulica
+
                     } else {
-                        selectedItem.setDesc("Odbiór osobisty");
+                        selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
+                        ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
+                        selectedAddres.setDesc(RESTAURANT_ADDRES);
                     }
                     adapter.notifyDataSetChanged();
-                    Log.i("informacja", "dostawa");
+
+                }
+                if (position == 3) {
+                    save_state();
+                    intent.setClass(view.getContext(), DataForDeliveryListView.class);
+                    startActivity(intent);
                 }
 
                 if (position == 4) {
@@ -171,13 +242,14 @@ public class ShopingCardListView extends SwipeBackActivity {
                     intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
                     startActivity(intent);
                 }
+
                 if (position > 7 && position < 8 + orderList.size()) {
 
                     intent.putExtra("position", position);
                     intent.putExtra("quantity", orderList.get(position - 8).getQuantity());
                     intent.putExtra("name", orderList.get(position - 8).getName());
                     intent.putExtra("price", orderList.get(position - 8).getSumOfPrices());
-                    Log.i("informacja", "quantity" + orderList.get(position - 8).getQuantity());
+
                     intent.setClass(view.getContext(), AddRemoveOrderPopUp.class);
                     startActivity(intent);
                 }
@@ -189,9 +261,24 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             @Override
             public void onClick(View v) {
+
+                save_state();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
+
             }
         });
+    }
+
+    protected void save_state() {
+        SharedPreferences.Editor editor = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE).edit();
+
+        ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
+        ShopingCardItem street = (ShopingCardItem) adapter.getItem(3);
+
+        editor.putString("delivery_mode", delivery_mode.getDesc().toString());
+        editor.putString("street", street.getDesc().toString());
+
+        editor.commit();
     }
 }

@@ -53,6 +53,7 @@ public class OrderComposer extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
@@ -62,6 +63,18 @@ public class OrderComposer extends SwipeBackActivity {
 
             @Override
             public void onClick(View v) {
+
+                if (saucePopUpAdapter != null) {
+                    for (int i = 0; i < saucePopUpAdapter.getItemArray().size(); i++) {
+                        saucePopUpAdapter.getItemArray().get(i).setHowManyItemSelected(0);
+                    }
+                }
+                if (addonsPopUpAdapter != null) {
+                    for (int i = 0; i < addonsPopUpAdapter.getItemArray().size(); i++) {
+                        addonsPopUpAdapter.getItemArray().get(i).setHowManyItemSelected(0);
+                    }
+                }
+
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
@@ -84,7 +97,7 @@ public class OrderComposer extends SwipeBackActivity {
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        String output = MathUtils.formatDecimal(sum,2);
+        String output = MathUtils.formatDecimal(sum, 2);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
@@ -106,7 +119,7 @@ public class OrderComposer extends SwipeBackActivity {
         adapter = new OrderComposerListViewAdapter(this, titleText, descText);
         adapter.notifyDataSetChanged();
 
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output+ " zł");
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
 
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,7 +268,7 @@ public class OrderComposer extends SwipeBackActivity {
                     start = false;
                     if (saucePopUpAdapter.getItemArray().get(i).getHowManyItemSelected() == 1) {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName();
-                         sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
+                        sum += saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
                     } else {
                         txt += saucePopUpAdapter.getItemArray().get(i).getName() + " x2";
                         sum += 2 * saucePopUpAdapter.getItemArray().get(i).getPriceArray().get(0).floatValue();
@@ -270,12 +283,12 @@ public class OrderComposer extends SwipeBackActivity {
 
         }
         Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        String output = MathUtils.formatDecimal(sum,2);
+        String output = MathUtils.formatDecimal(sum, 2);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
 
-        String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()),2);
-        priceTxt.setText(oputput+ " zł");
+        String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
+        priceTxt.setText(oputput + " zł");
 
 
         adapter.setDescArr(descText);

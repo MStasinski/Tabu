@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/color_gray_light"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorSecond" />
 
-    <RelativeLayout
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/order_separator_title"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:padding="6dp"
+        android:layout_centerVertical="true"
+        android:text="test"
+        android:textColor="@color/colorThirdGrey"
+        android:textSize="14sp" />
 
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
-            android:id="@+id/order_separator_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textColor="@color/colorThirdGrey"
-            android:textSize="3dp" />
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</RelativeLayout>
