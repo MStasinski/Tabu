@@ -152,15 +152,12 @@ public class OrderComposer extends SwipeBackActivity {
 
                 for (int i = 0; i < orderList.size(); i++) {
                     String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce();
-                    Log.i("informacja", "|" + actualOrder + "|" + st + "|" + st.equals(actualOrder));
-
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;
                     }
                 }
 
-                Log.i("informacja", "isAlready__________" + isAlready);
 
                 if (isAlready == -1) {
                     order.setQuantity(1);
@@ -169,9 +166,7 @@ public class OrderComposer extends SwipeBackActivity {
                 } else {
                     //orderList.add(order);
                     int quantity = orderList.get(isAlready).getQuantity();
-                    Log.i("informacja", "quantity_" + quantity);
                     orderList.get(isAlready).setQuantity(quantity + 1);
-                    Log.i("informacja", "quantity " + orderList.get(isAlready).getQuantity());
                 }
 
 
@@ -213,7 +208,6 @@ public class OrderComposer extends SwipeBackActivity {
     @Override
     public void onResume() {
         super.onResume();
-        Log.i("informacja", "________onResume() " + getSize());
 
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
         descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
@@ -287,6 +281,36 @@ public class OrderComposer extends SwipeBackActivity {
         adapter.setDescArr(descText);
         adapter.notifyDataSetChanged();
 
+    }
+
+    public OrderComposer() {
+        super();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("informacja", "________onStart");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("informacja", "________onSTOP");
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("informacja", "________onDESTROY");
+        super.onDestroy();
+
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("informacja", "________onPAUSE");
+        super.onPause();
     }
 
     public static int getSize() {

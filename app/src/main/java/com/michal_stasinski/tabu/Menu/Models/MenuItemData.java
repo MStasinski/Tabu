@@ -8,6 +8,7 @@ public class MenuItemData {
     private String name;
     private String cena;
     private String text;
+
     public MenuItemData() {
         // empty default constructor, necessary for Firebase to be able to deserialize blog posts
     }

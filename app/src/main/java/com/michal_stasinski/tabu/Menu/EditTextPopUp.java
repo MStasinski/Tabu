@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,6 +54,7 @@ public class EditTextPopUp extends Activity {
             CustomTextView titleTxt = (CustomTextView) findViewById(R.id.title_edit_popup);
             titleTxt.setText(title.toUpperCase());
         }
+
         EditText editText = (EditText) findViewById(R.id.edit_text_popup);
         editText.setText(actualText);
         Button saveButton = (Button) findViewById(R.id.btm_save);
@@ -68,28 +68,28 @@ public class EditTextPopUp extends Activity {
 
                 if (pos == 1) {
                     isValidate = (Boolean) validateFirstName(editText.getText().toString());
-
-                    Log.i("informacja", "isValidate " + isValidate + " " + pos);
+                    if (editText.getText().length() < 2) {
+                        isValidate = false;
+                    }
                 }
 
                 if (pos == 2) {
                     isValidate = (Boolean) validateLastName(editText.getText().toString());
-                    Log.i("informacja", "isValidate " + isValidate + " " + pos);
+                    if (editText.getText().length() < 2) {
+                        isValidate = false;
+                    }
                 }
                 if (pos == 3) {
                     isValidate = (Boolean) isValidEmail(editText.getText().toString());
-                    Log.i("informacja", "isValidate " + isValidate + " " + pos);
                 }
 
                 if (pos == 4) {
                     isValidate = (Boolean) isValidPhone(editText.getText().toString());
-                    Log.i("informacja", "isValidate " + isValidate + " " + pos);
 
                 }
 
                 if (pos == 6 || pos == 7) {
                     isValidate = (Boolean) validateLastName(editText.getText().toString());
-                    Log.i("informacja", "isValidate " + isValidate + " " + pos);
                     if (editText.getText().length() < 2) {
                         isValidate = false;
                     }
@@ -136,7 +136,7 @@ public class EditTextPopUp extends Activity {
 
                 }
 
-                if (isValidate == false) {
+                if (isValidate == false && editText.getText().length() > 0) {
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTextPopUp.this);
                     alertDialogBuilder.setTitle("UWAGA");
@@ -155,7 +155,6 @@ public class EditTextPopUp extends Activity {
 
 
                 } else {
-
 
                     Intent intent = new Intent();
                     intent.putExtra("edit_text", editText.getText().toString());

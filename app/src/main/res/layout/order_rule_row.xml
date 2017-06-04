@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="@color/colorSecond"
-            android:textSize="16dp" />
+            android:textSize="12dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/order_rule_desc"
@@ -35,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:text="Zmień"
+            android:text="ZMIEŃ"
             android:textColor="@color/colorSecond"
-            android:textSize="16dp" />
+            android:textSize="12dp"/>
 
 
     </RelativeLayout>

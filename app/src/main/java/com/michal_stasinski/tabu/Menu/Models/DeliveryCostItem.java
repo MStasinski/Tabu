@@ -5,22 +5,22 @@ package com.michal_stasinski.tabu.Menu.Models;
  */
 
 public class DeliveryCostItem {
-    private Number price;
-    private Number distacne;
+    private String price;
+    private String distacne;
 
-    public Number getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Number price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Number getDistacne() {
+    public String getDistacne() {
         return distacne;
     }
 
-    public void setDistacne(Number distacne) {
+    public void setDistacne(String distacne) {
         this.distacne = distacne;
     }
 

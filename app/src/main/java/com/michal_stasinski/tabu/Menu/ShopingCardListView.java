@@ -1,6 +1,7 @@
 package com.michal_stasinski.tabu.Menu;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,14 +12,18 @@ import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.ShopingCardAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
+import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
+import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
+import static com.michal_stasinski.tabu.SplashScreen.MY_PREFS_NAME;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
+import static com.michal_stasinski.tabu.SplashScreen.titleText;
 
 public class ShopingCardListView extends SwipeBackActivity {
     private ShopingCardAdapter adapter;
-
+    public static int selected_time = 0;
     private String[] titleText = {
             "Sposób Odbioru",
             "Adres Odbioru",
@@ -37,6 +42,11 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+       //for (int i = 0; i < 12; i++) {
+           // String item = prefs.getString(titleText[i], null);
+
+       //}
 
     }
 
@@ -46,7 +56,10 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         if (orderList.size() == 0) {
             finish();
+            //TODO komunitkata
         }
+
+
         final ShopingCardItem[] items = new ShopingCardItem[40];
 
         setContentView(R.layout.activity_shoping_card_list_view);
@@ -97,6 +110,7 @@ public class ShopingCardListView extends SwipeBackActivity {
             produkt2.setType(ShopingCardAdapter.TYPE_ORDER_ITEM);
 
             adapter.addItem(produkt2);
+
         }
 
         ShopingCardItem produktSep2 = new ShopingCardItem();
@@ -115,6 +129,15 @@ public class ShopingCardListView extends SwipeBackActivity {
             adapter.addItem(produkt1);
         }
 
+
+        ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(4);
+        if (timeList!=null) {
+            TimeListItem timeItem = (TimeListItem) timeList.get(selected_time);
+            selectedItem.setDesc(timeItem.getTime());
+        }
+
+
+
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -124,6 +147,13 @@ public class ShopingCardListView extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
                 Object listItem = listView.getItemAtPosition(position);
                 Intent intent = new Intent();
+                Log.i("informacja", "position " + position);
+
+                if (position == 0) {
+
+                    intent.setClass(view.getContext(), DataForDeliveryListView.class);
+                    startActivity(intent);
+                }
 
                 if (position == 2) {
                     ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(2);
@@ -136,9 +166,8 @@ public class ShopingCardListView extends SwipeBackActivity {
                     Log.i("informacja", "dostawa");
                 }
 
-                if (position == 3 || position == 4||position == 5||position == 6) {
+                if (position == 4) {
 
-                    Log.i("informacja", "czas realaizacji");
                     intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
                     startActivity(intent);
                 }

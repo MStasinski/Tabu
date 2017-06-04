@@ -12,53 +12,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
-import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+
+import static com.michal_stasinski.tabu.SplashScreen.MY_PREFS_NAME;
+import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
+import static com.michal_stasinski.tabu.SplashScreen.titleText;
 
 public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
     private BounceListView listView;
     private Boolean isClick = false;
 
-    private ArrayList<DeliveryCostItem> deliveryCostArray;
-    public static final String MY_PREFS_NAME = "MyPrefsFile";
-
-
-    private String[] titleText = {
-            "Zamawiający",
-            "Imię",
-            "Nazwisko",
-            "E-Mail",
-            "Telefon",
-            "Adres dostawy",
-            "Miasto",
-            "Ulica",
-            "Nr domu",
-            "Nr mieszkania",
-            "piętro",
-            "firma",
-            "Dodatkowe wskazówki",
-            "Dodatkowe wskazówki"
-
-
-    };
     protected Integer[] imgid = {
             R.mipmap.ic_launcher,
             R.mipmap.person_icon,
@@ -117,7 +91,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         for (int i = 0; i < 12; i++) {
             String item = prefs.getString(titleText[i], null);
-            Log.i("informacja", "create  " + item);
             if (item != null) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
                 el.setTitle(item);
@@ -127,72 +100,10 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         }
     }
 
-    /* public double CalculationByDistance(LatLng StartP, LatLng EndP) {
-         int Radius = 6371;// radius of earth in Km
-         double lat1 = StartP.latitude;
-         double lat2 = EndP.latitude;
-         double lon1 = StartP.longitude;
-         double lon2 = EndP.longitude;
-         double dLat = Math.toRadians(lat2 - lat1);
-         double dLon = Math.toRadians(lon2 - lon1);
-         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                 + Math.cos(Math.toRadians(lat1))
-                 * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                 * Math.sin(dLon / 2);
-         double c = 2 * Math.asin(Math.sqrt(a));
-         double valueResult = Radius * c;
-         double km = valueResult / 1;
-         DecimalFormat newFormat = new DecimalFormat("####");
-         int kmInDec = Integer.valueOf(newFormat.format(km));
-         double meter = valueResult % 1000;
-         int meterInDec = Integer.valueOf(newFormat.format(meter));
-         Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
-                 + " Meter   " + meterInDec);
-
-         return Radius * c;
-     }*/
 
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("DeliveryCosts");
-
-        deliveryCostArray = new ArrayList<DeliveryCostItem>();
-
-        myRef.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-
-                    DataSnapshot dataitem = item;
-                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-
-                    Number price = (Number) map.get("price");
-                    Number dist = (Number) map.get("dist");
-
-                   // MenuItemProduct menuItemProduct = new MenuItemProduct();
-                    DeliveryCostItem deliveryCostItem = new DeliveryCostItem();
-                    deliveryCostItem.setPrice(price);
-                    deliveryCostItem.setDistacne(dist);
-
-                    deliveryCostArray.add(deliveryCostItem);
-                    Log.i("informacja", "  deliveryCostArray start " +   deliveryCostArray.get(0).getPrice());
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-
-        });
-
 
     }
 
@@ -221,7 +132,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("informacja", "onActivityResult  ");
 
         if (requestCode == 1) {
 
@@ -231,7 +141,12 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                 Integer pos = data.getIntExtra("pos", 1);
                 ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
 
-                item.setTitle(result);
+                if (result.equals("")) {
+                    item.setTitle(titleText[pos]);
+
+                } else {
+                    item.setTitle(result);
+                }
 
                 adapter.notifyDataSetChanged();
             }
@@ -245,7 +160,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     protected void onResume() {
         super.onResume();
 
-        Log.i("informacja", "onResume");
         Address address0 = (Address) getCoordinatesFromAddresse("Gdynia Jaskółcza 20");
 
         ShopingCardItem item0 = (ShopingCardItem) adapter.getItem(6);
@@ -258,7 +172,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
         Address address1;
 
-
         if (town.toUpperCase().equals("MIASTO")) {
             address1 = null;
         } else if (street.toUpperCase().equals("ULICA")) {
@@ -269,11 +182,9 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             address1 = (Address) getCoordinatesFromAddresse(town + " " + street + " " + nr);
         }
 
-
         CustomTextView text_cost_delivery = (CustomTextView) findViewById(R.id.data_cost_of_delivery_text);
         if (address1 != null) {
 
-            Log.i("informacja", "distance address1" + address1);
             Location locationA = new Location("point A");
 
             locationA.setLatitude(address0.getLatitude());
@@ -287,22 +198,16 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             float distance = locationA.distanceTo(locationB);
 
 
-            Log.i("informacja", "deliveryCostArray____ " + deliveryCostArray);
-
-            if (distance > 7000) {
+            if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
                 text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
-            } else if (distance > 5000) {
-                text_cost_delivery.setText("Koszt dostawy 5zł");
-            } else if (distance > 3000) {
-                text_cost_delivery.setText("Koszt dostawy 4zł");
-            } else if (distance <= 3000) {
-                text_cost_delivery.setText("Koszt dostawy 3zł");
+            } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
+                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(2).getPrice() + " zł");
+            } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
+            } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
             }
 
-
-            Log.i("informacja", "miasto" + address1.getLocality());
-            Log.i("informacja", "ulica" + address1.getThoroughfare());
-            Log.i("informacja", "numer" + address1.getFeatureName());
 
             ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
@@ -347,13 +252,11 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             }
         });
 
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
 
         for (int i = 0; i < 12; i++) {
@@ -361,7 +264,5 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             editor.putString(titleText[i], item.getTitle().toString());
         }
         editor.commit();
-
-
     }
 }

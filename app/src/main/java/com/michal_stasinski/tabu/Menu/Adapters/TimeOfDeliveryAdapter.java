@@ -36,7 +36,6 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
     public void addItem(final TimeListItem item) {
         this.arr.add(item);
-        Log.i("informacja", "TimeOfDeliveryAdapter " + item.getTime());
         notifyDataSetChanged();
     }
 
@@ -72,10 +71,9 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
-        Log.i("informacja", "fffff  "+convertView);
          viewHolder.hour.setText(this.arr.get(position).getTime());
 
-        /*if (this.markSignArr.get(position) == 1) {
+        if (this.arr.get(position).getMark() == true) {
             viewHolder.check.setText("\u2713");
             viewHolder.hour.setTextColor(Color.GRAY);
             viewHolder.check.setTextColor(Color.rgb(255, 126, 0));
@@ -83,7 +81,7 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
             viewHolder.check.setText("");
             viewHolder.hour.setTextColor(Color.BLACK);
             viewHolder.check.setTextColor(Color.BLACK);
-        }*/
+        }
        return convertView;
     }
 
@@ -91,14 +89,6 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
         TextView hour;
         TextView check;
-    }
-
-    public ArrayList<Integer> getMarkSignArr() {
-        return markSignArr;
-    }
-
-    public void setMarkSignArr(ArrayList<Integer> markSignArr) {
-        this.markSignArr = markSignArr;
     }
 }
 

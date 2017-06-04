@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -12,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 
@@ -30,9 +32,25 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaSauces;
     public static ArrayList<Integer> pizzaSizes_CheckMark;
     public static ArrayList<Integer> pizzaAddons_CheckMark;
-
+    public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
-
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public static String[] titleText = {
+            "Zamawiający",
+            "Imię",
+            "Nazwisko",
+            "E-Mail",
+            "Telefon",
+            "Adres dostawy",
+            "Miasto",
+            "Ulica",
+            "Nr domu",
+            "Nr mieszkania",
+            "piętro",
+            "firma",
+            "Dodatkowe wskazówki",
+            "Dodatkowe wskazówki"
+    };
     /**
      * Duration of wait
      **/
@@ -58,6 +76,7 @@ public class SplashScreen extends Activity {
         pizzaSauces = new ArrayList<MenuItemProduct>();
         orderList = new ArrayList<OrderListItem>();
 
+
         Task<?>[] tasks = new Task[]{
                 loadPizzaSizes("PizzaSizes", 0),
                 loadFireBaseData("Pizzas", pizzaList),
@@ -67,6 +86,7 @@ public class SplashScreen extends Activity {
                 loadFireBaseData("PizzaWegetables", pizzaWegetables),
                 loadFireBaseData("PizzaSauces", pizzaSauces),
                 loadFireBaseData("PizzaSpices", pizzaSpices),
+                loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                 StartApp()
 
         };
@@ -154,6 +174,50 @@ public class SplashScreen extends Activity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+        });
+
+        return tcs.getTask();
+    }
+
+    public static Task<String> loadFireBaseDeliverCost(String databaseReference, final ArrayList<DeliveryCostItem> nameArrayList) {
+
+
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+        myRef = database.getReference(databaseReference);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                deliveryCostArray = new ArrayList<DeliveryCostItem>();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+
+                    String price = (String) map.get("price").toString();
+                    String dist = (String) map.get("dist").toString();
+
+                    // MenuItemProduct menuItemProduct = new MenuItemProduct();
+                    DeliveryCostItem deliveryCostItem = new DeliveryCostItem();
+                    deliveryCostItem.setPrice(price);
+                    deliveryCostItem.setDistacne(dist);
+
+                    deliveryCostArray.add(deliveryCostItem);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+
         });
 
         return tcs.getTask();

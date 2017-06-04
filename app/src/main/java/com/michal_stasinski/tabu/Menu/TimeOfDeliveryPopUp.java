@@ -3,7 +3,8 @@ package com.michal_stasinski.tabu.Menu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,7 +12,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
-import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -25,11 +25,14 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
+import static com.michal_stasinski.tabu.Menu.ShopingCardListView.selected_time;
+
 public class TimeOfDeliveryPopUp extends AppCompatActivity {
     private BounceListView timeOfDeliveryListView;
     public static ArrayList<TimeListItem> timeList;
     private BounceListView mListViewMenu;
     private TimeOfDeliveryAdapter adapterek;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,6 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
         String strDate = mdformat.format(calendar.getTime());
         String[] gg = strDate.split(":");
-        Log.i("informacja", "time__________" + strDate);
-// Write a message to the database
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SendOrderOnlines");
@@ -62,9 +62,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-                   // String end = (String) map.get("end");
+                    // String end = (String) map.get("end");
                     ArrayList<Number> price = (ArrayList) map.get("end");
-                    Log.i("informacja", "end__________" +price);
 
                 }
             }
@@ -75,6 +74,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
             }
         });
+
+
         Date Start = null;
         Date End = null;
 
@@ -104,11 +105,12 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         String[] d = c.split(":");
         int realizationTime = 30;
         int f = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / realizationTime;
+
         timeList = new ArrayList<TimeListItem>();
         adapterek = new TimeOfDeliveryAdapter(this);
+
         for (int i = 0; i < f; i++) {
             TimeListItem time = new TimeListItem();
-
 
             float h = (float) ((endHoure * 60 + startMinute) - (realizationTime * (i + 1))) / (float) 60;
             int ff = ((endHoure * 60 + 15) - (realizationTime * (i + 1))) / 60;
@@ -123,28 +125,52 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
                 ff = ff - 24;
             }
 
-
-            //Log.i("informacja", ((endHoure * 60 + 15) - (realizationTime * (i + 1))) / 60 + "___ans__________" + ff + ":" + r);
             time.setTime(ff + ":" + r);
             time.setMark(false);
+            if (selected_time == i) {
+                time.setMark(true);
+            }
             timeList.add(time);
             //adapterek.addItem(time);
         }
         Collections.reverse(timeList);
+        TimeListItem time = new TimeListItem();
+        time.setTime("jak najszybciej");
+        time.setMark(false);
+        if (selected_time == 0) {
+            time.setMark(true);
+        }
 
+        timeList.add(0, time);
 
-        for (int i = 0; i <timeList.size(); i++) {
-            Log.i("informacja", "c  "+timeList.get(i).getTime());
+        for (int i = 0; i < timeList.size(); i++) {
             adapterek.addItem(timeList.get(i));
         }
 
 
-
-
         mListViewMenu = (BounceListView) findViewById(R.id.mListView_BaseMenu);
         mListViewMenu.setAdapter(adapterek);
-
         mListViewMenu.setScrollingCacheEnabled(false);
+        mListViewMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+
+                for (int i = 0; i < adapterek.getCount(); i++) {
+                    TimeListItem item = (TimeListItem) adapterek.getItem(i);
+                    item.setMark(false);
+                }
+
+                TimeListItem item = (TimeListItem) adapterek.getItem(position);
+                item.setMark(true);
+                selected_time = position;
+                adapterek.notifyDataSetChanged();
+
+
+            }
+        });
+
+
        /* long currentTime = System.currentTimeMillis();
         int edtOffset = TimeZone.getTimeZone("EST").getOffset(currentTime);
         int gmtOffset = TimeZone.getTimeZone("GMT").getOffset(currentTime);
@@ -154,5 +180,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

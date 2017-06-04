@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorWhite"
     android:orientation="horizontal"
     android:padding="10dp">
@@ -10,22 +10,33 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:id="@+id/etHeader1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@mipmap/logo_rest" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/order_purchaser_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_alignParentRight="true"
             android:layout_marginRight="120dp"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
             android:textColor="@color/colorSecond"
             android:textSize="16dp" />
 
@@ -33,10 +44,10 @@
             android:id="@+id/order_purchaser_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="120dp"
             android:layout_below="@id/order_purchaser_name"
+            android:layout_marginRight="120dp"
+            android:text="TextView"
             android:textColor="@color/colorSecond"
             android:textSize="16dp" />
 
@@ -46,9 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:text="Zmień"
+            android:text="ZMIEŃ"
             android:textColor="@color/colorSecond"
-            android:textSize="16dp" />
+            android:textSize="12dp" />
 
 
     </RelativeLayout>

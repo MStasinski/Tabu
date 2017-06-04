@@ -43,7 +43,6 @@ public class ShopingCardAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        Log.i("informacja"," super.getViewTypeCount()   "+ super.getViewTypeCount());
         return 5;
     }
 
@@ -82,13 +81,12 @@ public class ShopingCardAdapter extends BaseAdapter {
             viewHolder = new ViewHolderItem();
             switch (rowType) {
                 case TYPE_PURCHASER:
-                    Log.i("informacja","TYPE_PURCHASER:");
+
                     convertView = mInflater.inflate(R.layout.order_purchaser_row, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.order_purchaser_name);
                     break;
 
                 case TYPE_SEPARATOR:
-                    Log.i("informacja","TYPE_SEPARATOR");
                     convertView = mInflater.inflate(R.layout.order_separator_row, null);
                     viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_separator_title);
 
@@ -96,14 +94,12 @@ public class ShopingCardAdapter extends BaseAdapter {
 
 
                 case TYPE_ORDER_RULE:
-                    Log.i("informacja","TYPE_ORDER_RULE");
                     convertView = mInflater.inflate(R.layout.order_rule_row, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.order_rule_title);
                     viewHolder.desc = (TextView) convertView.findViewById(R.id.order_rule_desc);
 
                     break;
                 case TYPE_ORDER_ITEM:
-                    Log.i("informacja","TYPE_ORDER_ITEM");
                     convertView = mInflater.inflate(R.layout.order_item_row, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.order_item_title);
                     viewHolder.quantity = (CustomTextView) convertView.findViewById(R.id.order_item_quantity);
@@ -112,7 +108,6 @@ public class ShopingCardAdapter extends BaseAdapter {
                     break;
 
                 case TYPE_SUMMARY:
-                    Log.i("informacja"," TYPE_SUMMARY");
                     convertView = mInflater.inflate(R.layout.order_summary, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.order_summary_title);
                     break;

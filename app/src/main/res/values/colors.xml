@@ -4,6 +4,7 @@
     <color name="colorSecond">#C1C1C3</color>
     <color name="colorSecondGrey">#B1B2B4</color>
     <color name="colorThirdGrey">#555555</color>
+    <color name="color_gray_light">#e6e4e4</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
