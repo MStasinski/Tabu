@@ -3,12 +3,13 @@ package com.michal_stasinski.tabu.Menu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
@@ -18,6 +19,7 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
+import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import static com.michal_stasinski.tabu.Menu.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
@@ -58,9 +60,12 @@ public class OrderComposer extends SwipeBackActivity {
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
+
+
+        //************************* przycisk close**********************
+
         Button closeButton = (Button) findViewById(R.id.bClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
@@ -80,7 +85,12 @@ public class OrderComposer extends SwipeBackActivity {
             }
         });
 
-        ImageButton bottom_action_bar_btn1 = (ImageButton) findViewById(R.id.bottom_action_bar_btn1);
+
+        //************************* botttom menu ************************************
+        ButtonBarLayout bottom_action_bar_btn1 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn1);
+        ButtonBarLayout bottom_action_bar_btn0= (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
+        bottom_action_bar_btn0.setVisibility(View.INVISIBLE);
+
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,24 +100,30 @@ public class OrderComposer extends SwipeBackActivity {
             }
         });
 
+
+        //********************************************************************************
+
+
         CustomTextView title = (CustomTextView) findViewById(R.id.order_composer_positionInList);
         CustomTextView nameTxt = (CustomTextView) findViewById(R.id.order_composer_titleItem);
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+
         String output = MathUtils.formatDecimal(sum, 2);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
 
         Intent intent = getIntent();
+
         String names = intent.getExtras().getString("name");
         String desc = intent.getExtras().getString("desc");
         itemPositionInMenuListView = intent.getExtras().getInt("position");
         String price = intent.getExtras().getString("price");
         size = intent.getExtras().getInt("size");
+
 
         title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
         nameTxt.setText(names.toUpperCase());
@@ -173,15 +189,20 @@ public class OrderComposer extends SwipeBackActivity {
 
 
                 if (isAlready == -1) {
-                    order.setQuantity(1);
+                    Log.i("informacja", "nie ma takiej pizzy " + quantity);
+                    order.setQuantity(quantity);
                     orderList.add(order);
-                    // orderList.get(0).setQuantity(1);
+                    // orderList.get(0).setQuantity(quantity);
                 } else {
                     //orderList.add(order);
-                    int quantity = orderList.get(isAlready).getQuantity();
-                    orderList.get(isAlready).setQuantity(quantity + 1);
+                    int quantityOld = orderList.get(isAlready).getQuantity();
+                    Log.i("informacja", "jest juz pizza i ma  " + quantityOld);
+
+                    orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
 
+                CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+                info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
 
             }
         });
@@ -221,6 +242,10 @@ public class OrderComposer extends SwipeBackActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+
 
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
         descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
@@ -292,39 +317,22 @@ public class OrderComposer extends SwipeBackActivity {
 
 
         adapter.setDescArr(descText);
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                quantity = adapter.getNum_value();
+                String output = MathUtils.formatDecimal(sum * quantity, 2);
+
+                Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+                addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
+            }
+        });
+
+
         adapter.notifyDataSetChanged();
 
     }
 
-    public OrderComposer() {
-        super();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("informacja", "________onStart");
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("informacja", "________onSTOP");
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.i("informacja", "________onDESTROY");
-        super.onDestroy();
-
-    }
-
-    @Override
-    protected void onPause() {
-        Log.i("informacja", "________onPAUSE");
-        super.onPause();
-    }
 
     public static int getSize() {
         return size;

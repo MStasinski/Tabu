@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,8 @@ import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 import com.michal_stasinski.tabu.Utils.TintIcon;
 
 import java.util.ArrayList;
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //-------------------------- bottom menu button------------------------------------
-        ImageButton bottom_action_bar_btn0 = (ImageButton) findViewById(R.id.bottom_action_bar_btn0);
+        ButtonBarLayout bottom_action_bar_btn0 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
         bottom_action_bar_btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton bottom_action_bar_btn1 = (ImageButton) findViewById(R.id.bottom_action_bar_btn1);
+        ButtonBarLayout bottom_action_bar_btn1 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn1);
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,8 +115,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        info_about_price.setText("("+ OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+
+        /* }
+
+    @Override
     protected void onStart() {
-        super.onStart();
+        super.onStart();*/
 
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
         mToolBar.setBackgroundResource(R.color.colorWhite);

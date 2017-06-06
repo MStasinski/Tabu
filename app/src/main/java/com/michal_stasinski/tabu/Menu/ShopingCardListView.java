@@ -161,7 +161,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
 
         String street = prefs.getString("Ulica", null);
-        Log.i("informacja", delivery_mode + "street u " + street2);
+
 
         if (street2 != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
@@ -197,7 +197,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
                 Object listItem = listView.getItemAtPosition(position);
                 Intent intent = new Intent();
-                Log.i("informacja", "position " + position);
 
                 if (position == 0) {
                     save_state();

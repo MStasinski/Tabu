@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
@@ -14,6 +15,13 @@ public class OrderComposerListViewAdapter extends BaseAdapter {
     private String[] titleArr;
     private String[] descArr;
     private Context mContext;
+    private int num_value = 1;
+
+
+    public int getNum_value() {
+        return num_value;
+    }
+
 
     public OrderComposerListViewAdapter(Context context, String[] titleArr, String[] descArr) {
 
@@ -45,6 +53,38 @@ public class OrderComposerListViewAdapter extends BaseAdapter {
         if (convertView == null) {
             if (position == titleArr.length - 1) {
                 view = View.inflate(mContext, R.layout.fragment_order_compositor_add_remove_panel, null);
+                //view = View.inflate(mContext, R.layout.test, null);
+
+                Button add_btn = (Button) view.findViewById(R.id.order_compositor_addItem);
+                Button remove_btn = (Button) view.findViewById(R.id.order_compositor_removeItem);
+                final TextView num = (TextView) view.findViewById(R.id.order_compositor_quantity_num);
+
+                num.setText(String.valueOf(num_value));
+
+                add_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        num_value++;
+                        num.setText(String.valueOf(num_value));
+                        notifyDataSetChanged();
+                    }
+
+
+                });
+
+                remove_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(num_value>1) {
+                            num_value--;
+                        }
+                        num.setText(String.valueOf(num_value));
+                        notifyDataSetChanged();
+                    }
+                });
+
             } else {
                 viewHolder = new ViewHolderItem();
                 view = View.inflate(mContext, R.layout.fragment_order_compositor_row, null);

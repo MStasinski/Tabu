@@ -117,7 +117,6 @@ public class ShopingCardAdapter extends BaseAdapter {
         } else {
 
            viewHolder = (ViewHolderItem) convertView.getTag();
-            Log.i("informacja",arr.get(position).getTitle()+"   "+ viewHolder.title.getText());
         }
 
 
