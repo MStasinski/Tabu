@@ -1,11 +1,16 @@
 package com.michal_stasinski.tabu;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -58,8 +63,58 @@ public class SplashScreen extends Activity {
     /**
      * Duration of wait
      **/
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int SPLASH_DISPLAY_LENGTH =0;
 
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            Log.i("informacja", "ładuje bazy w tle...czekaj");
+
+            pizzaList = new ArrayList<MenuItemProduct>();
+            saladList = new ArrayList<MenuItemProduct>();
+            pizzaCheeseList = new ArrayList<MenuItemProduct>();
+            pizzaColdCutsMeatList = new ArrayList<MenuItemProduct>();
+            pizzaWegetables = new ArrayList<MenuItemProduct>();
+            pizzaSpices = new ArrayList<MenuItemProduct>();
+            pizzaSauces = new ArrayList<MenuItemProduct>();
+            orderList = new ArrayList<OrderListItem>();
+
+
+            Task<?>[] tasks = new Task[]{
+                    loadPizzaSizes("PizzaSizes", 0),
+                    loadFireBaseData("Pizzas", pizzaList),
+                    loadFireBaseData("Salads", saladList),
+                    loadFireBaseData("PizzaCheeses", pizzaCheeseList),
+                    loadFireBaseData("PizzaColdCutsMeats", pizzaColdCutsMeatList),
+                    loadFireBaseData("PizzaWegetables", pizzaWegetables),
+                    loadFireBaseData("PizzaSauces", pizzaSauces),
+                    loadFireBaseData("PizzaSpices", pizzaSpices),
+                    loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
+                    StartApp()
+
+            };
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            Log.i("informacja", "gotowe...bazy załadowane");
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.i("informacja", "musze załadować bazy danych");
+
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+
+            Log.i("informacja", "progres");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,51 +124,21 @@ public class SplashScreen extends Activity {
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
         String itemo = prefs.getString(dataDeliveryTextFieldName[0], null);
-        Log.i("informacja", dataDeliveryTextFieldName[0] + "splashhhh c " + itemo);
-
 
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        pizzaList = new ArrayList<MenuItemProduct>();
-        saladList = new ArrayList<MenuItemProduct>();
-        pizzaCheeseList = new ArrayList<MenuItemProduct>();
-        pizzaColdCutsMeatList = new ArrayList<MenuItemProduct>();
-        pizzaWegetables = new ArrayList<MenuItemProduct>();
-        pizzaSpices = new ArrayList<MenuItemProduct>();
-        pizzaSauces = new ArrayList<MenuItemProduct>();
-        orderList = new ArrayList<OrderListItem>();
-
-
-        Task<?>[] tasks = new Task[]{
-                loadPizzaSizes("PizzaSizes", 0),
-                loadFireBaseData("Pizzas", pizzaList),
-                loadFireBaseData("Salads", saladList),
-                loadFireBaseData("PizzaCheeses", pizzaCheeseList),
-                loadFireBaseData("PizzaColdCutsMeats", pizzaColdCutsMeatList),
-                loadFireBaseData("PizzaWegetables", pizzaWegetables),
-                loadFireBaseData("PizzaSauces", pizzaSauces),
-                loadFireBaseData("PizzaSpices", pizzaSpices),
-                loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
-                StartApp()
-
-        };
+    protected void onResume() {
+        super.onResume();
+        new LongOperation().execute("");
     }
 
     private Task<String> StartApp() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+
                 Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
                 SplashScreen.this.startActivity(mainIntent);
                 SplashScreen.this.finish();
-            }
-        }, SPLASH_DISPLAY_LENGTH);
-
         return tcs.getTask();
     }
 
@@ -148,6 +173,8 @@ public class SplashScreen extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        Log.i("informacja", " t0 zaladowana baza "+ databaseReference);
         return tcs.getTask();
     }
 
@@ -186,7 +213,7 @@ public class SplashScreen extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
+        Log.i("informacja", "t1 zaladowana baza "+ databaseReference);
         return tcs.getTask();
     }
 
@@ -217,8 +244,6 @@ public class SplashScreen extends Activity {
                     deliveryCostItem.setDistacne(dist);
 
                     deliveryCostArray.add(deliveryCostItem);
-
-
                 }
 
             }
@@ -230,9 +255,12 @@ public class SplashScreen extends Activity {
             }
 
         });
-
+        Log.i("informacja", "t2 zaladowana baza "+ databaseReference);
         return tcs.getTask();
+
     }
+
+
 
 }
 

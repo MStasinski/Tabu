@@ -182,23 +182,30 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         String street = prefs.getString("Ulica", null);
 
+        ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount()-2);
+
 
         if (street2 != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
             el.setDesc(street2);
+            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost,2)));
             adapter.notifyDataSetChanged();
 
         } else {
             ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
             el0.setDesc("ODBIÓR WŁASNY");
+            selectedItem_del_cost.setDesc("0.00");
             ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
             el1.setDesc(RESTAURANT_ADDRES);
         }
+
+
 
         if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
             el.setDesc(delivery_mode);
             deliveryCost = DataForDeliveryListView.deliveryCost;
+
             adapter.notifyDataSetChanged();
 
         } else {
