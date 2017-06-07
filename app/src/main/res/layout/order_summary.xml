@@ -22,7 +22,7 @@
 
 
         <com.michal_stasinski.tabu.Utils.CustomTextView
-            android:id="@+id/checkmark"
+            android:id="@+id/order_summary_sum_of_all_prices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

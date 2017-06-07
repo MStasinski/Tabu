@@ -33,7 +33,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
     private BounceListView listView;
     private Boolean isClick = false;
-
+    public static int deliveryCost = 0;
     protected Integer[] imgid = {
             R.mipmap.ic_launcher,
             R.mipmap.person_icon,
@@ -86,13 +86,14 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
 
-                Log.i("informacja", " clik data");
                 SharedPreferences.Editor editor = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE).edit();
 
                 for (int i = 0; i < 12; i++) {
                     ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
                     editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
                 }
+
+                editor.putInt("deliveryCost", deliveryCost);
                 editor.commit();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
@@ -100,6 +101,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         });
 
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
 
         for (int i = 0; i < 12; i++) {
             String item = prefs.getString(dataDeliveryTextFieldName[i], null);
@@ -111,14 +113,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             }
         }
     }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
 
     private Address getCoordinatesFromAddresse(String txt) {
 
@@ -212,12 +206,18 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
             if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
                 text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
+                deliveryCost = 0;
+
             } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
                 text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(2).getPrice() + " zł");
+                deliveryCost = Integer.valueOf(deliveryCostArray.get(2).getPrice());
+
             } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
                 text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
+                deliveryCost = Integer.valueOf(deliveryCostArray.get(1).getPrice());
             } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
                 text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
+                deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
             }
 
 
@@ -243,9 +243,9 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                     Object listItem = listView.getItemAtPosition(position);
 
-                    Log.i("informacja", "dataaaaaaaaaa" +position+(position == 0 || position == 5 || position == 12));
+                    Log.i("informacja", "dataaaaaaaaaa" + position + (position == 0 || position == 5 || position == 12));
                     if (position == 0 || position == 5 || position == 12) {
-                    }else{
+                    } else {
                         isClick = true;
                         // view.setOnClickListener(null);
 

@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="60dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
@@ -28,14 +28,16 @@
                 android:tint="@color/colorPrimary" />
 
             <com.michal_stasinski.tabu.Utils.CustomTextView
+                android:id="@+id/customTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="16dp"
                 android:text="MENU"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16dp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </android.support.v7.widget.ButtonBarLayout>
 
 
@@ -49,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
@@ -66,7 +68,8 @@
 
                 android:text="(0) 0.00zł"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16dp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </android.support.v7.widget.ButtonBarLayout>
     </RelativeLayout>
 </LinearLayout>

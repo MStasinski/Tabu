@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu.Menu;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -65,6 +66,7 @@ public class OrderComposer extends SwipeBackActivity {
         //************************* przycisk close**********************
 
         Button closeButton = (Button) findViewById(R.id.bClose);
+
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,10 +111,8 @@ public class OrderComposer extends SwipeBackActivity {
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
 
-        final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
 
         String output = MathUtils.formatDecimal(sum, 2);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
 
@@ -135,8 +135,10 @@ public class OrderComposer extends SwipeBackActivity {
         adapter = new OrderComposerListViewAdapter(this, titleText, descText);
         adapter.notifyDataSetChanged();
 
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
+        //*********************************** addToCartBtn*********************************************
 
+        final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -161,6 +163,7 @@ public class OrderComposer extends SwipeBackActivity {
                 order.setSumOfPrices(sum);
                 String addon = descText[1];
                 String sauce = descText[2];
+                String note = descText[3];
 
                 if (descText[1] != "Wybierz dodatki") {
                     order.setAddon(addon);
@@ -174,13 +177,18 @@ public class OrderComposer extends SwipeBackActivity {
                     sauce = "";
                     order.setSauce(sauce);
                 }
+                if (descText[3] != "Dodaj swoje uwagi") {
+                    order.setSauce("UWAGI: "+descText[3]);
+                } else {
+                    note = "";
+                    order.setNote(note);
+                }
 
-
-                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce;
+                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce+ " " +note;
                 int isAlready = -1;
 
                 for (int i = 0; i < orderList.size(); i++) {
-                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce();
+                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce()+" " + orderList.get(i).getNote();
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;
@@ -189,14 +197,13 @@ public class OrderComposer extends SwipeBackActivity {
 
 
                 if (isAlready == -1) {
-                    Log.i("informacja", "nie ma takiej pizzy " + quantity);
+
                     order.setQuantity(quantity);
                     orderList.add(order);
                     // orderList.get(0).setQuantity(quantity);
                 } else {
                     //orderList.add(order);
                     int quantityOld = orderList.get(isAlready).getQuantity();
-                    Log.i("informacja", "jest juz pizza i ma  " + quantityOld);
 
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
@@ -206,6 +213,8 @@ public class OrderComposer extends SwipeBackActivity {
 
             }
         });
+
+        //***********************************listView*****************************
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -235,10 +244,47 @@ public class OrderComposer extends SwipeBackActivity {
                     intent.setClass(view.getContext(), SaucePopUp.class);
                     startActivity(intent);
                 }
+
+                if (position == 3) {
+                    intent.putExtra("position", 13);
+                    intent.putExtra("title", "UWAGI");
+
+                    if (descText[3] =="Dodaj swoje uwagi") {
+                        intent.putExtra("actualText", "");
+                    } else {
+                        intent.putExtra("actualText",descText[3]);
+                    }
+                    intent.setClass(view.getContext(), EditTextPopUp.class);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.i("informacja", "resultresult 000 " );
+        if (requestCode == 1) {
 
+            if (resultCode == Activity.RESULT_OK) {
+
+                String result = data.getStringExtra("edit_text");
+
+                Log.i("informacja", "resultresult " + result);
+
+                if (!result.equals("") ) {
+                    descText[3] = result;
+
+                } else {
+                    descText[3] ="Dodaj swoje uwagi";
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -317,6 +363,7 @@ public class OrderComposer extends SwipeBackActivity {
 
 
         adapter.setDescArr(descText);
+
         adapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {

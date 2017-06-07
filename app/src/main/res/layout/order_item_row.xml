@@ -29,7 +29,7 @@
             android:text="TextView"
             android:layout_marginLeft="60dp"
             android:textColor="@color/colorThirdGrey"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_item_desc"
@@ -38,21 +38,23 @@
             android:text="TextView"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="60dp"
+            android:layout_marginRight="40dp"
             android:textColor="@color/colorThirdGrey"
-            android:textSize="16dp" />
+            android:textSize="14sp" />
 
         <com.michal_stasinski.tabu.Utils.CustomTextView
             android:id="@+id/order_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:text="18.90"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

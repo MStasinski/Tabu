@@ -110,6 +110,7 @@ public class ShopingCardAdapter extends BaseAdapter {
                 case TYPE_SUMMARY:
                     convertView = mInflater.inflate(R.layout.order_summary, null);
                     viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_summary_title);
+                    viewHolder.desc = (CustomTextView) convertView.findViewById(R.id.order_summary_sum_of_all_prices);
                     break;
 
             }

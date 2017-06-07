@@ -136,6 +136,14 @@ public class EditTextPopUp extends Activity {
 
                 }
 
+                if (pos == 13) {
+
+                    if (editText.getText().length() > 0) {
+                        isValidate = true;
+                    }
+
+                }
+
                 if (isValidate == false && editText.getText().length() > 0) {
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTextPopUp.this);

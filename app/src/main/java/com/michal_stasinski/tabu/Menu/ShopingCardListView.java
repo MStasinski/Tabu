@@ -3,7 +3,6 @@ package com.michal_stasinski.tabu.Menu;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +14,8 @@ import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.MathUtils;
+import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
@@ -26,6 +27,7 @@ import static com.michal_stasinski.tabu.SplashScreen.orderList;
 public class ShopingCardListView extends SwipeBackActivity {
     private ShopingCardAdapter adapter;
     public static int selected_time = 0;
+    private int deliveryCost = 0;
     private String[] titleText = {
             "Sposób Odbioru",
             "Adres Odbioru",
@@ -66,7 +68,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         final BounceListView listView = (BounceListView) findViewById(R.id.shoping_card_listView);
 
-        adapter = new ShopingCardAdapter(this);
+
 
 
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
@@ -75,9 +77,11 @@ public class ShopingCardListView extends SwipeBackActivity {
         String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
         String email = prefs.getString(dataDeliveryTextFieldName[3], null);
         String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
+        deliveryCost = prefs.getInt("deliveryCost",0);
 
-
+        adapter = new ShopingCardAdapter(this);
         ShopingCardItem produkt = new ShopingCardItem();
+
         if (firstname != null && !firstname.equals("Imię") &&
                 lastname != null && !lastname.equals("Nazwisko") &&
                 email != null && !email.equals("E-Mail") &&
@@ -123,7 +127,15 @@ public class ShopingCardListView extends SwipeBackActivity {
             ShopingCardItem produkt2 = new ShopingCardItem();
             produkt2.setSumOfPrices(orderList.get(i).getQuantity() * orderList.get(i).getSumOfPrices());
             produkt2.setTitle(orderList.get(i).getName());
-            produkt2.setDesc(orderList.get(i).getSize() + " " + orderList.get(i).getAddon());
+
+            String txtDesc = orderList.get(i).getSize();
+            if (!orderList.get(i).getAddon().equals("")) {
+                txtDesc += ", " + orderList.get(i).getAddon();
+            }
+            if (!orderList.get(i).getSauce().equals("")) {
+                txtDesc += ", " + orderList.get(i).getSauce();
+            }
+            produkt2.setDesc(txtDesc);
             produkt2.setNr(orderList.get(i).getQuantity());
             produkt2.setType(ShopingCardAdapter.TYPE_ORDER_ITEM);
 
@@ -140,7 +152,15 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             ShopingCardItem produkt1 = new ShopingCardItem();
             produkt1.setTitle(order[i]);
-            produkt1.setDesc("");
+            if (i == 0) {
+                produkt1.setDesc(OrderComposerUtils.sum_of_all_the_prices());
+            }
+            if (i == 1) {
+                produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost, 2)));
+            }
+            if (i == 2) {
+                produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
+            }
             produkt1.setNr(1);
             produkt1.setType(ShopingCardAdapter.TYPE_SUMMARY);
 
@@ -178,11 +198,13 @@ public class ShopingCardListView extends SwipeBackActivity {
         if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
             el.setDesc(delivery_mode);
+            deliveryCost = DataForDeliveryListView.deliveryCost;
             adapter.notifyDataSetChanged();
 
         } else {
             ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
             el0.setDesc("ODBIÓR WŁASNY");
+            deliveryCost = 0;
             ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
             el1.setDesc(RESTAURANT_ADDRES);
         }
@@ -206,9 +228,11 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                 if (position == 2) {
                     ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(2);
+                    ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount()-2);
 
                     if (selectedItem.getDesc() == "ODBIÓR WŁASNY") {
                         selectedItem.setDesc("DOSTAWA");
+                        selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost,2)));
                         ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
 
                         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
@@ -224,6 +248,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                     } else {
                         selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
+                        selectedItem_del_cost.setDesc("0.00");
                         ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
                         selectedAddres.setDesc(RESTAURANT_ADDRES);
                     }
