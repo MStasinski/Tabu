@@ -139,6 +139,7 @@ public class OrderComposer extends SwipeBackActivity {
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
+
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

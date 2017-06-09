@@ -1,16 +1,11 @@
 package com.michal_stasinski.tabu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -63,7 +58,7 @@ public class SplashScreen extends Activity {
     /**
      * Duration of wait
      **/
-    private final int SPLASH_DISPLAY_LENGTH =0;
+    private final int SPLASH_DISPLAY_LENGTH = 0;
 
     private class LongOperation extends AsyncTask<String, Void, String> {
 
@@ -136,9 +131,9 @@ public class SplashScreen extends Activity {
     private Task<String> StartApp() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
 
-                Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
-                SplashScreen.this.startActivity(mainIntent);
-                SplashScreen.this.finish();
+        Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
+        SplashScreen.this.startActivity(mainIntent);
+        SplashScreen.this.finish();
         return tcs.getTask();
     }
 
@@ -174,7 +169,7 @@ public class SplashScreen extends Activity {
             }
         });
 
-        Log.i("informacja", " t0 zaladowana baza "+ databaseReference);
+        Log.i("informacja", " t0 zaladowana baza " + databaseReference);
         return tcs.getTask();
     }
 
@@ -213,7 +208,7 @@ public class SplashScreen extends Activity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        Log.i("informacja", "t1 zaladowana baza "+ databaseReference);
+        Log.i("informacja", "t1 zaladowana baza " + databaseReference);
         return tcs.getTask();
     }
 
@@ -255,11 +250,10 @@ public class SplashScreen extends Activity {
             }
 
         });
-        Log.i("informacja", "t2 zaladowana baza "+ databaseReference);
+        Log.i("informacja", "t2 zaladowana baza " + databaseReference);
         return tcs.getTask();
 
     }
-
 
 
 }

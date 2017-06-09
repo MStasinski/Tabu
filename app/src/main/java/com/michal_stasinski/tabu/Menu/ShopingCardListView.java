@@ -69,15 +69,13 @@ public class ShopingCardListView extends SwipeBackActivity {
         final BounceListView listView = (BounceListView) findViewById(R.id.shoping_card_listView);
 
 
-
-
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
         String firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
         String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
         String email = prefs.getString(dataDeliveryTextFieldName[3], null);
         String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
-        deliveryCost = prefs.getInt("deliveryCost",0);
+        deliveryCost = prefs.getInt("deliveryCost", 0);
 
         adapter = new ShopingCardAdapter(this);
         ShopingCardItem produkt = new ShopingCardItem();
@@ -156,7 +154,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                 produkt1.setDesc(OrderComposerUtils.sum_of_all_the_prices());
             }
             if (i == 1) {
-                produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost, 2)));
+                produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
             }
             if (i == 2) {
                 produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
@@ -182,36 +180,41 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         String street = prefs.getString("Ulica", null);
 
-        ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount()-2);
-
+        ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
+        ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
         if (street2 != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
             el.setDesc(street2);
-            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost,2)));
+            //deliveryCost = DataForDeliveryListView.deliveryCost;
+            deliveryCost = prefs.getInt("deliveryCost", 0);
+            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
+            selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
             adapter.notifyDataSetChanged();
 
         } else {
             ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
             el0.setDesc("ODBIÓR WŁASNY");
+            // deliveryCost = 0;
             selectedItem_del_cost.setDesc("0.00");
+            selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
             ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
             el1.setDesc(RESTAURANT_ADDRES);
         }
 
 
-
         if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
             el.setDesc(delivery_mode);
-            deliveryCost = DataForDeliveryListView.deliveryCost;
-
+            //deliveryCost = DataForDeliveryListView.deliveryCost;
+            deliveryCost = prefs.getInt("deliveryCost", 0);
+            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
             adapter.notifyDataSetChanged();
 
         } else {
             ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
             el0.setDesc("ODBIÓR WŁASNY");
-            deliveryCost = 0;
+            // deliveryCost = 0;
             ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
             el1.setDesc(RESTAURANT_ADDRES);
         }
@@ -235,11 +238,14 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                 if (position == 2) {
                     ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(2);
-                    ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount()-2);
+                    ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
+                    ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
                     if (selectedItem.getDesc() == "ODBIÓR WŁASNY") {
                         selectedItem.setDesc("DOSTAWA");
-                        selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(DataForDeliveryListView.deliveryCost,2)));
+                        selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
+                        selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
+
                         ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
 
                         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
@@ -256,6 +262,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     } else {
                         selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
                         selectedItem_del_cost.setDesc("0.00");
+                        selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
                         ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
                         selectedAddres.setDesc(RESTAURANT_ADDRES);
                     }
