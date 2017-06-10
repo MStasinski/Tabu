@@ -16,6 +16,7 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import java.util.ArrayList;
 
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
+import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 import static com.michal_stasinski.tabu.SplashScreen.saladList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaCheeseList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaColdCutsMeatList;
@@ -67,10 +68,10 @@ public class MenuFragment extends Fragment {
             menuArrayList = saladList;
         }
         if (fireBaseRef == 3) {
-            menuArrayList = pizzaCheeseList;
+            menuArrayList = pizzaSauces;
         }
         if (fireBaseRef == 4) {
-            menuArrayList = pizzaColdCutsMeatList;
+            menuArrayList = pizzaList;
         }
 
 

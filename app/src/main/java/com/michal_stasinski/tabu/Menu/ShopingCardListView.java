@@ -3,6 +3,7 @@ package com.michal_stasinski.tabu.Menu;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -60,7 +61,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             //TODO komunitkata
         }
 
-
         final ShopingCardItem[] items = new ShopingCardItem[40];
 
         setContentView(R.layout.activity_shoping_card_list_view);
@@ -76,7 +76,6 @@ public class ShopingCardListView extends SwipeBackActivity {
         String email = prefs.getString(dataDeliveryTextFieldName[3], null);
         String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
         deliveryCost = prefs.getInt("deliveryCost", 0);
-
         adapter = new ShopingCardAdapter(this);
         ShopingCardItem produkt = new ShopingCardItem();
 
@@ -124,20 +123,43 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             ShopingCardItem produkt2 = new ShopingCardItem();
             produkt2.setSumOfPrices(orderList.get(i).getQuantity() * orderList.get(i).getSumOfPrices());
+            String txtDesc = "";
             produkt2.setTitle(orderList.get(i).getName());
+            if (orderList.get(i).getSize() != null) {
+                txtDesc = orderList.get(i).getSize();
+            }
 
-            String txtDesc = orderList.get(i).getSize();
-            if (!orderList.get(i).getAddon().equals("")) {
-                txtDesc += ", " + orderList.get(i).getAddon();
+
+            if (orderList.get(i).getAddon() != null) {
+                if (!orderList.get(i).getAddon().equals("")) {
+                    txtDesc += ", " + orderList.get(i).getAddon();
+                }
             }
-            if (!orderList.get(i).getSauce().equals("")) {
-                txtDesc += ", " + orderList.get(i).getSauce();
+            if (orderList.get(i).getSauce() != null) {
+                if (!orderList.get(i).getSauce().equals("")) {
+                    txtDesc += ", " + orderList.get(i).getSauce();
+                }
             }
-            produkt2.setDesc(txtDesc);
+            if (orderList.get(i).getNote() != null) {
+                if (!orderList.get(i).getNote().equals("")) {
+                    if (!txtDesc.equals("")) {
+                        txtDesc += ", " + orderList.get(i).getNote();
+                    } else {
+                        txtDesc = orderList.get(i).getNote();
+                    }
+                }
+            }
+            if (txtDesc != null) {
+                Log.i("informacja", txtDesc);
+                produkt2.setDesc(txtDesc);
+            } else {
+                produkt2.setDesc("");
+            }
             produkt2.setNr(orderList.get(i).getQuantity());
             produkt2.setType(ShopingCardAdapter.TYPE_ORDER_ITEM);
 
             adapter.addItem(produkt2);
+
 
         }
 

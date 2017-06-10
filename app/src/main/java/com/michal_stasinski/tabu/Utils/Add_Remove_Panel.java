@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.michal_stasinski.tabu.Menu.OrderComposer;
 import com.michal_stasinski.tabu.R;
 
 /**

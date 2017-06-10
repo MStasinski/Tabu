@@ -35,7 +35,10 @@
             android:name=".Menu.SaucePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
-            android:name=".Menu.OrderComposer"
+            android:name=".Menu.OrderComposerPizza"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".Menu.OrderComposerOthers"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".Menu.ShopingCardListView"

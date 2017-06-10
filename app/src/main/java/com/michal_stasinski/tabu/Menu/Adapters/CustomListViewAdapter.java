@@ -15,12 +15,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.OrderComposer;
+import com.michal_stasinski.tabu.Menu.OrderComposerOthers;
+import com.michal_stasinski.tabu.Menu.OrderComposerPizza;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -147,8 +148,8 @@ public class CustomListViewAdapter extends BaseAdapter {
         viewHolder.textDesc.setText(arr.get(position).getDescription().toLowerCase());
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
-            String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i),2);
-            viewHolder.buttonArray.get(i).setText( output.toString()+ (" zł").toLowerCase());
+            String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i), 2);
+            viewHolder.buttonArray.get(i).setText(output.toString() + (" zł").toLowerCase());
 
             final int butId = i;
 
@@ -158,21 +159,28 @@ public class CustomListViewAdapter extends BaseAdapter {
                     if (button_flag_enabled) {
                         button_flag_enabled = false;
                         Intent intent = new Intent();
-                        intent.setClass(mContext, OrderComposer.class);
 
+                        if (MainActivity.CHOICE_ACTIVITY == 1) {
+                            intent.setClass(mContext, OrderComposerPizza.class);
+                        } else {
+                            intent.setClass(mContext, OrderComposerOthers.class);
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("name", arr.get(clikPos).getName());
                         bundle.putInt("position", clikPos);
-                        bundle.putString("desc",arr.get(clikPos).getDescription());
+                        bundle.putString("desc", arr.get(clikPos).getDescription());
                         bundle.putInt("size", butId);
                         bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
+                        Log.i("informacja", "___________________________" + clikPos + "" + butId);
+                        Log.i("informacja", "name "+arr.get(clikPos).getName() );
+                        Log.i("informacja",arr.get(clikPos).getPriceArray()+ "price "+ arr.get(clikPos).getPriceArray().get(butId).toString() );
                         intent.putExtras(bundle);
                         Activity activity = (Activity) mContext;
                         activity.startActivity(intent);
                         activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
 
-                        Log.i("informacja", "clikPos"+clikPos+""+butId);
+
                     }
 
                 }

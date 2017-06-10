@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -59,7 +58,7 @@ public class PizzaSizePopUp extends Activity {
             }
             positionIteminMenuListView = bundle.getInt("position");
             size = bundle.getInt("size");
-            OrderComposer.setSize(size);
+            OrderComposerPizza.setSize(size);
             pizzaSizes_CheckMark.set(size, 1);
         }
 
@@ -77,7 +76,7 @@ public class PizzaSizePopUp extends Activity {
                 for (int i = 0; i < pizzaSizes_CheckMark.size(); i++) {
                     pizzaSizes_CheckMark.set(i, 0);
                 }
-                OrderComposer.setSize(position);
+                OrderComposerPizza.setSize(position);
                 pizzaSizes_CheckMark.set(position, 1);
                 adapterek.notifyDataSetChanged();
 

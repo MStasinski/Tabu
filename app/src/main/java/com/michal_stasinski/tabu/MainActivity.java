@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static int CHOICE_ACTIVITY;
     private DatabaseReference myRef;
     private LinearLayout content;
     private ArrayList<MenuItemProduct> menuItem;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected ActionBarDrawerToggle mToggle;
     protected int currentActivity = 0;
     protected int choicetActivity = 0;
+
     protected BounceListView mListViewDrawer;
     protected BounceListView mListViewMenu;
 
@@ -118,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
-        info_about_price.setText("("+ OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+        CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
         /* }
 
@@ -154,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                 if (currentActivity != choicetActivity && choicetActivity != 5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
+                    CHOICE_ACTIVITY = choicetActivity;
                     MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
@@ -163,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (currentActivity != choicetActivity && choicetActivity == 5) {
                     Intent intent = new Intent();
-                    choicetActivity =0;
+                    choicetActivity = 0;
                     intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }

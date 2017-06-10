@@ -27,7 +27,7 @@ import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 
-public class OrderComposer extends SwipeBackActivity {
+public class OrderComposerPizza extends SwipeBackActivity {
 
 
     private int itemPositionInMenuListView;
@@ -36,22 +36,8 @@ public class OrderComposer extends SwipeBackActivity {
     private int quantity = 1;
     private float sum = 0;
     private String pizzaName;
-private String[] titleText = {
-            "Rozmiar",
-            "Dodatki",
-            "Dodatkowy sos",
-            "Uwagi",
-            "addRemoveButton"
-    };
-    private String[] descText = {
-            "30 cm",
-            "Wybierz dodatki",
-            "Wybierz dodatkowy sos",
-            "Dodaj swoje uwagi",
-            "addRemoveButton"
-    };
 
-    /*private String[] titleText = {
+    private String[] titleText = {
             "Rozmiar",
             "Dodatki",
             "Dodatkowy sos",
@@ -64,7 +50,7 @@ private String[] titleText = {
             "Wybierz dodatkowy sos",
             "Dodaj swoje uwagi",
             "addRemoveButton"
-    };*/
+    };
 
 
     @Override
@@ -179,20 +165,20 @@ private String[] titleText = {
                 String sauce = descText[2];
                 String note = descText[3];
 
-                if (descText[1] != "Wybierz dodatki") {
+                if (descText[1] != "Wybierz dodatki"&& descText[1] !=null) {
                     order.setAddon(addon);
                 } else {
                     order.setAddon("");
                     addon = "";
                 }
-                if (descText[2] != "Wybierz dodatkowy sos") {
+                if (descText[2] != "Wybierz dodatkowy sos" && descText[2] !=null) {
                     order.setSauce(descText[2]);
                 } else {
                     sauce = "";
                     order.setSauce(sauce);
                 }
-                if (descText[3] != "Dodaj swoje uwagi") {
-                    order.setSauce("UWAGI: "+descText[3]);
+                if (descText[3] != "Dodaj swoje uwagi"&& descText[3] !=null) {
+                    order.setNote("UWAGI: "+descText[3]);
                 } else {
                     note = "";
                     order.setNote(note);
@@ -400,6 +386,6 @@ private String[] titleText = {
     }
 
     public static void setSize(int size) {
-        OrderComposer.size = size;
+        OrderComposerPizza.size = size;
     }
 }
