@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
@@ -35,6 +36,8 @@ public class SplashScreen extends Activity {
     public static ArrayList<Integer> pizzaAddons_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
+    public static ArrayList<MenuItemProduct> nameArrayList;
+
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
@@ -174,15 +177,18 @@ public class SplashScreen extends Activity {
     }
 
 
-    public static Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
+    public  Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef;
-
         myRef = database.getReference(databaseReference);
+
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("informacja","zmiana w bazie");
+                nameArrayList.clear();
 
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 
@@ -200,14 +206,22 @@ public class SplashScreen extends Activity {
                     menuItemProduct.setDescription(desc);
                     menuItemProduct.setPriceArray(price);
                     menuItemProduct.setHowManyItemSelected(0);
+                    Log.i("informacja","nowe daneeee"+name);
                     nameArrayList.add(menuItemProduct);
                 }
+
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.FIREBASE_CHANGED);
+                sendBroadcast(intent);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
+
         });
+
+
         Log.i("informacja", "t1 zaladowana baza " + databaseReference);
         return tcs.getTask();
     }

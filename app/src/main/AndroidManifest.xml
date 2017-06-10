@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.michal_stasinski.tabu">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -46,12 +45,11 @@
         <activity
             android:name=".Menu.TimeOfDeliveryPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
-
         <activity
             android:name=".Menu.EditTextPopUp"
             android:theme="@style/AppTheme.PopUpWindow2" />
-
-        <activity android:name=".Menu.DataForDeliveryListView"
+        <activity
+            android:name=".Menu.DataForDeliveryListView"
             android:theme="@style/Theme.Swipe.Back" />
     </application>
 

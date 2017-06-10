@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
@@ -18,11 +19,11 @@ import java.util.ArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 import static com.michal_stasinski.tabu.SplashScreen.saladList;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaCheeseList;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaColdCutsMeatList;
 
 
 public class MenuFragment extends Fragment {
+
+
     protected BounceListView mListViewMenu;
     private View myView;
     private int fireBaseRef;
@@ -46,7 +47,9 @@ public class MenuFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -83,9 +86,10 @@ public class MenuFragment extends Fragment {
         mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
         arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
-
         mListViewMenu.setAdapter(arrayAdapter);
         mListViewMenu.setScrollingCacheEnabled(false);
+
+        arrayAdapter.notifyDataSetChanged();
         setHasOptionsMenu(true);
         return myView;
     }
@@ -93,13 +97,34 @@ public class MenuFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        arrayAdapter.notifyDataSetChanged();
         arrayAdapter.setButton_flag_enabled(true);
-        Log.i("informacja", "onResume w MenuFragement");
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("informacja", "onDestroyw MenuFragement");
     }
+
+    public void reloadBase() {
+
+        if (MainActivity.CHOICE_ACTIVITY == 1) {
+            menuArrayList = pizzaList;
+        }
+        if (MainActivity.CHOICE_ACTIVITY == 2) {
+            menuArrayList = saladList;
+        }
+        if (MainActivity.CHOICE_ACTIVITY == 3) {
+            menuArrayList = pizzaSauces;
+        }
+        if (MainActivity.CHOICE_ACTIVITY == 4) {
+            menuArrayList = pizzaList;
+        }
+        arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
+        mListViewMenu.setAdapter(arrayAdapter);
+        mListViewMenu.setScrollingCacheEnabled(false);
+        arrayAdapter.notifyDataSetChanged();
+    }
+
 }

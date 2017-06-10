@@ -2,7 +2,10 @@ package com.michal_stasinski.tabu;
 
 
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,12 +38,15 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String FIREBASE_CHANGED = "firebase_changed";
     public static int CHOICE_ACTIVITY;
+
     private DatabaseReference myRef;
     private LinearLayout content;
     private ArrayList<MenuItemProduct> menuItem;
     private ImageView drawerBackgroud;
+    private MenuFragment fragment;
+
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
@@ -83,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        MainActivity.MyReceiver myReceiver = new MainActivity.MyReceiver();
+        IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
+        registerReceiver(myReceiver, intentFilter);
 
        /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
         stub.setLayoutResource(R.layout.bounce_list_view);
@@ -156,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     CHOICE_ACTIVITY = choicetActivity;
-                    MenuFragment fragment = MenuFragment.newInstance(choicetActivity);
+                    fragment = MenuFragment.newInstance(choicetActivity);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
                     //TODO dodaj animacje
@@ -243,5 +254,20 @@ public class MainActivity extends AppCompatActivity {
             TintIcon.tintMenuIcon(MainActivity.this, menuItem2, R.color.colorPrimary);
         }
         return true;
+    }
+
+    public class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(FIREBASE_CHANGED)) {
+                // String message = intent.getStringExtra(MSG_FIELD);
+                // tvMessage.setText(message);
+                if(fragment!=null){
+
+                    fragment.reloadBase();
+                }
+                Log.i("informacja", "no cos tam sie zmieniło ponoć w bazie");
+            }
+        }
     }
 }
