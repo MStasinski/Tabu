@@ -36,9 +36,7 @@ public class OrderComposer extends SwipeBackActivity {
     private int quantity = 1;
     private float sum = 0;
     private String pizzaName;
-
-
-    private String[] titleText = {
+private String[] titleText = {
             "Rozmiar",
             "Dodatki",
             "Dodatkowy sos",
@@ -52,6 +50,21 @@ public class OrderComposer extends SwipeBackActivity {
             "Dodaj swoje uwagi",
             "addRemoveButton"
     };
+
+    /*private String[] titleText = {
+            "Rozmiar",
+            "Dodatki",
+            "Dodatkowy sos",
+            "Uwagi",
+            "addRemoveButton"
+    };
+    private String[] descText = {
+            "30 cm",
+            "Wybierz dodatki",
+            "Wybierz dodatkowy sos",
+            "Dodaj swoje uwagi",
+            "addRemoveButton"
+    };*/
 
 
     @Override
