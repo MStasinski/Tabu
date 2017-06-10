@@ -53,29 +53,34 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         readBundle(getArguments());
 
+
         myView = inflater.inflate(R.layout.header_and_bounce_list_view, container, false);
 
-        TextView addonText = (TextView) myView.findViewById(R.id.addonText);
-        addonText.setText("Do każdej pizzy jeden sos czosnkowy gratis!");
-
-
-        mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
         if (fireBaseRef == 1) {
+            myView = inflater.inflate(R.layout.header_and_bounce_list_view, container, false);
+            TextView addonText = (TextView) myView.findViewById(R.id.addonText);
+            addonText.setText("Do każdej pizzy jeden sos czosnkowy gratis!");
             menuArrayList = pizzaList;
         }
 
         if (fireBaseRef == 2) {
+
+            myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
             menuArrayList = saladList;
         }
         if (fireBaseRef == 3) {
+
+            myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
             menuArrayList = pizzaSauces;
         }
         if (fireBaseRef == 4) {
+
+            myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
             menuArrayList = pizzaList;
         }
 
 
-
+        mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
         arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
 
@@ -89,12 +94,12 @@ public class MenuFragment extends Fragment {
     public void onResume() {
         super.onResume();
         arrayAdapter.setButton_flag_enabled(true);
-        Log.i("informacja","onResume w MenuFragement");
+        Log.i("informacja", "onResume w MenuFragement");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i("informacja","onDestroyw MenuFragement");
+        Log.i("informacja", "onDestroyw MenuFragement");
     }
 }
