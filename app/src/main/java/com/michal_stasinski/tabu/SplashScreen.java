@@ -197,6 +197,7 @@ public class SplashScreen extends Activity {
                     String name = (String) map.get("name");
                     String rank = (String) map.get("rank").toString();
                     String desc = (String) map.get("desc");
+                    Boolean isSold=(Boolean) map.get("sold");
 
                     ArrayList<Number> price = (ArrayList) map.get("price");
 
@@ -205,6 +206,7 @@ public class SplashScreen extends Activity {
                     menuItemProduct.setRank(rank);
                     menuItemProduct.setDescription(desc);
                     menuItemProduct.setPriceArray(price);
+                    menuItemProduct.setSold(isSold);
                     menuItemProduct.setHowManyItemSelected(0);
                     Log.i("informacja","nowe daneeee"+name);
                     nameArrayList.add(menuItemProduct);

@@ -20,6 +20,7 @@ import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.OrderComposerOthers;
 import com.michal_stasinski.tabu.Menu.OrderComposerPizza;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.CustomTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
@@ -117,6 +118,8 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
             viewHolder.price = price;
             viewHolder.buttonArray = new ArrayList<Button>();
+            viewHolder.soldLabel = (CustomTextView) view.findViewById(R.id.sold_info);
+
             for (int i = 0; i < price.size(); i++) {
                 LinearLayout list = (LinearLayout) view.findViewById(R.id.buttonlayout);
                 Button priceBtn = new Button(mContext);
@@ -142,7 +145,11 @@ public class CustomListViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolderItem) view.getTag();
         }
-
+        if (arr.get(position).getSold()) {
+            viewHolder.soldLabel.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.soldLabel.setVisibility(View.INVISIBLE);
+        }
         viewHolder.title.setText(arr.get(position).getName().toUpperCase());
         viewHolder.colorShape.setText("- " + arr.get(position).getRank() + " -");
         viewHolder.textDesc.setText(arr.get(position).getDescription().toLowerCase());
@@ -156,33 +163,35 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder.buttonArray.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    if (button_flag_enabled) {
-                        button_flag_enabled = false;
-                        Intent intent = new Intent();
+                    if (!arr.get(clikPos).getSold()) {
+                        if (button_flag_enabled) {
+                            button_flag_enabled = false;
+                            Intent intent = new Intent();
 
-                        if (MainActivity.CHOICE_ACTIVITY == 1) {
-                            intent.setClass(mContext, OrderComposerPizza.class);
-                        } else {
-                            intent.setClass(mContext, OrderComposerOthers.class);
+                            if (MainActivity.CHOICE_ACTIVITY == 1) {
+                                intent.setClass(mContext, OrderComposerPizza.class);
+                            } else {
+                                intent.setClass(mContext, OrderComposerOthers.class);
+                            }
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("name", arr.get(clikPos).getName());
+                            bundle.putInt("position", clikPos);
+                            bundle.putString("desc", arr.get(clikPos).getDescription());
+                            bundle.putInt("size", butId);
+                            bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
+
+                            Log.i("informacja", "___________________________" + clikPos + "" + butId);
+                            Log.i("informacja", "name " + arr.get(clikPos).getName());
+                            Log.i("informacja", arr.get(clikPos).getPriceArray() + "price " + arr.get(clikPos).getPriceArray().get(butId).toString());
+                            intent.putExtras(bundle);
+                            Activity activity = (Activity) mContext;
+                            activity.startActivity(intent);
+                            activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
+
+
                         }
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", arr.get(clikPos).getName());
-                        bundle.putInt("position", clikPos);
-                        bundle.putString("desc", arr.get(clikPos).getDescription());
-                        bundle.putInt("size", butId);
-                        bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
-
-                        Log.i("informacja", "___________________________" + clikPos + "" + butId);
-                        Log.i("informacja", "name "+arr.get(clikPos).getName() );
-                        Log.i("informacja",arr.get(clikPos).getPriceArray()+ "price "+ arr.get(clikPos).getPriceArray().get(butId).toString() );
-                        intent.putExtras(bundle);
-                        Activity activity = (Activity) mContext;
-                        activity.startActivity(intent);
-                        activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
-
-
                     }
-
                 }
 
             });
@@ -197,5 +206,6 @@ public class CustomListViewAdapter extends BaseAdapter {
         TextView colorShape;
         ArrayList<Button> buttonArray;
         ArrayList<Number> price;
+        CustomTextView soldLabel;
     }
 }

@@ -3,6 +3,7 @@ package com.michal_stasinski.tabu.Menu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -12,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
+import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -31,7 +33,10 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
     private BounceListView timeOfDeliveryListView;
     public static ArrayList<TimeListItem> timeList;
     private BounceListView mListViewMenu;
+
+
     private TimeOfDeliveryAdapter adapterek;
+    private ArrayList<MenuItemProduct> timeArr;
 
 
     @Override
@@ -42,14 +47,13 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         setContentView(R.layout.bounce_list_view);
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
+
         int width = dm.widthPixels;
         int height = dm.widthPixels;
+
         getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
-        String strDate = mdformat.format(calendar.getTime());
-        String[] gg = strDate.split(":");
+
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SendOrderOnlines");
@@ -64,6 +68,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
                     // String end = (String) map.get("end");
                     ArrayList<Number> price = (ArrayList) map.get("end");
+                    Log.i("informacja", "timeArr "+price);
+
 
                 }
             }
@@ -74,6 +80,20 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.i("informacja", "resummmmmmmmmme");
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
+        String strDate = mdformat.format(calendar.getTime());
+        String[] gg = strDate.split(":");
+
+
 
 
         Date Start = null;
@@ -81,15 +101,24 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
         int endHoure = 32;
         int startMinute = 15;
+
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+
         try {
+
             Start = simpleDateFormat.parse(strDate);
+
             End = simpleDateFormat.parse(endHoure + ":" + startMinute);
+
         } catch (ParseException e) {
             //Some thing if its not working
         }
 
         long difference = End.getTime() - Start.getTime();
+
+
         int days = (int) (difference / (1000 * 60 * 60 * 24));
         int hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
         int min = (int) (difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours)) / (1000 * 60);
@@ -133,6 +162,9 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             timeList.add(time);
             //adapterek.addItem(time);
         }
+
+
+
         Collections.reverse(timeList);
         TimeListItem time = new TimeListItem();
         time.setTime("jak najszybciej");
@@ -178,10 +210,5 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         String diff = hourDifference + " hours";
         Log.i("informacja", "time__________" + diff);*/
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

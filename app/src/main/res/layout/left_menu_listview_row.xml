@@ -7,17 +7,38 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        android:id="@+id/positionInList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="10dp"
-        android:text="1"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/menu_list_view_number" />
+
+        <com.michal_stasinski.tabu.Utils.CustomTextView
+
+            android:id="@+id/positionInList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:text="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/menu_list_view_number" />
+
+        <com.michal_stasinski.tabu.Utils.CustomTextView
+
+            android:id="@+id/sold_info"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:text="WYPRZEDANE"
+
+            android:background="@drawable/customshape"
+            android:layout_marginRight="20dp"
+            android:layout_alignRight="@id/positionInList"
+            android:textColor="@color/colorWhite"
+            android:textSize="10sp" />
+    </RelativeLayout>
 
     <com.michal_stasinski.tabu.Utils.CustomTextView
         android:id="@+id/titleItem"

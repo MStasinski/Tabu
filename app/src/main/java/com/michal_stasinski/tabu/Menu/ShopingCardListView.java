@@ -150,7 +150,6 @@ public class ShopingCardListView extends SwipeBackActivity {
                 }
             }
             if (txtDesc != null) {
-                Log.i("informacja", txtDesc);
                 produkt2.setDesc(txtDesc);
             } else {
                 produkt2.setDesc("");

@@ -17,9 +17,15 @@ public class MenuItemProduct {
     private String description;
     private ArrayList<Number> priceArray;
     private int HowManyItemSelected;
+    private Boolean isSold;
 
+    public Boolean getSold() {
+        return isSold;
+    }
 
-
+    public void setSold(Boolean sold) {
+        isSold = sold;
+    }
 
 
     public int getHowManyItemSelected() {
