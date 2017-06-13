@@ -9,6 +9,9 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.firebase.appindexing.Action;
+import com.google.firebase.appindexing.FirebaseUserActions;
+import com.google.firebase.appindexing.builders.Actions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +35,11 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaColdCutsMeatList;
     public static ArrayList<MenuItemProduct> pizzaWegetables;
     public static ArrayList<MenuItemProduct> pizzaSauces;
+
+    public static ArrayList<Number> timeWhenRestaurantIsOpen;
+    public static ArrayList<Number> timeWhenRestaurantIsClose;
+
+
     public static ArrayList<Integer> pizzaSizes_CheckMark;
     public static ArrayList<Integer> pizzaAddons_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
@@ -63,11 +71,38 @@ public class SplashScreen extends Activity {
      **/
     private final int SPLASH_DISPLAY_LENGTH = 0;
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        return Actions.newView("SplashScreen", "http://[ENTER-YOUR-URL-HERE]");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().start(getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().end(getIndexApiAction());
+        super.onStop();
+    }
+
     private class LongOperation extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
             Log.i("informacja", "ładuje bazy w tle...czekaj");
+
 
             pizzaList = new ArrayList<MenuItemProduct>();
             saladList = new ArrayList<MenuItemProduct>();
@@ -89,6 +124,8 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSauces", pizzaSauces),
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
+                    loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
+                    loadTimesOfRestaurant(),
                     StartApp()
 
             };
@@ -177,7 +214,7 @@ public class SplashScreen extends Activity {
     }
 
 
-    public  Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
+    public Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -187,7 +224,7 @@ public class SplashScreen extends Activity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("informacja","zmiana w bazie");
+                Log.i("informacja", "zmiana w bazie");
                 nameArrayList.clear();
 
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
@@ -197,7 +234,7 @@ public class SplashScreen extends Activity {
                     String name = (String) map.get("name");
                     String rank = (String) map.get("rank").toString();
                     String desc = (String) map.get("desc");
-                    Boolean isSold=(Boolean) map.get("sold");
+                    Boolean isSold = (Boolean) map.get("sold");
 
                     ArrayList<Number> price = (ArrayList) map.get("price");
 
@@ -208,7 +245,6 @@ public class SplashScreen extends Activity {
                     menuItemProduct.setPriceArray(price);
                     menuItemProduct.setSold(isSold);
                     menuItemProduct.setHowManyItemSelected(0);
-                    Log.i("informacja","nowe daneeee"+name);
                     nameArrayList.add(menuItemProduct);
                 }
 
@@ -271,6 +307,37 @@ public class SplashScreen extends Activity {
 
     }
 
+
+    public  Task<String> loadTimesOfRestaurant() {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("SendOrderOnlines");
+       // DatabaseReference myRef2 = database.getReference("SendOrderOnlines");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                timeWhenRestaurantIsClose= new ArrayList<Number>();
+                timeWhenRestaurantIsOpen= new ArrayList<Number>();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    // String end = (String) map.get("end");
+                    timeWhenRestaurantIsClose = (ArrayList) map.get("end");
+                    timeWhenRestaurantIsOpen = (ArrayList) map.get("start");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+
+        });
+
+        return tcs.getTask();
+    }
 
 }
 
