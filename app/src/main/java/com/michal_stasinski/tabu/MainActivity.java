@@ -36,8 +36,6 @@ import com.michal_stasinski.tabu.Utils.TintIcon;
 
 import java.util.ArrayList;
 
-import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
-
 
 public class MainActivity extends AppCompatActivity {
     public static final String FIREBASE_CHANGED = "firebase_changed";
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
-    protected int currentActivity =-1;
+    protected int currentActivity = -1;
     protected int choicetActivity = 0;
 
     protected BounceListView mListViewDrawer;
@@ -128,12 +126,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        FragmentManager fragmentManager = getFragmentManager();
+        CHOICE_ACTIVITY = 0;
+        fragment = MenuFragment.newInstance(0);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+        currentActivity=CHOICE_ACTIVITY;
         CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
@@ -162,14 +166,14 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-                TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
-                toolBarTitle.setText((largeTextArr[choicetActivity]).toString());
-
                 Log.i("informacja", "onCreate");
                 if (currentActivity != choicetActivity && choicetActivity < 5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     CHOICE_ACTIVITY = choicetActivity;
+                    currentActivity= choicetActivity;
+                    TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+                    toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
                     fragment = MenuFragment.newInstance(choicetActivity);
                     getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
@@ -178,14 +182,19 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                if (currentActivity != choicetActivity && choicetActivity == 5) {
+                else if (currentActivity != choicetActivity && choicetActivity == 5) {
                     Intent intent = new Intent();
-                     choicetActivity = 0;
+                    currentActivity=5;
                     intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
             }
         };
+
+
+        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+        toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
+
         mDrawerLayout.addDrawerListener(mToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -200,17 +209,9 @@ public class MainActivity extends AppCompatActivity {
         mListViewDrawer.setScrollingCacheEnabled(false);
         mDrawerLayout.setEnabled(false);
 
-        Log.i("informacja", "____________________________________________________"+newsArrayList);
-        FragmentManager fragmentManager = getFragmentManager();
-        CHOICE_ACTIVITY = 0;
-        fragment = MenuFragment.newInstance(0);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
-
-
 
         CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
-        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
-        toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
+
 
         mListViewDrawer.setAdapter(adapter);
         mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -221,10 +222,10 @@ public class MainActivity extends AppCompatActivity {
                 choicetActivity = position;
                 if (currentActivity != choicetActivity) {
                     //TODO odblokuj to
-                    // BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
-                    //  v.setEnabled(false);
-                    // mDrawerLayout.setEnabled(false);
-                    // mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    //BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
+                    // v.setEnabled(false);
+                     mDrawerLayout.setEnabled(false);
+                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START, true);
             }
@@ -271,7 +272,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
 
     public class MyReceiver extends BroadcastReceiver {
