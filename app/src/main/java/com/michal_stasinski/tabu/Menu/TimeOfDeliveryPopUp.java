@@ -69,56 +69,68 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         String date = df.format(Calendar.getInstance().getTime());
 
         Log.i("informacja", " date  " + date);
+        Log.i("informacja"," SplashScreen.timeWhenRestaurantIsClose.get(1  " +SplashScreen.timeWhenRestaurantIsClose );
 
         int endHoure = 32;
         int startHoure = 0;
-        int startMinute = 15;
-
+        int startMinute = 00;
+        int day = 0;
 
         if (date.equals("Monday")) {
 
 
+            
             String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(1)).split(":");
             String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(1)).split(":");
 
-            endHoure = Integer.parseInt(closeTime[0]);
-            startMinute = 15;//Integer.parseInt(openTime[1]);
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
 
             Log.i("informacja", " closeTime  " + closeTime[0] + closeTime[1]);
             // endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(1);
         }
         if (date.equals("Tuesday")) {
-            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(1)).split(":");
-            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(1)).split(":");
-            endHoure = Integer.parseInt(closeTime[0]);
-            startMinute = 15;//Integer.parseInt(openTime[1]);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(2)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(2)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
 
         if (date.equals("Wednesday")) {
-            startHoure = (int) SplashScreen.timeWhenRestaurantIsOpen.get(3);
-            // endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(3);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(3)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(3)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
 
         if (date.equals("Thursday")) {
 
-            startHoure = (int) SplashScreen.timeWhenRestaurantIsOpen.get(4);
-            //endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(4);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(4)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(4)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
         if (date.equals("Friday")) {
 
-            startHoure = (int) SplashScreen.timeWhenRestaurantIsOpen.get(5);
-            //endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(5);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(5)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(5)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
         if (date.equals("Saturday")) {
 
-            startHoure = (int) SplashScreen.timeWhenRestaurantIsOpen.get(6);
-            // endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(6);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(6)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(6)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
 
         if (date.equals("Sunday")) {
 
-            startHoure = (int) SplashScreen.timeWhenRestaurantIsOpen.get(0);
-            //endHoure = (int) SplashScreen.timeWhenRestaurantIsClose.get(0);
+            String[] closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(0)).split(":");
+            String[] openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(0)).split(":");
+            endHoure = Integer.parseInt(closeTime[0])+1;
+            startMinute = Integer.parseInt(closeTime[1]);
         }
 
 
@@ -180,9 +192,10 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             String hh = MathUtils.formatDecimal((h - g) * 60, 2);
 
 
-            Log.i("informacja", "godzina " + output);
-            Log.i("informacja", "r i hh minut " + r);
-            Log.i("informacja", "_____________________");
+          //  Log.i("informacja", "godzina " + output);
+           // Log.i("informacja", "r i hh minut " + r);
+          //  Log.i("informacja", "_____________________");
+
             if (Math.ceil((h - g) * 60) < 10) {
                 r = "0" + r;
             }

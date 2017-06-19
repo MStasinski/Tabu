@@ -9,17 +9,15 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.firebase.appindexing.Action;
-import com.google.firebase.appindexing.FirebaseUserActions;
-import com.google.firebase.appindexing.builders.Actions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
+import com.michal_stasinski.tabu.Menu.Models.AllOrderModel;
 import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.Models.NewsItem;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 
 import java.util.ArrayList;
@@ -36,6 +34,9 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaWegetables;
     public static ArrayList<MenuItemProduct> pizzaSauces;
 
+    public static ArrayList<AllOrderModel> AllOrder;
+
+    public static ArrayList<NewsItem> newsArrayList;
     public static ArrayList<Number> timeWhenRestaurantIsOpen;
     public static ArrayList<Number> timeWhenRestaurantIsClose;
 
@@ -49,6 +50,7 @@ public class SplashScreen extends Activity {
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
+
 
     public static String[] dataDeliveryTextFieldName = {
             "Zamawiający",
@@ -75,9 +77,7 @@ public class SplashScreen extends Activity {
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    public Action getIndexApiAction() {
-        return Actions.newView("SplashScreen", "http://[ENTER-YOUR-URL-HERE]");
-    }
+
 
     @Override
     public void onStart() {
@@ -85,7 +85,7 @@ public class SplashScreen extends Activity {
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        FirebaseUserActions.getInstance().start(getIndexApiAction());
+        //  FirebaseUserActions.getInstance().start(getIndexApiAction());
     }
 
     @Override
@@ -93,7 +93,6 @@ public class SplashScreen extends Activity {
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        FirebaseUserActions.getInstance().end(getIndexApiAction());
         super.onStop();
     }
 
@@ -103,7 +102,7 @@ public class SplashScreen extends Activity {
         protected String doInBackground(String... params) {
             Log.i("informacja", "ładuje bazy w tle...czekaj");
 
-
+            newsArrayList = new ArrayList<NewsItem>();
             pizzaList = new ArrayList<MenuItemProduct>();
             saladList = new ArrayList<MenuItemProduct>();
             pizzaCheeseList = new ArrayList<MenuItemProduct>();
@@ -126,6 +125,8 @@ public class SplashScreen extends Activity {
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                     loadTimesOfRestaurant(),
+                    loadNews(),
+                    // loadOrdersFromDB(),
                     StartApp()
 
             };
@@ -280,6 +281,7 @@ public class SplashScreen extends Activity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 
                     DataSnapshot dataitem = item;
+
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
 
                     String price = (String) map.get("price").toString();
@@ -308,17 +310,17 @@ public class SplashScreen extends Activity {
     }
 
 
-    public  Task<String> loadTimesOfRestaurant() {
+    public Task<String> loadTimesOfRestaurant() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SendOrderOnlines");
-       // DatabaseReference myRef2 = database.getReference("SendOrderOnlines");
+        // DatabaseReference myRef2 = database.getReference("SendOrderOnlines");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                timeWhenRestaurantIsClose= new ArrayList<Number>();
-                timeWhenRestaurantIsOpen= new ArrayList<Number>();
+                timeWhenRestaurantIsClose = new ArrayList<Number>();
+                timeWhenRestaurantIsOpen = new ArrayList<Number>();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
@@ -339,5 +341,105 @@ public class SplashScreen extends Activity {
         return tcs.getTask();
     }
 
+    public Task<String> loadOrdersFromDB() {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("TEST_ORDER");
+
+        ValueEventListener valueEventListener = myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // allOrderFromDBList.clear();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+
+                    ArrayList orderListForOneIndividualOrder = (ArrayList) map.get("orderList");
+
+
+                    if (orderListForOneIndividualOrder != null) {
+                        String arr = orderListForOneIndividualOrder.get(1).toString();
+
+                        arr = arr.replace("{quantity", "|");
+                        arr = arr.replace("price", "|");
+                        arr = arr.replace("sauce", "|");
+                        arr = arr.replace("size", "|");
+                        arr = arr.replace("addon", "|");
+                        arr = arr.replace("name", "|");
+                        arr = arr.replace("note", "|");
+
+
+                        String[] ord = arr.toString().split("\\|=");
+
+                        Log.i("informacja", "  ______________  " + removeLastChar(ord[1].toString()));
+                        Log.i("informacja", "  ______________  " + removeLastChar(ord[2].toString()));
+                        Log.i("informacja", "  ______________  " + removeLastChar(ord[3].toString()));
+                        Log.i("informacja", "  ______________  " + removeLastChar(ord[4].toString()));
+                        Log.i("informacja", "  ______________  " + removeLastChar(ord[5].toString()));
+                        Log.i("informacja", "  +++++++++++++++++++++++++++++++++++++++++++++++++++ ");
+                    }
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+
+        });
+
+        return tcs.getTask();
+    }
+
+
+    public Task<String> loadNews() {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("News");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                newsArrayList.clear();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    String date = (String) map.get("date");
+                    String news = (String) map.get("news");
+                    String title = (String) map.get("title");
+                    String rank = (String) map.get("rank");
+                    String url = (String) map.get("imageUrl");
+
+                    NewsItem newsItem = new NewsItem();
+
+                    newsItem.setDate(date);
+                    newsItem.setNews(news);
+                    newsItem.setTitle(title);
+                    newsItem.setRank(rank);
+                    newsItem.setUrl(url);
+
+                    newsArrayList.add(newsItem);
+                }
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.FIREBASE_CHANGED);
+                sendBroadcast(intent);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        Log.i("informacja", "t1 zaladowana baza " + myRef);
+        return tcs.getTask();
+    }
+
+    private static String removeLastChar(String str) {
+        return str.substring(0, str.length() - 2);
+    }
 }
 

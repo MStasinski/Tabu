@@ -36,6 +36,8 @@ import com.michal_stasinski.tabu.Utils.TintIcon;
 
 import java.util.ArrayList;
 
+import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String FIREBASE_CHANGED = "firebase_changed";
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
-    protected int currentActivity = 0;
+    protected int currentActivity =-1;
     protected int choicetActivity = 0;
 
     protected BounceListView mListViewDrawer;
@@ -91,9 +93,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        MainActivity.MyReceiver myReceiver = new MainActivity.MyReceiver();
+        MyReceiver myReceiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
         registerReceiver(myReceiver, intentFilter);
+
+
 
        /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
         stub.setLayoutResource(R.layout.bounce_list_view);
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 // Intent intent = new Intent();
                 //intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                 //startActivity(intent);
+
             }
         });
 
@@ -123,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
@@ -133,11 +137,6 @@ public class MainActivity extends AppCompatActivity {
         CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
-        /* }
-
-    @Override
-    protected void onStart() {
-        super.onStart();*/
 
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
         mToolBar.setBackgroundResource(R.color.colorWhite);
@@ -163,7 +162,11 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-                if (currentActivity != choicetActivity && choicetActivity != 5) {
+                TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+                toolBarTitle.setText((largeTextArr[choicetActivity]).toString());
+
+                Log.i("informacja", "onCreate");
+                if (currentActivity != choicetActivity && choicetActivity < 5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     CHOICE_ACTIVITY = choicetActivity;
@@ -174,9 +177,10 @@ public class MainActivity extends AppCompatActivity {
                     //startActivity(intent);
                 }
 
+
                 if (currentActivity != choicetActivity && choicetActivity == 5) {
                     Intent intent = new Intent();
-                    choicetActivity = 0;
+                     choicetActivity = 0;
                     intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
@@ -195,13 +199,25 @@ public class MainActivity extends AppCompatActivity {
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
         mListViewDrawer.setScrollingCacheEnabled(false);
         mDrawerLayout.setEnabled(false);
+
+        Log.i("informacja", "____________________________________________________"+newsArrayList);
+        FragmentManager fragmentManager = getFragmentManager();
+        CHOICE_ACTIVITY = 0;
+        fragment = MenuFragment.newInstance(0);
+        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+
+
+
         CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
         TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
-        toolBarTitle.setText((largeTextArr[currentActivity]).toString());
+        toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
+
         mListViewDrawer.setAdapter(adapter);
         mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg) {
+
+
                 choicetActivity = position;
                 if (currentActivity != choicetActivity) {
                     //TODO odblokuj to
@@ -222,11 +238,11 @@ public class MainActivity extends AppCompatActivity {
 
         int id = item.getItemId();
         if (id == R.id.share) {
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String shareBodyText = "Check it out. Your message goes here";
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject here");
+            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
             return true;
         } else if (id == R.id.right_menu) {
@@ -256,17 +272,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     public class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(FIREBASE_CHANGED)) {
                 // String message = intent.getStringExtra(MSG_FIELD);
                 // tvMessage.setText(message);
-                if(fragment!=null){
+                if (fragment != null) {
 
                     fragment.reloadBase();
                 }
-                Log.i("informacja", "no cos tam sie zmieniło ponoć w bazie");
+
             }
         }
     }

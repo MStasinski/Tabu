@@ -10,15 +10,15 @@ public class ShopingCardItem {
     private String desc;
     private int type;
     private int nr;
-    private float sumOfPrices;
+    private float price;
 
 
-    public float getSumOfPrices() {
-        return sumOfPrices;
+    public float getPrice() {
+        return price;
     }
 
-    public void setSumOfPrices(float sumOfPrices) {
-        this.sumOfPrices = sumOfPrices;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
 

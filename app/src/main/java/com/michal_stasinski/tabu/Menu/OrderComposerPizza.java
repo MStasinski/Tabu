@@ -36,6 +36,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
     private int quantity = 1;
     private float sum = 0;
     private String pizzaName;
+    private String rank;
 
     private String[] titleText = {
             "Rozmiar",
@@ -120,6 +121,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         String names = intent.getExtras().getString("name");
         String desc = intent.getExtras().getString("desc");
         itemPositionInMenuListView = intent.getExtras().getInt("position");
+        rank = intent.getExtras().getString("rank");
         String price = intent.getExtras().getString("price");
         size = intent.getExtras().getInt("size");
 
@@ -129,6 +131,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         descTxt.setText(desc);
         priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
         pizzaName = names.toUpperCase();
+
         descText[0] = String.valueOf(20 + size * 10) + " cm";
 
         adapter = new OrderComposerListViewAdapter(this, titleText, descText);
@@ -160,7 +163,8 @@ public class OrderComposerPizza extends SwipeBackActivity {
                 OrderListItem order = new OrderListItem();
                 order.setName(pizzaName);
                 order.setSize(descText[0]);
-                order.setSumOfPrices(sum);
+                order.setPrice(sum);
+                order.setNr(Integer.parseInt(rank));
                 String addon = descText[1];
                 String sauce = descText[2];
                 String note = descText[3];

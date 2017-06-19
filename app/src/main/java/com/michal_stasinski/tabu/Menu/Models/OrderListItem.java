@@ -1,24 +1,36 @@
 package com.michal_stasinski.tabu.Menu.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by win8 on 18.05.2017.
  */
 
-public class OrderListItem {
+public class OrderListItem   {
     private String name;
     private String size;
     private String addon;
-    private String sauce;;
+    private String sauce;
     private String note;
-    private float sumOfPrices;
-    private int quantity;
+    private float price;
 
-    public float getSumOfPrices() {
-        return sumOfPrices;
+    public Number getNr() {
+        return Nr;
     }
 
-    public void setSumOfPrices(float sumOfPrices) {
-        this.sumOfPrices = sumOfPrices;
+    public void setNr(Number nr) {
+        Nr = nr;
+    }
+
+    private Number Nr;
+    private int quantity;
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
 

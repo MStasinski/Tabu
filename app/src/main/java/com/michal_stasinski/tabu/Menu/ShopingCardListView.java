@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 
+import com.google.firebase.appindexing.Action;
+import com.google.firebase.appindexing.FirebaseUserActions;
+import com.google.firebase.appindexing.builders.Actions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
@@ -21,6 +24,7 @@ import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -32,13 +36,15 @@ import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 
-
 public class ShopingCardListView extends SwipeBackActivity {
     private DatabaseReference mDatabase;
 
     private ShopingCardAdapter adapter;
     public static int selected_time = 0;
     private int deliveryCost = 0;
+    private String delivery_mode;
+
+
     private String[] titleText = {
             "Sposób Odbioru",
             "Adres Odbioru",
@@ -84,7 +90,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         final String firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
         final String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
         final String email = prefs.getString(dataDeliveryTextFieldName[3], null);
-        String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
+        final String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
         deliveryCost = prefs.getInt("deliveryCost", 0);
         adapter = new ShopingCardAdapter(this);
         ShopingCardItem produkt = new ShopingCardItem();
@@ -132,7 +138,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         for (int i = 0; i < orderList.size(); i++) {
 
             ShopingCardItem produkt2 = new ShopingCardItem();
-            produkt2.setSumOfPrices(orderList.get(i).getQuantity() * orderList.get(i).getSumOfPrices());
+            produkt2.setPrice(Float.valueOf(MathUtils.formatDecimal(orderList.get(i).getQuantity() * orderList.get(i).getPrice(), 2)));
             String txtDesc = "";
             produkt2.setTitle(orderList.get(i).getName());
             if (orderList.get(i).getSize() != null) {
@@ -205,11 +211,11 @@ public class ShopingCardListView extends SwipeBackActivity {
 
 
         SharedPreferences prefs0 = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE);
-        String delivery_mode = prefs0.getString("delivery_mode", null);
+        delivery_mode = prefs0.getString("delivery_mode", null);
         String street2 = prefs0.getString("street", null);
 
 
-        String street = prefs.getString("Ulica", null);
+        final String street = prefs.getString("Ulica", null);
 
         ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
@@ -317,7 +323,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     intent.putExtra("position", position);
                     intent.putExtra("quantity", orderList.get(position - 8).getQuantity());
                     intent.putExtra("name", orderList.get(position - 8).getName());
-                    intent.putExtra("price", orderList.get(position - 8).getSumOfPrices());
+                    intent.putExtra("price", orderList.get(position - 8).getPrice());
 
                     intent.setClass(view.getContext(), AddRemoveOrderPopUp.class);
                     startActivity(intent);
@@ -338,7 +344,7 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
-         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Button sendButton = (Button) findViewById(R.id.send_order);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -347,16 +353,55 @@ public class ShopingCardListView extends SwipeBackActivity {
             public void onClick(View v) {
 
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("yy-mm-dd_hh:mm:ss");
-                SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-mm-dd hh:mm");
+                SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_hh:mm:ss");
+                SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd hh:mm");
+
                 String strDate = mdformat.format(calendar.getTime());
+
                 String strDate2 = mdformat.format(calendar.getTime());
+
                 String uniqueId = UUID.randomUUID().toString();
-                mDatabase.child("TEST_ORDER").child(strDate+uniqueId).child("deliveryDate").setValue(strDate2);
-                mDatabase.child("TEST_ORDER").child(strDate+uniqueId).child("deliveryPrice").setValue(deliveryCost);
-                mDatabase.child("TEST_ORDER").child(strDate+uniqueId).child("email").setValue(email);
-                mDatabase.child("TEST_ORDER").child(strDate+uniqueId).child("orderMan").setValue(firstname+" "+lastname);
-                mDatabase.child("TEST_ORDER").child(strDate+uniqueId).child("orderList").setValue(orderList);
+
+                ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
+                ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
+
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
+
+
+               /* for (OrderListItem item :orderList
+                     ) {
+
+
+
+
+                }*/
+                ArrayList orderArray = new ArrayList();
+                for (int i = 0; i < orderList.size(); i++) {
+
+                    Log.i("informacja", orderList.get(i).getSize());
+
+                    ArrayList<String> arr = new ArrayList<String>();
+                    arr.add(String.valueOf(orderList.get(i).getNr()));
+                    arr.add(orderList.get(i).getName());
+                    arr.add(orderList.get(i).getSize() +" "+orderList.get(i).getAddon() +" "+ orderList.get(i).getAddon() +" "+ orderList.get(i).getSauce());
+                    arr.add(String.valueOf(orderList.get(i).getQuantity()));
+                    arr.add(String.valueOf(orderList.get(i).getPrice()));
+
+                    orderArray.add(arr);
+
+                }
+
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
+                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
+
                 Log.i("informacja", "wysyłam do bazy");
 
             }
@@ -373,5 +418,31 @@ public class ShopingCardListView extends SwipeBackActivity {
         editor.putString("street", street.getDesc().toString());
 
         editor.commit();
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        return Actions.newView("ShopingCardListView", "http://[ENTER-YOUR-URL-HERE]");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().start(getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        FirebaseUserActions.getInstance().end(getIndexApiAction());
+        super.onStop();
     }
 }

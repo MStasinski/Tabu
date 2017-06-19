@@ -1,32 +1,50 @@
 package com.michal_stasinski.tabu.Menu.LeftDrawerMenu;
 
+import android.Manifest;
 import android.app.Fragment;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
+import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 
+import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 import static com.michal_stasinski.tabu.SplashScreen.saladList;
 
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment  implements OnMapReadyCallback {
 
 
     protected BounceListView mListViewMenu;
     private View myView;
     private int fireBaseRef;
+    GoogleMap mGoogleMap;
+    MapView mMapView;
     private CustomListViewAdapter arrayAdapter;
     private ArrayList<MenuItemProduct> menuArrayList;
 
@@ -59,6 +77,23 @@ public class MenuFragment extends Fragment {
 
         myView = inflater.inflate(R.layout.header_and_bounce_list_view, container, false);
 
+
+        if (fireBaseRef == 0) {
+            myView = inflater.inflate(R.layout.fragment_start, container, false);
+            mListViewMenu = (BounceListView)  myView.findViewById(R.id.mListView_BaseMenu);
+
+            Log.i("informacja", "tu ma byc start"+newsArrayList);
+            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(),newsArrayList, R.color.color_PIZZA);
+
+
+
+            mListViewMenu.setAdapter(arrayAdapter);
+            mListViewMenu.setScrollingCacheEnabled(false);
+
+            arrayAdapter.notifyDataSetChanged();
+            setHasOptionsMenu(true);
+
+        }
         if (fireBaseRef == 1) {
             myView = inflater.inflate(R.layout.header_and_bounce_list_view, container, false);
             TextView addonText = (TextView) myView.findViewById(R.id.addonText);
@@ -76,29 +111,68 @@ public class MenuFragment extends Fragment {
             myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
             menuArrayList = pizzaSauces;
         }
-        if (fireBaseRef == 4) {
+         if (fireBaseRef == 4) {
 
-            myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
-            menuArrayList = pizzaList;
+         myView = inflater.inflate(R.layout.fragment_contact, container, false);
+
         }
 
 
-        mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
+        if(fireBaseRef!=4&& fireBaseRef!=0) {
+            mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
-        arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
-        mListViewMenu.setAdapter(arrayAdapter);
-        mListViewMenu.setScrollingCacheEnabled(false);
+            arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
+            mListViewMenu.setAdapter(arrayAdapter);
+            mListViewMenu.setScrollingCacheEnabled(false);
 
-        arrayAdapter.notifyDataSetChanged();
-        setHasOptionsMenu(true);
+            arrayAdapter.notifyDataSetChanged();
+            setHasOptionsMenu(true);
+        }else{
+
+            if(fireBaseRef==4) {
+                ImageButton button_route = (ImageButton) myView.findViewById(R.id.route_button);
+                button_route.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+                        Uri gmmIntentUri = Uri.parse("geo:54.5258318,18.5149058?q=diStrada");
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        startActivity(mapIntent);
+                    }
+                });
+
+                ImageButton button_call = (ImageButton) myView.findViewById(R.id.call_button);
+
+                button_call.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:48586603395"));
+
+                        if (ActivityCompat.checkSelfPermission(myView.getContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(callIntent);
+
+                    }
+                });
+                mMapView = (MapView) myView.findViewById(R.id.map);
+                if (mMapView != null) {
+                    mMapView.onCreate(null);
+                    mMapView.onResume();
+                    mMapView.getMapAsync(this);
+                }
+            }
+        }
         return myView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        arrayAdapter.notifyDataSetChanged();
-        arrayAdapter.setButton_flag_enabled(true);
+        if(MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
+            arrayAdapter.notifyDataSetChanged();
+            arrayAdapter.setButton_flag_enabled(true);
+        }
 
     }
 
@@ -109,22 +183,50 @@ public class MenuFragment extends Fragment {
 
     public void reloadBase() {
 
-        if (MainActivity.CHOICE_ACTIVITY == 1) {
-            menuArrayList = pizzaList;
+        if(MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0 ) {
+
+
+            if (MainActivity.CHOICE_ACTIVITY == 1) {
+                menuArrayList = pizzaList;
+            }
+            if (MainActivity.CHOICE_ACTIVITY == 2) {
+                menuArrayList = saladList;
+            }
+            if (MainActivity.CHOICE_ACTIVITY == 3) {
+                menuArrayList = pizzaSauces;
+            }
+
+            arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
+            mListViewMenu.setAdapter(arrayAdapter);
+            mListViewMenu.setScrollingCacheEnabled(false);
+            arrayAdapter.notifyDataSetChanged();
         }
-        if (MainActivity.CHOICE_ACTIVITY == 2) {
-            menuArrayList = saladList;
+
+        if (MainActivity.CHOICE_ACTIVITY == 0) {
+
+            mListViewMenu = (BounceListView)  myView.findViewById(R.id.mListView_BaseMenu);
+
+            Log.i("informacja", "tu ma byc start"+newsArrayList);
+            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(),newsArrayList, R.color.color_PIZZA);
+
+
+
+            mListViewMenu.setAdapter(arrayAdapter);
+            mListViewMenu.setScrollingCacheEnabled(false);
+
+            arrayAdapter.notifyDataSetChanged();
         }
-        if (MainActivity.CHOICE_ACTIVITY == 3) {
-            menuArrayList = pizzaSauces;
-        }
-        if (MainActivity.CHOICE_ACTIVITY == 4) {
-            menuArrayList = pizzaList;
-        }
-        arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
-        mListViewMenu.setAdapter(arrayAdapter);
-        mListViewMenu.setScrollingCacheEnabled(false);
-        arrayAdapter.notifyDataSetChanged();
+
+
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        MapsInitializer.initialize(mMapView.getContext());
+        mGoogleMap = googleMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(54.5258318, 18.5149058)).title("Di Strada").snippet("zapraszamy na pyszną pizzę"));
+        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(54.5258318, 18.5149058)).zoom(14).bearing(0).tilt(45).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
+    }
 }

@@ -81,7 +81,7 @@
                 android:layout_height="0dp"
                 android:layout_centerVertical="true"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_weight="0.46"
                 android:animationCache="false"
                 android:divider="@android:color/darker_gray"
                 android:dividerHeight="0.05sp"
@@ -95,9 +95,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/colorWhite"
                 android:background="@color/colorPrimary"
-                android:text="Button" />
+                android:text="Button"
+                android:textColor="@color/colorWhite" />
 
             <include
                 layout="@layout/bottom_action_bar"

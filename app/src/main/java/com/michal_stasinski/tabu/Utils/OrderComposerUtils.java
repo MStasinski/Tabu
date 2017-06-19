@@ -1,7 +1,5 @@
 package com.michal_stasinski.tabu.Utils;
 
-import android.util.Log;
-
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 /**
@@ -23,7 +21,7 @@ public class OrderComposerUtils {
         float sumOfAllPrices = 0;
 
         for (int i = 0; i < orderList.size(); i++) {
-            sumOfAllPrices += (orderList.get(i).getSumOfPrices()*orderList.get(i).getQuantity()) ;
+            sumOfAllPrices += (orderList.get(i).getPrice()*orderList.get(i).getQuantity()) ;
         }
 
        return MathUtils.formatDecimal(sumOfAllPrices,2);

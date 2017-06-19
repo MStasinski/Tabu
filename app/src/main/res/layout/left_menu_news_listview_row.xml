@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/blog_post_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/news_image_size"
+        android:layout_marginLeft="@dimen/news_layout_marginLeft"
+        android:layout_marginRight="@dimen/news_layout_marginRight"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        />
+
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/dataText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@id/blog_post_image"
+        android:layout_below="@id/blog_post_image"
+        android:layout_marginLeft="@dimen/news_layout_marginLeft"
+        android:layout_marginRight="@dimen/news_layout_marginRight"
+        android:layout_marginTop="@dimen/news_layout_marginTop"
+        android:text="03.02.2017"
+        android:textColor="@color/colorThirdGrey"
+        android:textSize="@dimen/news_data_text_size" />
+
+
+
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/blog_post_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dataText"
+        android:layout_marginLeft="@dimen/news_layout_marginLeft"
+        android:layout_marginRight="@dimen/news_layout_marginRight"
+        android:layout_marginTop="@dimen/news_layout_marginTop"
+        android:text="Tytuł"
+        android:textColor="@color/colorThirdGrey"
+        android:textSize="@dimen/news_title_text_size" />
+
+    <com.michal_stasinski.tabu.Utils.CustomTextView
+        android:id="@+id/blog_post_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/blog_post_title"
+        android:layout_marginBottom="@dimen/news_layout_marginBottom"
+        android:layout_marginLeft="@dimen/news_layout_marginLeft"
+        android:layout_marginRight="@dimen/news_layout_marginRight"
+        android:layout_marginTop="@dimen/news_layout_marginTop"
+        android:text="Opis"
+        android:textColor="@color/colorThirdGrey"
+        android:textSize="@dimen/news_message_text_size" />
+
+
+</RelativeLayout>
+
+
+

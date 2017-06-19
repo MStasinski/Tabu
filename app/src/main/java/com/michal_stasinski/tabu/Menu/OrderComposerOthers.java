@@ -22,10 +22,7 @@ import com.michal_stasinski.tabu.Utils.CustomTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
-import static com.michal_stasinski.tabu.Menu.AddonsPopUp.addonsPopUpAdapter;
-import static com.michal_stasinski.tabu.Menu.SaucePopUp.saucePopUpAdapter;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 
 public class OrderComposerOthers extends SwipeBackActivity {
 
@@ -36,7 +33,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
     private int quantity = 1;
     private float sum = 0;
     private String pizzaName;
-
+    private String rank;
     private String[] titleText = {
             "Uwagi",
             "addRemoveButton"
@@ -56,7 +53,6 @@ public class OrderComposerOthers extends SwipeBackActivity {
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
 
-
         //************************* przycisk close**********************
 
         Button closeButton = (Button) findViewById(R.id.bClose);
@@ -73,7 +69,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
         //************************* botttom menu ************************************
         ButtonBarLayout bottom_action_bar_btn1 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn1);
-        ButtonBarLayout bottom_action_bar_btn0= (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
+        ButtonBarLayout bottom_action_bar_btn0 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
         bottom_action_bar_btn0.setVisibility(View.INVISIBLE);
 
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +100,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         String names = intent.getExtras().getString("name");
         String desc = intent.getExtras().getString("desc");
         itemPositionInMenuListView = intent.getExtras().getInt("position");
+        rank = intent.getExtras().getString("rank");
         price = intent.getExtras().getString("price");
         size = 0;//intent.getExtras().getInt("size");
 
@@ -111,7 +108,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
         nameTxt.setText(names.toUpperCase());
         descTxt.setText(desc);
-       // priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
+        // priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
         priceTxt.setText(price);
         pizzaName = names.toUpperCase();
         //descText[0] = String.valueOf(20 + size * 10) + " cm";
@@ -144,21 +141,22 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
                 OrderListItem order = new OrderListItem();
                 order.setName(pizzaName);
-               // order.setSize(descText[0]);
-                order.setSumOfPrices(sum);
-              //  String addon = descText[1];
-              //  String sauce = descText[2];
+                order.setNr(Integer.parseInt(rank));
+                // order.setSize(descText[0]);
+                order.setPrice(sum);
+                //  String addon = descText[1];
+                //  String sauce = descText[2];
                 String note = descText[0];
 
 
-                if (descText[0] != "Dodaj swoje uwagi"&& descText[0] !=null) {
-                    order.setNote("UWAGI: "+descText[0]);
+                if (descText[0] != "Dodaj swoje uwagi" && descText[0] != null) {
+                    order.setNote("UWAGI: " + descText[0]);
                 } else {
                     note = "";
                     order.setNote(note);
                 }
 
-                String actualOrder = pizzaName + " " + descText[0] + " " +note;
+                String actualOrder = pizzaName + " " + descText[0] + " " + note;
                 int isAlready = -1;
 
                 for (int i = 0; i < orderList.size(); i++) {
@@ -182,8 +180,8 @@ public class OrderComposerOthers extends SwipeBackActivity {
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
 
-                CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
-                info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+                CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+                info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
             }
         });
@@ -204,10 +202,10 @@ public class OrderComposerOthers extends SwipeBackActivity {
                     intent.putExtra("position", 13);
                     intent.putExtra("title", "UWAGI");
 
-                    if (descText[0] =="Dodaj swoje uwagi") {
+                    if (descText[0] == "Dodaj swoje uwagi") {
                         intent.putExtra("actualText", "");
                     } else {
-                        intent.putExtra("actualText",descText[3]);
+                        intent.putExtra("actualText", descText[3]);
                     }
                     intent.setClass(view.getContext(), EditTextPopUp.class);
                     startActivityForResult(intent, 1);
@@ -215,9 +213,10 @@ public class OrderComposerOthers extends SwipeBackActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("informacja", "resultresult 000 " );
+        Log.i("informacja", "resultresult 000 ");
         if (requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
@@ -226,11 +225,11 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
                 Log.i("informacja", "resultresult " + result);
 
-                if (!result.equals("") ) {
+                if (!result.equals("")) {
                     descText[0] = result;
 
                 } else {
-                    descText[0] ="Dodaj swoje uwagi";
+                    descText[0] = "Dodaj swoje uwagi";
                 }
 
                 adapter.notifyDataSetChanged();
@@ -240,16 +239,17 @@ public class OrderComposerOthers extends SwipeBackActivity {
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
 
-        CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
-        info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+        CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 
         CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
-       // descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
+        // descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
 
         //sum = pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).floatValue();
 
@@ -259,9 +259,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
         CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
 
-       // String output = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
+        // String output = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
 
-       // String output = MathUtils.formatDecimal(sum, 2);
+        // String output = MathUtils.formatDecimal(sum, 2);
         priceTxt.setText(output + " zł");
 
 

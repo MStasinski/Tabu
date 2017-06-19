@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/etHeader1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@mipmap/logo_rest" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <com.michal_stasinski.tabu.Utils.CustomTextView
+            android:id="@+id/order_purchaser_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="140dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="18dp"
+            android:text="Pizzeria Tabu\nGdynia Jaskółcza 20"
+            android:textAlignment="center"
+            android:textColor="@color/colorThirdGrey"
+            android:textSize="18dp" />
+
+
+        <com.michal_stasinski.tabu.Utils.CustomTextView
+            android:id="@+id/order_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/order_purchaser_name"
+            android:layout_marginLeft="140dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Zamówienia online:10.00 - 22:45\nDostawa przy zamówieniach od 15 zł"
+            android:textAlignment="center"
+            android:textColor="@color/colorThirdGrey"
+            android:textSize="14dp" />
+
+
+    </RelativeLayout>
+
+    <com.michal_stasinski.tabu.Utils.BounceListView
+        android:id="@+id/mListView_BaseMenu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:animationCache="false"
+        android:divider="@drawable/custom_divaider"
+        android:dividerHeight="1dp"
+        android:scrollingCache="false"
+        app:layout_heightPercent="56%" />
+
+
+</LinearLayout>

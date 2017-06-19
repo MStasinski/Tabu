@@ -152,7 +152,7 @@ public class CustomListViewAdapter extends BaseAdapter {
         }
         viewHolder.title.setText(arr.get(position).getName().toUpperCase());
         viewHolder.colorShape.setText("- " + arr.get(position).getRank() + " -");
-        viewHolder.textDesc.setText(arr.get(position).getDescription().toLowerCase());
+        viewHolder.textDesc.setText(arr.get(position).getDescription());
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
             String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i), 2);
@@ -179,6 +179,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                             bundle.putInt("position", clikPos);
                             bundle.putString("desc", arr.get(clikPos).getDescription());
                             bundle.putInt("size", butId);
+                            bundle.putString("rank", arr.get(clikPos).getRank());
                             bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
                             Log.i("informacja", "___________________________" + clikPos + "" + butId);
