@@ -95,7 +95,7 @@ public class DataForDeliveryAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.title.setText(arr.get(position).getTitle().toUpperCase());
+        viewHolder.title.setText(arr.get(position).getTitle());
 
         if (viewHolder.imageView != null) {
             viewHolder.imageView.setImageResource(icon[position]);

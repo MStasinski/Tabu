@@ -45,7 +45,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             R.mipmap.ulica_icon,
             R.mipmap.nr_domu_icon,
             R.mipmap.nr_mieszkania_icon,
-            R.mipmap.pietro_icon,
+            R.mipmap.firma_icon,
             R.mipmap.pietro_icon,
             R.mipmap.ic_launcher,
             R.mipmap.uwagi_icon,

@@ -123,11 +123,9 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSauces", pizzaSauces),
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
-                    loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                     loadTimesOfRestaurant(),
-                    loadNews(),
-                    // loadOrdersFromDB(),
-                    StartApp()
+                    loadNews()
+
 
             };
             return "Executed";
@@ -137,6 +135,7 @@ public class SplashScreen extends Activity {
         protected void onPostExecute(String result) {
 
             Log.i("informacja", "gotowe...bazy załadowane");
+            StartApp();
         }
 
         @Override
@@ -328,6 +327,9 @@ public class SplashScreen extends Activity {
                     timeWhenRestaurantIsClose = (ArrayList) map.get("end");
                     timeWhenRestaurantIsOpen = (ArrayList) map.get("start");
                 }
+                Intent intent = new Intent();
+                intent.setAction(MainActivity.FIREBASE_CHANGED);
+                sendBroadcast(intent);
             }
 
             @Override
@@ -434,7 +436,6 @@ public class SplashScreen extends Activity {
 
             }
         });
-        Log.i("informacja", "t1 zaladowana baza " + myRef);
         return tcs.getTask();
     }
 

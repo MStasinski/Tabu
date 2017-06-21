@@ -25,9 +25,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
+import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 import static com.michal_stasinski.tabu.SplashScreen.saladList;
 
 
-public class MenuFragment extends Fragment  implements OnMapReadyCallback {
+public class MenuFragment extends Fragment implements OnMapReadyCallback {
 
 
     protected BounceListView mListViewMenu;
@@ -80,11 +82,10 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
 
         if (fireBaseRef == 0) {
             myView = inflater.inflate(R.layout.fragment_start, container, false);
-            mListViewMenu = (BounceListView)  myView.findViewById(R.id.mListView_BaseMenu);
+            mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
-            Log.i("informacja", "tu ma byc start"+newsArrayList);
-            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(),newsArrayList, R.color.color_PIZZA);
-
+            Log.i("informacja", "tu ma byc start" + newsArrayList);
+            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
 
 
             mListViewMenu.setAdapter(arrayAdapter);
@@ -111,14 +112,14 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
             myView = inflater.inflate(R.layout.bounce_list_view3, container, false);
             menuArrayList = pizzaSauces;
         }
-         if (fireBaseRef == 4) {
+        if (fireBaseRef == 4) {
 
-         myView = inflater.inflate(R.layout.fragment_contact, container, false);
+            myView = inflater.inflate(R.layout.fragment_contact, container, false);
 
         }
 
 
-        if(fireBaseRef!=4&& fireBaseRef!=0) {
+        if (fireBaseRef != 4 && fireBaseRef != 0) {
             mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
             arrayAdapter = new CustomListViewAdapter(myView.getContext(), menuArrayList, R.color.color_PIZZA, true);
@@ -127,9 +128,9 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
 
             arrayAdapter.notifyDataSetChanged();
             setHasOptionsMenu(true);
-        }else{
+        } else {
 
-            if(fireBaseRef==4) {
+            if (fireBaseRef == 4) {
                 ImageButton button_route = (ImageButton) myView.findViewById(R.id.route_button);
                 button_route.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
@@ -169,12 +170,19 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
     @Override
     public void onResume() {
         super.onResume();
-        if(MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
+        if (MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
             arrayAdapter.notifyDataSetChanged();
             arrayAdapter.setButton_flag_enabled(true);
         }
+       /* if (MainActivity.CHOICE_ACTIVITY == 0) {
+            Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+            Log.i("informacja", " time_open_close.getOpenTime()" + time_open_close.getOpenTime()[0]);
 
+            CustomTextView txt = (CustomTextView) myView.findViewById(R.id.order_times);
+            txt.setText("Zamówienia online:" + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");
+        }*/
     }
+
 
     @Override
     public void onDestroy() {
@@ -183,7 +191,7 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
 
     public void reloadBase() {
 
-        if(MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0 ) {
+        if (MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
 
 
             if (MainActivity.CHOICE_ACTIVITY == 1) {
@@ -204,11 +212,15 @@ public class MenuFragment extends Fragment  implements OnMapReadyCallback {
 
         if (MainActivity.CHOICE_ACTIVITY == 0) {
 
-            mListViewMenu = (BounceListView)  myView.findViewById(R.id.mListView_BaseMenu);
+            mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
-            Log.i("informacja", "tu ma byc start"+newsArrayList);
-            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(),newsArrayList, R.color.color_PIZZA);
+           /* Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+            Log.i("informacja", " time_open_close.getOpenTime()" + time_open_close.getOpenTime()[0]);
 
+            CustomTextView txt = (CustomTextView) myView.findViewById(R.id.order_times);
+            txt.setText("Zamówienia online:" + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");*/
+
+            CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
 
 
             mListViewMenu.setAdapter(arrayAdapter);

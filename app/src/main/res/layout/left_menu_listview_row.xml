@@ -29,13 +29,13 @@
             android:id="@+id/sold_info"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp"
-            android:text="WYPRZEDANE"
-
-            android:background="@drawable/customshape"
-            android:layout_marginRight="20dp"
             android:layout_alignRight="@id/positionInList"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+
+            android:layout_marginTop="10dp"
+            android:background="@drawable/customshape"
+            android:text="WYPRZEDANE"
             android:textColor="@color/colorWhite"
             android:textSize="10sp" />
     </RelativeLayout>
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="-10dp"
         android:text="Margeritha"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
@@ -72,5 +72,11 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"></LinearLayout>
+    <View
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:background="@drawable/custom_divaider_listmenu"
+       />
 
 </LinearLayout>

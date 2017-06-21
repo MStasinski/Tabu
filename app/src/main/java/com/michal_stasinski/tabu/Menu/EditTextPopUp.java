@@ -57,6 +57,7 @@ public class EditTextPopUp extends Activity {
 
         EditText editText = (EditText) findViewById(R.id.edit_text_popup);
         editText.setText(actualText);
+
         Button saveButton = (Button) findViewById(R.id.btm_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -183,7 +184,8 @@ public class EditTextPopUp extends Activity {
 
     // validate last name
     public static boolean validateLastName(String lastName) {
-        return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+        return lastName.matches("[A-Z][a-zA-Z]*");
+       // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     } // end method validateLastName
 
     public static boolean isValidPhone(String phone) {

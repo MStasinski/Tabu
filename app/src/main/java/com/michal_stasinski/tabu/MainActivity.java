@@ -29,6 +29,7 @@ import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
+import com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomTextView;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
@@ -86,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         MyReceiver myReceiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
         registerReceiver(myReceiver, intentFilter);
+
 
 
 
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
         mToolBar.setBackgroundResource(R.color.colorWhite);
+
         setSupportActionBar(mToolBar);
         // content = (LinearLayout) findViewById(R.id.content_frame);
         drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
@@ -197,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout.addDrawerListener(mToggle);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true); // show or hide the default home button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false); // show or hide the default home button
         getSupportActionBar().setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         // getSupportActionBar().hide();
@@ -233,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -245,8 +250,9 @@ public class MainActivity extends AppCompatActivity {
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject here");
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
             startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
-            return true;
-        } else if (id == R.id.right_menu) {
+            //return true;
+        } else
+        if (id == R.id.right_menu) {
             mDrawerLayout.openDrawer(GravityCompat.END, true);
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
@@ -254,15 +260,15 @@ public class MainActivity extends AppCompatActivity {
             mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // na stworzenie menu --dodanie przycisków w menu
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem menuItem1 = menu.findItem(R.id.right_menu);
-        MenuItem menuItem2 = menu.findItem(R.id.share);
+       MenuItem menuItem2 = menu.findItem(R.id.share);
         if (menuItem1 != null) {
             TintIcon.tintMenuIcon(MainActivity.this, menuItem1, R.color.colorPrimary);
         }
@@ -271,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
             TintIcon.tintMenuIcon(MainActivity.this, menuItem2, R.color.colorPrimary);
         }
         return true;
-    }
+    }*/
 
 
     public class MyReceiver extends BroadcastReceiver {

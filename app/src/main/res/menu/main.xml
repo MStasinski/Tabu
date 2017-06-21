@@ -3,17 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+   <!-- <item
+    android:id="@+id/share"
+    android:actionProviderClass="android.widget.ShareActionProvider"
+    android:icon="@mipmap/share_icon"
+    android:tint="@color/colorPrimary"
+    android:title="Share"
+    app:showAsAction="always" />-->
+
+
+
     <item android:id="@+id/right_menu"
         android:title="Add"
         android:orderInCategory="100"
         android:icon="@mipmap/ic_more_vert_white_48dp"
         android:tint="@color/colorPrimary"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/share"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:icon="@mipmap/share_icon"
-        android:tint="@color/colorPrimary"
-        android:title="Share"
         app:showAsAction="always" />
 </menu>

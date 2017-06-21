@@ -122,19 +122,31 @@ public class CustomListViewAdapter extends BaseAdapter {
 
             for (int i = 0; i < price.size(); i++) {
                 LinearLayout list = (LinearLayout) view.findViewById(R.id.buttonlayout);
+
                 Button priceBtn = new Button(mContext);
+                priceBtn.setTransformationMethod(null);
 
                 final int priceId = i;
 
                 int priceBtn_height = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_height);
                 int priceBtn_width = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_width);
 
-                android.widget.LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
-                lp.setMargins(30, 0, 30, 0); // left, top, right, bottom
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
+                lp.setMargins(40, 0, 40, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
+
                 priceBtn.setTextColor(Color.BLACK);
-                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/0248EU27.ttf"));
+
+                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirLTStd-Light.otf"));
+                priceBtn.setTypeface(Typeface.DEFAULT, 4);
                 priceBtn.setTextSize(14);
+                //priceBtn.setScaleX((float) 0.9);
+               // priceBtn.setScaleY((float) 0.9);
+                priceBtn.setPadding(0,0,0,0);
+                priceBtn.setMinHeight(0);
+                priceBtn.setMinimumHeight(0);
+                priceBtn.setMinimumWidth(0);
+                priceBtn.setMinWidth(0);
                 //  priceBtn.setPaintFlags(priceBtn.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                 viewHolder.buttonArray.add(priceBtn);
 
@@ -156,7 +168,7 @@ public class CustomListViewAdapter extends BaseAdapter {
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
             String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i), 2);
-            viewHolder.buttonArray.get(i).setText(output.toString() + (" zł").toLowerCase());
+            viewHolder.buttonArray.get(i).setText(output.toString()+ " zł");
 
             final int butId = i;
 

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="margarita"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp"
@@ -59,7 +59,7 @@
         android:layout_width="160dp"
         android:layout_height="30dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/price_shape"
         android:text="usuń z  koszyka"
         android:textColor="@color/colorSecondGrey"
@@ -74,7 +74,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
 
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         android:background="@color/colorPrimary"
         android:text="aktualizuj koszyk" />
 </LinearLayout>
