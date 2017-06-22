@@ -31,6 +31,9 @@
             android:name=".Menu.PizzaSizePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
+            android:name=".Menu.PaymentPopUp"
+            android:theme="@style/AppTheme.PopUpWindow" />
+        <activity
             android:name=".Menu.AddonsPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity

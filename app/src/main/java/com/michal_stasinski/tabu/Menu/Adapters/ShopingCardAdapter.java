@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
@@ -19,7 +18,7 @@ public class ShopingCardAdapter extends BaseAdapter {
     public static final int TYPE_PURCHASER = 0;
     public static final int TYPE_ORDER_RULE = 1;
     public static final int TYPE_ORDER_ITEM = 2;
-    public static final int TYPE_SUMMARY= 3;
+    public static final int TYPE_SUMMARY = 3;
     public static final int TYPE_SEPARATOR = 4;
 
 
@@ -115,21 +114,24 @@ public class ShopingCardAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
 
-           viewHolder = (ViewHolderItem) convertView.getTag();
+            viewHolder = (ViewHolderItem) convertView.getTag();
         }
 
 
-
-        viewHolder.title.setText(arr.get(position).getTitle().toUpperCase());
-
-        if(viewHolder.quantity != null){
-          viewHolder.quantity.setText(String.valueOf(arr.get(position).getNr()));
+        if (position > arr.size() - 4) {
+            viewHolder.title.setText(arr.get(position).getTitle());
+        }else{
+            viewHolder.title.setText(arr.get(position).getTitle().toUpperCase());
         }
-        if(viewHolder.desc != null){
+
+        if (viewHolder.quantity != null) {
+            viewHolder.quantity.setText(String.valueOf(arr.get(position).getNr()));
+        }
+        if (viewHolder.desc != null) {
             viewHolder.desc.setText(String.valueOf(arr.get(position).getDesc()));
         }
-        if(viewHolder.price != null){
-            String output = MathUtils.formatDecimal(arr.get(position).getPrice(),2);
+        if (viewHolder.price != null) {
+            String output = MathUtils.formatDecimal(arr.get(position).getPrice(), 2);
             viewHolder.price.setText(String.valueOf(output));
         }
         return convertView;
@@ -142,7 +144,6 @@ public class ShopingCardAdapter extends BaseAdapter {
         CustomFont_Avenir_Medium price;
 
     }
-
 
 
 }

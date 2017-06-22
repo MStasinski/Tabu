@@ -6,7 +6,7 @@
     <dimen name="menu_list_view_desc">16sp</dimen>
     <dimen name="menu_list_view_shape_position">38dp</dimen>
     <dimen name="menu_list_view_priceButton_height">30dp</dimen>
-    <dimen name="menu_list_view_priceButton_width">80dp</dimen>
+    <dimen name="menu_list_view_priceButton_width">70dp</dimen>
     <!-- wlewy drawer: ikonka, tekst główny, opis -->
 
     <dimen name="left_drawer_icon">30dp</dimen>

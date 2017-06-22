@@ -53,7 +53,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:text="ZMIEŃ"
-            android:textColor="@color/colorSecond"
+            android:textColor="@color/colorSecondGrey"
             android:textSize="12dp" />
 
 

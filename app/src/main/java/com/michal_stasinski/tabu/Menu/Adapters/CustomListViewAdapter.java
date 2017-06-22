@@ -132,7 +132,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                 int priceBtn_width = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_width);
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
-                lp.setMargins(54, 0, 54, 0); // left, top, right, bottom
+                lp.setMargins(62, 0, 62, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
 
                 priceBtn.setTextColor(Color.rgb(85,85,85));

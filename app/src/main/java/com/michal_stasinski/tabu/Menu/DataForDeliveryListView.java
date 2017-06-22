@@ -207,22 +207,29 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             float distance = locationA.distanceTo(locationB);
 
 
-            if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
-                text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
+
+            if( ((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) &&  ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())){
+
+                if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
+                    text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
+                    deliveryCost = 0;
+
+                } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
+                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(2).getPrice() + " zł");
+                    deliveryCost = Integer.valueOf(deliveryCostArray.get(2).getPrice());
+
+                } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+
+                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
+                    deliveryCost = Integer.valueOf(deliveryCostArray.get(1).getPrice());
+                } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+
+                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
+                    deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
+                }
+            }else{
+                text_cost_delivery.setText("Nie ma takiego adresu");
                 deliveryCost = 0;
-
-            } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
-                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(2).getPrice() + " zł");
-                deliveryCost = Integer.valueOf(deliveryCostArray.get(2).getPrice());
-
-            } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
-
-                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
-                deliveryCost = Integer.valueOf(deliveryCostArray.get(1).getPrice());
-            } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
-
-                text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
-                deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
             }
 
 
@@ -230,12 +237,18 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
             ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
             Log.i("informacja", "address1___________________  "+address1);
-            Log.i("informacja", "address1___________________  "+address1.getLocality());
-            Log.i("informacja", "address1___________________  "+address1.getThoroughfare());
+            Log.i("informacja",  ((ShopingCardItem) adapter.getItem(6)).getTitle()+"address1___________________  "+address1.getLocality());
+            Log.i("informacja", ((ShopingCardItem) adapter.getItem(7)).getTitle()+"address1___________________  "+address1.getThoroughfare());
+            Log.i("informacja", ((ShopingCardItem) adapter.getItem(8)).getTitle()+"address1___________________  "+address1.getPostalCode());
 
             if(address1.getLocality()==null || address1.getThoroughfare()==null|| address1.getPostalCode()==null){
-                text_cost_delivery.setText("Nie ma takiego adresu");
-                deliveryCost = 0;
+
+                if( ((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) &&  ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())){
+
+                }else {
+                    text_cost_delivery.setText("Nie ma takiego adresu");
+                    deliveryCost = 0;
+                }
             }
             //townEdit.setTitle(address1.getLocality());
 

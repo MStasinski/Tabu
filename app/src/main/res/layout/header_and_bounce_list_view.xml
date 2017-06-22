@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/customshape_black"
-        android:gravity="end"
-        android:textAlignment="textEnd"
+        android:gravity="center"
         android:textColor="@color/colorWhite"
+        android:text="fdgfgdfgdfg"
         android:textSize="@dimen/menu_list_view_desc" />
 
     <com.michal_stasinski.tabu.Utils.BounceListView

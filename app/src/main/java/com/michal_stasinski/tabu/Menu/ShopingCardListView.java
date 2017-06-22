@@ -92,6 +92,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         final String email = prefs.getString(dataDeliveryTextFieldName[3], null);
         final String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
         deliveryCost = prefs.getInt("deliveryCost", 0);
+
         adapter = new ShopingCardAdapter(this);
         ShopingCardItem produkt = new ShopingCardItem();
 
@@ -106,7 +107,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             produkt.setTitle("DANE UŻYTKOWNIKA.\nUzupełnij.");
             produkt.setDesc("");
         }
-
 
         produkt.setNr(1);
         produkt.setType(ShopingCardAdapter.TYPE_PURCHASER);
@@ -123,7 +123,11 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             ShopingCardItem produkt0 = new ShopingCardItem();
             produkt0.setTitle(titleText[i]);
-            produkt0.setDesc("");
+            if(i==2) {
+                produkt0.setDesc("JAK NAJSZYBCIEJ");
+            }else{
+                produkt0.setDesc("");
+            }
             produkt0.setNr(1);
             produkt0.setType(ShopingCardAdapter.TYPE_ORDER_RULE);
 
@@ -256,6 +260,11 @@ public class ShopingCardListView extends SwipeBackActivity {
             el1.setDesc(RESTAURANT_ADDRES);
         }
 
+
+
+        ShopingCardItem el4= (ShopingCardItem) adapter.getItem(4);
+        //el4.setDesc("JAK NAJSZYBCIEJ");
+
         listView.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
@@ -318,6 +327,12 @@ public class ShopingCardListView extends SwipeBackActivity {
                     startActivity(intent);
                 }
 
+                if (position == 5) {
+
+                    intent.setClass(view.getContext(),PaymentPopUp.class);
+                    startActivity(intent);
+                }
+
                 if (position > 7 && position < 8 + orderList.size()) {
 
                     intent.putExtra("position", position);
@@ -371,13 +386,6 @@ public class ShopingCardListView extends SwipeBackActivity {
                 mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
 
 
-               /* for (OrderListItem item :orderList
-                     ) {
-
-
-
-
-                }*/
                 ArrayList orderArray = new ArrayList();
                 for (int i = 0; i < orderList.size(); i++) {
 

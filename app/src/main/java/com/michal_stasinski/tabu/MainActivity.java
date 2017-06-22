@@ -27,6 +27,7 @@ import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         currentActivity = CHOICE_ACTIVITY;
-        CustomFont_Avenir_Medium info_about_price = (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
+        CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 
