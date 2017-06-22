@@ -18,7 +18,7 @@
         android:scaleType="centerCrop"
         />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/dataText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
 
 
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/blog_post_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:textColor="@color/colorThirdGrey"
         android:textSize="@dimen/news_title_text_size" />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/blog_post_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

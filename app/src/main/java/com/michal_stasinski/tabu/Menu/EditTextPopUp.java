@@ -8,12 +8,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,7 +52,7 @@ public class EditTextPopUp extends Activity {
             pos = bundle.getInt("position");
             title = bundle.getString("title");
             actualText = bundle.getString("actualText");
-            CustomTextView titleTxt = (CustomTextView) findViewById(R.id.title_edit_popup);
+            CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.title_edit_popup);
             titleTxt.setText(title.toUpperCase());
         }
 
@@ -100,15 +101,16 @@ public class EditTextPopUp extends Activity {
 
 
                 if (pos == 8) {
-                    if (editText.getText().length() > 0) {
+                    if (editText.getText().length() > 0 && validatNr(editText.getText().toString())) {
                         isValidate = true;
                     }
+
 
                 }
 
                 if (pos == 9) {
 
-                    if (editText.getText().length() > 0) {
+                    if (editText.getText().length() > 0 && validatNr(editText.getText().toString())) {
                         isValidate = true;
                     }
 
@@ -116,7 +118,7 @@ public class EditTextPopUp extends Activity {
 
                 if (pos == 10) {
 
-                    if (editText.getText().length() > 0) {
+                    if (editText.getText().length() > 0 && validatNr(editText.getText().toString())) {
                         isValidate = true;
                     }
 
@@ -166,6 +168,7 @@ public class EditTextPopUp extends Activity {
                 } else {
 
                     Intent intent = new Intent();
+                    Log.i("informacja", "łeditText.getText().toString()  "+editText.getText().toString());
                     intent.putExtra("edit_text", editText.getText().toString());
                     intent.putExtra("pos", pos);
                     setResult(Activity.RESULT_OK, intent);
@@ -185,7 +188,12 @@ public class EditTextPopUp extends Activity {
     // validate last name
     public static boolean validateLastName(String lastName) {
         return lastName.matches("[A-Z][a-zA-Z]*");
-       // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+        // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+    } // end method validateLastName
+
+    public static boolean validatNr(String lastName) {
+        return lastName.matches("^[+]?[0-9]{1,13}$");
+        // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     } // end method validateLastName
 
     public static boolean isValidPhone(String phone) {

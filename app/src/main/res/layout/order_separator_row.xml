@@ -10,16 +10,16 @@
         android:layout_height="1dp"
         android:background="@color/colorSecond" />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/order_separator_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:padding="6dp"
+        android:padding="3dp"
         android:layout_centerVertical="true"
         android:text="test"
         android:textColor="@color/colorThirdGrey"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
@@ -81,34 +81,34 @@ public class ShopingCardAdapter extends BaseAdapter {
                 case TYPE_PURCHASER:
 
                     convertView = mInflater.inflate(R.layout.order_purchaser_row, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_purchaser_name);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_purchaser_name);
                     break;
 
                 case TYPE_SEPARATOR:
                     convertView = mInflater.inflate(R.layout.order_separator_row, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_separator_title);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_separator_title);
 
                     break;
 
 
                 case TYPE_ORDER_RULE:
                     convertView = mInflater.inflate(R.layout.order_rule_row, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_rule_title);
-                    viewHolder.desc = (CustomTextView) convertView.findViewById(R.id.order_rule_desc);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_rule_title);
+                    viewHolder.desc = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_rule_desc);
 
                     break;
                 case TYPE_ORDER_ITEM:
                     convertView = mInflater.inflate(R.layout.order_item_row, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_item_title);
-                    viewHolder.quantity = (CustomTextView) convertView.findViewById(R.id.order_item_quantity);
-                    viewHolder.desc = (CustomTextView) convertView.findViewById(R.id.order_item_desc);
-                    viewHolder.price = (CustomTextView) convertView.findViewById(R.id.order_item_price);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_item_title);
+                    viewHolder.quantity = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_item_quantity);
+                    viewHolder.desc = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_item_desc);
+                    viewHolder.price = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_item_price);
                     break;
 
                 case TYPE_SUMMARY:
                     convertView = mInflater.inflate(R.layout.order_summary, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_summary_title);
-                    viewHolder.desc = (CustomTextView) convertView.findViewById(R.id.order_summary_sum_of_all_prices);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_summary_title);
+                    viewHolder.desc = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_summary_sum_of_all_prices);
                     break;
 
             }
@@ -136,10 +136,10 @@ public class ShopingCardAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomTextView title;
-        CustomTextView desc;
-        CustomTextView quantity;
-        CustomTextView price;
+        CustomFont_Avenir_Medium title;
+        CustomFont_Avenir_Medium desc;
+        CustomFont_Avenir_Medium quantity;
+        CustomFont_Avenir_Medium price;
 
     }
 

@@ -20,7 +20,7 @@ import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.OrderComposerOthers;
 import com.michal_stasinski.tabu.Menu.OrderComposerPizza;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
@@ -118,7 +118,7 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
             viewHolder.price = price;
             viewHolder.buttonArray = new ArrayList<Button>();
-            viewHolder.soldLabel = (CustomTextView) view.findViewById(R.id.sold_info);
+            viewHolder.soldLabel = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
 
             for (int i = 0; i < price.size(); i++) {
                 LinearLayout list = (LinearLayout) view.findViewById(R.id.buttonlayout);
@@ -132,16 +132,15 @@ public class CustomListViewAdapter extends BaseAdapter {
                 int priceBtn_width = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_width);
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
-                lp.setMargins(40, 0, 40, 0); // left, top, right, bottom
+                lp.setMargins(54, 0, 54, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
 
-                priceBtn.setTextColor(Color.BLACK);
+                priceBtn.setTextColor(Color.rgb(85,85,85));
 
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirLTStd-Light.otf"));
                 priceBtn.setTypeface(Typeface.DEFAULT, 4);
-                priceBtn.setTextSize(14);
-                //priceBtn.setScaleX((float) 0.9);
-               // priceBtn.setScaleY((float) 0.9);
+                priceBtn.setTextSize(16);
+
                 priceBtn.setPadding(0,0,0,0);
                 priceBtn.setMinHeight(0);
                 priceBtn.setMinimumHeight(0);
@@ -194,9 +193,9 @@ public class CustomListViewAdapter extends BaseAdapter {
                             bundle.putString("rank", arr.get(clikPos).getRank());
                             bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
-                            Log.i("informacja", "___________________________" + clikPos + "" + butId);
+                            /*Log.i("informacja", "___________________________" + clikPos + "" + butId);
                             Log.i("informacja", "name " + arr.get(clikPos).getName());
-                            Log.i("informacja", arr.get(clikPos).getPriceArray() + "price " + arr.get(clikPos).getPriceArray().get(butId).toString());
+                            Log.i("informacja", arr.get(clikPos).getPriceArray() + "price " + arr.get(clikPos).getPriceArray().get(butId).toString());*/
                             intent.putExtras(bundle);
                             Activity activity = (Activity) mContext;
                             activity.startActivity(intent);
@@ -219,6 +218,6 @@ public class CustomListViewAdapter extends BaseAdapter {
         TextView colorShape;
         ArrayList<Button> buttonArray;
         ArrayList<Number> price;
-        CustomTextView soldLabel;
+        CustomFont_Avenir_Medium soldLabel;
     }
 }

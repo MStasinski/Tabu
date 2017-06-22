@@ -27,7 +27,7 @@
                 android:src="@mipmap/menu_icon"
                 android:tint="@color/colorPrimary" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/customTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:src="@mipmap/kosz_icon"
                 android:tint="@color/colorPrimary" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/info_about_price_and_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

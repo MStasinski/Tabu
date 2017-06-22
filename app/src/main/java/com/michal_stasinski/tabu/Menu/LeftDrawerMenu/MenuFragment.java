@@ -25,11 +25,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
-import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
 
 import java.util.ArrayList;
 

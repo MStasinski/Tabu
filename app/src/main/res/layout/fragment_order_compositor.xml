@@ -7,7 +7,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
         android:id="@+id/order_composer_positionInList"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:textColor="@color/colorSecondGrey"
         android:textSize="@dimen/menu_list_view_number" />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/order_composer_titleItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:textColor="@color/colorSecondGrey"
         android:textSize="@dimen/menu_list_view_title" />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/order_composer_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:textColor="@color/colorSecondGrey"
         android:textSize="@dimen/menu_list_view_desc" />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/order_composer_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

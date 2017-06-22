@@ -18,7 +18,7 @@ import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +34,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     private BounceListView listView;
     private Boolean isClick = false;
     public static int deliveryCost = 0;
+
     protected Integer[] imgid = {
             R.mipmap.ic_launcher,
             R.mipmap.person_icon,
@@ -45,8 +46,8 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             R.mipmap.ulica_icon,
             R.mipmap.nr_domu_icon,
             R.mipmap.nr_mieszkania_icon,
-            R.mipmap.firma_icon,
             R.mipmap.pietro_icon,
+            R.mipmap.firma_icon,
             R.mipmap.ic_launcher,
             R.mipmap.uwagi_icon,
     };
@@ -145,6 +146,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 String result = data.getStringExtra("edit_text");
                 Integer pos = data.getIntExtra("pos", 1);
+                Log.i("informacja", "łeditText.getText().toString()result  "+result);
                 ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
 
                 if (result.equals("")) {
@@ -188,7 +190,8 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             address1 = (Address) getCoordinatesFromAddresse(town + " " + street + " " + nr);
         }
 
-        CustomTextView text_cost_delivery = (CustomTextView) findViewById(R.id.data_cost_of_delivery_text);
+        CustomFont_Avenir_Medium text_cost_delivery = (CustomFont_Avenir_Medium) findViewById(R.id.data_cost_of_delivery_text);
+
         if (address1 != null) {
 
             Location locationA = new Location("point A");
@@ -213,9 +216,11 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                 deliveryCost = Integer.valueOf(deliveryCostArray.get(2).getPrice());
 
             } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+
                 text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
                 deliveryCost = Integer.valueOf(deliveryCostArray.get(1).getPrice());
             } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
+
                 text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
                 deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
             }
@@ -224,10 +229,20 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
             ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
+            Log.i("informacja", "address1___________________  "+address1);
+            Log.i("informacja", "address1___________________  "+address1.getLocality());
+            Log.i("informacja", "address1___________________  "+address1.getThoroughfare());
 
-            townEdit.setTitle(address1.getLocality());
-            streetEdit.setTitle(address1.getThoroughfare());
-            nrEdit.setTitle(address1.getFeatureName());
+            if(address1.getLocality()==null || address1.getThoroughfare()==null|| address1.getPostalCode()==null){
+                text_cost_delivery.setText("Nie ma takiego adresu");
+                deliveryCost = 0;
+            }
+            //townEdit.setTitle(address1.getLocality());
+
+            //streetEdit.setTitle(address1.getThoroughfare());
+
+
+            //nrEdit.setTitle(address1.getFeatureName());
             adapter.notifyDataSetChanged();
         }
         if (address1 == null) {
@@ -235,6 +250,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         }
 
         isClick = false;
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -243,7 +259,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                     Object listItem = listView.getItemAtPosition(position);
 
-                    Log.i("informacja", "dataaaaaaaaaa" + position + (position == 0 || position == 5 || position == 12));
+
                     if (position == 0 || position == 5 || position == 12) {
                     } else {
                         isClick = true;

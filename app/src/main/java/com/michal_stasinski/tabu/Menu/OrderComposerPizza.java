@@ -18,7 +18,7 @@ import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
@@ -106,10 +106,10 @@ public class OrderComposerPizza extends SwipeBackActivity {
         //********************************************************************************
 
 
-        CustomTextView title = (CustomTextView) findViewById(R.id.order_composer_positionInList);
-        CustomTextView nameTxt = (CustomTextView) findViewById(R.id.order_composer_titleItem);
-        CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
-        CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
+        CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
+        CustomFont_Avenir_Medium nameTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_titleItem);
+        CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
+        CustomFont_Avenir_Medium priceTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_price);
 
 
         String output = MathUtils.formatDecimal(sum, 2);
@@ -212,7 +212,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
 
-                CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+                CustomFont_Avenir_Medium info_about_price= (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
                 info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
 
             }
@@ -293,11 +293,11 @@ public class OrderComposerPizza extends SwipeBackActivity {
     public void onResume() {
         super.onResume();
 
-        CustomTextView info_about_price= (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        CustomFont_Avenir_Medium info_about_price= (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
 
 
-        CustomTextView descTxt = (CustomTextView) findViewById(R.id.order_composer_desc);
+        CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
         descText[0] = String.valueOf(20 + getSize() * 10) + " cm";
         sum = pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).floatValue();
 
@@ -360,7 +360,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         String output = MathUtils.formatDecimal(sum, 2);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
-        CustomTextView priceTxt = (CustomTextView) findViewById(R.id.order_composer_price);
+        CustomFont_Avenir_Medium priceTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_price);
 
         String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
         priceTxt.setText(oputput + " zł");

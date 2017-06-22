@@ -24,7 +24,7 @@
                 android:layout_marginBottom="10dp" />
 
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/textContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
 
                         android:text="Button" />
 
-                    <com.michal_stasinski.tabu.Utils.CustomTextView
+                    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -83,7 +83,7 @@
                         android:background="@mipmap/call_icon"
                         android:text="Button" />
 
-                    <com.michal_stasinski.tabu.Utils.CustomTextView
+                    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"

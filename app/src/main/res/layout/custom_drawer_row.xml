@@ -22,7 +22,7 @@
         android:padding="12dp"
         android:layout_marginLeft="@dimen/left_drawer_margin_left">
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
             android:id="@+id/txtTitleDrawer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

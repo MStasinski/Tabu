@@ -26,7 +26,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@mipmap/back_button" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
                 android:id="@+id/order_composer_positionInList"
                 android:layout_width="match_parent"
@@ -38,7 +38,7 @@
                 android:textColor="@color/colorThirdGrey"
                 android:textSize="@dimen/menu_list_view_number" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_titleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:textColor="@color/colorThirdGrey"
                 android:textSize="@dimen/menu_list_view_title" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 android:textColor="@color/colorThirdGrey"
                 android:textSize="@dimen/menu_list_view_desc" />
 
-            <com.michal_stasinski.tabu.Utils.CustomTextView
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,8 +90,8 @@
             <Button
                 android:id="@+id/order_composer_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_height="44sp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"

@@ -2,7 +2,7 @@
 package com.michal_stasinski.tabu.Menu.Adapters;
 
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +11,12 @@ import android.widget.ImageView;
 
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
+
+import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 
 public class DataForDeliveryAdapter extends BaseAdapter {
 
@@ -78,12 +80,12 @@ public class DataForDeliveryAdapter extends BaseAdapter {
                 case 1:
                     convertView = mInflater.inflate(R.layout.custom_drawer_row, null);
                     convertView.setBackgroundResource(R.color.colorWhite);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.txtTitleDrawer);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.txtTitleDrawer);
                     viewHolder.imageView = (ImageView) convertView.findViewById(R.id.icon);
                     break;
                 case 0:
                     convertView = mInflater.inflate(R.layout.order_separator_row, null);
-                    viewHolder.title = (CustomTextView) convertView.findViewById(R.id.order_separator_title);
+                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.order_separator_title);
                     break;
 
             }
@@ -94,8 +96,22 @@ public class DataForDeliveryAdapter extends BaseAdapter {
 
         }
 
+        boolean isEmpty = false;
+        for (int i = 0; i < dataDeliveryTextFieldName.length; i++) {
 
-        viewHolder.title.setText(arr.get(position).getTitle());
+                if (arr.get(position).getTitle().toUpperCase().equals(dataDeliveryTextFieldName[i].toUpperCase())) {
+                    isEmpty = true;
+
+            }
+        }
+        if (isEmpty) {
+            viewHolder.title.setText(arr.get(position).getTitle().toUpperCase());
+            viewHolder.title.setTextColor(Color.GRAY);
+        }else{
+            viewHolder.title.setText(arr.get(position).getTitle());
+            viewHolder.title.setTextColor(Color.BLACK);
+        }
+
 
         if (viewHolder.imageView != null) {
             viewHolder.imageView.setImageResource(icon[position]);
@@ -105,7 +121,7 @@ public class DataForDeliveryAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomTextView title;
+        CustomFont_Avenir_Medium title;
         ImageView imageView;
     }
 

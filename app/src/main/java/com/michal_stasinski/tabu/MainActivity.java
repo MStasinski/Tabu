@@ -14,9 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -29,11 +26,9 @@ import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
-import com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
-import com.michal_stasinski.tabu.Utils.TintIcon;
 
 import java.util.ArrayList;
 
@@ -57,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
     protected BounceListView mListViewDrawer;
     protected BounceListView mListViewMenu;
 
-    protected int[] colorToolBar = {
-            R.color.color_AKTUALNOSCI,
-            R.color.color_KONTAKTY,
-            R.color.color_PIZZA,
-            R.color.color_STARTERY,
-            R.color.color_SALATKI,
-            R.color.color_ZUPY
-    };
 
     protected String[] largeTextArr = {
             "START",
@@ -141,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        currentActivity=CHOICE_ACTIVITY;
-        CustomTextView info_about_price = (CustomTextView) findViewById(R.id.info_about_price_and_quantity);
+        currentActivity = CHOICE_ACTIVITY;
+        CustomFont_Avenir_Medium info_about_price = (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 
@@ -150,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         mToolBar.setBackgroundResource(R.color.colorWhite);
 
         setSupportActionBar(mToolBar);
-        // content = (LinearLayout) findViewById(R.id.content_frame);
+
         drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
         drawerBackgroud.setAlpha(0.f);
 
@@ -171,12 +158,11 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-                Log.i("informacja", "onCreate");
                 if (currentActivity != choicetActivity && choicetActivity < 5) {
 
                     FragmentManager fragmentManager = getFragmentManager();
                     CHOICE_ACTIVITY = choicetActivity;
-                    currentActivity= choicetActivity;
+                    currentActivity = choicetActivity;
                     TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
                     toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
                     fragment = MenuFragment.newInstance(choicetActivity);
@@ -184,12 +170,9 @@ public class MainActivity extends AppCompatActivity {
 
                     //TODO dodaj animacje
                     //startActivity(intent);
-                }
-
-
-                else if (currentActivity != choicetActivity && choicetActivity == 5) {
+                } else if (currentActivity != choicetActivity && choicetActivity == 5) {
                     Intent intent = new Intent();
-                    currentActivity=5;
+                    currentActivity = 5;
                     intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
@@ -200,16 +183,16 @@ public class MainActivity extends AppCompatActivity {
         TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
         toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
 
-        mDrawerLayout.addDrawerListener(mToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false); // show or hide the default home button
         getSupportActionBar().setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        // getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
 
         mToggle.syncState();
+        mDrawerLayout.addDrawerListener(mToggle);
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
         mListViewDrawer.setScrollingCacheEnabled(false);
         mDrawerLayout.setEnabled(false);
@@ -217,6 +200,33 @@ public class MainActivity extends AppCompatActivity {
 
         CustomDrawerAdapter adapter = new CustomDrawerAdapter(this, largeTextArr, imgid);
 
+
+        ButtonBarLayout button_share = (ButtonBarLayout) findViewById(R.id.bottom_share);
+
+        button_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBodyText = "Check it out. Your message goes here";
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject here");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
+                startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
+            }
+        });
+
+
+        ButtonBarLayout button_info = (ButtonBarLayout) findViewById(R.id.bottom_info);
+
+        button_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                mDrawerLayout.openDrawer(GravityCompat.END, true);
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+            }
+        });
 
         mListViewDrawer.setAdapter(adapter);
         mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -229,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
                     //TODO odblokuj to
                     //BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
                     // v.setEnabled(false);
-                     mDrawerLayout.setEnabled(false);
-                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    mDrawerLayout.setEnabled(false);
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START, true);
             }
@@ -238,47 +248,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.share) {
-            Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-            sharingIntent.setType("text/plain");
-            String shareBodyText = "Check it out. Your message goes here";
-            sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject here");
-            sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
-            startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
-            //return true;
-        } else
-        if (id == R.id.right_menu) {
-            mDrawerLayout.openDrawer(GravityCompat.END, true);
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        } else {
-            mDrawerLayout.openDrawer(GravityCompat.START, true);
-            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // na stworzenie menu --dodanie przycisków w menu
-        getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem menuItem1 = menu.findItem(R.id.right_menu);
-       MenuItem menuItem2 = menu.findItem(R.id.share);
-        if (menuItem1 != null) {
-            TintIcon.tintMenuIcon(MainActivity.this, menuItem1, R.color.colorPrimary);
-        }
-
-        if (menuItem2 != null) {
-            TintIcon.tintMenuIcon(MainActivity.this, menuItem2, R.color.colorPrimary);
-        }
-        return true;
-    }*/
-
 
     public class MyReceiver extends BroadcastReceiver {
         @Override

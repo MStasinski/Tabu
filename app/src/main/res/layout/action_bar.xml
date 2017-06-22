@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/nav_action"
     android:layout_width="match_parent"
@@ -12,34 +10,50 @@
     app:contentInsetStart="0dp"
     app:popupTheme="@style/Theme.AppCompat.NoActionBar">
 
-   <ImageView
-       android:layout_width="30dp"
-       android:layout_height="30dp"
-       android:src="@mipmap/share_icon"
-       android:tint="@color/colorPrimary"
-       android:layout_marginLeft="20dp"
 
-       />
-   <com.michal_stasinski.tabu.Utils.CustomTextView
-       android:id="@+id/toolBarTitle"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_gravity="center"
-       android:layout_marginTop="4dp"
-       android:text="ActionBarTitle"
-       android:textAlignment="center"
-       android:textColor="@color/colorPrimary"
-       android:textSize="16dp" />
+    <android.support.v7.widget.ButtonBarLayout
+        android:id="@+id/bottom_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-   <ImageView
-       android:layout_width="24dp"
-       android:layout_height="24dp"
-       android:src="@mipmap/ic_more_vert_white_48dp"
-       android:layout_gravity="right"
-       android:layout_marginRight="20dp"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:src="@mipmap/share_icon"
+            android:tint="@color/colorPrimary"
 
-       android:tint="@color/colorPrimary"
+            />
 
-       />
+    </android.support.v7.widget.ButtonBarLayout>
+
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        android:id="@+id/toolBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="ActionBarTitle"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16dp" />
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:id="@+id/bottom_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_more_vert_white_48dp"
+            android:tint="@color/colorPrimary" />
+
+        />
+
+    </android.support.v7.widget.ButtonBarLayout>
+
 
 </android.support.v7.widget.Toolbar>

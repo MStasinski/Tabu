@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomTextView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
@@ -58,7 +58,7 @@ public class AddRemoveOrderPopUp extends Activity {
         int height = dm.widthPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
 
-        CustomTextView titleTxt = (CustomTextView) findViewById(R.id.dish_title);
+        CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.dish_title);
         titleTxt.setText(name);
         removeAllBtn = (Button) findViewById(R.id.removeAll);
         actualBtn = (Button) findViewById(R.id.actual_order_button);

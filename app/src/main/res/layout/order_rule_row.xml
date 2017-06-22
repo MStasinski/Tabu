@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
             android:id="@+id/order_rule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:textSize="12dp"
             android:textStyle="bold" />
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
             android:id="@+id/order_rule_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:textColor="@color/colorThirdGrey"
             android:textSize="16dp" />
 
-        <com.michal_stasinski.tabu.Utils.CustomTextView
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/title_edit_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 
         />
 
-    <com.michal_stasinski.tabu.Utils.CustomTextView
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

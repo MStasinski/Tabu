@@ -1,12 +1,12 @@
 <resources>
     <!-- wielkości w menu w listview: tytuł, cena, opis -->
-    <dimen name="menu_list_view_number">14sp</dimen>
+    <dimen name="menu_list_view_number">11sp</dimen>
     <dimen name="menu_list_view_title">18sp</dimen>
-    <dimen name="menu_list_view_price">18sp</dimen>
-    <dimen name="menu_list_view_desc">14sp</dimen>
+    <dimen name="menu_list_view_price">16sp</dimen>
+    <dimen name="menu_list_view_desc">16sp</dimen>
     <dimen name="menu_list_view_shape_position">38dp</dimen>
-    <dimen name="menu_list_view_priceButton_height">34dp</dimen>
-    <dimen name="menu_list_view_priceButton_width">70dp</dimen>
+    <dimen name="menu_list_view_priceButton_height">30dp</dimen>
+    <dimen name="menu_list_view_priceButton_width">80dp</dimen>
     <!-- wlewy drawer: ikonka, tekst główny, opis -->
 
     <dimen name="left_drawer_icon">30dp</dimen>
