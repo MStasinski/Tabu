@@ -27,7 +27,7 @@
 
     </android.support.v7.widget.ButtonBarLayout>
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Regular
         android:id="@+id/toolBarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         android:text="ActionBarTitle"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="16dp" />
+        android:textSize="17dp" />
 
     <android.support.v7.widget.ButtonBarLayout
         android:id="@+id/bottom_info"

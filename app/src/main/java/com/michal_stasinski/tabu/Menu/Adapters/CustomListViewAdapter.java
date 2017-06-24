@@ -138,8 +138,8 @@ public class CustomListViewAdapter extends BaseAdapter {
                 priceBtn.setTextColor(Color.rgb(85,85,85));
 
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirLTStd-Light.otf"));
-                priceBtn.setTypeface(Typeface.DEFAULT, 4);
-                priceBtn.setTextSize(16);
+                priceBtn.setTypeface(Typeface.DEFAULT,4);
+                priceBtn.setTextSize(17);
 
                 priceBtn.setPadding(0,0,0,0);
                 priceBtn.setMinHeight(0);

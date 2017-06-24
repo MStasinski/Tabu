@@ -1,9 +1,7 @@
 package com.michal_stasinski.tabu.Menu.Models;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by win8 on 14.06.2017.
@@ -15,6 +13,7 @@ public class AllOrderModel  {
     private String deliveryPrice;
     private String text;
     private String orderMan;
+    ArrayList<OrderListItem>  order = new ArrayList<OrderListItem>();
 
     public Date getDeliveryDate() {
         return deliveryDate;
@@ -56,7 +55,7 @@ public class AllOrderModel  {
         this.order = order;
     }
 
-    ArrayList<OrderListItem>  order = new ArrayList<OrderListItem>();
+
 
 
 

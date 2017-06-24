@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.ShopingCardAdapter;
+import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
@@ -29,6 +30,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
+import static com.michal_stasinski.tabu.Menu.PaymentPopUp.paymentMethodsList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
@@ -40,7 +42,8 @@ public class ShopingCardListView extends SwipeBackActivity {
     private DatabaseReference mDatabase;
 
     private ShopingCardAdapter adapter;
-    public static int selected_time = 0;
+    public static int SELECTED_TIME = 0;
+    public static int SELECTED_PAYMENT_METHOD = 0;
     private int deliveryCost = 0;
     private String delivery_mode;
 
@@ -84,7 +87,6 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         final BounceListView listView = (BounceListView) findViewById(R.id.shoping_card_listView);
 
-
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
         final String firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
@@ -125,6 +127,8 @@ public class ShopingCardListView extends SwipeBackActivity {
             produkt0.setTitle(titleText[i]);
             if(i==2) {
                 produkt0.setDesc("JAK NAJSZYBCIEJ");
+            }else if(i==3) {
+                produkt0.setDesc("GOTÓWKA");
             }else{
                 produkt0.setDesc("");
             }
@@ -198,6 +202,9 @@ public class ShopingCardListView extends SwipeBackActivity {
                 produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
             }
             if (i == 2) {
+
+
+                //TODO tu był bład na przeciku
                 produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
             }
             produkt1.setNr(1);
@@ -206,12 +213,22 @@ public class ShopingCardListView extends SwipeBackActivity {
             adapter.addItem(produkt1);
         }
 
+        /*pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
 
-        ShopingCardItem selectedItem = (ShopingCardItem) adapter.getItem(4);
+
+        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
         if (timeList != null) {
-            TimeListItem timeItem = (TimeListItem) timeList.get(selected_time);
-            selectedItem.setDesc(timeItem.getTime());
+            TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
+            selectedTimeItem.setDesc(timeItem.getTime());
         }
+
+        ShopingCardItem selectedPaymentItem = (ShopingCardItem) adapter.getItem(5);
+        if (paymentMethodsList != null) {
+            PaymentItem paymentItem = (PaymentItem) paymentMethodsList.get(SELECTED_PAYMENT_METHOD);
+            selectedPaymentItem.setDesc(paymentItem.getPayment_txt());
+        }
+
+        /*----------------------------------------------------------------------*/
 
 
         SharedPreferences prefs0 = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE);
@@ -346,6 +363,9 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             }
         });
+
+
+
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 

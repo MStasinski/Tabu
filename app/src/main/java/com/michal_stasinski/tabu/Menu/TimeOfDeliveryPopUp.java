@@ -23,7 +23,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import static com.michal_stasinski.tabu.Menu.ShopingCardListView.selected_time;
+import static com.michal_stasinski.tabu.Menu.ShopingCardListView.SELECTED_TIME;
 
 public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
@@ -253,6 +253,10 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
                 // time.setTime(ff + ":" + r);
             }
+            if (Integer.parseInt(r) < 10) {
+                r="0"+r;
+            }
+
 
             if (ff < 10) {
                 time.setTime("0" + ff + ":" + r);
@@ -261,7 +265,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             }
 
             time.setMark(false);
-            if (selected_time == i) {
+            if (SELECTED_TIME == ilePozycjiczasu-i) {
                 time.setMark(true);
             }
             timeList.add(time);
@@ -274,7 +278,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         time.setTime("JAK NAJSZYBCIEJ");
         time.setMark(false);
 
-        if (selected_time == 0) {
+        if (SELECTED_TIME == 0) {
             time.setMark(true);
         }
 
@@ -300,7 +304,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
                 TimeListItem item = (TimeListItem) adapterek.getItem(position);
                 item.setMark(true);
-                selected_time = position;
+                SELECTED_TIME = position;
+
                 adapterek.notifyDataSetChanged();
 
 

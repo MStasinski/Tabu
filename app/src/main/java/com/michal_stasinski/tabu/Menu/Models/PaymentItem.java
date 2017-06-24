@@ -10,6 +10,20 @@ public class PaymentItem {
     private String payment_txt;
     private Boolean mark;
 
+    public Integer getImage() {
+        return image;
+    }
+
+    public void setImage(Integer image) {
+        this.image = image;
+    }
+
+    private Integer image;
+
+
+
+
+
     public String getPayment_txt() {
         return payment_txt;
     }
@@ -26,13 +40,5 @@ public class PaymentItem {
         this.mark = mark;
     }
 
-    public ImageView getImg() {
-        return img;
-    }
 
-    public void setImg(ImageView img) {
-        this.img = img;
-    }
-
-    private ImageView img;
 }

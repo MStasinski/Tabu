@@ -43,6 +43,7 @@ public class SplashScreen extends Activity {
 
     public static ArrayList<Integer> pizzaSizes_CheckMark;
     public static ArrayList<Integer> pizzaAddons_CheckMark;
+    public static ArrayList<Integer> payment_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
     public static ArrayList<MenuItemProduct> nameArrayList;
@@ -68,6 +69,8 @@ public class SplashScreen extends Activity {
             "Dodatkowe wskazówki",
             "Dodatkowe wskazówki"
     };
+
+
     /**
      * Duration of wait
      **/

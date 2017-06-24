@@ -2,22 +2,18 @@ package com.michal_stasinski.tabu.Menu;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.michal_stasinski.tabu.Menu.Adapters.PizzaSizeAdapter;
+import com.michal_stasinski.tabu.Menu.Adapters.PaymentAdapter;
+import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
-import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaSizes_CheckMark;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaSizesList;
+import java.util.ArrayList;
 
 /**
  * Created by win8 on 18.04.2017.
@@ -25,17 +21,34 @@ import static com.michal_stasinski.tabu.SplashScreen.pizzaSizesList;
 
 public class PaymentPopUp extends Activity {
 
+    public static ArrayList<PaymentItem> paymentMethodsList;
+
     private static int size = 0;
     private static Context contex;
-    private PizzaSizeAdapter adapterek;
+    private static PaymentAdapter adapterek;
     private BounceListView mListViewMenu;
-    private int chooseSize = 0;
+    private int choosePaymentMethod = 0;
     private static final String TAG = PizzaSizePopUp.class.getSimpleName();
+
+    protected Integer[] imgPayment = {
+            R.mipmap.cash_icon,
+            R.mipmap.card_icon,
+            R.mipmap.dot_pay_icon,
+            R.mipmap.payu_icon
+
+    };
+
+    public static String[] paymentMethods = {
+            "GOTÓWKA",
+            "Karta przy odbiorze",
+            "Szybki przelew lub karta",
+            "Szybki przelew lub karta"
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-        Log.i("informacja", "onCreate");
         super.onCreate(savedInstanceState);
         contex = this;
         setContentView(R.layout.bounce_list_view);
@@ -44,25 +57,26 @@ public class PaymentPopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.widthPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+        getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
 
-        int size = 0;
-        int positionIteminMenuListView= 0;
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        paymentMethodsList = new ArrayList<PaymentItem>();
 
-        if (bundle != null) {
-            for (int i = 0; i < pizzaSizes_CheckMark.size(); i++) {
-                pizzaSizes_CheckMark.set(i, 0);
+
+        for (int i = 0; i < paymentMethods.length; i++) {
+
+            PaymentItem item = new PaymentItem();
+            item.setPayment_txt(paymentMethods[i]);
+            item.setImage(imgPayment[i]);
+            item.setMark(false);
+            if (ShopingCardListView.SELECTED_PAYMENT_METHOD == i) {
+                item.setMark(true);
             }
-            positionIteminMenuListView = bundle.getInt("position");
-            size = bundle.getInt("size");
-            OrderComposerPizza.setSize(size);
-            pizzaSizes_CheckMark.set(size, 1);
+
+            paymentMethodsList.add(item);
         }
 
-        adapterek = new PizzaSizeAdapter(contex,positionIteminMenuListView ,pizzaList,pizzaSizesList, pizzaSizes_CheckMark);
+        adapterek = new PaymentAdapter(contex, paymentMethodsList);
 
         mListViewMenu = (BounceListView) findViewById(R.id.mListView_BaseMenu);
         mListViewMenu.setAdapter(adapterek);
@@ -73,38 +87,20 @@ public class PaymentPopUp extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
 
-                for (int i = 0; i < pizzaSizes_CheckMark.size(); i++) {
-                    pizzaSizes_CheckMark.set(i, 0);
+                for (int i = 0; i < paymentMethodsList.size(); i++) {
+                    PaymentItem obj = (PaymentItem) adapter.getItemAtPosition(i);
+                    obj.setMark(false);
                 }
-                OrderComposerPizza.setSize(position);
-                pizzaSizes_CheckMark.set(position, 1);
+
+                PaymentItem obj = (PaymentItem) adapter.getItemAtPosition(position);
+                obj.setMark(true);
+                ShopingCardListView.SELECTED_PAYMENT_METHOD = position;
                 adapterek.notifyDataSetChanged();
 
-                Object listItem = mListViewMenu.getItemAtPosition(position);
+
             }
         });
 
-    }
-
-    @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(parent, name, context, attrs);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("informacja", "PopUp_onDestroy");
-    }
-
-
-
-    public int getChooseSize() {
-        return chooseSize;
-    }
-
-    public void setChooseSize(int chooseSize) {
-        this.chooseSize = chooseSize;
     }
 
 

@@ -18,6 +18,7 @@ import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
@@ -180,7 +181,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
 
-                CustomFont_Avenir_Medium info_about_price = (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
+                CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
                 info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
             }
@@ -244,7 +245,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
     public void onResume() {
         super.onResume();
 
-        CustomFont_Avenir_Medium info_about_price = (CustomFont_Avenir_Medium) findViewById(R.id.info_about_price_and_quantity);
+        CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 

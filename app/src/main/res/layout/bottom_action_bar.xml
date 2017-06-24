@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
@@ -33,10 +33,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:text="MENU"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 />
         </android.support.v7.widget.ButtonBarLayout>
 
@@ -45,7 +45,9 @@
             android:id="@+id/bottom_action_bar_btn1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -60,16 +62,14 @@
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold
                 android:id="@+id/info_about_price_and_quantity"
-                android:layout_width="wrap_content"
+                android:layout_width="104dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="50dp"
-                android:layout_marginTop="16dp"
-
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="14dp"
                 android:text="(0) 0.00zł"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                />
+                android:textSize="18sp" />
         </android.support.v7.widget.ButtonBarLayout>
     </RelativeLayout>
 </LinearLayout>
