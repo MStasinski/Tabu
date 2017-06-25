@@ -69,13 +69,13 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        if (orderList.size() == 0) {
-            finish();
-            //TODO komunitkata
-        }
-
+    }
+        @Override
+        protected void onResume() {
+            super.onResume();
+            if (orderList.size() == 0) {
+                finish();
+            }
         final ShopingCardItem[] items = new ShopingCardItem[40];
 
         setContentView(R.layout.activity_shoping_card_list_view);
@@ -143,7 +143,6 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             ShopingCardItem produkt2 = new ShopingCardItem();
 
-            Log.i("informacja", orderList.get(i).getPrice()+"______________________________"+orderList.get(i).getQuantity() * orderList.get(i).getPrice());
             produkt2.setPrice(Float.valueOf(MathUtils.formatDecimal(orderList.get(i).getQuantity() * orderList.get(i).getPrice(), 2)));
 
 
@@ -429,13 +428,9 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             }
         });
-    }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+        adapter.notifyDataSetChanged();
         /*pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
 
 

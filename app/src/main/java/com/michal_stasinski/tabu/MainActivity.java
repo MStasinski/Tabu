@@ -4,6 +4,7 @@ package com.michal_stasinski.tabu;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
+import com.michal_stasinski.tabu.Menu.EditTextPopUp;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
@@ -33,6 +36,8 @@ import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.util.ArrayList;
+
+import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -113,9 +118,31 @@ public class MainActivity extends AppCompatActivity {
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getBaseContext(), ShopingCardListView.class);
-                startActivity(intent);
+
+
+
+                if (orderList.size() == 0) {
+                   //finish();
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
+                    alertDialogBuilder
+                            .setMessage("Wybierz coś z menu")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), ShopingCardListView.class);
+                    startActivity(intent);
+
+                }
             }
         });
 
