@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.michal_stasinski.tabu.Menu.Adapters.SauceAdapter;
+import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -57,7 +58,11 @@ public class SaucePopUp extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Object listItem = mListViewMenu.getItemAtPosition(position);
-                saucePopUpAdapter.setChoooseHowManyItemYouOrder(position);
+                MenuItemProduct item =(MenuItemProduct)saucePopUpAdapter.getItem(position);
+                if(!item.getSold()) {
+                    saucePopUpAdapter.setChoooseHowManyItemYouOrder(position);
+                }
+
                 saucePopUpAdapter.notifyDataSetChanged();
             }
         });

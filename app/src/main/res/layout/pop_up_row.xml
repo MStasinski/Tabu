@@ -19,7 +19,20 @@
             android:textColor="@color/colorDarkGray"
             android:textSize="16dp" />
 
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
+            android:id="@+id/sold_info"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+
+            android:layout_marginTop="6sp"
+            android:background="@drawable/custom_shape_issold"
+            android:text="WYPRZEDANE"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/checkmark"

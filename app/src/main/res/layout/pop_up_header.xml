@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondGrey"
+    android:background="@drawable/order_compozitor_gray_title_shape"
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants"
     android:padding="10dp">
@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/colorDarkGray"
-            android:textSize="20dp" />
+            android:textColor="@color/order_list_rozmiar"
+            android:textSize="15dp" />
 
 
     </RelativeLayout>

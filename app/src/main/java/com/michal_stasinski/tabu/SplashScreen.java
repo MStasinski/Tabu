@@ -202,6 +202,7 @@ public class SplashScreen extends Activity {
                     menuItemProduct.setName(name);
                     pizzaSizes_CheckMark.add(0);
                     menuItemProduct.setRank(rank);
+                    menuItemProduct.setSold(false);
                     pizzaSizesList.add(menuItemProduct);
 
                 }

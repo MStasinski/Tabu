@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.ArrayList;
 
@@ -49,11 +50,20 @@ public class SauceAdapter extends BaseAdapter {
             viewHolder = new SauceAdapter.ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.pizza_size_text);
             viewHolder.check = (TextView) view.findViewById(R.id.checkmark);
+            viewHolder.isSold = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
             view.setTag(viewHolder);
 
         } else {
 
             viewHolder = (SauceAdapter.ViewHolderItem) view.getTag();
+        }
+
+        if (viewHolder.isSold != null) {
+            if(this.souceArray.get(position).getSold()){
+                viewHolder.isSold.setVisibility(View.VISIBLE);
+            }else{
+                viewHolder.isSold.setVisibility(View.INVISIBLE);
+            }
         }
 
         viewHolder.title.setText(this.souceArray.get(position).getName() + " (" + this.souceArray.get(position).getPriceArray().get(chooseSize) + " zł)");
@@ -70,7 +80,7 @@ public class SauceAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-
+        CustomFont_Avenir_Medium isSold;
         TextView title;
         TextView check;
     }

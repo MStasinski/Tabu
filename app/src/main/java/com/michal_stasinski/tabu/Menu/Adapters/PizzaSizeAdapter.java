@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class PizzaSizeAdapter extends BaseAdapter {
             view = View.inflate(mContext, R.layout.pop_up_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.pizza_size_text);
+            viewHolder.isSold = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
             viewHolder.check = (TextView) view.findViewById(R.id.checkmark);
             view.setTag(viewHolder);
 
@@ -64,6 +66,14 @@ public class PizzaSizeAdapter extends BaseAdapter {
         }
         String output = MathUtils.formatDecimal(this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position),2);
         viewHolder.title.setText(pizzaSizesArr.get(position).getName() +" (" +output+" zł)");
+
+        if(pizzaSizesArr.get(position).getSold()){
+            viewHolder.isSold.setVisibility(View.VISIBLE);
+        }else{
+            viewHolder.isSold.setVisibility(View.INVISIBLE);
+        }
+
+
 
         if (this.markSignArr.get(position) == 1) {
             viewHolder.check.setText("\u2713");
@@ -78,7 +88,7 @@ public class PizzaSizeAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-
+        CustomFont_Avenir_Medium isSold;
         TextView title;
         TextView check;
     }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,8 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.pop_up_row, null);
 
             viewHolder = new ViewHolderItem();
-            viewHolder.hour = (TextView)  convertView.findViewById(R.id.pizza_size_text);
+            viewHolder.hour = (TextView) convertView.findViewById(R.id.pizza_size_text);
+            viewHolder.isSold = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.sold_info);
             viewHolder.check = (TextView) convertView.findViewById(R.id.checkmark);
             convertView.setTag(viewHolder);
 
@@ -71,8 +73,8 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
-         viewHolder.hour.setText(this.arr.get(position).getTime());
-
+        viewHolder.hour.setText(this.arr.get(position).getTime());
+        viewHolder.isSold.setVisibility(View.INVISIBLE);
         if (this.arr.get(position).getMark() == true) {
             viewHolder.check.setText("\u2713");
             viewHolder.hour.setTextColor(Color.GRAY);
@@ -82,11 +84,11 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
             viewHolder.hour.setTextColor(Color.BLACK);
             viewHolder.check.setTextColor(Color.BLACK);
         }
-       return convertView;
+        return convertView;
     }
 
     static class ViewHolderItem {
-
+        CustomFont_Avenir_Medium isSold;
         TextView hour;
         TextView check;
     }

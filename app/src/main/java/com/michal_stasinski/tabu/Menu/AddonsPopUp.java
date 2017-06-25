@@ -103,7 +103,10 @@ public class AddonsPopUp extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Object listItem = mListViewMenu.getItemAtPosition(position);
-                addonsPopUpAdapter.setChoooseHowManyItemYouOrder(position);
+                MenuItemProduct item =(MenuItemProduct)addonsPopUpAdapter.getItem(position);
+                if(!item.getSold()) {
+                    addonsPopUpAdapter.setChoooseHowManyItemYouOrder(position);
+                }
                 addonsPopUpAdapter.notifyDataSetChanged();
             }
         });

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -79,6 +80,7 @@ public class AddonsAdapter extends BaseAdapter {
                 case TYPE_ITEM:
                     convertView = mInflater.inflate(R.layout.pop_up_row, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.pizza_size_text);
+                    viewHolder.isSold = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.sold_info);
                     viewHolder.check = (TextView) convertView.findViewById(R.id.checkmark);
                     break;
                 case TYPE_SEPARATOR:
@@ -91,6 +93,16 @@ public class AddonsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
+
+
+        if (viewHolder.isSold != null) {
+            if(arr.get(position).getSold()){
+                viewHolder.isSold.setVisibility(View.VISIBLE);
+            }else{
+                viewHolder.isSold.setVisibility(View.INVISIBLE);
+            }
+        }
+
 
         if (viewHolder.check != null) {
             if (arr.get(position).getHowManyItemSelected() != 0) {
@@ -109,6 +121,7 @@ public class AddonsAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
+        CustomFont_Avenir_Medium isSold;
         TextView title;
         TextView check;
     }
