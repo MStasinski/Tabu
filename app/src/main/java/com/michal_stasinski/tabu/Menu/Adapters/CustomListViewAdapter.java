@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import static com.michal_stasinski.tabu.R.dimen.menu_list_view_desc;
+import static com.michal_stasinski.tabu.R.dimen.price_font;
+import static com.michal_stasinski.tabu.SplashScreen.orderList;
+
 /**
  * Created by win8 on 27.12.2016.
  */
@@ -134,18 +138,18 @@ public class CustomListViewAdapter extends BaseAdapter {
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
 
-                int margin = (int) ( mContext.getResources().getDimension(R.dimen.price_margin) /  mContext.getResources().getDisplayMetrics().density);
-                lp.setMargins( margin, 0,  margin, 0); // left, top, right, bottom
+                int margin = (int) (mContext.getResources().getDimension(R.dimen.price_margin) / mContext.getResources().getDisplayMetrics().density);
+                lp.setMargins(margin, 0, margin, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
 
-                priceBtn.setTextColor(Color.rgb(85,85,85));
+                priceBtn.setTextColor(Color.rgb(85, 85, 85));
 
                 priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/Avenir Next Condensed.ttc"));
-                priceBtn.setTypeface(Typeface.DEFAULT,0);
-                priceBtn.setTextSize( TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.price_font));
+                priceBtn.setTypeface(Typeface.DEFAULT, 0);
+                priceBtn.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(price_font));
 
 
-                priceBtn.setPadding(0,0,0,0);
+                priceBtn.setPadding(0, 0, 0, 0);
                 priceBtn.setMinHeight(0);
                 priceBtn.setMinimumHeight(0);
                 priceBtn.setMinimumWidth(0);
@@ -167,11 +171,15 @@ public class CustomListViewAdapter extends BaseAdapter {
         }
         viewHolder.title.setText(arr.get(position).getName().toUpperCase());
         viewHolder.colorShape.setText("- " + arr.get(position).getRank() + " -");
+
         viewHolder.textDesc.setText(arr.get(position).getDescription());
+        if (arr.get(position).getDescription().equals("")) {
+            viewHolder.textDesc.setHeight(0);
+        }
 
         for (int i = 0; i < viewHolder.price.size(); i++) {
             String output = MathUtils.formatDecimal(arr.get(position).getPriceArray().get(i), 2);
-            viewHolder.buttonArray.get(i).setText(output.toString()+ " zł");
+            viewHolder.buttonArray.get(i).setText(output.toString() + " zł");
 
             final int butId = i;
 
@@ -197,9 +205,6 @@ public class CustomListViewAdapter extends BaseAdapter {
                             bundle.putString("rank", arr.get(clikPos).getRank());
                             bundle.putString("price", arr.get(clikPos).getPriceArray().get(butId).toString());
 
-                            /*Log.i("informacja", "___________________________" + clikPos + "" + butId);
-                            Log.i("informacja", "name " + arr.get(clikPos).getName());
-                            Log.i("informacja", arr.get(clikPos).getPriceArray() + "price " + arr.get(clikPos).getPriceArray().get(butId).toString());*/
                             intent.putExtras(bundle);
                             Activity activity = (Activity) mContext;
                             activity.startActivity(intent);
