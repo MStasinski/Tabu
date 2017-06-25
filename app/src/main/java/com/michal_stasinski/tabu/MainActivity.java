@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected ActionBarDrawerToggle mToggle;
     protected int currentActivity = -1;
     protected int choiceActivity = 0;
-
+    private Boolean menuIsClick = false;
     protected BounceListView mListViewDrawer;
     protected BounceListView mListViewMenu;
 
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerClosed(view);
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
+                if (menuIsClick == true) {
                     if (currentActivity != choiceActivity && choiceActivity < 5) {
 
                         FragmentManager fragmentManager = getFragmentManager();
@@ -176,13 +176,13 @@ public class MainActivity extends AppCompatActivity {
                         //startActivity(intent);
                     } else if (currentActivity != choiceActivity && choiceActivity == 5) {
 
-                        Log.i("informacja", "ładuje ttttttttttttttt" + choiceActivity);
                         Intent intent = new Intent();
                         currentActivity = 5;
                         intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                         startActivity(intent);
                     }
-
+                    menuIsClick =false;
+                }
             }
         };
 
@@ -240,9 +240,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg) {
 
-
+                menuIsClick = true;
                 choiceActivity = position;
                 if (currentActivity != choiceActivity) {
+
+
                     //TODO odblokuj to
                     //BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
                     // v.setEnabled(false);
