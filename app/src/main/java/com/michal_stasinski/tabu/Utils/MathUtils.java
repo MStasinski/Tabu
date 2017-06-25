@@ -1,5 +1,6 @@
 package com.michal_stasinski.tabu.Utils;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
@@ -9,9 +10,11 @@ import java.text.NumberFormat;
 public class MathUtils {
 
     public static String formatDecimal(Number num , int decimal) {
-        NumberFormat formatter = NumberFormat.getNumberInstance();
+
+        NumberFormat formatter = new DecimalFormat("0.00");
+        //NumberFormat formatter = NumberFormat.getNumberInstance();
         formatter.setMinimumFractionDigits(decimal);
-        formatter.setMaximumFractionDigits(decimal);
+        //formatter.setMaximumFractionDigits(decimal);
         String output = formatter.format(num);
         return output;
     }

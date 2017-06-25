@@ -14,6 +14,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -28,7 +30,6 @@ import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
     protected int currentActivity = -1;
-    protected int choicetActivity = 0;
+    protected int choiceActivity = 0;
 
     protected BounceListView mListViewDrawer;
     protected BounceListView mListViewMenu;
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         currentActivity = CHOICE_ACTIVITY;
+        Log.i("informacja", "resume" + currentActivity);
         CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
@@ -141,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerBackgroud = (ImageView) findViewById(R.id.black_shape_background);
         drawerBackgroud.setAlpha(0.f);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -159,24 +162,27 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setEnabled(false);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-                if (currentActivity != choicetActivity && choicetActivity < 5) {
+                    if (currentActivity != choiceActivity && choiceActivity < 5) {
 
-                    FragmentManager fragmentManager = getFragmentManager();
-                    CHOICE_ACTIVITY = choicetActivity;
-                    currentActivity = choicetActivity;
-                    TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
-                    toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
-                    fragment = MenuFragment.newInstance(choicetActivity);
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        CHOICE_ACTIVITY = choiceActivity;
+                        currentActivity = choiceActivity;
+                        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
+                        toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
+                        fragment = MenuFragment.newInstance(choiceActivity);
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
-                    //TODO dodaj animacje
-                    //startActivity(intent);
-                } else if (currentActivity != choicetActivity && choicetActivity == 5) {
-                    Intent intent = new Intent();
-                    currentActivity = 5;
-                    intent.setClass(getBaseContext(), DataForDeliveryListView.class);
-                    startActivity(intent);
-                }
+                        //TODO dodaj animacje
+                        //startActivity(intent);
+                    } else if (currentActivity != choiceActivity && choiceActivity == 5) {
+
+                        Log.i("informacja", "ładuje ttttttttttttttt" + choiceActivity);
+                        Intent intent = new Intent();
+                        currentActivity = 5;
+                        intent.setClass(getBaseContext(), DataForDeliveryListView.class);
+                        startActivity(intent);
+                    }
+
             }
         };
 
@@ -235,8 +241,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, final int position, long arg) {
 
 
-                choicetActivity = position;
-                if (currentActivity != choicetActivity) {
+                choiceActivity = position;
+                if (currentActivity != choiceActivity) {
                     //TODO odblokuj to
                     //BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
                     // v.setEnabled(false);
@@ -248,6 +254,20 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    /*chowanie drawera na click outside*/
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                Log.i("informacja", "TAP");
+                View content = findViewById(R.id.left_drawer);
+                mDrawerLayout.closeDrawer(GravityCompat.START, true);
+            }
+        }
+        return super.dispatchTouchEvent(event);
     }
 
     public class MyReceiver extends BroadcastReceiver {

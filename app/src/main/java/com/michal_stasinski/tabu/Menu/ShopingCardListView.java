@@ -1,5 +1,6 @@
 package com.michal_stasinski.tabu.Menu;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
-import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
 import static com.michal_stasinski.tabu.Menu.PaymentPopUp.paymentMethodsList;
+import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
@@ -39,11 +40,13 @@ import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 
 public class ShopingCardListView extends SwipeBackActivity {
-    private DatabaseReference mDatabase;
 
-    private ShopingCardAdapter adapter;
     public static int SELECTED_TIME = 0;
     public static int SELECTED_PAYMENT_METHOD = 0;
+
+    private DatabaseReference mDatabase;
+    private ShopingCardAdapter adapter;
+    private static String comments = "";
     private int deliveryCost = 0;
     private String delivery_mode;
 
@@ -66,13 +69,6 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
 
         if (orderList.size() == 0) {
@@ -125,11 +121,11 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             ShopingCardItem produkt0 = new ShopingCardItem();
             produkt0.setTitle(titleText[i]);
-            if(i==2) {
+            if (i == 2) {
                 produkt0.setDesc("JAK NAJSZYBCIEJ");
-            }else if(i==3) {
+            } else if (i == 3) {
                 produkt0.setDesc("GOTÓWKA");
-            }else{
+            } else {
                 produkt0.setDesc("");
             }
             produkt0.setNr(1);
@@ -146,7 +142,11 @@ public class ShopingCardListView extends SwipeBackActivity {
         for (int i = 0; i < orderList.size(); i++) {
 
             ShopingCardItem produkt2 = new ShopingCardItem();
+
+            Log.i("informacja", orderList.get(i).getPrice()+"______________________________"+orderList.get(i).getQuantity() * orderList.get(i).getPrice());
             produkt2.setPrice(Float.valueOf(MathUtils.formatDecimal(orderList.get(i).getQuantity() * orderList.get(i).getPrice(), 2)));
+
+
             String txtDesc = "";
             produkt2.setTitle(orderList.get(i).getName());
             if (orderList.get(i).getSize() != null) {
@@ -213,23 +213,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             adapter.addItem(produkt1);
         }
 
-        /*pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
-
-
-        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
-        if (timeList != null) {
-            TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
-            selectedTimeItem.setDesc(timeItem.getTime());
-        }
-
-        ShopingCardItem selectedPaymentItem = (ShopingCardItem) adapter.getItem(5);
-        if (paymentMethodsList != null) {
-            PaymentItem paymentItem = (PaymentItem) paymentMethodsList.get(SELECTED_PAYMENT_METHOD);
-            selectedPaymentItem.setDesc(paymentItem.getPayment_txt());
-        }
-
-        /*----------------------------------------------------------------------*/
-
 
         SharedPreferences prefs0 = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE);
         delivery_mode = prefs0.getString("delivery_mode", null);
@@ -277,10 +260,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             el1.setDesc(RESTAURANT_ADDRES);
         }
 
-
-
-        ShopingCardItem el4= (ShopingCardItem) adapter.getItem(4);
-        //el4.setDesc("JAK NAJSZYBCIEJ");
 
         listView.setAdapter(adapter);
 
@@ -346,8 +325,22 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                 if (position == 5) {
 
-                    intent.setClass(view.getContext(),PaymentPopUp.class);
+                    intent.setClass(view.getContext(), PaymentPopUp.class);
                     startActivity(intent);
+                }
+                if (position == 6) {
+
+                    intent.putExtra("title", "UWAGI");
+                    intent.putExtra("position", 14);
+                    ShopingCardItem selectedComments = (ShopingCardItem) adapter.getItem(6);
+                    if (!selectedComments.equals("Uwagi")) {
+
+                        intent.putExtra("actualText", selectedComments.getDesc());
+                    }
+                    intent.setClass(view.getContext(), EditTextPopUp.class);
+                    startActivityForResult(intent, 2);
+
+
                 }
 
                 if (position > 7 && position < 8 + orderList.size()) {
@@ -365,7 +358,6 @@ public class ShopingCardListView extends SwipeBackActivity {
         });
 
 
-
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
@@ -379,8 +371,11 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        /*      przesyłanie zamówienia do bazy danych */
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         Button sendButton = (Button) findViewById(R.id.send_order);
         sendButton.setOnClickListener(new View.OnClickListener() {
 
@@ -414,7 +409,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     ArrayList<String> arr = new ArrayList<String>();
                     arr.add(String.valueOf(orderList.get(i).getNr()));
                     arr.add(orderList.get(i).getName());
-                    arr.add(orderList.get(i).getSize() +" "+orderList.get(i).getAddon() +" "+ orderList.get(i).getAddon() +" "+ orderList.get(i).getSauce());
+                    arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
                     arr.add(String.valueOf(orderList.get(i).getQuantity()));
                     arr.add(String.valueOf(orderList.get(i).getPrice()));
 
@@ -436,6 +431,35 @@ public class ShopingCardListView extends SwipeBackActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        /*pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
+
+
+        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
+        if (timeList != null) {
+            TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
+            selectedTimeItem.setDesc(timeItem.getTime());
+        }
+
+        ShopingCardItem selectedPaymentItem = (ShopingCardItem) adapter.getItem(5);
+        if (paymentMethodsList != null) {
+            PaymentItem paymentItem = (PaymentItem) paymentMethodsList.get(SELECTED_PAYMENT_METHOD);
+            selectedPaymentItem.setDesc(paymentItem.getPayment_txt());
+        }
+        ShopingCardItem selectedComments = (ShopingCardItem) adapter.getItem(6);
+        selectedComments.setDesc(comments);
+
+        adapter.notifyDataSetChanged();
+
+
+        /*----------------------------------------------------------------------*/
+
+    }
+
     protected void save_state() {
         SharedPreferences.Editor editor = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE).edit();
 
@@ -447,6 +471,31 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         editor.commit();
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 2) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                String result = data.getStringExtra("edit_text");
+                Log.i("informacja", "shopp editText.getText().toString()result  " + result);
+
+                ShopingCardItem selectedComments = (ShopingCardItem) adapter.getItem(6);
+                selectedComments.setDesc(result);
+                comments = result;
+
+                adapter.notifyDataSetChanged();
+            }
+
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    }
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.

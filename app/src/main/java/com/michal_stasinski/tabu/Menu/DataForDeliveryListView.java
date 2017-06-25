@@ -89,8 +89,9 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 SharedPreferences.Editor editor = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE).edit();
 
-                for (int i = 0; i < 12; i++) {
+                for (int i = 0; i <= 13; i++) {
                     ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
+                    Log.i("informacja", " prefs.getString(dataDeliveryTextFieldName[i]23 " + dataDeliveryTextFieldName[i]);
                     editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
                 }
 
@@ -104,15 +105,17 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i <= 13; i++) {
+            Log.i("informacja", " prefs.getString(dataDeliveryTextFieldName[i] " + dataDeliveryTextFieldName[i]);
             String item = prefs.getString(dataDeliveryTextFieldName[i], null);
-            if (item != null) {
+            if (item != null & i != 12) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
                 el.setTitle(item);
                 adapter.notifyDataSetChanged();
-
             }
         }
+
+
     }
 
     private Address getCoordinatesFromAddresse(String txt) {
@@ -146,7 +149,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 String result = data.getStringExtra("edit_text");
                 Integer pos = data.getIntExtra("pos", 1);
-                Log.i("informacja", "łeditText.getText().toString()result  "+result);
+                Log.i("informacja", " datadel editText.getText().toString()result  " + result);
                 ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
 
                 if (result.equals("")) {
@@ -207,8 +210,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             float distance = locationA.distanceTo(locationB);
 
 
-
-            if( ((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) &&  ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())){
+            if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
 
                 if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
                     text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
@@ -227,7 +229,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                     text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
                 }
-            }else{
+            } else {
                 text_cost_delivery.setText("Nie ma takiego adresu");
                 deliveryCost = 0;
             }
@@ -236,26 +238,22 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
             ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
-            Log.i("informacja", "address1___________________  "+address1);
-            Log.i("informacja",  ((ShopingCardItem) adapter.getItem(6)).getTitle()+"address1___________________  "+address1.getLocality());
-            Log.i("informacja", ((ShopingCardItem) adapter.getItem(7)).getTitle()+"address1___________________  "+address1.getThoroughfare());
-            Log.i("informacja", ((ShopingCardItem) adapter.getItem(8)).getTitle()+"address1___________________  "+address1.getPostalCode());
 
-            if(address1.getLocality()==null || address1.getThoroughfare()==null|| address1.getPostalCode()==null){
+            Log.i("informacja", "address1___________________  " + address1);
+            Log.i("informacja", ((ShopingCardItem) adapter.getItem(6)).getTitle() + "address1___________________  " + address1.getLocality());
+            Log.i("informacja", ((ShopingCardItem) adapter.getItem(7)).getTitle() + "address1___________________  " + address1.getThoroughfare());
+            Log.i("informacja", ((ShopingCardItem) adapter.getItem(8)).getTitle() + "address1___________________  " + address1.getPostalCode());
 
-                if( ((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) &&  ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())){
+            if (address1.getLocality() == null || address1.getThoroughfare() == null || address1.getPostalCode() == null) {
 
-                }else {
+                if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
+
+                } else {
                     text_cost_delivery.setText("Nie ma takiego adresu");
                     deliveryCost = 0;
                 }
             }
-            //townEdit.setTitle(address1.getLocality());
 
-            //streetEdit.setTitle(address1.getThoroughfare());
-
-
-            //nrEdit.setTitle(address1.getFeatureName());
             adapter.notifyDataSetChanged();
         }
         if (address1 == null) {
@@ -295,7 +293,5 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                 }
             }
         });
-
     }
-
 }

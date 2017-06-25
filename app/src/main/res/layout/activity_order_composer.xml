@@ -24,6 +24,7 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="10dp"
+                android:backgroundTint="@color/colorPrimary"
                 android:background="@mipmap/back_button" />
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium

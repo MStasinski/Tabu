@@ -147,6 +147,14 @@ public class EditTextPopUp extends Activity {
 
                 }
 
+                if (pos == 14) {
+
+                    if (editText.getText().length() > 3) {
+                        isValidate = true;
+                    }
+
+                }
+
                 if (isValidate == false && editText.getText().length() > 0) {
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTextPopUp.this);
@@ -168,7 +176,7 @@ public class EditTextPopUp extends Activity {
                 } else {
 
                     Intent intent = new Intent();
-                    Log.i("informacja", "łeditText.getText().toString()  "+editText.getText().toString());
+                    Log.i("informacja", " edit editText.getText().toString()  "+editText.getText().toString());
                     intent.putExtra("edit_text", editText.getText().toString().trim());
                     intent.putExtra("pos", pos);
                     setResult(Activity.RESULT_OK, intent);
