@@ -70,12 +70,14 @@ public class ShopingCardListView extends SwipeBackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-        @Override
-        protected void onResume() {
-            super.onResume();
-            if (orderList.size() == 0) {
-                finish();
-            }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (orderList.size() == 0) {
+            finish();
+        }
+        
         final ShopingCardItem[] items = new ShopingCardItem[40];
 
         setContentView(R.layout.activity_shoping_card_list_view);

@@ -3,9 +3,13 @@ package com.michal_stasinski.tabu.Menu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +18,12 @@ import android.widget.Button;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
@@ -97,9 +103,32 @@ public class OrderComposerPizza extends SwipeBackActivity {
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getBaseContext(), ShopingCardListView.class);
-                startActivity(intent);
+
+                if (orderList.size() == 0) {
+                    //finish();
+                   /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderComposerPizza.this);
+                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
+                    alertDialogBuilder
+                            .setMessage("Wybierz coś z menu")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // if this button is clicked, close
+                                    // current activity
+
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();*/
+                    CustomDialogClass customDialog = new CustomDialogClass(OrderComposerPizza.this);
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    customDialog.show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), ShopingCardListView.class);
+                    startActivity(intent);
+
+                }
             }
         });
 

@@ -3,9 +3,13 @@ package com.michal_stasinski.tabu.Menu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +18,12 @@ import android.widget.Button;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
@@ -53,11 +59,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
-
         //************************* przycisk close**********************
 
         Button closeButton = (Button) findViewById(R.id.bClose);
-
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,26 +71,47 @@ public class OrderComposerOthers extends SwipeBackActivity {
             }
         });
 
-
         //************************* botttom menu ************************************
+
         ButtonBarLayout bottom_action_bar_btn1 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn1);
         ButtonBarLayout bottom_action_bar_btn0 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
         bottom_action_bar_btn0.setVisibility(View.INVISIBLE);
-
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(getBaseContext(), ShopingCardListView.class);
-                startActivity(intent);
+
+                if (orderList.size() == 0) {
+                    //finish();
+                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderComposerOthers.this);
+                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
+
+                    alertDialogBuilder
+
+                            .setMessage("Wybierz coś z menu")
+                            .setCancelable(false)
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();*/
+                    CustomDialogClass customDialog = new CustomDialogClass(OrderComposerOthers.this);
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    customDialog.show();
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), ShopingCardListView.class);
+                    startActivity(intent);
+
+                }
             }
         });
 
 
         //********************************************************************************
 
-
-       // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
+        // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
         CustomFont_Avenir_Medium nameTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_titleItem);
         CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
         CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
@@ -105,8 +130,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         price = intent.getExtras().getString("price");
         size = 0;//intent.getExtras().getInt("size");
 
-
-       // title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
+        // title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
         nameTxt.setText(names.toUpperCase());
         descTxt.setText(desc);
         // priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
@@ -281,11 +305,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
             }
         });
 
-
         adapter.notifyDataSetChanged();
 
     }
-
 
     public static int getSize() {
         return size;

@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +34,7 @@ import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (orderList.size() == 0) {
                    //finish();
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                     alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
                     alertDialogBuilder
                             .setMessage("Wybierz coś z menu")
@@ -136,7 +139,13 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                     AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    alertDialog.show();*/
+
+                    CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    customDialog.show();
+
                 }else{
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
