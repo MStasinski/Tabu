@@ -27,7 +27,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:background="@mipmap/back_button" />
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+           <!-- <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
                 android:id="@+id/order_composer_positionInList"
                 android:layout_width="match_parent"
@@ -37,18 +37,18 @@
                 android:text="1"
                 android:textAlignment="center"
                 android:textColor="@color/colorThirdGrey"
-                android:textSize="@dimen/menu_list_view_number" />
+                android:textSize="@dimen/menu_list_view_number" />-->
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_titleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/activity_order_margin_top"
                 android:text="Margeritha"
                 android:textAlignment="center"
-                android:textColor="@color/colorThirdGrey"
-                android:textSize="@dimen/menu_list_view_title" />
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/activity_order_title" />
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_desc"
@@ -57,31 +57,31 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_order_margin_top"
                 android:text="Sos,Ser"
                 android:textAlignment="center"
-                android:textColor="@color/colorThirdGrey"
-                android:textSize="@dimen/menu_list_view_desc" />
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/activity_order_desc" />
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold
                 android:id="@+id/order_composer_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_order_margin_top"
                 android:text="19.90"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/menu_list_view_desc" />
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/activity_order_price" />
 
             <com.michal_stasinski.tabu.Utils.BounceListView
                 android:id="@+id/order_composer_listView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/activity_order_margin_bottom"
                 android:layout_weight="0.46"
                 android:animationCache="false"
                 android:divider="@android:color/darker_gray"
@@ -97,8 +97,11 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/colorPrimary"
+                android:fontFamily="fonts/Avenir Next Condensed.ttc"
                 android:text="Button"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/orange_button_text_size"
+                android:textStyle="bold" />
 
             <include
                 layout="@layout/bottom_action_bar"

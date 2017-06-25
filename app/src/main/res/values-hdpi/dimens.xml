@@ -1,4 +1,22 @@
 <resources>
+
+    <!-- górny toolbar START,KOSZYK,KONTAKT,PIZZA itd.  -->
+    <dimen name="toolBarTitle">17sp</dimen>
+
+    <!-- ceny na buttonach w listView -->
+    <dimen name="price_font">17dp</dimen>
+
+    <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
+    <dimen name="activity_order_margin_top">16sp</dimen>
+    <dimen name="activity_order_margin_bottom">24sp</dimen>
+    <dimen name="activity_order_title">24sp</dimen>
+    <dimen name="activity_order_desc">17sp</dimen>
+    <dimen name="activity_order_price">16sp</dimen>
+    <dimen name="activity_order_rozmiar">14sp</dimen>
+    <dimen name="activity_order_rozmiar_desc">15sp</dimen>
+    <dimen name="activity_order_rozmiar_zmien">12sp</dimen>
+
+
     <!-- wielkości w menu w listview: tytuł, cena, opis -->
     <dimen name="menu_list_view_number">11sp</dimen>
     <dimen name="menu_list_view_title">18sp</dimen>

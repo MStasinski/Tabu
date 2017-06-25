@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,14 +133,17 @@ public class CustomListViewAdapter extends BaseAdapter {
                 int priceBtn_width = mContext.getResources().getDimensionPixelSize(R.dimen.menu_list_view_priceButton_width);
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
-                lp.setMargins(62, 0, 62, 0); // left, top, right, bottom
+
+                int margin = (int) ( mContext.getResources().getDimension(R.dimen.price_margin) /  mContext.getResources().getDisplayMetrics().density);
+                lp.setMargins( margin, 0,  margin, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
 
                 priceBtn.setTextColor(Color.rgb(85,85,85));
 
-                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirLTStd-Light.otf"));
-                priceBtn.setTypeface(Typeface.DEFAULT,4);
-                priceBtn.setTextSize(17);
+                priceBtn.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/Avenir Next Condensed.ttc"));
+                priceBtn.setTypeface(Typeface.DEFAULT,0);
+                priceBtn.setTextSize( TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.price_font));
+
 
                 priceBtn.setPadding(0,0,0,0);
                 priceBtn.setMinHeight(0);

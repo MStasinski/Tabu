@@ -35,7 +35,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Pizzeria 'Tabu'\nul. Jaskółcza 20, Gdynia\ntel 501 951 961"
                 android:textAlignment="center"
-                android:textColor="@color/colorThirdGrey" />
+                android:textColor="@color/colorDarkGray" />
 
 
             <RelativeLayout
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="TRASA"
-                        android:textColor="@color/colorThirdGrey" />
+                        android:textColor="@color/colorDarkGray" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="ZADZWOŃ"
-                        android:textColor="@color/colorThirdGrey"
+                        android:textColor="@color/colorDarkGray"
 
                         />
                 </LinearLayout>

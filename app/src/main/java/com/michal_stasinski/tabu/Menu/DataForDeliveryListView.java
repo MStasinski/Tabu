@@ -230,7 +230,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
                 }
             } else {
-                text_cost_delivery.setText("Nie ma takiego adresu");
+                text_cost_delivery.setText("Podany adres nie istnieje");
                 deliveryCost = 0;
             }
 
@@ -249,7 +249,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                 if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
 
                 } else {
-                    text_cost_delivery.setText("Nie ma takiego adresu");
+                    text_cost_delivery.setText("Podany adres nie istnieje");
                     deliveryCost = 0;
                 }
             }
@@ -257,9 +257,11 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             adapter.notifyDataSetChanged();
         }
         if (address1 == null) {
-            text_cost_delivery.setText("Nie ma takiego adresu");
+            text_cost_delivery.setText("Brak adresu dostawy");
         }
-
+        if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals("") || ((ShopingCardItem) adapter.getItem(7)).getTitle().equals("")) {
+            text_cost_delivery.setText("Brak adresu dostawy");
+        }
         isClick = false;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

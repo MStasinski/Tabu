@@ -1,5 +1,32 @@
 <resources>
-    <!-- wielkości w menu w listview: tytuł, cena, opis -->
+
+
+    <!-- górny toolbar START,KOSZYK,KONTAKT,PIZZA itd.  -->
+    <dimen name="toolBarTitle">17sp</dimen>
+
+    <!-- ceny na buttonach w listView -->
+    <dimen name="price_font">17dp</dimen>
+    <dimen name="price_margin">62dp</dimen>
+
+    <!-- opis Do kazdej pizzy -->
+    <dimen name="addonsDesc">18dp</dimen>
+    <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
+
+    <dimen name="orange_button_text_size">17sp</dimen>
+
+
+    <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
+    <dimen name="activity_order_margin_top">16sp</dimen>
+    <dimen name="activity_order_margin_bottom">24sp</dimen>
+    <dimen name="activity_order_title">24sp</dimen>
+    <dimen name="activity_order_desc">17sp</dimen>
+    <dimen name="activity_order_price">16sp</dimen>
+    <dimen name="activity_order_rozmiar">14sp</dimen>
+    <dimen name="activity_order_rozmiar_desc">15sp</dimen>
+    <dimen name="activity_order_rozmiar_zmien">12sp</dimen>
+
+
+    <!-- wielkości w LEFT MENU_LIST VIEW: tytuł, cena, opis  Frament-->
     <dimen name="menu_list_view_number">11sp</dimen>
     <dimen name="menu_list_view_title">18sp</dimen>
     <dimen name="menu_list_view_price">16sp</dimen>
@@ -7,6 +34,7 @@
     <dimen name="menu_list_view_shape_position">38dp</dimen>
     <dimen name="menu_list_view_priceButton_height">30dp</dimen>
     <dimen name="menu_list_view_priceButton_width">70dp</dimen>
+
     <!-- wlewy drawer: ikonka, tekst główny, opis -->
 
     <dimen name="left_drawer_icon">30dp</dimen>
@@ -27,6 +55,7 @@
     <dimen name="news_data_text_size">12sp</dimen>
     <dimen name="news_title_text_size">18sp</dimen>
     <dimen name="news_message_text_size">16dp</dimen>
+
     <!-- kontakt -->
     <dimen name="contact_button_size">48dp</dimen>
     <dimen name="contact_margin_left">50dp</dimen>

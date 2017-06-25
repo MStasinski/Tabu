@@ -3,11 +3,13 @@
     <color name="colorPrimary">#F55514</color>
     <color name="colorSecond">#E2E3E4</color>
     <color name="colorSecondGrey">#B1B2B4</color>
-    <color name="colorThirdGrey">#555555</color>
+    <color name="colorDarkGray">#555555</color>
     <color name="color_gray_light">#e6e4e4</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="color_zmien">#aaaaaa</color>
+    <color name="order_list_rozmiar">#7e7f80</color>
 
     <color name="color_KONTAKTY">#e47302</color>
     <color name="color_AKTUALNOSCI">#A95432</color>

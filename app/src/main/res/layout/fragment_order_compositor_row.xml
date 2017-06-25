@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/order_compozitor_grey_title_shape"
+        android:layout_height="32dp"
+        android:background="@drawable/order_compozitor_gray_title_shape"
         android:orientation="horizontal"
         android:paddingBottom="6dp"
         android:paddingTop="6dp">
@@ -16,20 +16,20 @@
             android:id="@+id/order_row_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="16dp"
             android:text="TextView"
-            android:textColor="@color/colorThirdGrey"
-            android:textSize="14sp" />
+            android:textColor="@color/order_list_rozmiar"
+            android:textSize="@dimen/activity_order_rozmiar" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="16dp"
             android:gravity="right"
             android:text="ZMIEŃ"
-            android:textColor="@color/colorSecondGrey"
-            android:textSize="12sp" />
+            android:textColor="@color/color_zmien"
+            android:textSize="@dimen/activity_order_rozmiar_zmien" />
 
     </LinearLayout>
 
@@ -45,11 +45,11 @@
             android:id="@+id/order_row_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginRight="10dp"
             android:text="TextView"
-            android:textColor="@color/colorThirdGrey"
-            android:textSize="14sp" />
+            android:textColor="@color/colorDarkGray"
+            android:textSize="@dimen/activity_order_rozmiar_desc" />
 
 
     </LinearLayout>

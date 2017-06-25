@@ -38,7 +38,7 @@
             android:layout_marginTop="10sp"
             android:background="@drawable/custom_shape_issold"
             android:text="WYPRZEDANE"
-            android:textColor="@color/colorThirdGrey"
+            android:textColor="@color/colorDarkGray"
             android:textSize="10sp" />
     </RelativeLayout>
 
@@ -63,7 +63,7 @@
         android:layout_marginTop="2dp"
         android:text="Sos,Ser"
         android:textAlignment="center"
-        android:textColor="@color/colorThirdGrey"
+        android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/menu_list_view_desc" />
 
     <LinearLayout

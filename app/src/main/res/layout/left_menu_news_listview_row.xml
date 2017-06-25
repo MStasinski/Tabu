@@ -29,7 +29,7 @@
         android:layout_marginRight="@dimen/news_layout_marginRight"
         android:layout_marginTop="@dimen/news_layout_marginTop"
         android:text="03.02.2017"
-        android:textColor="@color/colorThirdGrey"
+        android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/news_data_text_size" />
 
 
@@ -43,7 +43,7 @@
         android:layout_marginRight="@dimen/news_layout_marginRight"
         android:layout_marginTop="@dimen/news_layout_marginTop"
         android:text="Tytuł"
-        android:textColor="@color/colorThirdGrey"
+        android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/news_title_text_size" />
 
     <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
@@ -56,7 +56,7 @@
         android:layout_marginRight="@dimen/news_layout_marginRight"
         android:layout_marginTop="@dimen/news_layout_marginTop"
         android:text="Opis"
-        android:textColor="@color/colorThirdGrey"
+        android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/news_message_text_size" />
 
 

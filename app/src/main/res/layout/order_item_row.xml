@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_marginLeft="60dp"
-            android:textColor="@color/colorThirdGrey"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
@@ -39,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="40dp"
-            android:textColor="@color/colorThirdGrey"
+            android:textColor="@color/colorDarkGray"
             android:textSize="14sp" />
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium

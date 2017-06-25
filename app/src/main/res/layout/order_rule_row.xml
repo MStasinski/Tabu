@@ -27,7 +27,7 @@
             android:text="wwwwwwwwwwwwwwwww"
             android:layout_marginTop="5dp"
             android:layout_below ="@id/order_rule_title"
-            android:textColor="@color/colorThirdGrey"
+            android:textColor="@color/colorDarkGray"
             android:textSize="16dp" />
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium

@@ -86,10 +86,10 @@ public class OrderComposerOthers extends SwipeBackActivity {
         //********************************************************************************
 
 
-        CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
+       // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
         CustomFont_Avenir_Medium nameTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_titleItem);
         CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
-        CustomFont_Avenir_Medium priceTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_price);
+        CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
 
 
         String output = MathUtils.formatDecimal(sum, 2);
@@ -106,7 +106,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         size = 0;//intent.getExtras().getInt("size");
 
 
-        title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
+       // title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
         nameTxt.setText(names.toUpperCase());
         descTxt.setText(desc);
         // priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
@@ -120,8 +120,8 @@ public class OrderComposerOthers extends SwipeBackActivity {
         //*********************************** addToCartBtn*********************************************
 
         final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
-
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+        addToCartBtn.setTransformationMethod(null);
         addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -257,8 +257,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
         sum = Float.valueOf(price);
         Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         String output = MathUtils.formatDecimal(sum, 2);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
-        CustomFont_Avenir_Medium priceTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_price);
+        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+        addToCartBtn.setTransformationMethod(null);
+        CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
 
         // String output = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
 
@@ -275,7 +276,8 @@ public class OrderComposerOthers extends SwipeBackActivity {
                 String output = MathUtils.formatDecimal(sum * quantity, 2);
 
                 Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-                addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA    " + output + " zł");
+                addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+                addToCartBtn.setTransformationMethod(null);
             }
         });
 
