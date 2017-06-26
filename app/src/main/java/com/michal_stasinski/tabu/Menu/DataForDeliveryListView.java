@@ -180,7 +180,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         String textToSearch = txt;
         List<Address> addresses = null;
-        for (int i = 0; i < 150; i++) {
+
             try {
                 addresses = geocoder.getFromLocationName(textToSearch, 1);
 
@@ -188,7 +188,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
               //  e.printStackTrace();
             }
             Log.i("informacja", " BREAK GEOCODERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+addresses );
-        }
+
 
 
       /*  final String url = "https://maps.googleapis.com/maps/api/geocode/json?address=Gdynia+Morska,+CA&key=AIzaSyBbP8QjhJBDHtmLF66Inkmeg5uV0PfYOYs";
