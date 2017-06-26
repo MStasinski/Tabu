@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
+    <uses-library android:name="com.google.android.maps"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +25,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAomhGeFtnnx7RgKhVFyIoKJJjlfC8A0dI" />
+            android:value="AIzaSyBbP8QjhJBDHtmLF66Inkmeg5uV0PfYOYs" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Menu.PizzaSizePopUp"

@@ -26,6 +26,7 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
+import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
@@ -69,7 +70,6 @@ public class OrderComposerPizza extends SwipeBackActivity {
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
 
-
         //************************* przycisk close**********************
 
         Button closeButton = (Button) findViewById(R.id.bClose);
@@ -97,7 +97,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
         //************************* botttom menu ************************************
         ButtonBarLayout bottom_action_bar_btn1 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn1);
-        ButtonBarLayout bottom_action_bar_btn0= (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
+        ButtonBarLayout bottom_action_bar_btn0 = (ButtonBarLayout) findViewById(R.id.bottom_action_bar_btn0);
         bottom_action_bar_btn0.setVisibility(View.INVISIBLE);
 
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +123,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     CustomDialogClass customDialog = new CustomDialogClass(OrderComposerPizza.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
-                }else{
+                } else {
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
                     startActivity(intent);
@@ -136,7 +136,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         //********************************************************************************
 
 
-       // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
+        // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
         CustomFont_Avenir_Medium nameTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_titleItem);
         CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
         CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
@@ -156,7 +156,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         size = intent.getExtras().getInt("size");
 
 
-      //  title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
+        //  title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
         nameTxt.setText(names.toUpperCase());
         descTxt.setText(desc);
         priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
@@ -199,30 +199,30 @@ public class OrderComposerPizza extends SwipeBackActivity {
                 String sauce = descText[2];
                 String note = descText[3];
 
-                if (descText[1] != "Wybierz dodatki"&& descText[1] !=null) {
+                if (descText[1] != "Wybierz dodatki" && descText[1] != null) {
                     order.setAddon(addon);
                 } else {
                     order.setAddon("");
                     addon = "";
                 }
-                if (descText[2] != "Wybierz dodatkowy sos" && descText[2] !=null) {
+                if (descText[2] != "Wybierz dodatkowy sos" && descText[2] != null) {
                     order.setSauce(descText[2]);
                 } else {
                     sauce = "";
                     order.setSauce(sauce);
                 }
-                if (descText[3] != "Dodaj swoje uwagi"&& descText[3] !=null) {
-                    order.setNote("UWAGI: "+descText[3]);
+                if (descText[3] != "Dodaj swoje uwagi" && descText[3] != null) {
+                    order.setNote("UWAGI: " + descText[3]);
                 } else {
                     note = "";
                     order.setNote(note);
                 }
 
-                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce+ " " +note;
+                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce + " " + note;
                 int isAlready = -1;
 
                 for (int i = 0; i < orderList.size(); i++) {
-                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce()+" " + orderList.get(i).getNote();
+                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce() + " " + orderList.get(i).getNote();
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;
@@ -241,9 +241,9 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
-
-                CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
-                info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+                FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
+                //CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+                info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
             }
         });
@@ -283,10 +283,10 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     intent.putExtra("position", 13);
                     intent.putExtra("title", "UWAGI");
 
-                    if (descText[3] =="Dodaj swoje uwagi") {
+                    if (descText[3] == "Dodaj swoje uwagi") {
                         intent.putExtra("actualText", "");
                     } else {
-                        intent.putExtra("actualText",descText[3]);
+                        intent.putExtra("actualText", descText[3]);
                     }
                     intent.setClass(view.getContext(), EditTextPopUp.class);
                     startActivityForResult(intent, 1);
@@ -294,9 +294,10 @@ public class OrderComposerPizza extends SwipeBackActivity {
             }
         });
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("informacja", "resultresult 000 " );
+        Log.i("informacja", "resultresult 000 ");
         if (requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
@@ -305,11 +306,11 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
                 Log.i("informacja", "resultresult " + result);
 
-                if (!result.equals("") ) {
+                if (!result.equals("")) {
                     descText[3] = result;
 
                 } else {
-                    descText[3] ="Dodaj swoje uwagi";
+                    descText[3] = "Dodaj swoje uwagi";
                 }
 
                 adapter.notifyDataSetChanged();
@@ -319,12 +320,14 @@ public class OrderComposerPizza extends SwipeBackActivity {
             }
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
 
-        CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
-        info_about_price.setText("("+OrderComposerUtils.sum_of_all_quantities()+") "+ OrderComposerUtils.sum_of_all_the_prices()+" zł");
+        //  CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+        FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
+        info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 
         CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);

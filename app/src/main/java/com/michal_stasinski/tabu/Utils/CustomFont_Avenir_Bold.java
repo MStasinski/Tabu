@@ -12,8 +12,7 @@ public class CustomFont_Avenir_Bold extends android.support.v7.widget.AppCompatT
 
     public CustomFont_Avenir_Bold(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Avenir Next Condensed.ttc"));
-        this.setTypeface(Typeface.DEFAULT,5);
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
     }
 
 

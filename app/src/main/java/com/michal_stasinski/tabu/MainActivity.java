@@ -36,6 +36,7 @@ import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
+import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<MenuItemProduct> menuItem;
     private ImageView drawerBackgroud;
     private MenuFragment fragment;
+    private MyReceiver myReceiver;
 
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
@@ -90,12 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        MyReceiver myReceiver = new MyReceiver();
-        IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
-        registerReceiver(myReceiver, intentFilter);
-
-
 
 
        /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
@@ -166,9 +162,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        myReceiver = new MyReceiver();
+        IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
+        registerReceiver(myReceiver, intentFilter);
+
+
         currentActivity = CHOICE_ACTIVITY;
         Log.i("informacja", "resume" + currentActivity);
-        CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+        //CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+        FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
 
@@ -291,9 +293,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
+    @Override
+    protected void onPause() {
+        if(myReceiver!=null) {
+            unregisterReceiver(myReceiver);
+            myReceiver=null;
+        }
+
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        if(myReceiver!=null) {
+            unregisterReceiver(myReceiver);
+            myReceiver=null;
+        }
+        super.onStop();
+
+
+    }
 
     /*chowanie drawera na click outside*/
     @Override

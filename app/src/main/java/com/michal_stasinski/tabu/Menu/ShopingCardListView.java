@@ -71,13 +71,14 @@ public class ShopingCardListView extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
         if (orderList.size() == 0) {
             finish();
         }
-        
+
         final ShopingCardItem[] items = new ShopingCardItem[40];
 
         setContentView(R.layout.activity_shoping_card_list_view);
@@ -225,7 +226,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-        if (street2 != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
+        if (street2 != null && !(street.equals("Ulica")) && !(delivery_mode.equals("ODBIÓR WŁASNY"))) {
             ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
             el.setDesc(street2);
             //deliveryCost = DataForDeliveryListView.deliveryCost;
@@ -404,8 +405,6 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                 ArrayList orderArray = new ArrayList();
                 for (int i = 0; i < orderList.size(); i++) {
-
-                    Log.i("informacja", orderList.get(i).getSize());
 
                     ArrayList<String> arr = new ArrayList<String>();
                     arr.add(String.valueOf(orderList.get(i).getNr()));

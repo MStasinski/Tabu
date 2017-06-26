@@ -12,8 +12,7 @@ public class CustomFont_Avenir_Regular extends android.support.v7.widget.AppComp
 
     public CustomFont_Avenir_Regular(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/Avenir Next Condensed.ttc"));
-        this.setTypeface(Typeface.DEFAULT,0);
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-Regular.ttf"));
     }
 
 
