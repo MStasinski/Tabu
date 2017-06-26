@@ -16,6 +16,6 @@ public class MathUtils {
         formatter.setMinimumFractionDigits(decimal);
         //formatter.setMaximumFractionDigits(decimal);
         String output = formatter.format(num);
-        return output;
+        return output.replace(',','.');
     }
 }
