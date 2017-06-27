@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -138,7 +139,15 @@ public class CustomListViewAdapter extends BaseAdapter {
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(priceBtn_width, priceBtn_height);
 
-                int margin = (int) (mContext.getResources().getDimension(R.dimen.price_margin) / mContext.getResources().getDisplayMetrics().density);
+
+
+                int screenWidth = mContext.getResources().getDisplayMetrics().widthPixels;
+
+                //int margin = (int) (mContext.getResources().getDimension(R.dimen.price_margin) / mContext.getResources().getDisplayMetrics().density);
+                int margin = (int) ((screenWidth-(price.size()*priceBtn_width)) /(price.size()+price.size()+2));
+
+                Log.i("informacja",margin+ "  screenWidth  " +  screenWidth);
+
                 lp.setMargins(margin, 0, margin, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);
 
