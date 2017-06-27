@@ -273,7 +273,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 String result = data.getStringExtra("edit_text");
                 Integer pos = data.getIntExtra("pos", 1);
-                Log.i("informacja", " datadel editText.getText().toString()result  " + result);
                 ShopingCardItem item = (ShopingCardItem) adapter.getItem(pos);
 
                 if (result.equals("")) {
