@@ -30,7 +30,7 @@ public class CustomDialogClass extends Dialog implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.custom_dialog_ok);
+        setContentView(R.layout.alert_dialog_ok);
         yes = (Button) findViewById(R.id.btn_yes);
         yes.setOnClickListener(this);
 

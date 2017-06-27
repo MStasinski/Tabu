@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/color_gray_light"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/colorWhite" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorSecond" />
-
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
-        android:id="@+id/order_separator_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:padding="3dp"
-        android:layout_centerVertical="true"
-        android:text="test"
-        android:textColor="@color/colorDarkGray"
-        android:textSize="12sp" />
+        android:orientation="horizontal">
 
 
-</RelativeLayout>
+
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+            android:id="@+id/order_separator_title"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:padding="4dp"
+            android:text="test"
+            android:textColor="@color/order_list_rozmiar"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -59,6 +59,7 @@
                         android:src="@mipmap/routeicon"
                         android:tint="@color/colorSecondGrey"
                         android:backgroundTint="@color/colorPrimaryDark"
+                        android:elevation="5dp"
                         android:background="@drawable/circle_background_drawer_icon"
                         android:text="Button" />
 
@@ -83,6 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@mipmap/phone"
+                        android:elevation="5dp"
                         android:tint="@color/colorSecondGrey"
                         android:backgroundTint="@color/colorPrimaryDark"
                         android:background="@drawable/circle_background_drawer_icon"

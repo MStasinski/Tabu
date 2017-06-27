@@ -78,7 +78,7 @@ public class DataForDeliveryAdapter extends BaseAdapter {
             viewHolder = new ViewHolderItem();
             switch (rowType) {
                 case 1:
-                    convertView = mInflater.inflate(R.layout.custom_drawer_row, null);
+                    convertView = mInflater.inflate(R.layout.drawer_row, null);
                     convertView.setBackgroundResource(R.color.colorWhite);
                     viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.txtTitleDrawer);
                     viewHolder.imageView = (ImageView) convertView.findViewById(R.id.icon);

@@ -5,7 +5,7 @@
     <dimen name="toolBarTitle">17sp</dimen>
 
     <!-- ceny na buttonach w listView -->
-    <dimen name="price_font">17dp</dimen>
+    <dimen name="price_font">18dp</dimen>
     <dimen name="price_margin">62dp</dimen>
 
     <!-- opis Do kazdej pizzy -->

@@ -3,13 +3,11 @@ package com.michal_stasinski.tabu.Menu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +16,12 @@ import android.widget.Button;
 
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
-import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold;
+import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
@@ -115,7 +112,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
         CustomFont_Avenir_Medium nameTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_titleItem);
         CustomFont_Avenir_Medium descTxt = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_desc);
-        CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
+        CustomFont_Avenir_Condensed_DemiBold priceTxt = (CustomFont_Avenir_Condensed_DemiBold) findViewById(R.id.order_composer_price);
 
 
         String output = MathUtils.formatDecimal(sum, 2);
@@ -285,7 +282,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
         String output = MathUtils.formatDecimal(sum, 2);
         addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
         addToCartBtn.setTransformationMethod(null);
-        CustomFont_Avenir_Bold priceTxt = (CustomFont_Avenir_Bold) findViewById(R.id.order_composer_price);
+        CustomFont_Avenir_Condensed_DemiBold priceTxt = (CustomFont_Avenir_Condensed_DemiBold) findViewById(R.id.order_composer_price);
 
         // String output = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
 

@@ -31,6 +31,8 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="1"
+                android:layout_gravity="center"
+                android:layout_marginTop="-6dp"
                 android:textAlignment="center"
                 android:textColor="@color/colorSecondGrey"
                 android:textSize="24dp" />

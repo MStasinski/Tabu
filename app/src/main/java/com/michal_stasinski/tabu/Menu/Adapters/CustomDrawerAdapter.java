@@ -18,7 +18,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<String> {
     private final Integer[] imgid;
 
     public CustomDrawerAdapter(Activity context, String[] largeTextItem, Integer[] imgid) {
-        super(context, R.layout.custom_drawer_row, largeTextItem);
+        super(context, R.layout.drawer_row, largeTextItem);
 
         this.context = context;
         this.largeTxtArr = largeTextItem;
@@ -34,7 +34,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<String> {
 
         if (convertView == null) {
 
-            view = View.inflate(context, R.layout.custom_drawer_row, null);
+            view = View.inflate(context, R.layout.drawer_row, null);
             viewHolder = new ViewHolderDrawer();
             viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
             viewHolder.txtTitle = (CustomFont_Avenir_Medium) view.findViewById(R.id.txtTitleDrawer);

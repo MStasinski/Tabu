@@ -7,20 +7,23 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
             android:id="@+id/positionInList"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="4sp"
+            android:gravity="center"
             android:text="1"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
@@ -31,12 +34,10 @@
             android:id="@+id/sold_info"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:layout_alignRight="@id/positionInList"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-
-            android:layout_marginTop="10sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4sp"
             android:background="@drawable/custom_shape_issold"
+            android:layout_alignParentRight="true"
             android:text="WYPRZEDANE"
             android:textColor="@color/colorDarkGray"
             android:textSize="10sp" />
@@ -44,20 +45,23 @@
 
     <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/titleItem"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
         android:layout_marginTop="-6dp"
         android:text="Margeritha"
         android:textAlignment="center"
+
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/menu_list_view_title" />
 
     <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
         android:id="@+id/txtDesc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
@@ -74,11 +78,11 @@
         android:layout_marginBottom="11dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"></LinearLayout>
+
     <View
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="3dp"
-        android:background="@drawable/custom_divaider_listmenu"
-       />
+        android:background="@drawable/custom_divaider_listmenu" />
 
 </LinearLayout>

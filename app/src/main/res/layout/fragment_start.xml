@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
+            android:elevation="5dp"
             app:srcCompat="@mipmap/logo_rest" />
 
         <View
@@ -40,6 +41,7 @@
             android:layout_marginLeft="140dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="18dp"
+            android:gravity="center"
             android:text="Pizzeria Tabu\nGdynia Jaskółcza 20"
             android:textAlignment="center"
             android:textColor="@color/colorDarkGray"

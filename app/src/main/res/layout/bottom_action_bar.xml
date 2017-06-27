@@ -25,9 +25,10 @@
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
                 android:src="@mipmap/menu_icon"
+                android:elevation="5dp"
                 android:tint="@color/colorPrimary" />
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
                 android:id="@+id/customTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
+                android:elevation="5dp"
                 android:src="@mipmap/kosz_icon"
                 android:tint="@color/colorPrimary" />
 

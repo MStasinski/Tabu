@@ -24,50 +24,59 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:background="@mipmap/back_button" />
+                android:background="@mipmap/back_button"
+                android:backgroundTint="@color/colorPrimary" />
 
-           <!-- <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+            <!-- <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
-                android:id="@+id/order_composer_positionInList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:text="1"
-                android:textAlignment="center"
-                android:textColor="@color/colorThirdGrey"
-                android:textSize="@dimen/menu_list_view_number" />-->
+                 android:id="@+id/order_composer_positionInList"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_centerVertical="true"
+                 android:layout_marginTop="10dp"
+                 android:text="1"
+                 android:textAlignment="center"
+                 android:textColor="@color/colorThirdGrey"
+                 android:textSize="@dimen/menu_list_view_number" />-->
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_titleItem"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_order_margin_top"
+                android:gravity="center"
                 android:text="Margeritha"
+
                 android:textAlignment="center"
+
+
                 android:textColor="@color/colorDarkGray"
                 android:textSize="@dimen/activity_order_title" />
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
                 android:id="@+id/order_composer_desc"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="@dimen/activity_order_margin_top"
+                android:gravity="center"
                 android:text="Sos,Ser"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="@dimen/activity_order_desc" />
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Bold
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
                 android:id="@+id/order_composer_price"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="@dimen/activity_order_margin_top"

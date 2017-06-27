@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_Regular
         android:id="@+id/addonText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
