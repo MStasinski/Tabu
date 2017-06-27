@@ -6,17 +6,21 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/colorWhite" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorSecondGrey" />
+        android:background="@color/colorSecond" />
 
 
     <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
-        android:id="@+id/order_separator_title"
+        android:id="@+id/data_separator_title"
         android:layout_width="match_parent"
-        android:layout_height="18dp"
+        android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:padding="2dp"

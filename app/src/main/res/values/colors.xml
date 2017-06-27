@@ -10,6 +10,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="color_zmien">#aaaaaa</color>
     <color name="order_list_rozmiar">#7e7f80</color>
+    <color name="gray_background_row">#ebebf1</color>
 
     <color name="color_KONTAKTY">#e47302</color>
     <color name="color_AKTUALNOSCI">#A95432</color>

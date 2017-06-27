@@ -16,8 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/colorSecondGrey"
-            android:textSize="12dp"
+            android:textColor="@color/color_zmien"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
@@ -28,7 +28,7 @@
             android:layout_marginTop="5dp"
             android:layout_below ="@id/order_rule_title"
             android:textColor="@color/colorDarkGray"
-            android:textSize="16dp" />
+            android:textSize="15sp" />
 
         <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
 
@@ -37,8 +37,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:text="ZMIEŃ"
-            android:textColor="@color/colorSecondGrey"
-            android:textSize="12dp"/>
+            android:textColor="@color/color_zmien"
+            android:textSize="12sp"/>
 
 
     </RelativeLayout>

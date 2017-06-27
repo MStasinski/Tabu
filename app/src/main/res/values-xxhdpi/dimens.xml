@@ -10,10 +10,9 @@
 
     <!-- opis Do kazdej pizzy -->
     <dimen name="addonsDesc">18dp</dimen>
-    <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
 
+    <!-- wielkości ORANGE BUTTON: -->
     <dimen name="orange_button_text_size">17sp</dimen>
-
 
     <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
     <dimen name="activity_order_margin_top">16sp</dimen>
@@ -35,8 +34,15 @@
     <dimen name="menu_list_view_priceButton_height">30dp</dimen>
     <dimen name="menu_list_view_priceButton_width">70dp</dimen>
 
-    <!-- wlewy drawer: ikonka, tekst główny, opis -->
 
+    <!-- DATA FOR DELIVERY -->
+    <dimen name="data_icon">24dp</dimen>
+    <dimen name="data_row_title">15sp</dimen>
+    <dimen name="data_row_title_top_margin">12sp</dimen>
+    <dimen name="data_row_title_left_margin">20sp</dimen>
+    <dimen name="data_icon_left_margin">20sp</dimen>
+
+    <!-- wlewy drawer: ikonka, tekst główny, opis -->
     <dimen name="left_drawer_icon">30dp</dimen>
     <dimen name="left_drawer_top_text">14sp</dimen>
     <dimen name="left_drawer_down_text">14sp</dimen>

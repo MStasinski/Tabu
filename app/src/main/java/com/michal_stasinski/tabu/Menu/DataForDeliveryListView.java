@@ -1,7 +1,6 @@
 package com.michal_stasinski.tabu.Menu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -12,45 +11,26 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.appindexing.Action;
 import com.google.firebase.appindexing.FirebaseUserActions;
 import com.google.firebase.appindexing.builders.Actions;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
-import com.michal_stasinski.tabu.Utils.URLProcessing;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Locale;
 
-import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.client.ClientProtocolException;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.methods.HttpGet;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-
-import static android.R.attr.path;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
-import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
+import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
 
 public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
@@ -141,38 +121,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     }
 
-   /* public LatLng getCoordinatesFromAddresse(Context context, String inputtedAddress) {
-
-        Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        LatLng resLatLng = null;
-
-        try {
-            // May throw an IOException
-            address = coder.getFromLocationName(inputtedAddress, 5);
-            if (address == null) {
-                return null;
-            }
-
-            if (address.size() == 0) {
-                return null;
-            }
-
-            Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            resLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
-          //  Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-        return resLatLng;
-    }*/
-
     private Address getCoordinatesFromAddresse(String txt) {
 
         double latitude = 0;
@@ -180,47 +128,12 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         String textToSearch = txt;
         List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocationName(textToSearch, 1);
 
-        Log.i("informacja", " BREAK GEOCODERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+txt  );
-            try {
-                addresses = geocoder.getFromLocationName(textToSearch, 1);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-
-
-      /*  final String url = "https://maps.googleapis.com/maps/api/geocode/json?address=Gdynia+Morska,+CA&key=AIzaSyBbP8QjhJBDHtmLF66Inkmeg5uV0PfYOYs";
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(url, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        if(responseBody!=null){
-                            Log.i("informacja", " Bcosss");
-
-
-                            try {
-                                JSONArray array = new JSONArray(URLProcessing.GetUrl(url));
-
-
-                            }catch (JSONException e) {
-                                Log.i("informacja", "lipa");
-                                e.printStackTrace();
-
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                    }
-                });*/
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         if (addresses != null) {
@@ -230,39 +143,12 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             } else {
                 return null;
             }
-        }else{
+        } else {
 
             return null;
         }
     }
 
-   /* public JSONObject getLocationInfo() {
-
-        HttpGet httpGet = new HttpGet("http://maps.google.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=true");
-        HttpClient client = new DefaultHttpClient();
-        HttpResponse response;
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try {
-            response = client.execute(httpGet);
-            HttpEntity entity = response.getEntity();
-            InputStream stream = entity.getContent();
-            int b;
-            while ((b = stream.read()) != -1) {
-                stringBuilder.append((char) b);
-            }
-        } catch (ClientProtocolException e) {
-        } catch (IOException e) {
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject = new JSONObject(stringBuilder.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonObject;
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

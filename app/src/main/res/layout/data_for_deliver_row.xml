@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/gray_background_row"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/data_icon"
+        android:layout_width="@dimen/data_icon"
+        android:layout_height="@dimen/data_icon"
+        android:layout_marginLeft="@dimen/data_icon_left_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/circle_background_drawer_icon"
+        android:backgroundTint="@color/colorWhite"
+        android:elevation="5dp"
+        android:tint="@color/colorPrimary" />
+
+
+    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        android:id="@+id/data_row_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/data_row_title_left_margin"
+        android:layout_marginTop="@dimen/data_row_title_top_margin"
+        android:text="Product name"
+        android:textColor="@color/colorDarkGray"
+        android:textSize="@dimen/data_row_title" />
+
+
+</LinearLayout>
