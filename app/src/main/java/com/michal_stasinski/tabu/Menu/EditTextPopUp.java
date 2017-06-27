@@ -90,7 +90,7 @@ public class EditTextPopUp extends Activity {
 
                 }
 
-                if (pos == 6 || pos == 7) {
+                if (pos == 6 ) {
                     isValidate = (Boolean) validateLastName(editText.getText().toString().trim());
                     if (editText.getText().length() < 2) {
                         isValidate = false;
@@ -98,7 +98,14 @@ public class EditTextPopUp extends Activity {
 
 
                 }
+                if ( pos == 7) {
+                    isValidate = true;
+                    if (editText.getText().length() < 2) {
+                        isValidate = false;
+                    }
 
+
+                }
 
                 if (pos == 8) {
                     if (editText.getText().length() > 0 && validatNr(editText.getText().toString().trim())) {
@@ -198,7 +205,10 @@ public class EditTextPopUp extends Activity {
         return lastName.matches("[A-Z][a-z]+( [A-Z][a-z]+)*");
         // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     } // end method validateLastName
-
+    public static boolean validateAddress(String lastName) {
+        return lastName.matches("[a-zA-Z0-9-]*");
+        // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+    } // e
     public static boolean validatNr(String lastName) {
         return lastName.matches("^[+]?[0-9]{1,13}$*");
         // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
@@ -213,10 +223,10 @@ public class EditTextPopUp extends Activity {
 
     }
 
-    public static boolean validateAddress(String address) {
+    /*public static boolean validateAddress(String address) {
         return address.matches(
                 "\\d+\\s+([a-zA-Z]+|[a-zA-Z]+\\s[a-zA-Z]+)");
-    } //
+    } */
 
     private boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"

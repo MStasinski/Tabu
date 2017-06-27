@@ -181,13 +181,14 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         String textToSearch = txt;
         List<Address> addresses = null;
 
+        Log.i("informacja", " BREAK GEOCODERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+txt  );
             try {
                 addresses = geocoder.getFromLocationName(textToSearch, 1);
 
             } catch (IOException e) {
-              //  e.printStackTrace();
+                e.printStackTrace();
             }
-            Log.i("informacja", " BREAK GEOCODERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+addresses );
+
 
 
 

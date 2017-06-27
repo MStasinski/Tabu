@@ -12,7 +12,7 @@ public class CustomFont_Avenir_Medium extends android.support.v7.widget.AppCompa
 
     public CustomFont_Avenir_Medium(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-Medium.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNext-Medium.ttf"));
     }
 
 
