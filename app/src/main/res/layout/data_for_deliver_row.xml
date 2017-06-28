@@ -9,16 +9,16 @@
         android:id="@+id/data_icon"
         android:layout_width="@dimen/data_icon"
         android:layout_height="@dimen/data_icon"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="@dimen/data_icon_left_margin"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/circle_background_drawer_icon"
         android:backgroundTint="@color/colorWhite"
         android:elevation="5dp"
         android:tint="@color/colorPrimary" />
 
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/data_row_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

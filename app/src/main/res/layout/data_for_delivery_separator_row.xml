@@ -17,7 +17,7 @@
         android:background="@color/colorSecond" />
 
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/data_separator_title"
         android:layout_width="match_parent"
         android:layout_height="24dp"

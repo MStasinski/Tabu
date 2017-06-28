@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
 
             android:id="@+id/positionInList"
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/menu_list_view_number" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
 
             android:id="@+id/sold_info"
             android:layout_width="wrap_content"
@@ -43,20 +43,21 @@
             android:textSize="10sp" />
     </RelativeLayout>
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/titleItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_gravity="center"
-        android:layout_marginTop="-6dp"
+        android:layout_marginTop="-4dp"
         android:text="Margeritha"
         android:textAlignment="center"
 
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="@dimen/menu_list_view_title" />
+        android:textSize="@dimen/menu_list_view_title"
+        />
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/txtDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

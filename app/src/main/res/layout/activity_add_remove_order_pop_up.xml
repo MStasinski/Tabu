@@ -73,8 +73,9 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-
         android:layout_marginTop="60dp"
-        android:background="@color/colorPrimary"
-        android:text="aktualizuj koszyk" />
+        android:background="@drawable/orange_button_background"
+        android:text="aktualizuj koszyk"
+        android:textSize="@dimen/orange_button_text_size"
+        android:textColor="@color/colorWhite" />
 </LinearLayout>

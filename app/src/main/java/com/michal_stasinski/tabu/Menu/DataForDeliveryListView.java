@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.appindexing.Action;
 import com.google.firebase.appindexing.FirebaseUserActions;
@@ -202,7 +203,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             address1 = (Address) getCoordinatesFromAddresse(town + " " + street + " " + nr);
         }
 
-        CustomFont_Avenir_Medium text_cost_delivery = (CustomFont_Avenir_Medium) findViewById(R.id.data_cost_of_delivery_text);
+        TextView text_cost_delivery = (TextView) findViewById(R.id.data_cost_of_delivery_text);
 
         if (address1 != null) {
 
@@ -226,16 +227,16 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                     deliveryCost = 0;
 
                 } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
-                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(2).getPrice() + " zł");
+                    text_cost_delivery.setText("KOSZT DOSTAWY " + deliveryCostArray.get(2).getPrice() + " zł");
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(2).getPrice());
 
                 } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
 
-                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(1).getPrice() + " zł");
+                    text_cost_delivery.setText("KOSZT DOSTAWY " + deliveryCostArray.get(1).getPrice() + " zł");
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(1).getPrice());
                 } else if (distance <= Integer.parseInt(String.valueOf(deliveryCostArray.get(0).getDistacne())) * 1000) {
 
-                    text_cost_delivery.setText("Koszt dostawy " + deliveryCostArray.get(0).getPrice() + " zł");
+                    text_cost_delivery.setText("KOSZT DOSTAWY " + deliveryCostArray.get(0).getPrice() + " zł");
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
                 }
             } else {

@@ -7,119 +7,126 @@
     android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/bClose"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="10dp"
+            android:background="@mipmap/back_button"
+            android:backgroundTint="@color/colorPrimary" />
+
+
+        <TextView
+            android:id="@+id/order_composer_titleItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="@dimen/activity_order_margin_top"
+
+            android:gravity="center"
+
+            android:text="Margeritha"
+            android:textAlignment="center"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="@dimen/activity_order_title" />
+
+        <TextView
+            android:id="@+id/order_composer_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="@dimen/activity_order_margin_top"
+            android:gravity="center"
+            android:text="Sos,Ser"
+            android:textAlignment="center"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/order_composer_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/activity_order_margin_top"
+
+            android:text="19.90"
+           android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="@dimen/activity_order_price" />
+
+        <com.michal_stasinski.tabu.Utils.BounceListView
+            android:id="@+id/order_composer_listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/activity_order_margin_bottom"
+            android:layout_weight="0.46"
+            android:animationCache="false"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.05sp"
+            android:scrollingCache="false" />
+
+
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/order_composer_button"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/orange_button_background"
+
+            android:layout_alignParentTop="true">
+
+
+            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
+                android:id="@+id/order_composer_button_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/colorWhite"
+                android:text="(0) 0.00zł"
+                android:textSize="@dimen/orange_button_text_size"
+                android:textAlignment="center" />
+
+
+        </android.support.v7.widget.ButtonBarLayout>
+
+        <include
+            layout="@layout/bottom_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </LinearLayout>
+
     <com.liuguangqiang.swipeback.SwipeBackLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/bClose"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="10dp"
-                android:background="@mipmap/back_button"
-                android:backgroundTint="@color/colorPrimary" />
-
-            <!-- <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
-
-                 android:id="@+id/order_composer_positionInList"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_centerVertical="true"
-                 android:layout_marginTop="10dp"
-                 android:text="1"
-                 android:textAlignment="center"
-                 android:textColor="@color/colorThirdGrey"
-                 android:textSize="@dimen/menu_list_view_number" />-->
-
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
-                android:id="@+id/order_composer_titleItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/activity_order_margin_top"
-                android:gravity="center"
-                android:text="Margeritha"
-
-                android:textAlignment="center"
-
-
-                android:textColor="@color/colorDarkGray"
-                android:textSize="@dimen/activity_order_title" />
-
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
-                android:id="@+id/order_composer_desc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="@dimen/activity_order_margin_top"
-                android:gravity="center"
-                android:text="Sos,Ser"
-                android:textAlignment="center"
-                android:textColor="@color/colorDarkGray"
-                android:textSize="@dimen/activity_order_desc" />
-
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
-                android:id="@+id/order_composer_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="@dimen/activity_order_margin_top"
-                android:text="19.90"
-                android:textAlignment="center"
-                android:textColor="@color/colorDarkGray"
-                android:textSize="@dimen/activity_order_price" />
-
-            <com.michal_stasinski.tabu.Utils.BounceListView
-                android:id="@+id/order_composer_listView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/activity_order_margin_bottom"
-                android:layout_weight="0.46"
-                android:animationCache="false"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="0.05sp"
-                android:scrollingCache="false" />
-
-            <Button
-                android:id="@+id/order_composer_button"
-                android:layout_width="match_parent"
-                android:layout_height="44sp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimary"
-                android:fontFamily="fonts/Avenir Next Condensed.ttc"
-                android:text="Button"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/orange_button_text_size"
-                android:textStyle="bold" />
-
-            <include
-                layout="@layout/bottom_action_bar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
-        </LinearLayout>
 
 
     </com.liuguangqiang.swipeback.SwipeBackLayout>

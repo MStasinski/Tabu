@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_rule_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_rule_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

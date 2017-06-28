@@ -50,7 +50,7 @@ public class SauceAdapter extends BaseAdapter {
             viewHolder = new SauceAdapter.ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.pizza_size_text);
             viewHolder.check = (TextView) view.findViewById(R.id.checkmark);
-            viewHolder.isSold = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
+            viewHolder.isSold = (TextView) view.findViewById(R.id.sold_info);
             view.setTag(viewHolder);
 
         } else {
@@ -80,7 +80,7 @@ public class SauceAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomFont_Avenir_Medium isSold;
+        TextView isSold;
         TextView title;
         TextView check;
     }

@@ -56,7 +56,7 @@ public class PizzaSizeAdapter extends BaseAdapter {
             view = View.inflate(mContext, R.layout.pop_up_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.pizza_size_text);
-            viewHolder.isSold = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
+            viewHolder.isSold = (TextView) view.findViewById(R.id.sold_info);
             viewHolder.check = (TextView) view.findViewById(R.id.checkmark);
             view.setTag(viewHolder);
 
@@ -64,15 +64,14 @@ public class PizzaSizeAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) view.getTag();
         }
-        String output = MathUtils.formatDecimal(this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position),2);
-        viewHolder.title.setText(pizzaSizesArr.get(position).getName() +" (" +output+" zł)");
+        String output = MathUtils.formatDecimal(this.pizzas.get(this.positionInMenuListView).getPriceArray().get(position), 2);
+        viewHolder.title.setText(pizzaSizesArr.get(position).getName() + " (" + output + " zł)");
 
-        if(pizzaSizesArr.get(position).getSold()){
+        if (pizzaSizesArr.get(position).getSold()) {
             viewHolder.isSold.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             viewHolder.isSold.setVisibility(View.INVISIBLE);
         }
-
 
 
         if (this.markSignArr.get(position) == 1) {
@@ -88,7 +87,7 @@ public class PizzaSizeAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomFont_Avenir_Medium isSold;
+        TextView isSold;
         TextView title;
         TextView check;
     }

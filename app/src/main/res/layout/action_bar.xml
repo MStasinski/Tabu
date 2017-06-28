@@ -27,7 +27,7 @@
 
     </android.support.v7.widget.ButtonBarLayout>
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Regular
+    <TextView
         android:id="@+id/toolBarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

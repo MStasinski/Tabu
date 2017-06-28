@@ -65,7 +65,7 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
             viewHolder = new ViewHolderItem();
             viewHolder.hour = (TextView) convertView.findViewById(R.id.pizza_size_text);
-            viewHolder.isSold = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.sold_info);
+            viewHolder.isSold = (TextView) convertView.findViewById(R.id.sold_info);
             viewHolder.check = (TextView) convertView.findViewById(R.id.checkmark);
             convertView.setTag(viewHolder);
 
@@ -88,7 +88,7 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomFont_Avenir_Medium isSold;
+        TextView isSold;
         TextView hour;
         TextView check;
     }

@@ -33,7 +33,7 @@
             android:layout_marginTop="20dp"
             android:background="@color/colorPrimaryDark" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_purchaser_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:textSize="18dp" />
 
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_times"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

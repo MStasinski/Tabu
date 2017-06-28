@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_Regular
+    <TextView
         android:id="@+id/addonText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/customshape_black"
         android:gravity="center"
+        android:fontFamily="fonts/Avenir Next Condensed.ttc"
         android:textColor="@color/colorWhite"
         android:text="fdgfgdfgdfg"
+        android:textStyle="normal"
         android:textSize="@dimen/addonsDesc" />
 
     <com.michal_stasinski.tabu.Utils.BounceListView

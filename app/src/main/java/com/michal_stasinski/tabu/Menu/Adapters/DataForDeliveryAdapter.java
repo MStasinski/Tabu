@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
@@ -80,12 +81,12 @@ public class DataForDeliveryAdapter extends BaseAdapter {
                 case 1:
                     convertView = mInflater.inflate(R.layout.data_for_deliver_row, null);
                     convertView.setBackgroundResource(R.color.colorWhite);
-                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.data_row_title);
+                    viewHolder.title = (TextView) convertView.findViewById(R.id.data_row_title);
                     viewHolder.imageView = (ImageView) convertView.findViewById(R.id.data_icon);
                     break;
                 case 0:
                     convertView = mInflater.inflate(R.layout.data_for_delivery_separator_row, null);
-                    viewHolder.title = (CustomFont_Avenir_Medium) convertView.findViewById(R.id.data_separator_title);
+                    viewHolder.title = (TextView) convertView.findViewById(R.id.data_separator_title);
                     break;
 
             }
@@ -121,7 +122,7 @@ public class DataForDeliveryAdapter extends BaseAdapter {
     }
 
     static class ViewHolderItem {
-        CustomFont_Avenir_Medium title;
+        TextView title;
         ImageView imageView;
     }
 

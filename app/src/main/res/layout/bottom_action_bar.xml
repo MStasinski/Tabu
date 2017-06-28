@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
     android:background="@color/colorSecondGrey"
     android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal">
 
 
         <android.support.v7.widget.ButtonBarLayout
             android:id="@+id/bottom_action_bar_btn0"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -24,11 +25,11 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
                 android:backgroundTint="@color/colorWhite"
-                android:src="@mipmap/menu_icon"
                 android:elevation="5dp"
+                android:src="@mipmap/menu_icon"
                 android:tint="@color/colorPrimary" />
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
+            <TextView
                 android:id="@+id/customTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -36,19 +37,18 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="14dp"
                 android:text="MENU"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
-                />
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:textStyle="bold" />
         </android.support.v7.widget.ButtonBarLayout>
 
 
         <android.support.v7.widget.ButtonBarLayout
             android:id="@+id/bottom_action_bar_btn1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentTop="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -70,9 +70,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="14dp"
                 android:text="(0) 0.00zł"
-
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+                android:textStyle="bold" />
 
 
         </android.support.v7.widget.ButtonBarLayout>

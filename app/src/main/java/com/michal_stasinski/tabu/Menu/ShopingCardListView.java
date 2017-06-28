@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -378,7 +379,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        Button sendButton = (Button) findViewById(R.id.send_order);
+        ButtonBarLayout sendButton = (ButtonBarLayout) findViewById(R.id.send_order);
         sendButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -13,7 +13,7 @@
         android:background="@color/colorSecondGrey" />
 
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/order_separator_title"
         android:layout_width="match_parent"
         android:layout_height="18dp"

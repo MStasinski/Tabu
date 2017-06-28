@@ -17,13 +17,13 @@ public class FontFitTextView extends android.support.v7.widget.AppCompatTextView
 
     public FontFitTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
+      //  this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
         initialize();
     }
 
     public FontFitTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
+        //this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
         initialize();
     }
 

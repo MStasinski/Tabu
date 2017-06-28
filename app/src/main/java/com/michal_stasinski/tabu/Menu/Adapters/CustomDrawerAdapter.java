@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
@@ -37,7 +38,7 @@ public class CustomDrawerAdapter extends ArrayAdapter<String> {
             view = View.inflate(context, R.layout.drawer_row, null);
             viewHolder = new ViewHolderDrawer();
             viewHolder.imageView = (ImageView) view.findViewById(R.id.icon);
-            viewHolder.txtTitle = (CustomFont_Avenir_Medium) view.findViewById(R.id.txtTitleDrawer);
+            viewHolder.txtTitle = (TextView) view.findViewById(R.id.txtTitleDrawer);
             view.setTag(viewHolder);
         } else {
 
@@ -52,6 +53,6 @@ public class CustomDrawerAdapter extends ArrayAdapter<String> {
 
     static class ViewHolderDrawer {
         ImageView imageView;
-        CustomFont_Avenir_Medium txtTitle;
+        TextView txtTitle;
     }
 }

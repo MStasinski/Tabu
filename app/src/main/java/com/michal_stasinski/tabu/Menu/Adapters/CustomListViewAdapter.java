@@ -25,6 +25,8 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -124,7 +126,7 @@ public class CustomListViewAdapter extends BaseAdapter {
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
             viewHolder.price = price;
             viewHolder.buttonArray = new ArrayList<Button>();
-            viewHolder.soldLabel = (CustomFont_Avenir_Medium) view.findViewById(R.id.sold_info);
+            viewHolder.soldLabel = (TextView) view.findViewById(R.id.sold_info);
 
             for (int i = 0; i < price.size(); i++) {
                 LinearLayout list = (LinearLayout) view.findViewById(R.id.buttonlayout);
@@ -236,6 +238,6 @@ public class CustomListViewAdapter extends BaseAdapter {
         TextView colorShape;
         ArrayList<Button> buttonArray;
         ArrayList<Number> price;
-        CustomFont_Avenir_Medium soldLabel;
+        TextView soldLabel;
     }
 }
