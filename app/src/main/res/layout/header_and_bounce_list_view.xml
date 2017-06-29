@@ -10,10 +10,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/customshape_black"
         android:gravity="center"
-        android:fontFamily="fonts/Avenir Next Condensed.ttc"
-        android:textColor="@color/colorWhite"
         android:text="fdgfgdfgdfg"
-        android:textStyle="normal"
+        android:textColor="@color/colorWhite"
         android:textSize="@dimen/addonsDesc" />
 
     <com.michal_stasinski.tabu.Utils.BounceListView

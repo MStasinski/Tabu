@@ -27,7 +27,7 @@
 
     <style name="AppTheme.PopUpWindow">
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:colorForeground">#fff</item>
+        <item name="android:colorForeground">#ebebeb</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name ="android:windowBackground">@drawable/popup_window_background2</item>
         <item name="android:windowCloseOnTouchOutside">true</item>

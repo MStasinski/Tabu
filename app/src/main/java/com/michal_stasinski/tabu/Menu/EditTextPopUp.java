@@ -10,8 +10,10 @@ import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
@@ -39,6 +41,8 @@ public class EditTextPopUp extends Activity {
         contex = this;
         setContentView(R.layout.edit_text_popup);
 
+
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
@@ -52,12 +56,13 @@ public class EditTextPopUp extends Activity {
             pos = bundle.getInt("position");
             title = bundle.getString("title");
             actualText = bundle.getString("actualText");
-            CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.title_edit_popup);
+            TextView titleTxt = (TextView) findViewById(R.id.title_edit_popup);
             titleTxt.setText(title.toUpperCase());
         }
 
         EditText editText = (EditText) findViewById(R.id.edit_text_popup);
         editText.setText(actualText);
+        editText.setSelection(editText.getText().length());
 
         Button saveButton = (Button) findViewById(R.id.btm_save);
         saveButton.setOnClickListener(new View.OnClickListener() {

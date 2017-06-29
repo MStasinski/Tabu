@@ -56,6 +56,7 @@
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
             android:name=".Menu.EditTextPopUp"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:theme="@style/AppTheme.PopUpWindow2" />
         <activity
             android:name=".Menu.DataForDeliveryListView"

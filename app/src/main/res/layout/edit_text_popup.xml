@@ -5,7 +5,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:id="@+id/title_edit_popup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,8 +14,8 @@
         android:gravity="center"
         android:text="Product name"
         android:textAlignment="center"
-        android:textColor="@color/colorSecond"
-        android:textSize="@dimen/left_drawer_top_text" />
+        android:textColor="@color/color_zmien"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btm_save"
@@ -27,7 +27,7 @@
 
         />
 
-    <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -36,7 +36,7 @@
         android:gravity="right"
         android:text="ZAPISZ"
         android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/left_drawer_top_text" />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/color_gray_light" />
 
         <EditText
             android:id="@+id/edit_text_popup"

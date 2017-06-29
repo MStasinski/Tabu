@@ -40,7 +40,7 @@ public class SaucePopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.widthPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
+        getWindow().setLayout((int) (width * .8), (int) (height * 0.7));
 
         int size = 0;
         Intent intent = getIntent();

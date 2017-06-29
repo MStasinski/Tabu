@@ -10,26 +10,32 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="12dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="24dp"
         android:tint="@color/colorPrimary"
         android:backgroundTint="@color/colorWhite"
-        android:elevation="5dp"
+        android:elevation="3dp"
+        android:translationX="-3dp"
+        android:translationY="-3dp"
+        android:translationZ="3dp"
         android:background="@drawable/circle_background_drawer_icon" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="12dp"
-        android:layout_marginLeft="@dimen/left_drawer_margin_left">
+        android:padding="10dp"
+        android:layout_marginLeft="50dp">
 
         <TextView
             android:id="@+id/txtTitleDrawer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/left_drawer_top_text"
+            android:layout_marginTop="2dp"
             android:text="Product name"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+
+
+            />
 
     </LinearLayout>
 

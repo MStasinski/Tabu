@@ -8,7 +8,7 @@
     <dimen name="price_margin">20dp</dimen>
 
     <!-- opis Do kazdej pizzy -->
-    <dimen name="addonsDesc">18dp</dimen>
+    <dimen name="addonsDesc">16dp</dimen>
     <!-- wielkości  FRAGMENT ORDER COMPOZITOR: -->
 
     <dimen name="orange_button_text_size">17sp</dimen>
@@ -36,8 +36,8 @@
     <!-- wlewy drawer: ikonka, tekst główny, opis -->
 
     <dimen name="left_drawer_icon">24dp</dimen>
-    <dimen name="left_drawer_top_text">16sp</dimen>
-    <dimen name="left_drawer_down_text">12sp</dimen>
+    <dimen name="left_drawer_top_text">18dp</dimen>
+    <dimen name="left_drawer_down_text">12dp</dimen>
     <dimen name="left_drawer_margin_left">60dp</dimen>
 
     <!-- actionbar header text -->

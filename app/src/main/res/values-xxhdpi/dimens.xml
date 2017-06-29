@@ -9,7 +9,7 @@
     <dimen name="price_margin">62dp</dimen>
 
     <!-- opis Do kazdej pizzy -->
-    <dimen name="addonsDesc">18dp</dimen>
+    <dimen name="addonsDesc">14dp</dimen>
 
     <!-- wielkości ORANGE BUTTON: -->
     <dimen name="orange_button_text_size">17sp</dimen>

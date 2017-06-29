@@ -24,10 +24,12 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
-                android:backgroundTint="@color/colorWhite"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:src="@mipmap/menu_icon"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorPrimary"
+                android:translationX="-3dp"
+                android:translationY="-3dp"
+                android:translationZ="3dp" />
 
             <TextView
                 android:id="@+id/customTextView"
@@ -54,13 +56,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
-                android:backgroundTint="@color/colorWhite"
-                android:elevation="5dp"
+                android:elevation="6dp"
                 android:src="@mipmap/kosz_icon"
-                android:tint="@color/colorPrimary" />
+                android:tint="@color/colorPrimary"
+                android:translationX="-3dp"
+                android:translationY="-3dp"
+                android:translationZ="3dp" />
 
             <com.michal_stasinski.tabu.Utils.FontFitTextView
                 android:id="@+id/info_about_price_and_quantity"
