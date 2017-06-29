@@ -125,6 +125,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
                 }
             }

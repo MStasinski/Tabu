@@ -219,7 +219,7 @@ public class CustomListViewAdapter extends BaseAdapter {
                             intent.putExtras(bundle);
                             Activity activity = (Activity) mContext;
                             activity.startActivity(intent);
-                            activity.overridePendingTransition(R.anim.from_left, R.anim.to_right);
+                            activity.overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
 
                         }

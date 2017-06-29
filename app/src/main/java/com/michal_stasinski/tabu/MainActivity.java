@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
                     startActivity(intent);
 
+                    overridePendingTransition(R.anim.from_right, R.anim.to_left);
+
                 }
             }
         });
@@ -215,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
                         currentActivity = 5;
                         intent.setClass(getBaseContext(), DataForDeliveryListView.class);
                         startActivity(intent);
+
+                        overridePendingTransition(R.anim.from_right, R.anim.to_left);
                     }
                     menuIsClick =false;
                 }
