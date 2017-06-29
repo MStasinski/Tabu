@@ -227,42 +227,43 @@ public class ShopingCardListView extends SwipeBackActivity {
         ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-        if (street2 != null && !(street.equals("Ulica")) && !(delivery_mode.equals("ODBIÓR WŁASNY"))) {
-            ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
-            el.setDesc(street2);
-            //deliveryCost = DataForDeliveryListView.deliveryCost;
-            deliveryCost = prefs.getInt("deliveryCost", 0);
-            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
-            selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
-            adapter.notifyDataSetChanged();
+        if(street != null) {
+            if (street2 != null && !(street.equals("Ulica")) && !(delivery_mode.equals("ODBIÓR WŁASNY"))) {
+                ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
+                el.setDesc(street2);
+                //deliveryCost = DataForDeliveryListView.deliveryCost;
+                deliveryCost = prefs.getInt("deliveryCost", 0);
+                selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
+                selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
+                adapter.notifyDataSetChanged();
 
-        } else {
-            ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
-            el0.setDesc("ODBIÓR WŁASNY");
-            // deliveryCost = 0;
-            selectedItem_del_cost.setDesc("0.00");
-            selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
-            ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
-            el1.setDesc(RESTAURANT_ADDRES);
+            } else {
+                ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
+                el0.setDesc("ODBIÓR WŁASNY");
+                // deliveryCost = 0;
+                selectedItem_del_cost.setDesc("0.00");
+                selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
+                ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
+                el1.setDesc(RESTAURANT_ADDRES);
+            }
         }
+        if(street != null) {
+            if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
+                ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
+                el.setDesc(delivery_mode);
+                //deliveryCost = DataForDeliveryListView.deliveryCost;
+                deliveryCost = prefs.getInt("deliveryCost", 0);
+                selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
+                adapter.notifyDataSetChanged();
 
-
-        if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
-            ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
-            el.setDesc(delivery_mode);
-            //deliveryCost = DataForDeliveryListView.deliveryCost;
-            deliveryCost = prefs.getInt("deliveryCost", 0);
-            selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
-            adapter.notifyDataSetChanged();
-
-        } else {
-            ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
-            el0.setDesc("ODBIÓR WŁASNY");
-            // deliveryCost = 0;
-            ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
-            el1.setDesc(RESTAURANT_ADDRES);
+            } else {
+                ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
+                el0.setDesc("ODBIÓR WŁASNY");
+                // deliveryCost = 0;
+                ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
+                el1.setDesc(RESTAURANT_ADDRES);
+            }
         }
-
 
         listView.setAdapter(adapter);
 
