@@ -52,6 +52,7 @@ public class SplashScreen extends Activity {
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
 
+    private Boolean APPSTART =true;
 
     public static String[] dataDeliveryTextFieldName = {
             "Zamawiający",
@@ -138,7 +139,7 @@ public class SplashScreen extends Activity {
         protected void onPostExecute(String result) {
 
             Log.i("informacja", "gotowe...bazy załadowane");
-            StartApp();
+           // StartApp();
         }
 
         @Override
@@ -331,6 +332,12 @@ public class SplashScreen extends Activity {
                     timeWhenRestaurantIsClose = (ArrayList) map.get("end");
                     timeWhenRestaurantIsOpen = (ArrayList) map.get("start");
                 }
+                if(APPSTART){
+                    APPSTART =false;
+                    StartApp();
+                }
+
+
                 Intent intent = new Intent();
                 intent.setAction(MainActivity.FIREBASE_CHANGED);
                 sendBroadcast(intent);

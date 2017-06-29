@@ -31,13 +31,14 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 
+import static com.michal_stasinski.tabu.MainActivity.CHOICE_ACTIVITY;
 import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
 import static com.michal_stasinski.tabu.SplashScreen.saladList;
 
 
-public class MenuFragment extends Fragment implements OnMapReadyCallback {
+public class MenuFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
 
     protected BounceListView mListViewMenu;
@@ -168,7 +169,11 @@ public class MenuFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onResume() {
         super.onResume();
-        if (MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
+
+
+        TextView toolBarTitle = (TextView) getActivity().findViewById(R.id.toolBarTitle);
+        toolBarTitle.setText((MainActivity.largeTextArr[CHOICE_ACTIVITY]).toString());
+        if (CHOICE_ACTIVITY != 4 && CHOICE_ACTIVITY != 0) {
             arrayAdapter.notifyDataSetChanged();
             arrayAdapter.setButton_flag_enabled(true);
         }
@@ -189,16 +194,16 @@ public class MenuFragment extends Fragment implements OnMapReadyCallback {
 
     public void reloadBase() {
 
-        if (MainActivity.CHOICE_ACTIVITY != 4 && MainActivity.CHOICE_ACTIVITY != 0) {
+        if (CHOICE_ACTIVITY != 4 && CHOICE_ACTIVITY != 0) {
 
 
-            if (MainActivity.CHOICE_ACTIVITY == 1) {
+            if (CHOICE_ACTIVITY == 1) {
                 menuArrayList = pizzaList;
             }
-            if (MainActivity.CHOICE_ACTIVITY == 2) {
+            if (CHOICE_ACTIVITY == 2) {
                 menuArrayList = saladList;
             }
-            if (MainActivity.CHOICE_ACTIVITY == 3) {
+            if (CHOICE_ACTIVITY == 3) {
                 menuArrayList = pizzaSauces;
             }
 
@@ -208,7 +213,7 @@ public class MenuFragment extends Fragment implements OnMapReadyCallback {
             arrayAdapter.notifyDataSetChanged();
         }
 
-        if (MainActivity.CHOICE_ACTIVITY == 0) {
+        if (CHOICE_ACTIVITY == 0) {
 
             mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 

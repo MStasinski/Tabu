@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu;
 
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected BounceListView mListViewMenu;
 
 
-    protected String[] largeTextArr = {
+    public static String[] largeTextArr = {
             "START",
             "PIZZA",
             "SAŁATKI",
@@ -149,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentManager fragmentManager = getFragmentManager();
         CHOICE_ACTIVITY = 0;
-        fragment = MenuFragment.newInstance(0);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+        fragment = MenuFragment.newInstance(choiceActivity);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
     }
 
@@ -201,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fragmentManager = getFragmentManager();
                         CHOICE_ACTIVITY = choiceActivity;
                         currentActivity = choiceActivity;
-                        TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
-                        toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
-                        fragment = MenuFragment.newInstance(choiceActivity);
-                        getFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
-                        //TODO dodaj animacje
-                        //startActivity(intent);
+                        fragment = MenuFragment.newInstance(choiceActivity);
+                        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.setCustomAnimations(R.anim.from_left, R.anim.to_right);
+                        transaction.replace(R.id.fragment_contener, fragment);
+                        transaction.commit();
+
                     } else if (currentActivity != choiceActivity && choiceActivity == 5) {
 
                         Intent intent = new Intent();
