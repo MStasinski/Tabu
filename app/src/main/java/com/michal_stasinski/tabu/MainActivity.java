@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     protected Toolbar mToolBar;
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
-    protected int currentActivity = -1;
+    protected int currentActivity = 0;
     protected int choiceActivity = 0;
     private Boolean menuIsClick = false;
     protected BounceListView mListViewDrawer;
@@ -151,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FragmentManager fragmentManager = getFragmentManager();
-        CHOICE_ACTIVITY = 0;
-        fragment = MenuFragment.newInstance(choiceActivity);
+       // CHOICE_ACTIVITY = currentActivity;
+
+        fragment = MenuFragment.newInstance(CHOICE_ACTIVITY);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
 
     }
