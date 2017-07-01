@@ -97,13 +97,17 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/orange_button_background"
-            >
+            android:elevation="3dp"
+            android:translationX="-1dp"
+            android:translationY="-1dp"
+            android:translationZ="1dp">
 
 
             <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
                 android:id="@+id/order_composer_button_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="(0) 0.00zł"
                 android:textAlignment="center"
 

@@ -27,9 +27,9 @@
                 android:elevation="3dp"
                 android:src="@mipmap/menu_icon"
                 android:tint="@color/colorPrimary"
-                android:translationX="-3dp"
-                android:translationY="-3dp"
-                android:translationZ="3dp" />
+                android:translationX="-1dp"
+                android:translationY="-1dp"
+                android:translationZ="1dp" />
 
             <TextView
                 android:id="@+id/customTextView"
@@ -60,12 +60,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/circle_background_drawer_icon"
-                android:elevation="6dp"
+                android:elevation="3dp"
                 android:src="@mipmap/kosz_icon"
                 android:tint="@color/colorPrimary"
-                android:translationX="-3dp"
-                android:translationY="-3dp"
-                android:translationZ="3dp" />
+                android:translationX="-1dp"
+                android:translationY="-1dp"
+                android:translationZ="1dp" />
 
             <com.michal_stasinski.tabu.Utils.FontFitTextView
                 android:id="@+id/info_about_price_and_quantity"

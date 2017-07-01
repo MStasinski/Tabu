@@ -57,7 +57,7 @@
             android:layout_marginLeft="140dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="Zamówienia online:10.00 - 22:45\nDostawa przy zamówieniach od 15 zł"
+            android:text="Zamówienia online:  \nDostawa przy zamówieniach od 15 zł"
             android:textAlignment="center"
             android:textColor="@color/colorDarkGray"
             android:textSize="14dp" />

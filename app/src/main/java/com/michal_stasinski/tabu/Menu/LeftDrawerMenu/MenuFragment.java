@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
+import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -177,13 +178,17 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
             arrayAdapter.notifyDataSetChanged();
             arrayAdapter.setButton_flag_enabled(true);
         }
-       /* if (MainActivity.CHOICE_ACTIVITY == 0) {
+        if (MainActivity.CHOICE_ACTIVITY == 0) {
             Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
-            Log.i("informacja", " time_open_close.getOpenTime()" + time_open_close.getOpenTime()[0]);
 
-            CustomTextView txt = (CustomTextView) myView.findViewById(R.id.order_times);
-            txt.setText("Zamówienia online:" + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");
-        }*/
+            TextView txt = (TextView) myView.findViewById(R.id.order_times);
+
+
+            Log.i("informacja", " time_open_close.getOpenTime()[0]   "+ time_open_close.getOpenTime()[0]);
+            Log.i("informacja", " time_open_close.getCloseTime()[0]   "+time_open_close.getCloseTime()[0]);
+
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł\nDostawa przy zamówieniach od 15 zł");
+        }
     }
 
 
@@ -217,11 +222,9 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
             mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
-           /* Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
-            Log.i("informacja", " time_open_close.getOpenTime()" + time_open_close.getOpenTime()[0]);
-
-            CustomTextView txt = (CustomTextView) myView.findViewById(R.id.order_times);
-            txt.setText("Zamówienia online:" + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");*/
+            Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+            TextView txt = (TextView) myView.findViewById(R.id.order_times);
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");
 
             CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
 

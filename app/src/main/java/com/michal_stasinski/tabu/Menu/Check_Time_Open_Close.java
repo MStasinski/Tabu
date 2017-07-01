@@ -53,46 +53,22 @@ public class Check_Time_Open_Close {
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
         String strDate = mdformat.format(calendar.getTime());
 
-        Log.i("informacja", " strDate" + strDate);
-
         hourArr = strDate.split(":");
 
         DateFormat df = new SimpleDateFormat("EEEE");
+
         String date = df.format(Calendar.getInstance().getTime());
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        ///Log.i("informacja", "aktualna godzina" + strDate + "  dzien: " + date + "  dayOfWeek " + dayOfWeek);
+        day = dayOfWeek-1;
 
-        if (date.equals("Monday")) {
-            day = 1;
-        }
-
-        if (date.equals("Tuesday")) {
-            day = 2;
-        }
-
-        if (date.equals("Wednesday")) {
-            day = 3;
-        }
-
-        if (date.equals("Thursday")) {
-            day = 4;
-        }
-
-        if (date.equals("Friday")) {
-            day = 5;
-        }
-
-        if (date.equals("Saturday")) {
-            day = 6;
-        }
-
-        if (date.equals("Sunday")) {
-            day = 0;
-        }
 
         int hourValue = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]);
 
         closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
         openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
-
+       // Log.i("informacja", "-------day----- " + day);
 
         int op = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
         int cl = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
@@ -108,11 +84,11 @@ public class Check_Time_Open_Close {
             if (hourValue < Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1])) {
                 Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
                 if (day > 0) {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day - 1)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day - 1)).split(":");
+                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
+                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
                 } else {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(6)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(6)).split(":");
+                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(0)).split(":");
+                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(0)).split(":");
                 }
 
                 int op1 = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);

@@ -136,8 +136,9 @@ public class MainActivity extends AppCompatActivity {
 
                     CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
                     customDialog.show();
+                    customDialog.setTitleDialogText("Twoj koszyk jest pusty");
+                    customDialog.setDescDialogText("Wybierz coś z menu");
 
                 }else{
                     Intent intent = new Intent();

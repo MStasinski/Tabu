@@ -10,12 +10,12 @@
     android:paddingTop="30dp">
 
     <TextView
-        android:id="@+id/txt_dia"
+        android:id="@+id/title_text_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:text="Twoj koszyk jest pusty"
+        android:text="Twoj koszyk....."
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:fontFamily="fonts/Avenir Next Condensed.ttc"
@@ -23,7 +23,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/txt_dia2"
+        android:id="@+id/desc_text_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
