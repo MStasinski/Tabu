@@ -3,7 +3,6 @@ package com.michal_stasinski.tabu.Menu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -11,11 +10,9 @@ import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.SplashScreen;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +34,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
     private String[] closeTime;
     private String[] openTime;
 
+    private Check_Time_Open_Close time_open_close;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +56,12 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         checkOpenTime();
-
 
     }
 
     public void checkOpenTime() {
-        Calendar calendar = Calendar.getInstance();
+       /* Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
         String strDate = mdformat.format(calendar.getTime());
 
@@ -75,37 +72,10 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         DateFormat df = new SimpleDateFormat("EEEE");
         String date = df.format(Calendar.getInstance().getTime());
 
-        Log.i("informacja", " date  " + date);
-        Log.i("informacja", " SplashScreen.timeWhenRestaurantIsClose.get(1  " + SplashScreen.timeWhenRestaurantIsClose);
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
 
-
-        if (date.equals("Monday")) {
-            day = 1;
-        }
-
-        if (date.equals("Tuesday")) {
-            day = 2;
-        }
-
-        if (date.equals("Wednesday")) {
-            day = 3;
-        }
-
-        if (date.equals("Thursday")) {
-            day = 4;
-        }
-
-        if (date.equals("Friday")) {
-            day = 5;
-        }
-
-        if (date.equals("Saturday")) {
-            day = 6;
-        }
-
-        if (date.equals("Sunday")) {
-            day = 0;
-        }
+        day = dayOfWeek - 1;
 
         int hourValue = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]);
 
@@ -126,13 +96,13 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
             if (hourValue < Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1])) {
                 Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
-                if (day > 0) {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day - 1)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day - 1)).split(":");
-                } else {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(6)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(6)).split(":");
-                }
+               // if (day > 0) {
+                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
+                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
+               /// } else {
+               //     closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(6)).split(":");
+               //     openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(6)).split(":");
+              //  }
 
                 int op1 = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
                 int cl1 = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
@@ -152,8 +122,9 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             }
 
 
-        }
+        }*/
 
+        omriFunction();
     }
 
     public void omriFunction() {
@@ -166,22 +137,17 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
         String strDate = mdformat.format(calendar.getTime());
 
-        Log.i("informacja", " strDate" + strDate);
-
         hourArr = strDate.split(":");
-
-
+        Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        closeTime = time_open_close.getCloseTime();
         endHoure = Integer.parseInt(closeTime[0]) + 1;
         startMinute = Integer.parseInt(closeTime[1]);
-
 
         Date Start = null;
         Date End = null;
 
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-
-        Log.i("informacja", startHoure + " date  " + endHoure);
 
         try {
 
@@ -194,9 +160,6 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         }
 
         long difference = End.getTime() - Start.getTime();
-        Log.i("informacja", "difference" + difference);
-        Log.i("informacja", "End.getTime() " + End.getTime());
-        Log.i("informacja", "Start.getTime() " + Start.getTime());
 
         int days = (int) (difference / (1000 * 60 * 60 * 24));
         int hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
@@ -204,6 +167,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         if (hours < 0) {
             hours += 24;
         }
+
         if (min < 0) {
             float newone = (float) min / 60;
             min += 60;
@@ -211,7 +175,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         }
         String c = hours + ":" + min;
         String[] d = c.split(":");
-        Log.i("informacja", "ANSWER  " + c);
+
         int realizationTime = 30;
         int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / realizationTime;
 
@@ -239,8 +203,6 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
                     ff -= 1;
                     r = String.valueOf(60 - Math.abs(Integer.parseInt(r)));
                 }
-
-
             }
             if (Math.ceil(ff) < 0) {
                 ff = ff + 24;
@@ -249,12 +211,10 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             }
             if (Math.ceil(ff) >= 24) {
                 ff = ff - 24;
-
-
                 // time.setTime(ff + ":" + r);
             }
             if (Integer.parseInt(r) < 10) {
-                r="0"+r;
+                r = "0" + r;
             }
 
 
@@ -265,7 +225,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
             }
 
             time.setMark(false);
-            if (SELECTED_TIME == ilePozycjiczasu-i) {
+            if (SELECTED_TIME == ilePozycjiczasu - i) {
                 time.setMark(true);
             }
             timeList.add(time);

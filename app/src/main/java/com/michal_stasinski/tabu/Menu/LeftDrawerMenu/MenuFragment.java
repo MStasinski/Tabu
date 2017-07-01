@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -27,8 +29,10 @@ import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 
 import java.util.ArrayList;
 
@@ -81,12 +85,10 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
 
         if (fireBaseRef == 0) {
+
             myView = inflater.inflate(R.layout.fragment_start, container, false);
             mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
-
-            Log.i("informacja", "tu ma byc start" + newsArrayList);
             CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
-
 
             mListViewMenu.setAdapter(arrayAdapter);
             mListViewMenu.setScrollingCacheEnabled(false);
@@ -182,10 +184,6 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
             Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
 
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
-
-
-            Log.i("informacja", " time_open_close.getOpenTime()[0]   "+ time_open_close.getOpenTime()[0]);
-            Log.i("informacja", " time_open_close.getCloseTime()[0]   "+time_open_close.getCloseTime()[0]);
 
             txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł\nDostawa przy zamówieniach od 15 zł");
         }

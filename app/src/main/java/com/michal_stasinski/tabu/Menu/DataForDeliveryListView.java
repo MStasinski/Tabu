@@ -22,7 +22,6 @@ import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,7 +36,9 @@ public class DataForDeliveryListView extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
     private BounceListView listView;
     private Boolean isClick = false;
+
     public static int deliveryCost = 0;
+    public static Boolean adressExist = false;
 
     protected Integer[] imgid = {
             R.mipmap.ic_launcher,
@@ -95,7 +96,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 for (int i = 0; i <= 13; i++) {
                     ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
-                    Log.i("informacja", " prefs.getString(dataDeliveryTextFieldName[i]23 " + dataDeliveryTextFieldName[i]);
+
                     editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
                 }
 
@@ -107,7 +108,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         });
 
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
-
 
         for (int i = 0; i <= 13; i++) {
             Log.i("informacja", " prefs.getString(dataDeliveryTextFieldName[i] " + dataDeliveryTextFieldName[i]);
@@ -223,7 +223,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
 
                 if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
-                    text_cost_delivery.setText("Nie dowozimy pod wskazany adres");
+                    text_cost_delivery.setText("NIE DOWOZIMY POD WSKAZANY ADRES");
                     deliveryCost = 0;
 
                 } else if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(1).getDistacne())) * 1000) {
@@ -240,7 +240,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                     deliveryCost = Integer.valueOf(deliveryCostArray.get(0).getPrice());
                 }
             } else {
-                text_cost_delivery.setText("Podany adres nie istnieje");
+                text_cost_delivery.setText("PODANY ADRES NIE ISTNIEJE");
                 deliveryCost = 0;
             }
 
@@ -249,17 +249,12 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
             ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
 
-            Log.i("informacja", "address1___________________  " + address1);
-            Log.i("informacja", ((ShopingCardItem) adapter.getItem(6)).getTitle() + "address1___________________  " + address1.getLocality());
-            Log.i("informacja", ((ShopingCardItem) adapter.getItem(7)).getTitle() + "address1___________________  " + address1.getThoroughfare());
-            Log.i("informacja", ((ShopingCardItem) adapter.getItem(8)).getTitle() + "address1___________________  " + address1.getPostalCode());
-
             if (address1.getLocality() == null || address1.getThoroughfare() == null || address1.getPostalCode() == null) {
 
                 if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
 
                 } else {
-                    text_cost_delivery.setText("Podany adres nie istnieje");
+                    text_cost_delivery.setText("PODANY ADRES NIE ISTNIEJE");
                     deliveryCost = 0;
                 }
             }
@@ -267,10 +262,12 @@ public class DataForDeliveryListView extends SwipeBackActivity {
             adapter.notifyDataSetChanged();
         }
         if (address1 == null) {
-            text_cost_delivery.setText("Brak adresu dostawy");
+            text_cost_delivery.setText("BRAK ADRESU DOSTAWY");
+            deliveryCost = 0;
         }
         if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals("") || ((ShopingCardItem) adapter.getItem(7)).getTitle().equals("")) {
-            text_cost_delivery.setText("Brak adresu dostawy");
+            text_cost_delivery.setText("BRAK ADRESU DOSTAWY");
+            deliveryCost = 0;
         }
         isClick = false;
 

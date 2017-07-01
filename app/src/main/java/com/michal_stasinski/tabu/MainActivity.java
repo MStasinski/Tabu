@@ -2,12 +2,10 @@ package com.michal_stasinski.tabu;
 
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,6 +26,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
+import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.sauce_icon,
             R.mipmap.contact_icon,
             R.mipmap.person_icon
-
     };
 
     @Override
@@ -88,12 +87,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
-       /* ViewStub stub = (ViewStub) findViewById(R.id.layout_stub);
-        stub.setLayoutResource(R.layout.bounce_list_view);
-        View inflated = stub.inflate();*/
 
 
         //-------------------------- bottom menu button------------------------------------
@@ -103,10 +96,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.START, true);
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                // Intent intent = new Intent();
-                //intent.setClass(getBaseContext(), DataForDeliveryListView.class);
-                //startActivity(intent);
-
             }
         });
 
@@ -115,24 +104,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
                 if (orderList.size() == 0) {
-                   //finish();
-                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
-                    alertDialogBuilder
-                            .setMessage("Wybierz coś z menu")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
-
-                                }
-                            });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();*/
 
                     CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -141,10 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     customDialog.setDescDialogText("Wybierz coś z menu");
 
                 }else{
+
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
                     startActivity(intent);
-
                     overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
                 }
@@ -152,10 +124,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FragmentManager fragmentManager = getFragmentManager();
-       // CHOICE_ACTIVITY = currentActivity;
-
         fragment = MenuFragment.newInstance(CHOICE_ACTIVITY);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+        Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        if (!time_open_close.getRestaurantIsOpen()) {
+            CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
+            customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            customDialog.show();
+            customDialog.setTitleDialogText("UWAGA");
+            customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
+        }
 
     }
 
@@ -167,13 +145,9 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);
         registerReceiver(myReceiver, intentFilter);
 
-
         currentActivity = CHOICE_ACTIVITY;
-        Log.i("informacja", "resume" + currentActivity);
-        //CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
-
 
         mToolBar = (Toolbar) findViewById(R.id.nav_action);
         mToolBar.setBackgroundResource(R.color.colorWhite);
@@ -190,10 +164,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDrawerSlide(View view, float slideOffset) {
                 drawerBackgroud.setAlpha(slideOffset);
-                // mListViewMenu.setAlpha(1 - slideOffset);
-                //content.setAlpha(1 - slideOffset);
-                //imageDrawer.setAlpha(slideOffset);
-                // mtoolBarLayout.setAlpha(1 - slideOffset);
             }
 
             public void onDrawerClosed(View view) {
@@ -202,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 if (menuIsClick == true) {
                     if (currentActivity != choiceActivity && choiceActivity < 5) {
+
 
                         FragmentManager fragmentManager = getFragmentManager();
                         CHOICE_ACTIVITY = choiceActivity;
@@ -227,10 +198,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         TextView toolBarTitle = (TextView) findViewById(R.id.toolBarTitle);
         toolBarTitle.setText((largeTextArr[CHOICE_ACTIVITY]).toString());
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false); // show or hide the default home button
@@ -284,11 +253,6 @@ public class MainActivity extends AppCompatActivity {
                 menuIsClick = true;
                 choiceActivity = position;
                 if (currentActivity != choiceActivity) {
-
-
-                    //TODO odblokuj to
-                    //BounceListView v = (BounceListView) findViewById(R.id.left_drawer);
-                    // v.setEnabled(false);
                     mDrawerLayout.setEnabled(false);
                     mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
@@ -304,7 +268,6 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(myReceiver);
             myReceiver=null;
         }
-
         super.onPause();
     }
 
@@ -315,8 +278,6 @@ public class MainActivity extends AppCompatActivity {
             myReceiver=null;
         }
         super.onStop();
-
-
     }
 
     /*chowanie drawera na click outside*/
@@ -324,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                Log.i("informacja", "TAP");
                 View content = findViewById(R.id.left_drawer);
                 mDrawerLayout.closeDrawer(GravityCompat.START, true);
             }
@@ -336,10 +296,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(FIREBASE_CHANGED)) {
-                // String message = intent.getStringExtra(MSG_FIELD);
-                // tvMessage.setText(message);
                 if (fragment != null) {
-
                     fragment.reloadBase();
                 }
 

@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.SplashScreen;
-import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +20,10 @@ public class Check_Time_Open_Close {
     private String[] closeTime;
     private String[] openTime;
     private String[] hourArr;
+
+    private Boolean restaurantIsOpen = false;
     private int day = 0;
+
     private TimeOfDeliveryAdapter adapterek;
     private ArrayList<MenuItemProduct> timeArr;
 
@@ -61,14 +62,14 @@ public class Check_Time_Open_Close {
         Calendar c = Calendar.getInstance();
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
         ///Log.i("informacja", "aktualna godzina" + strDate + "  dzien: " + date + "  dayOfWeek " + dayOfWeek);
-        day = dayOfWeek-1;
+        day = dayOfWeek - 1;
 
 
         int hourValue = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]);
 
         closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
         openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
-       // Log.i("informacja", "-------day----- " + day);
+
 
         int op = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
         int cl = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
@@ -77,19 +78,15 @@ public class Check_Time_Open_Close {
             cl = cl + 24 * 60;
         }
         if (hourValue >= op && hourValue <= cl) {
-
-
+            Log.i("informacja", "------------------otwarte 1 ");
+            restaurantIsOpen = true;
         } else {
 
             if (hourValue < Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1])) {
                 Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
-                if (day > 0) {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
-                } else {
-                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(0)).split(":");
-                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(0)).split(":");
-                }
+
+                closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
+                openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
 
                 int op1 = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
                 int cl1 = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
@@ -98,17 +95,25 @@ public class Check_Time_Open_Close {
                     cl1 = cl1 + 24 * 60;
                 }
                 if (hourValue >= op1 && hourValue <= cl1) {
-
-
+                    restaurantIsOpen = true;
+                    Log.i("informacja", "------------------otwarte 2 ");
                 } else {
+                    restaurantIsOpen = false;
                     Log.i("informacja", "------------------czas jest w zakresie  dnia 2 zamkniete");
                 }
 
             } else {
+                restaurantIsOpen = false;
                 Log.i("informacja", "------------------zamkniete ");
             }
-
-
         }
+    }
+
+    public Boolean getRestaurantIsOpen() {
+        return restaurantIsOpen;
+    }
+
+    public void setRestaurantIsOpen(Boolean restaurantIsOpen) {
+        this.restaurantIsOpen = restaurantIsOpen;
     }
 }

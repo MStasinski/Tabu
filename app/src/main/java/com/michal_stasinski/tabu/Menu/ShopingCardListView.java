@@ -3,6 +3,8 @@ package com.michal_stasinski.tabu.Menu;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
@@ -17,12 +19,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.ShopingCardAdapter;
 import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
@@ -70,6 +74,14 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        if (!time_open_close.getRestaurantIsOpen()) {
+            CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
+            customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            customDialog.show();
+            customDialog.setTitleDialogText("UWAGA");
+            customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
+        }
     }
 
 
@@ -93,6 +105,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         final String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
         final String email = prefs.getString(dataDeliveryTextFieldName[3], null);
         final String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
+
         deliveryCost = prefs.getInt("deliveryCost", 0);
 
         adapter = new ShopingCardAdapter(this);
@@ -126,7 +139,13 @@ public class ShopingCardListView extends SwipeBackActivity {
             ShopingCardItem produkt0 = new ShopingCardItem();
             produkt0.setTitle(titleText[i]);
             if (i == 2) {
-                produkt0.setDesc("JAK NAJSZYBCIEJ");
+                Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+                if (time_open_close.getRestaurantIsOpen()) {
+                    produkt0.setDesc("JAK NAJSZYBCIEJ");
+                } else {
+                    produkt0.setDesc("NIECZYNNE");
+                }
+
             } else if (i == 3) {
                 produkt0.setDesc("GOTÓWKA");
             } else {
@@ -206,8 +225,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
             if (i == 2) {
 
-
-                //TODO tu był bład na przeciku
                 produkt1.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
             }
             produkt1.setNr(1);
@@ -222,15 +239,22 @@ public class ShopingCardListView extends SwipeBackActivity {
         String street2 = prefs0.getString("street", null);
 
 
-        final String street = prefs.getString("Ulica", null);
-
         ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-        if(street != null) {
-            if (street2 != null && !(street.equals("Ulica")) && !(delivery_mode.equals("ODBIÓR WŁASNY"))) {
+        String townFromData = prefs.getString("Miasto", null);
+        String streetFromData = prefs.getString("Ulica", null);
+        String houseNrFromData = prefs.getString("Nr domu", null);
+        int deliveryCostFromData = prefs.getInt("deliveryCost", 0);
+
+        final String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
+
+        Log.i("informacja", " DataForDeliveryListView.deliveryCost _____________"+DataForDeliveryListView.deliveryCost);
+
+        if (street != null) {
+            if (street2 != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !(delivery_mode.equals("ODBIÓR WŁASNY") &&DataForDeliveryListView.deliveryCost>0)) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
-                el.setDesc(street2);
+                el.setDesc(street);
                 //deliveryCost = DataForDeliveryListView.deliveryCost;
                 deliveryCost = prefs.getInt("deliveryCost", 0);
                 selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
@@ -247,8 +271,8 @@ public class ShopingCardListView extends SwipeBackActivity {
                 el1.setDesc(RESTAURANT_ADDRES);
             }
         }
-        if(street != null) {
-            if (delivery_mode != null && !street.equals("Ulica") && !delivery_mode.equals("ODBIÓR WŁASNY")) {
+        if (street != null) {
+            if (delivery_mode != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !delivery_mode.equals("ODBIÓR WŁASNY")&&DataForDeliveryListView.deliveryCost>0) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
                 el.setDesc(delivery_mode);
                 //deliveryCost = DataForDeliveryListView.deliveryCost;
@@ -287,7 +311,9 @@ public class ShopingCardListView extends SwipeBackActivity {
                     ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
                     ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-                    if (selectedItem.getDesc() == "ODBIÓR WŁASNY") {
+
+                    Log.i("informacja", " DataForDeliveryListView.deliveryCost _____________"+DataForDeliveryListView.deliveryCost);
+                    if (selectedItem.getDesc().equals("ODBIÓR WŁASNY")) {
                         selectedItem.setDesc("DOSTAWA");
                         selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
                         selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
@@ -296,14 +322,26 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
-                        String street = prefs.getString("Ulica", null);
+                        String townFromData = prefs.getString("Miasto", null);
+                        String streetFromData = prefs.getString("Ulica", null);
+                        String houseNrFromData = prefs.getString("Nr domu", null);
 
-                        if (street != null && !street.equals("Ulica")) {
+                        String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
+
+                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu")&& DataForDeliveryListView.deliveryCost>0) {
                             selectedAddres.setDesc(street);
                         } else {
-                            selectedAddres.setDesc("komunikat ffffff");
+                            CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
+                            customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            customDialog.show();
+                            customDialog.setTitleDialogText("UWAGA!\nBrak adresu dostawy lub pod podany adres nie dostarczamy zamówień");
+                            customDialog.setDescDialogText("Puknij w ZMIEŃ w polu ADRES ODBIORU u uzupełnij adres dostawy ");
+                            selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
+                            selectedItem_del_cost.setDesc("0.00");
+                            selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
+                            selectedAddres.setDesc(RESTAURANT_ADDRES);
                         }
-                        //TODO Ulica
+
 
                     } else {
                         selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
@@ -322,9 +360,18 @@ public class ShopingCardListView extends SwipeBackActivity {
                 }
 
                 if (position == 4) {
+                    Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+                    if (time_open_close.getRestaurantIsOpen()) {
+                        intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
+                        startActivity(intent);
+                    } else {
+                        CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
+                        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        customDialog.show();
+                        customDialog.setTitleDialogText("UWAGA");
+                        customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
+                    }
 
-                    intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
-                    startActivity(intent);
                 }
 
                 if (position == 5) {
@@ -361,7 +408,6 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
-
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
@@ -375,9 +421,7 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
-
         /*      przesyłanie zamówienia do bazy danych */
-
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         ButtonBarLayout sendButton = (ButtonBarLayout) findViewById(R.id.send_order);
@@ -386,48 +430,60 @@ public class ShopingCardListView extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
 
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_hh:mm:ss");
-                SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd hh:mm");
-
-                String strDate = mdformat.format(calendar.getTime());
-
-                String strDate2 = mdformat.format(calendar.getTime());
-
-                String uniqueId = UUID.randomUUID().toString();
-
-                ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
-                ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
-
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
+                Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+                if (time_open_close.getRestaurantIsOpen()) {
 
 
-                ArrayList orderArray = new ArrayList();
-                for (int i = 0; i < orderList.size(); i++) {
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_hh:mm:ss");
+                    SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd hh:mm");
 
-                    ArrayList<String> arr = new ArrayList<String>();
-                    arr.add(String.valueOf(orderList.get(i).getNr()));
-                    arr.add(orderList.get(i).getName());
-                    arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
-                    arr.add(String.valueOf(orderList.get(i).getQuantity()));
-                    arr.add(String.valueOf(orderList.get(i).getPrice()));
+                    String strDate = mdformat.format(calendar.getTime());
 
-                    orderArray.add(arr);
+                    String strDate2 = mdformat.format(calendar.getTime());
 
+                    String uniqueId = UUID.randomUUID().toString();
+
+                    ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
+                    ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
+
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
+
+
+                    ArrayList orderArray = new ArrayList();
+                    for (int i = 0; i < orderList.size(); i++) {
+
+                        ArrayList<String> arr = new ArrayList<String>();
+                        arr.add(String.valueOf(orderList.get(i).getNr()));
+                        arr.add(orderList.get(i).getName());
+                        arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
+                        arr.add(String.valueOf(orderList.get(i).getQuantity()));
+                        arr.add(String.valueOf(orderList.get(i).getPrice()));
+
+                        orderArray.add(arr);
+
+                    }
+
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
+                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
+
+                    Log.i("informacja", "wysyłam do bazy");
+
+                } else {
+                    CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
+                    customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    customDialog.show();
+                    customDialog.setTitleDialogText("UWAGA");
+                    customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
                 }
-
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
-                mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
-
-                Log.i("informacja", "wysyłam do bazy");
 
             }
         });
@@ -466,6 +522,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         editor.putString("delivery_mode", delivery_mode.getDesc().toString());
         editor.putString("street", street.getDesc().toString());
+
 
         editor.commit();
     }

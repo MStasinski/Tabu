@@ -11,38 +11,39 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
 
             android:id="@+id/order_item_quantity"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="16dp"
             android:layout_centerVertical="true"
             android:background="@drawable/price_shape"
             android:gravity="center"
             android:textAlignment="center" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_item_title"
             android:layout_width="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:layout_marginLeft="60dp"
             android:textColor="@color/colorDarkGray"
             android:textSize="16sp" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="36dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="40dp"
-            android:textColor="@color/colorDarkGray"
+            android:textColor="@color/order_list_rozmiar"
             android:textSize="14sp" />
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium
+        <TextView
             android:id="@+id/order_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,10 +51,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
             android:text="18.90"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="16sp"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

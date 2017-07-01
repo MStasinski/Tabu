@@ -103,24 +103,12 @@ public class OrderComposerPizza extends SwipeBackActivity {
             public void onClick(View v) {
 
                 if (orderList.size() == 0) {
-                    //finish();
-                   /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderComposerPizza.this);
-                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
-                    alertDialogBuilder
-                            .setMessage("Wybierz coś z menu")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
-
-                                }
-                            });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();*/
                     CustomDialogClass customDialog = new CustomDialogClass(OrderComposerPizza.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
+                    customDialog.setTitleDialogText("Twoj koszyk jest pusty");
+                    customDialog.setDescDialogText("Wybierz coś z menu");
+
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);

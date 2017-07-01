@@ -22,8 +22,6 @@ import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
@@ -80,24 +78,11 @@ public class OrderComposerOthers extends SwipeBackActivity {
             public void onClick(View v) {
 
                 if (orderList.size() == 0) {
-                    //finish();
-                    /*AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(OrderComposerOthers.this);
-                    alertDialogBuilder.setTitle("Twoj koszyk jest pusty");
-
-                    alertDialogBuilder
-
-                            .setMessage("Wybierz coś z menu")
-                            .setCancelable(false)
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-
-                                }
-                            });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();*/
                     CustomDialogClass customDialog = new CustomDialogClass(OrderComposerOthers.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
+                    customDialog.setTitleDialogText("Twoj koszyk jest pusty");
+                    customDialog.setDescDialogText("Wybierz coś z menu");
                 } else {
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
@@ -143,9 +128,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
         //*********************************** addToCartBtn*********************************************
 
-       // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+        // final Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         //addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-       // addToCartBtn.setTransformationMethod(null);
+        // addToCartBtn.setTransformationMethod(null);
 
         final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
         final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
@@ -211,7 +196,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
                     orderList.get(isAlready).setQuantity(quantity + quantityOld);
                 }
                 FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
-               //CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+                //CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
                 info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
             }
@@ -275,7 +260,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
     public void onResume() {
         super.onResume();
 
-       // CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
+        // CustomFont_Avenir_Bold info_about_price = (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
@@ -286,10 +271,10 @@ public class OrderComposerOthers extends SwipeBackActivity {
         //sum = pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).floatValue();
 
         sum = Float.valueOf(price);
-       // Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+        // Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
         String output = MathUtils.formatDecimal(sum, 2);
-       // addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-       // addToCartBtn.setTransformationMethod(null);
+        // addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+        // addToCartBtn.setTransformationMethod(null);
 
         final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
         final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
@@ -317,9 +302,9 @@ public class OrderComposerOthers extends SwipeBackActivity {
                 addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
                 addToCartBtn_txt.setTransformationMethod(null);
 
-               // Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-               // addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-               // addToCartBtn.setTransformationMethod(null);
+                // Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
+                // addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+                // addToCartBtn.setTransformationMethod(null);
             }
         });
 
