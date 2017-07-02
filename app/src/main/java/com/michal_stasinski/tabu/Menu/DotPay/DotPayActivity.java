@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Models.ShopData;
+import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.R;
 
 import java.util.HashMap;
@@ -27,6 +29,8 @@ import pl.mobiltek.paymentsmobile.dotpay.managers.PaymentManager;
 import pl.mobiltek.paymentsmobile.dotpay.model.PaymentInformation;
 import pl.mobiltek.paymentsmobile.dotpay.utils.Settings;
 
+import static com.michal_stasinski.tabu.SplashScreen.orderList;
+
 public class DotPayActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String NAME = "firstname";
@@ -40,12 +44,27 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
     private PaymentManagerCallback paymentManagerCallback = new PaymentManagerCallback() {
         @Override
         public void onPaymentSuccess(PaymentEndedEventArgs paymentEndedEventArgs) {
-            Toast.makeText(DotPayActivity.this, "Payment successful", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            intent.setAction(ShopingCardListView.DOTPAY_SUCCESS);
+            sendBroadcast(intent);
+
+            orderList.clear();
+
+            Intent intent2 = new Intent();
+            intent2.setClass(getBaseContext(), MainActivity.class);
+            startActivity(intent2);
+
+            Toast.makeText(DotPayActivity.this, "Płatność zakończona sukcesem", Toast.LENGTH_LONG).show();
+
+
         }
 
         @Override
         public void onPaymentFailure(PaymentEndedEventArgs paymentEndedEventArgs) {
-            Toast.makeText(DotPayActivity.this, "Payment failed", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            intent.setAction(ShopingCardListView.DOTPAY_FAILD);
+            sendBroadcast(intent);
+            Toast.makeText(DotPayActivity.this, "Płatność nie powiodła się", Toast.LENGTH_LONG).show();
         }
     };
 
@@ -111,7 +130,7 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void payFormPayment() {
-        String description = "zamówienie 12345";
+       /* String description = "zamówienie 12345";
         double amount = 123.45;
         PaymentInformation paymentInformation = new PaymentInformation("555", amount, description, "zł");
 
@@ -133,14 +152,13 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
 
 
         paymentInformation.setSenderInformation(sender);
-        paymentInformation.setAdditionalInformation(additional);
+        paymentInformation.setAdditionalInformation(additional);*/
 
 
 
 
         PaymentManager.getInstance().initialize(this, getPaymentInformation());
     }
-
     private void payOneClick() {
         try {
             PaymentManager.getInstance().oneClickPayment(this, getPaymentInformation());

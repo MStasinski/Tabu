@@ -1,16 +1,22 @@
 package com.michal_stasinski.tabu.Menu;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.appindexing.Action;
 import com.google.firebase.appindexing.FirebaseUserActions;
@@ -57,6 +63,12 @@ public class ShopingCardListView extends SwipeBackActivity {
     private int deliveryCost = 0;
     private String delivery_mode;
 
+    private DotPayReceiver dotpay_success;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private String street;
 
     private String[] titleText = {
             "Sposób Odbioru",
@@ -73,10 +85,15 @@ public class ShopingCardListView extends SwipeBackActivity {
             "Łącznie do zapłaty"
     };
 
+    public static final String DOTPAY_SUCCESS = "dotpay_success";
+    public static final String DOTPAY_FAILD = "dotpay_faild";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+
         if (!time_open_close.getRestaurantIsOpen()) {
             CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
             customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -90,6 +107,12 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (dotpay_success != null) {
+            unregisterReceiver(dotpay_success);
+            dotpay_success = null;
+        }
+
         if (orderList.size() == 0) {
             finish();
         }
@@ -103,10 +126,10 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
-        final String firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
-        final String lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
-        final String email = prefs.getString(dataDeliveryTextFieldName[3], null);
-        final String phone = prefs.getString(dataDeliveryTextFieldName[4], null);
+        firstname = prefs.getString(dataDeliveryTextFieldName[1], null);
+        lastname = prefs.getString(dataDeliveryTextFieldName[2], null);
+        email = prefs.getString(dataDeliveryTextFieldName[3], null);
+        phone = prefs.getString(dataDeliveryTextFieldName[4], null);
 
         deliveryCost = prefs.getInt("deliveryCost", 0);
 
@@ -249,12 +272,11 @@ public class ShopingCardListView extends SwipeBackActivity {
         String houseNrFromData = prefs.getString("Nr domu", null);
         int deliveryCostFromData = prefs.getInt("deliveryCost", 0);
 
-        final String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
+        street = townFromData + ", " + streetFromData + " " + houseNrFromData;
 
-        Log.i("informacja", " DataForDeliveryListView.deliveryCost _____________"+DataForDeliveryListView.deliveryCost);
 
         if (street != null) {
-            if (street2 != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !(delivery_mode.equals("ODBIÓR WŁASNY") &&DataForDeliveryListView.deliveryCost>0)) {
+            if (street2 != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !(delivery_mode.equals("ODBIÓR WŁASNY") && DataForDeliveryListView.deliveryCost > 0)) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
                 el.setDesc(street);
                 //deliveryCost = DataForDeliveryListView.deliveryCost;
@@ -274,7 +296,7 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         }
         if (street != null) {
-            if (delivery_mode != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !delivery_mode.equals("ODBIÓR WŁASNY")&&DataForDeliveryListView.deliveryCost>0) {
+            if (delivery_mode != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && !delivery_mode.equals("ODBIÓR WŁASNY") && DataForDeliveryListView.deliveryCost > 0) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
                 el.setDesc(delivery_mode);
                 //deliveryCost = DataForDeliveryListView.deliveryCost;
@@ -313,8 +335,6 @@ public class ShopingCardListView extends SwipeBackActivity {
                     ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
                     ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-
-                    Log.i("informacja", " DataForDeliveryListView.deliveryCost _____________"+DataForDeliveryListView.deliveryCost);
                     if (selectedItem.getDesc().equals("ODBIÓR WŁASNY")) {
                         selectedItem.setDesc("DOSTAWA");
                         selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
@@ -330,7 +350,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                         String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
 
-                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu")&& DataForDeliveryListView.deliveryCost>0) {
+                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && DataForDeliveryListView.deliveryCost > 0) {
                             selectedAddres.setDesc(street);
                         } else {
                             CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
@@ -431,76 +451,79 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             @Override
             public void onClick(View v) {
-                //TODO To na poczate
-                String uniqueId = UUID.randomUUID().toString();
-
-
-                Intent intent = new Intent();
-                    intent.setClass(getBaseContext(), DotPayActivity.class);
-                    startActivity(intent);
-
-                ShopData.setName(firstname);
-                ShopData.setLastName(lastname);
-                ShopData.setEmail(email);
-               // ShopData.setCurrency("PLN");
-                ShopData.setDescription("Zamowienie z Pizza Tabu");
-                ShopData.setProductPrice(Double.parseDouble(selectedItem_all_cost.getDesc()));
-
-
-               /* Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+                Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
                 if (time_open_close.getRestaurantIsOpen()) {
 
+                    if (SELECTED_PAYMENT_METHOD == 2) {
 
-                    Calendar calendar = Calendar.getInstance();
-                    SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_hh:mm:ss");
-                    SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd hh:mm");
+                        ShopData.setName(firstname);
+                        ShopData.setLastName(lastname);
+                        ShopData.setEmail(email);
+                        // ShopData.setCurrency("PLN");
+                        ShopData.setDescription("Zamowienie z Pizza Tabu");
+                        ShopData.setProductPrice(Double.parseDouble(selectedItem_all_cost.getDesc()));
 
-                    String strDate = mdformat.format(calendar.getTime());
+                        dotpay_success = new DotPayReceiver();
+                        IntentFilter intentFilter = new IntentFilter(DOTPAY_SUCCESS);
+                        registerReceiver(dotpay_success, intentFilter);
 
-                    String strDate2 = mdformat.format(calendar.getTime());
+                        Intent intent = new Intent();
+                        intent.setClass(getBaseContext(), DotPayActivity.class);
+                        startActivity(intent);
+
+                    } else {
+
+                        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
+                                ShopingCardListView.this);
+
+                        alertDialog2.setTitle("ZAMOWIENIE");
+
+                        alertDialog2.setMessage("Czy chcesz wysłac zamówienie?");
+
+                        alertDialog2.setPositiveButton("TAK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Write your code here to execute after dialog
+                                        sendToFirebase(firstname, lastname, email, phone, street);
+                                        orderList.clear();
+                                        Intent intent = new Intent();
+                                        intent.setClass(getBaseContext(), MainActivity.class);
+                                        startActivity(intent);
+                                        dialog.cancel();
+                                        adapter.notifyDataSetChanged();
+                                        Toast.makeText(getApplicationContext(),
+                                                "Zamówienie zostało wysłane. Dziękujemy", Toast.LENGTH_SHORT)
 
 
+                                                .show();
+                                    }
+                                });
 
-                    ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
-                    ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
-
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
-
-
-                    ArrayList orderArray = new ArrayList();
-                    for (int i = 0; i < orderList.size(); i++) {
-
-                        ArrayList<String> arr = new ArrayList<String>();
-                        arr.add(String.valueOf(orderList.get(i).getNr()));
-                        arr.add(orderList.get(i).getName());
-                        arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
-                        arr.add(String.valueOf(orderList.get(i).getQuantity()));
-                        arr.add(String.valueOf(orderList.get(i).getPrice()));
-
-                        orderArray.add(arr);
+// Setting Negative "NO" Btn
+                        alertDialog2.setNegativeButton("NIE",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Write your code here to execute after dialog
+                                        Toast.makeText(getApplicationContext(),
+                                                "Zamwienie nie zostało wysłane", Toast.LENGTH_SHORT)
+                                                .show();
+                                        dialog.cancel();
+                                    }
+                                });
+                        // Showing Alert Dialog
+                        alertDialog2.show();
 
                     }
-
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
-                    mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
-
-                    Log.i("informacja", "wysyłam do bazy");
-
                 } else {
+
                     CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
                     customDialog.setTitleDialogText("UWAGA");
                     customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
-                }*/
+
+                }
+
 
             }
         });
@@ -530,6 +553,55 @@ public class ShopingCardListView extends SwipeBackActivity {
         /*----------------------------------------------------------------------*/
 
     }
+
+    public void sendToFirebase(String firstname, String lastname, String email, String phone, String street) {
+
+        //TODO To na poczate
+        String uniqueId = UUID.randomUUID().toString();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_hh:mm:ss");
+        SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd hh:mm");
+
+        String strDate = mdformat.format(calendar.getTime());
+
+        String strDate2 = mdformat.format(calendar.getTime());
+
+
+        ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
+        ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
+
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
+
+
+        ArrayList orderArray = new ArrayList();
+        for (int i = 0; i < orderList.size(); i++) {
+
+            ArrayList<String> arr = new ArrayList<String>();
+            arr.add(String.valueOf(orderList.get(i).getNr()));
+            arr.add(orderList.get(i).getName());
+            arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
+            arr.add(String.valueOf(orderList.get(i).getQuantity()));
+            arr.add(String.valueOf(orderList.get(i).getPrice()));
+
+            orderArray.add(arr);
+
+        }
+
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
+        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
+
+
+    }
+
 
     protected void save_state() {
         SharedPreferences.Editor editor = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE).edit();
@@ -580,18 +652,21 @@ public class ShopingCardListView extends SwipeBackActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         FirebaseUserActions.getInstance().start(getIndexApiAction());
     }
 
-    @Override
-    public void onStop() {
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        FirebaseUserActions.getInstance().end(getIndexApiAction());
-        super.onStop();
+    public class DotPayReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.i("informacja", "wyślij do bazyyyyyyyyyyyyyyyyyyyyy");
+            if (intent.getAction().equals(DOTPAY_SUCCESS)) {
+                sendToFirebase(firstname, lastname, email, phone, street);
+                unregisterReceiver(dotpay_success);
+                dotpay_success = null;
+
+
+            }
+        }
     }
 }

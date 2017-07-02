@@ -13,6 +13,8 @@ public class OrderListItem   {
     private String sauce;
     private String note;
     private float price;
+    private Number Nr;
+    private int quantity;
 
     public Number getNr() {
         return Nr;
@@ -21,9 +23,6 @@ public class OrderListItem   {
     public void setNr(Number nr) {
         Nr = nr;
     }
-
-    private Number Nr;
-    private int quantity;
 
     public float getPrice() {
         return price;

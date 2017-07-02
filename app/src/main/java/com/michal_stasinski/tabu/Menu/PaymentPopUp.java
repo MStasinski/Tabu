@@ -41,8 +41,7 @@ public class PaymentPopUp extends Activity {
     public static String[] paymentMethods = {
             "GOTÓWKA",
             "Karta przy odbiorze",
-            "Szybki przelew lub karta",
-            "Szybki przelew lub karta"
+            "Płatność online - dotpay"
     };
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.michal_stasinski.tabu">
-
+    <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -76,6 +76,9 @@
         <activity
             android:name=".Menu.DataForDeliveryListView"
             android:theme="@style/Theme.Swipe.Back" />
+
+        <receiver android:name=".Menu.ShopingCardListView$DotPayReceiver" >
+        </receiver>
     </application>
 
 </manifest>
