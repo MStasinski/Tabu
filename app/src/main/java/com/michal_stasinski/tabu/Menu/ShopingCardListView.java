@@ -21,7 +21,9 @@ import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.ShopingCardAdapter;
+import com.michal_stasinski.tabu.Menu.DotPay.DotPayActivity;
 import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
+import com.michal_stasinski.tabu.Menu.Models.ShopData;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 import com.michal_stasinski.tabu.R;
@@ -240,7 +242,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
 
         ShopingCardItem selectedItem_del_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 2);
-        ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
+        final ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
         String townFromData = prefs.getString("Miasto", null);
         String streetFromData = prefs.getString("Ulica", null);
@@ -429,8 +431,23 @@ public class ShopingCardListView extends SwipeBackActivity {
 
             @Override
             public void onClick(View v) {
+                //TODO To na poczate
+                String uniqueId = UUID.randomUUID().toString();
 
-                Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+
+                Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), DotPayActivity.class);
+                    startActivity(intent);
+
+                ShopData.setName(firstname);
+                ShopData.setLastName(lastname);
+                ShopData.setEmail(email);
+               // ShopData.setCurrency("PLN");
+                ShopData.setDescription("Zamowienie z Pizza Tabu");
+                ShopData.setProductPrice(Double.parseDouble(selectedItem_all_cost.getDesc()));
+
+
+               /* Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
                 if (time_open_close.getRestaurantIsOpen()) {
 
 
@@ -442,7 +459,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                     String strDate2 = mdformat.format(calendar.getTime());
 
-                    String uniqueId = UUID.randomUUID().toString();
+
 
                     ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
                     ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
@@ -483,7 +500,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     customDialog.show();
                     customDialog.setTitleDialogText("UWAGA");
                     customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
-                }
+                }*/
 
             }
         });

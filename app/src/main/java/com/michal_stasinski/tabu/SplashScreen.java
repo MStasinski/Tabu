@@ -19,10 +19,9 @@ import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.NewsItem;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
-
 import java.util.ArrayList;
 import java.util.Map;
-
+import pl.mobiltek.paymentsmobile.dotpay.AppSDK;
 public class SplashScreen extends Activity {
 
     public static ArrayList<MenuItemProduct> pizzaSizesList;
@@ -158,7 +157,10 @@ public class SplashScreen extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppSDK.initialize(this);
+
         setContentView(R.layout.activity_splash_screen);
+
 
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 

@@ -28,6 +28,21 @@
             android:value="AIzaSyBbP8QjhJBDHtmLF66Inkmeg5uV0PfYOYs" />
         <activity android:name=".MainActivity" />
         <activity
+            android:name=".Menu.DotPay.DotPayActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Menu.DotPay.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:label="Historia" >
+        </activity>
+        <activity
+            android:name=".Menu.DotPay.PaymentCardManagerActivity"
+            android:screenOrientation="portrait"
+            android:label="KOSZYK" >
+        </activity>
+        <activity
             android:name=".Menu.PizzaSizePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
