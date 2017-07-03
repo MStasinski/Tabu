@@ -37,6 +37,7 @@ import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import java.util.ArrayList;
 
 import static com.michal_stasinski.tabu.MainActivity.CHOICE_ACTIVITY;
+import static com.michal_stasinski.tabu.SplashScreen.MINIMAL_PRICE_OF_ORDER;
 import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
@@ -185,7 +186,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
 
-            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł\nDostawa przy zamówieniach od 15 zł");
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od " + MINIMAL_PRICE_OF_ORDER + " zł");
         }
     }
 
@@ -222,7 +223,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
             Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
-            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od 15 zł");
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od " + MINIMAL_PRICE_OF_ORDER + " zł");
 
             CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
 

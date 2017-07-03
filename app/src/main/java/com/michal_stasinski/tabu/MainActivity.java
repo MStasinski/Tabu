@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.michal_stasinski.tabu.CRM.RestaurantOwner;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         fragment = MenuFragment.newInstance(CHOICE_ACTIVITY);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
         Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+
         if (!time_open_close.getRestaurantIsOpen()) {
             CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
             customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -207,7 +209,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //getSupportActionBar().hide();
 
-
         mToggle.syncState();
         mDrawerLayout.addDrawerListener(mToggle);
         mListViewDrawer = (BounceListView) findViewById(R.id.left_drawer);
@@ -219,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         ButtonBarLayout button_share = (ButtonBarLayout) findViewById(R.id.bottom_share);
-
         button_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -239,8 +239,14 @@ public class MainActivity extends AppCompatActivity {
         button_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                mDrawerLayout.openDrawer(GravityCompat.END, true);
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                //Rezygnujemy z drawera
+               // mDrawerLayout.openDrawer(GravityCompat.END, true);
+                //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+                Intent intent = new Intent();
+                intent.setClass(getBaseContext(), RestaurantOwner.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
             }
         });

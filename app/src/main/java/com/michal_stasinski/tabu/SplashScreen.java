@@ -50,6 +50,7 @@ public class SplashScreen extends Activity {
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
+    public static String MINIMAL_PRICE_OF_ORDER = "";
 
     private Boolean APPSTART =true;
 
@@ -126,6 +127,8 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSauces", pizzaSauces),
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
+
+                    loadFireBaseMinimalDeliveryPrice("MinimalDeliveryOrders"),
                     loadTimesOfRestaurant(),
                     loadNews()
 
@@ -133,6 +136,8 @@ public class SplashScreen extends Activity {
             };
             return "Executed";
         }
+
+
 
         @Override
         protected void onPostExecute(String result) {
@@ -220,6 +225,41 @@ public class SplashScreen extends Activity {
         return tcs.getTask();
     }
 
+    public Task<String>  loadFireBaseMinimalDeliveryPrice(String databaseReference) {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+
+        myRef = database.getReference(databaseReference);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("informacja", "zmiana w bazie");
+
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    MINIMAL_PRICE_OF_ORDER =  (String) map.get("minimalValue").toString();
+                    Log.i("informacja", " MINIMAL_PRICE_OF_ORDER " +map.get("minimalValue"));
+                }
+
+                //Intent intent = new Intent();
+                //intent.setAction(MainActivity.FIREBASE_CHANGED);
+               // sendBroadcast(intent);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
+
+        Log.i("informacja", "cena minimalna zaladowana baza " + databaseReference);
+        return tcs.getTask();
+    }
 
     public Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();

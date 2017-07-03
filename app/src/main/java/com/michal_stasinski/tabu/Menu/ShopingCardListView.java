@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
+import static com.michal_stasinski.tabu.Menu.PaymentPopUp.paymentMethods;
 import static com.michal_stasinski.tabu.Menu.PaymentPopUp.paymentMethodsList;
 import static com.michal_stasinski.tabu.Menu.TimeOfDeliveryPopUp.timeList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
@@ -476,9 +477,9 @@ public class ShopingCardListView extends SwipeBackActivity {
                         AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
                                 ShopingCardListView.this);
 
-                        alertDialog2.setTitle("ZAMOWIENIE");
+                        alertDialog2.setTitle("ZAMÓWIENIE");
 
-                        alertDialog2.setMessage("Czy chcesz wysłac zamówienie?");
+                        alertDialog2.setMessage("Czy chcesz wysłać zamówienie?");
 
                         alertDialog2.setPositiveButton("TAK",
                                 new DialogInterface.OnClickListener() {
@@ -571,10 +572,11 @@ public class ShopingCardListView extends SwipeBackActivity {
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("email").setValue(email);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
+        String databaseName = "TEST_ORDER";
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("email").setValue(email);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
 
 
         ArrayList orderArray = new ArrayList();
@@ -591,13 +593,16 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         }
 
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("orderList").setValue(orderArray);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("paymentWay").setValue("GOTÓWKA");
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("phone").setValue(phone);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptAdres").setValue(street);
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
-        mDatabase.child("TEST_ORDER").child(strDate + uniqueId).child("userId").setValue(uniqueId);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderList").setValue(orderArray);
+
+        //GOTÓWKA?
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("paymentWay").setValue(paymentMethods[SELECTED_PAYMENT_METHOD]);
+
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("phone").setValue(phone);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptAdres").setValue(street);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("userId").setValue(uniqueId);
 
 
     }

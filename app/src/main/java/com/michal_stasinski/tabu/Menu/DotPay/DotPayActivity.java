@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 
 import pl.mobiltek.paymentsmobile.dotpay.Configuration;
+import pl.mobiltek.paymentsmobile.dotpay.enums.StateType;
 import pl.mobiltek.paymentsmobile.dotpay.events.PaymentEndedEventArgs;
 import pl.mobiltek.paymentsmobile.dotpay.events.PaymentManagerCallback;
 import pl.mobiltek.paymentsmobile.dotpay.exeptions.NotFoundDefaultPaymentCardException;
@@ -44,20 +46,30 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
     private PaymentManagerCallback paymentManagerCallback = new PaymentManagerCallback() {
         @Override
         public void onPaymentSuccess(PaymentEndedEventArgs paymentEndedEventArgs) {
-            Intent intent = new Intent();
-            intent.setAction(ShopingCardListView.DOTPAY_SUCCESS);
-            sendBroadcast(intent);
+            Log.i("informacja", "paymentEndedEventArgs.getPaymentResult().getStateType() " +paymentEndedEventArgs.getPaymentResult().getStateType());
 
-            orderList.clear();
+            if (paymentEndedEventArgs.getPaymentResult().getStateType() == StateType.COMPLETED) {
 
-            Intent intent2 = new Intent();
-            intent2.setClass(getBaseContext(), MainActivity.class);
-            startActivity(intent2);
+                Intent intent = new Intent();
+                intent.setAction(ShopingCardListView.DOTPAY_SUCCESS);
+                sendBroadcast(intent);
 
-            Toast.makeText(DotPayActivity.this, "Płatność zakończona sukcesem", Toast.LENGTH_LONG).show();
+                orderList.clear();
 
+                Intent intent2 = new Intent();
+                intent2.setClass(getBaseContext(), MainActivity.class);
+                startActivity(intent2);
+            } else if (paymentEndedEventArgs.getPaymentResult().getStateType() == StateType.REJECTED) {
+                Intent intent = new Intent();
+                intent.setAction(ShopingCardListView.DOTPAY_FAILD);
+                sendBroadcast(intent);
+                Toast.makeText(DotPayActivity.this, "płatność zakończona odmową", Toast.LENGTH_LONG).show();
 
+            } else {
+                //płatność w trakcie realizacji
+            }
         }
+
 
         @Override
         public void onPaymentFailure(PaymentEndedEventArgs paymentEndedEventArgs) {
@@ -94,7 +106,6 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
         mOneClickBtn.setOnClickListener(this);
         mHistoryBtn.setOnClickListener(this);
         mCardBtn.setOnClickListener(this);
-
 
 
     }
@@ -155,10 +166,9 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
         paymentInformation.setAdditionalInformation(additional);*/
 
 
-
-
         PaymentManager.getInstance().initialize(this, getPaymentInformation());
     }
+
     private void payOneClick() {
         try {
             PaymentManager.getInstance().oneClickPayment(this, getPaymentInformation());
