@@ -165,6 +165,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
                 String note = descText[0];
 
 
+
                 if (descText[0] != "Dodaj swoje uwagi" && descText[0] != null) {
                     order.setNote("UWAGI: " + descText[0]);
                 } else {
@@ -172,11 +173,14 @@ public class OrderComposerOthers extends SwipeBackActivity {
                     order.setNote(note);
                 }
 
-                String actualOrder = pizzaName + " " + descText[0] + " " + note;
+                String actualOrder = pizzaName + " " + note;
                 int isAlready = -1;
 
+                Log.i("informacja", "actualOrder "+ actualOrder);
                 for (int i = 0; i < orderList.size(); i++) {
+
                     String st = orderList.get(i).getName() + " " + orderList.get(i).getNote();
+                    Log.i("informacja", "st "+ st);
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;
@@ -232,14 +236,11 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("informacja", "resultresult 000 ");
         if (requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
 
                 String result = data.getStringExtra("edit_text");
-
-                Log.i("informacja", "resultresult " + result);
 
                 if (!result.equals("")) {
                     descText[0] = result;
@@ -251,7 +252,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
                 adapter.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
+
             }
         }
     }
