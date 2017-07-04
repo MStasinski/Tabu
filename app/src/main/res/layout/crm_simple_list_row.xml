@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/order_fb_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/order_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="36dp"
+            android:text="TextView"
+            android:textColor="@color/order_list_rozmiar"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/order_fb_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="18.90"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/list_of_order_for_one_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="11dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+    <View
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:background="@drawable/custom_divaider_listmenu" />
+
+</LinearLayout>

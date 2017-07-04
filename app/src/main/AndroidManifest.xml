@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-library android:name="com.google.android.maps" />
 
@@ -75,6 +76,9 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
             android:name=".Menu.DataForDeliveryListView"
+            android:theme="@style/Theme.Swipe.Back" />
+        <activity
+            android:name=".CRM.Order.SimpleOrderListFB"
             android:theme="@style/Theme.Swipe.Back" />
 
         <receiver android:name=".Menu.ShopingCardListView$DotPayReceiver" />

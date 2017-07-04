@@ -574,7 +574,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         String databaseName = "TEST_ORDER";
         mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(deliveryCost);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(String.valueOf(deliveryCost));
         mDatabase.child(databaseName).child(strDate + uniqueId).child("email").setValue(email);
         mDatabase.child(databaseName).child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
 
@@ -585,7 +585,27 @@ public class ShopingCardListView extends SwipeBackActivity {
             ArrayList<String> arr = new ArrayList<String>();
             arr.add(String.valueOf(orderList.get(i).getNr()));
             arr.add(orderList.get(i).getName());
-            arr.add(orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce());
+            String sizeTxt = "";
+            String addonsTxt = "";
+            String sauceTxt = "";
+            String noteTxt = "";
+            if (orderList.get(i).getSize() != null) {
+                sizeTxt = orderList.get(i).getSize()+" ";
+            }
+
+            if (orderList.get(i).getAddon() != null) {
+                addonsTxt = orderList.get(i).getAddon()+" ";
+            }
+
+            if (orderList.get(i).getSauce() != null) {
+                sauceTxt = orderList.get(i).getSauce()+" ";
+            }
+
+            if (orderList.get(i).getNote() != null) {
+                noteTxt = orderList.get(i).getNote();
+            }
+
+            arr.add(sizeTxt + addonsTxt + sauceTxt + noteTxt);
             arr.add(String.valueOf(orderList.get(i).getQuantity()));
             arr.add(String.valueOf(orderList.get(i).getPrice()));
 
@@ -593,7 +613,7 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         }
 
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderList").setValue(orderArray);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("ordersList").setValue(orderArray);
 
         //GOTÓWKA?
         mDatabase.child(databaseName).child(strDate + uniqueId).child("paymentWay").setValue(paymentMethods[SELECTED_PAYMENT_METHOD]);

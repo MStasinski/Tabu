@@ -14,14 +14,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.Menu.Models.AllOrderModel;
 import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.NewsItem;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
+
 import java.util.ArrayList;
 import java.util.Map;
+
 import pl.mobiltek.paymentsmobile.dotpay.AppSDK;
+
 public class SplashScreen extends Activity {
 
     public static ArrayList<MenuItemProduct> pizzaSizesList;
@@ -33,7 +35,6 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaWegetables;
     public static ArrayList<MenuItemProduct> pizzaSauces;
 
-    public static ArrayList<AllOrderModel> AllOrder;
 
     public static ArrayList<NewsItem> newsArrayList;
     public static ArrayList<Number> timeWhenRestaurantIsOpen;
@@ -42,17 +43,15 @@ public class SplashScreen extends Activity {
 
     public static ArrayList<Integer> pizzaSizes_CheckMark;
     public static ArrayList<Integer> pizzaAddons_CheckMark;
-    public static ArrayList<Integer> payment_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
-    public static ArrayList<MenuItemProduct> nameArrayList;
 
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
     public static String MINIMAL_PRICE_OF_ORDER = "";
 
-    private Boolean APPSTART =true;
+    private Boolean APPSTART = true;
 
     public static String[] dataDeliveryTextFieldName = {
             "Zamawiający",
@@ -138,12 +137,11 @@ public class SplashScreen extends Activity {
         }
 
 
-
         @Override
         protected void onPostExecute(String result) {
 
             Log.i("informacja", "gotowe...bazy załadowane");
-           // StartApp();
+            // StartApp();
         }
 
         @Override
@@ -225,7 +223,7 @@ public class SplashScreen extends Activity {
         return tcs.getTask();
     }
 
-    public Task<String>  loadFireBaseMinimalDeliveryPrice(String databaseReference) {
+    public Task<String> loadFireBaseMinimalDeliveryPrice(String databaseReference) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -241,13 +239,13 @@ public class SplashScreen extends Activity {
 
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-                    MINIMAL_PRICE_OF_ORDER =  (String) map.get("minimalValue").toString();
-                    Log.i("informacja", " MINIMAL_PRICE_OF_ORDER " +map.get("minimalValue"));
+                    MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalValue").toString();
+                    Log.i("informacja", " MINIMAL_PRICE_OF_ORDER " + map.get("minimalValue"));
                 }
 
                 //Intent intent = new Intent();
                 //intent.setAction(MainActivity.FIREBASE_CHANGED);
-               // sendBroadcast(intent);
+                // sendBroadcast(intent);
             }
 
             @Override
@@ -374,8 +372,8 @@ public class SplashScreen extends Activity {
                     timeWhenRestaurantIsClose = (ArrayList) map.get("end");
                     timeWhenRestaurantIsOpen = (ArrayList) map.get("start");
                 }
-                if(APPSTART){
-                    APPSTART =false;
+                if (APPSTART) {
+                    APPSTART = false;
                     StartApp();
                 }
 
@@ -384,58 +382,6 @@ public class SplashScreen extends Activity {
                 intent.setAction(MainActivity.FIREBASE_CHANGED);
                 sendBroadcast(intent);
             }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-
-        });
-
-        return tcs.getTask();
-    }
-
-    public Task<String> loadOrdersFromDB() {
-        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TEST_ORDER");
-
-        ValueEventListener valueEventListener = myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // allOrderFromDBList.clear();
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    DataSnapshot dataitem = item;
-                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-
-                    ArrayList orderListForOneIndividualOrder = (ArrayList) map.get("orderList");
-
-
-                    if (orderListForOneIndividualOrder != null) {
-                        String arr = orderListForOneIndividualOrder.get(1).toString();
-
-                        arr = arr.replace("{quantity", "|");
-                        arr = arr.replace("price", "|");
-                        arr = arr.replace("sauce", "|");
-                        arr = arr.replace("size", "|");
-                        arr = arr.replace("addon", "|");
-                        arr = arr.replace("name", "|");
-                        arr = arr.replace("note", "|");
-
-
-                        String[] ord = arr.toString().split("\\|=");
-
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[1].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[2].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[3].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[4].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[5].toString()));
-                        Log.i("informacja", "  +++++++++++++++++++++++++++++++++++++++++++++++++++ ");
-                    }
-                }
-            }
-
 
             @Override
             public void onCancelled(DatabaseError error) {

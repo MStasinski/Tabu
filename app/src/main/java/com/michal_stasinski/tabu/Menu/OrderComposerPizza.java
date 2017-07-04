@@ -147,7 +147,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         nameTxt.setText(names.toUpperCase());
         descTxt.setText(desc);
         priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
-        pizzaName = names.toUpperCase();
+        pizzaName = "PIZZA "+names.toUpperCase();
 
         descText[0] = String.valueOf(20 + size * 10) + " cm";
 
@@ -211,6 +211,8 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
                 for (int i = 0; i < orderList.size(); i++) {
                     String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce() + " " + orderList.get(i).getNote();
+
+                    Log.i("informacja",st+ " ________ "+ actualOrder);
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;

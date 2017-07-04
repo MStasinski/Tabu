@@ -1,7 +1,5 @@
 package com.michal_stasinski.tabu.Menu.Models;
 
-import android.widget.ImageView;
-
 /**
  * Created by win8 on 22.06.2017.
  */
@@ -19,9 +17,6 @@ public class PaymentItem {
     }
 
     private Integer image;
-
-
-
 
 
     public String getPayment_txt() {
