@@ -6,12 +6,6 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-
-    <com.liuguangqiang.swipeback.SwipeBackLayout
-        android:id="@+id/swipe_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -77,6 +71,10 @@
 
         </LinearLayout>
 
+    <com.liuguangqiang.swipeback.SwipeBackLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     </com.liuguangqiang.swipeback.SwipeBackLayout>
 

@@ -81,10 +81,14 @@
             android:name=".CRM.Order.SimpleOrderListFB"
             android:theme="@style/Theme.Swipe.Back" />
 
-        <receiver android:name=".Menu.ShopingCardListView$DotPayReceiver" />
 
-        <activity android:name=".CRM.RestaurantOwner" />
+        <activity
+            android:name=".CRM.RestaurantOwner"
+            android:theme="@style/Theme.Swipe.Back" />
+
         <activity android:name=".CRM.Customer"></activity>
+
+        <receiver android:name=".Menu.ShopingCardListView$DotPayReceiver" />
     </application>
 
 </manifest>

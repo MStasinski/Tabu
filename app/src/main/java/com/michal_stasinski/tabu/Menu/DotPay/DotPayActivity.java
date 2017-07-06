@@ -39,6 +39,7 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
     private final String LAST_NAME = "lastname";
     private final String EMAIL = "email";
 
+
     private TextView versionSDK;
     private Button mPayBtn, mOneClickBtn;
     private ImageButton mCardBtn, mHistoryBtn;
@@ -46,7 +47,7 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
     private PaymentManagerCallback paymentManagerCallback = new PaymentManagerCallback() {
         @Override
         public void onPaymentSuccess(PaymentEndedEventArgs paymentEndedEventArgs) {
-            Log.i("informacja", "paymentEndedEventArgs.getPaymentResult().getStateType() " +paymentEndedEventArgs.getPaymentResult().getStateType());
+            Log.i("informacja", "paymentEndedEventArgs.getPaymentResult().getStateType()  ______________" +paymentEndedEventArgs.getPaymentResult().getStateType());
 
             if (paymentEndedEventArgs.getPaymentResult().getStateType() == StateType.COMPLETED) {
 
@@ -55,7 +56,6 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
                 sendBroadcast(intent);
 
                 orderList.clear();
-
                 Intent intent2 = new Intent();
                 intent2.setClass(getBaseContext(), MainActivity.class);
                 startActivity(intent2);

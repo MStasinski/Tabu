@@ -1,44 +1,26 @@
 package com.michal_stasinski.tabu.CRM.Adapters;
 
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
-import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.OrderComposerOthers;
-import com.michal_stasinski.tabu.Menu.OrderComposerPizza;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
-import com.michal_stasinski.tabu.Utils.MathUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-import static com.michal_stasinski.tabu.R.dimen.menu_list_view_desc;
-import static com.michal_stasinski.tabu.R.dimen.price_font;
-import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 /**
  * Created by win8 on 27.12.2016.
@@ -53,6 +35,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
 
     private boolean sortOption;
     private Boolean specialSign;
+    private int color;
 
     public Boolean getButton_flag_enabled() {
         return button_flag_enabled;
@@ -64,8 +47,9 @@ public class SimpleListViewAdapter extends BaseAdapter {
 
     private Boolean button_flag_enabled = true;
 
-    public SimpleListViewAdapter(Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort) {
+    public SimpleListViewAdapter(Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort, int col) {
         sortOption = sort;
+        color = col;
         this.specialSign = specialSign;
        /* Collections.sort(mListArray, new Comparator() {
             @Override
@@ -114,6 +98,8 @@ public class SimpleListViewAdapter extends BaseAdapter {
         return position;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -130,6 +116,11 @@ public class SimpleListViewAdapter extends BaseAdapter {
 
             LinearLayout ll = (LinearLayout) view.findViewById(R.id.list_of_order_for_one_item);
             viewHolder.price = (TextView) view.findViewById(R.id.order_fb_item_price);
+
+            viewHolder.order_number = (TextView) view.findViewById(R.id.order_nr);
+            viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
+            viewHolder.hour_of_deliver = (TextView) view.findViewById(R.id.hour_of_deliver );
+            viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
             /*
             viewHolder.textDesc = (TextView) view.findViewById(R.id.txtDesc);
             viewHolder.colorShape = (TextView) view.findViewById(R.id.positionInList);
@@ -146,17 +137,19 @@ public class SimpleListViewAdapter extends BaseAdapter {
                 TableRow row = new TableRow(mContext);
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
-                TextView qty = new TextView(mContext);
+                TextView txt_order = new TextView(mContext);
                 //checkBox.setText("hello");
 
 
                 ArrayList<String> it = (ArrayList<String>) myArr.get(i);
                 Log.i("informacja", "myArr.get(i)_______________ " + it.get(1));
-
-                qty.setText((i + 1) + ". " + it.get(1) + " szt." + it.get(3) + "       " + it.get(2));
+                txt_order.setTextSize(11);
+                txt_order.setTypeface(null, Typeface.BOLD);
+                txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
+                txt_order.setText(it.get(1) + " szt." + it.get(3));
 
                 // row.addView(checkBox);
-                row.addView(qty);
+                row.addView(txt_order);
                 //row.addView(addBtn);
                 ll.addView(row, i);
             }
@@ -211,7 +204,13 @@ public class SimpleListViewAdapter extends BaseAdapter {
         }
         viewHolder.title.setText(arr.get(position).getPaymentWay());
         viewHolder.price.setText(arr.get(position).getTotalPrice());
-
+        //viewHolder.order_number.setBackgroundColor(color);
+        viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
+        viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(color));
+        viewHolder.delivety_method.setText(arr.get(position).getReceiptWay());
+        viewHolder.hour_of_deliver.setText("11:00");
+       // viewHolder.hour_of_deliver.setText(arr.get(position).getDeliveryDate());
+       // viewHolder.address_txt.setText(arr.get(position).getReceiptAdres());
         /*if (arr.get(position).getSold()) {
             viewHolder.soldLabel.setVisibility(View.VISIBLE);
         } else {
@@ -272,7 +271,12 @@ public class SimpleListViewAdapter extends BaseAdapter {
     static class ViewHolderItem {
         TextView title;
         TextView price;
+        TextView address_txt;
+        TextView order_number;
+        TextView delivety_method;
+        TextView hour_of_deliver;
         ArrayList<MenuItemProduct> orderList;
+
         /*TextView textDesc;
         TextView colorShape;
         ArrayList<Button> buttonArray;

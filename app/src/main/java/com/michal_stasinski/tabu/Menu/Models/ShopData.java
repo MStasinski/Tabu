@@ -4,15 +4,15 @@ import pl.mobiltek.paymentsmobile.dotpay.model.PaymentCardData;
 
 public class ShopData {
 
-    private static  String name = "Jan";
-    private static  String lastName = "Janowy";
-    private static  String email = "j.janowy@jan.pl";
+    private static  String name = "";
+    private static  String lastName = "";
+    private static  String email = "";
 
     //    private  final String merchantId = "777777";
-    private static  String merchantId = "10000";
-    private static double productPrice = 1759;
+    private static  String merchantId = "710275";
+    private static double productPrice ;
 
-    private static  String description = "Za  tel. Sony Xperia Z3";
+    private static  String description = "";
 
     private static String currency = "PLN";
     private static String language = "pl";

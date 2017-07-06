@@ -26,4 +26,12 @@
     <color name="transparent">#80000000</color>
     <color name="transparent2">#00000000</color>
 
+
+    <color name="NOWE">#F44336</color>
+    <color name="PRZYJETE">#FF6800</color>
+    <color name="WREALIZACJI">#007850</color>
+    <color name="DOODBIORU">#0078FF</color>
+    <color name="WDOSTAWIE">#001E96</color>
+
+
 </resources>
