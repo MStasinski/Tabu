@@ -16,8 +16,8 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
-import static com.michal_stasinski.tabu.SplashScreen.pizzaSizes_CheckMark;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSizesList;
+import static com.michal_stasinski.tabu.SplashScreen.pizzaSizes_CheckMark;
 
 /**
  * Created by win8 on 18.04.2017.
@@ -43,11 +43,11 @@ public class PizzaSizePopUp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
 
         int size = 0;
-        int positionIteminMenuListView= 0;
+        int positionIteminMenuListView = 0;
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -62,7 +62,7 @@ public class PizzaSizePopUp extends Activity {
             pizzaSizes_CheckMark.set(size, 1);
         }
 
-        adapterek = new PizzaSizeAdapter(contex,positionIteminMenuListView ,pizzaList,pizzaSizesList, pizzaSizes_CheckMark);
+        adapterek = new PizzaSizeAdapter(contex, positionIteminMenuListView, pizzaList, pizzaSizesList, pizzaSizes_CheckMark);
 
         mListViewMenu = (BounceListView) findViewById(R.id.mListView_BaseMenu);
         mListViewMenu.setAdapter(adapterek);
@@ -96,7 +96,6 @@ public class PizzaSizePopUp extends Activity {
         super.onDestroy();
         Log.i("informacja", "PopUp_onDestroy");
     }
-
 
 
     public int getChooseSize() {

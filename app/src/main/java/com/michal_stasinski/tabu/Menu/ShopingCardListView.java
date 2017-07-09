@@ -486,7 +486,6 @@ public class ShopingCardListView extends SwipeBackActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Write your code here to execute after dialog
                                         sendToFirebase(firstname, lastname, email, phone, street);
-                                        orderList.clear();
                                         Intent intent = new Intent();
                                         intent.setClass(getBaseContext(), MainActivity.class);
                                         startActivity(intent);
@@ -572,12 +571,14 @@ public class ShopingCardListView extends SwipeBackActivity {
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-        String databaseName = "TEST_ORDER";
+       // String databaseName = "TEST_ORDER";
+
+        String databaseName ="OrdersCurrents";
         mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
         mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(String.valueOf(deliveryCost));
         mDatabase.child(databaseName).child(strDate + uniqueId).child("email").setValue(email);
         mDatabase.child(databaseName).child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
-
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderStatus").setValue(0);
 
         ArrayList orderArray = new ArrayList();
         for (int i = 0; i < orderList.size(); i++) {
@@ -590,15 +591,15 @@ public class ShopingCardListView extends SwipeBackActivity {
             String sauceTxt = "";
             String noteTxt = "";
             if (orderList.get(i).getSize() != null) {
-                sizeTxt = orderList.get(i).getSize()+" ";
+                sizeTxt = orderList.get(i).getSize() + " ";
             }
 
             if (orderList.get(i).getAddon() != null) {
-                addonsTxt = orderList.get(i).getAddon()+" ";
+                addonsTxt = orderList.get(i).getAddon() + " ";
             }
 
             if (orderList.get(i).getSauce() != null) {
-                sauceTxt = orderList.get(i).getSauce()+" ";
+                sauceTxt = orderList.get(i).getSauce() + " ";
             }
 
             if (orderList.get(i).getNote() != null) {
@@ -623,7 +624,8 @@ public class ShopingCardListView extends SwipeBackActivity {
         mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
         mDatabase.child(databaseName).child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
         mDatabase.child(databaseName).child(strDate + uniqueId).child("userId").setValue(uniqueId);
-
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNo").setValue(strDate + uniqueId);
+        orderList.clear();
 
     }
 
@@ -684,7 +686,6 @@ public class ShopingCardListView extends SwipeBackActivity {
     public class DotPayReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("informacja", "wyślij do bazyyyyyyyyyyyyyyyyyyyyy");
             if (intent.getAction().equals(DOTPAY_SUCCESS)) {
                 sendToFirebase(firstname, lastname, email, phone, street);
                 unregisterReceiver(dotpay_success);

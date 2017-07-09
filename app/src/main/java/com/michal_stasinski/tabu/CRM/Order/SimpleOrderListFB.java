@@ -2,17 +2,20 @@ package com.michal_stasinski.tabu.CRM.Order;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.liuguangqiang.swipeback.SwipeBackActivity;
-import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.CRM.Adapters.SimpleListViewAdapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.R;
@@ -28,7 +31,18 @@ public class SimpleOrderListFB extends Activity {
     protected BounceListView bounceListView2;
     protected BounceListView bounceListView3;
     protected BounceListView bounceListView4;
-    private ArrayList<GetOrderFromFB> orderFromFB;
+    private ArrayList<GetOrderFromFB> orderFromFB0;
+    private ArrayList<GetOrderFromFB> orderFromFB1;
+    private ArrayList<GetOrderFromFB> orderFromFB2;
+    private ArrayList<GetOrderFromFB> orderFromFB3;
+    private ArrayList<GetOrderFromFB> orderFromFB4;
+
+    protected LinearLayout news_column;
+    protected LinearLayout commit_column;
+    protected LinearLayout realization_column;
+    protected LinearLayout reception_column;
+    protected LinearLayout transport_column;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +50,11 @@ public class SimpleOrderListFB extends Activity {
 
         setContentView(R.layout.crm_simple_order_listview_fb);
 
-        orderFromFB = new ArrayList<GetOrderFromFB>();
+        orderFromFB0 = new ArrayList<GetOrderFromFB>();
+        orderFromFB1 = new ArrayList<GetOrderFromFB>();
+        orderFromFB2 = new ArrayList<GetOrderFromFB>();
+        orderFromFB3 = new ArrayList<GetOrderFromFB>();
+        orderFromFB4 = new ArrayList<GetOrderFromFB>();
 
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +67,41 @@ public class SimpleOrderListFB extends Activity {
 
             }
         });
+        news_column = (LinearLayout) findViewById(R.id.news_column);
+        commit_column = (LinearLayout) findViewById(R.id.commit_column);
+        realization_column = (LinearLayout) findViewById(R.id.realization_column);
+        reception_column = (LinearLayout) findViewById(R.id.reception_column);
+        transport_column = (LinearLayout) findViewById(R.id.transport_column);
+
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
+
+        news_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
+        commit_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
+        realization_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
+        reception_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
+        transport_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        TextView transportTxt0 = (TextView) findViewById(R.id.news);
+        transportTxt0.setTextSize(width / 100);
+
+
+        TextView transportTxt1 = (TextView) findViewById(R.id.realization);
+        transportTxt1.setTextSize(width / 100);
+
+        TextView transportTxt2 = (TextView) findViewById(R.id.accepted);
+        transportTxt2.setTextSize(width / 100);
+        TextView transportTxt3 = (TextView) findViewById(R.id.receive);
+        transportTxt3.setTextSize(width / 100);
+
+        TextView transportTxt4 = (TextView) findViewById(R.id.transport);
+        transportTxt4.setTextSize(width / 100);
+
+
         bounceListView0 = (BounceListView) findViewById(R.id.simple_order_list_view0);
         bounceListView1 = (BounceListView) findViewById(R.id.simple_order_list_view1);
         bounceListView2 = (BounceListView) findViewById(R.id.simple_order_list_view2);
@@ -62,12 +115,18 @@ public class SimpleOrderListFB extends Activity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //DatabaseReference myRef = database.getReference("TEST_ORDER");
-        DatabaseReference myRef = database.getReference("Orders");
+        DatabaseReference myRef = database.getReference("OrdersCurrents");
+
+        // DatabaseReference myRef = database.getReference("Orders");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                orderFromFB.clear();
+                orderFromFB0.clear();
+                orderFromFB1.clear();
+                orderFromFB2.clear();
+                orderFromFB3.clear();
+                orderFromFB4.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 
 
@@ -77,12 +136,16 @@ public class SimpleOrderListFB extends Activity {
                     String deliveryDate = (String) map.get("deliveryDate");
                     String deliveryPrice = (String) String.valueOf(map.get("deliveryPrice"));
                     String email = (String) String.valueOf(map.get("email"));
-                    ArrayList<String> orderList = (ArrayList<String>) map.get("ordersList");
+                    ArrayList<ArrayList<String>> orderList = (ArrayList<ArrayList<String>>) map.get("ordersList");
                     String paymentWay = (String) String.valueOf(map.get("paymentWay"));
                     String receiptAdres = (String) String.valueOf(map.get("receiptAdres"));
                     String receiptWay = (String) String.valueOf(map.get("receiptWay"));
                     String totalPrice = (String) String.valueOf(map.get("totalPrice"));
                     String userId = (String) String.valueOf(map.get("userId"));
+                    String status = (String)  String.valueOf(map.get("orderStatus"));
+                    String orderNumber = (String)  String.valueOf(map.get("orderNumber"));
+                    String orderNo = (String)  String.valueOf(map.get("orderNo"));
+                    //int numOfOrderItems = orderList.size();
 
                     GetOrderFromFB orderFromFB_Item = new GetOrderFromFB();
 
@@ -95,28 +158,58 @@ public class SimpleOrderListFB extends Activity {
                     orderFromFB_Item.setReceiptWay(receiptWay);
                     orderFromFB_Item.setTotalPrice(totalPrice);
                     orderFromFB_Item.setUserId(userId);
+                    if(orderNumber.equals("null")){
+                        orderNumber="NOWE";
+                    }
+                    orderFromFB_Item.setOrderNumber(orderNumber);
+                  //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
-                    orderFromFB.add(orderFromFB_Item);
+
+                    if (status.equals("0")) {
+                        orderFromFB0.add(orderFromFB_Item);
+                    }
+                    if (status.equals("1")) {
+                        orderFromFB1.add(orderFromFB_Item);
+                    }
+                    if (status.equals("2")) {
+                        orderFromFB2.add(orderFromFB_Item);
+                    }
+                    if (status.equals("3")) {
+                        orderFromFB3.add(orderFromFB_Item);
+                    }
+                    if (status.equals("4")) {
+                        orderFromFB4.add(orderFromFB_Item);
+                    }
                 }
 
-                SimpleListViewAdapter arrayAdapter0 = new SimpleListViewAdapter(getBaseContext(), orderFromFB, false, getResources().getColor(R.color.NOWE));
-                SimpleListViewAdapter arrayAdapter1 = new SimpleListViewAdapter(getBaseContext(), orderFromFB, false,getResources().getColor(R.color.PRZYJETE));
-                SimpleListViewAdapter arrayAdapter2 = new SimpleListViewAdapter(getBaseContext(), orderFromFB, false,getResources().getColor(R.color.WREALIZACJI));
-                SimpleListViewAdapter arrayAdapter3 = new SimpleListViewAdapter(getBaseContext(), orderFromFB, false,getResources().getColor(R.color.DOODBIORU));
-                SimpleListViewAdapter arrayAdapter4 = new SimpleListViewAdapter(getBaseContext(), orderFromFB, false,getResources().getColor(R.color.WDOSTAWIE));
+
+                SimpleListViewAdapter arrayAdapter0 = new SimpleListViewAdapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                SimpleListViewAdapter arrayAdapter1 = new SimpleListViewAdapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                SimpleListViewAdapter arrayAdapter2 = new SimpleListViewAdapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                SimpleListViewAdapter arrayAdapter3 = new SimpleListViewAdapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                SimpleListViewAdapter arrayAdapter4 = new SimpleListViewAdapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
 
                 bounceListView0.setAdapter(arrayAdapter0);
                 bounceListView0.setScrollingCacheEnabled(false);
+                arrayAdapter0.notifyDataSetChanged();
+
                 bounceListView1.setAdapter(arrayAdapter1);
                 bounceListView1.setScrollingCacheEnabled(false);
+                arrayAdapter1.notifyDataSetChanged();
+
                 bounceListView2.setAdapter(arrayAdapter2);
                 bounceListView2.setScrollingCacheEnabled(false);
+                arrayAdapter2.notifyDataSetChanged();
+
                 bounceListView3.setAdapter(arrayAdapter3);
                 bounceListView3.setScrollingCacheEnabled(false);
+                arrayAdapter3.notifyDataSetChanged();
+
                 bounceListView4.setAdapter(arrayAdapter4);
                 bounceListView4.setScrollingCacheEnabled(false);
+                arrayAdapter4.notifyDataSetChanged();
 
-                Log.i("informacja", " orderFromFB " + orderFromFB);
+
                /* try {
                     File f = File.createTempFile("file", ".txt", Environment.getExternalStorageDirectory ());
                     FileWriter fw = new FileWriter(f);
@@ -136,56 +229,4 @@ public class SimpleOrderListFB extends Activity {
         });
 
     }
-
-   /* public void loadOrdersFromDB() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TEST_ORDER");
-
-        ValueEventListener valueEventListener = myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // allOrderFromDBList.clear();
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    DataSnapshot dataitem = item;
-                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-
-                    ArrayList orderListForOneIndividualOrder = (ArrayList) map.get("orderList");
-
-
-                    if (orderListForOneIndividualOrder != null) {
-                        String arr = orderListForOneIndividualOrder.get(1).toString();
-
-                        arr = arr.replace("{quantity", "|");
-                        arr = arr.replace("price", "|");
-                        arr = arr.replace("sauce", "|");
-                        arr = arr.replace("size", "|");
-                        arr = arr.replace("addon", "|");
-                        arr = arr.replace("name", "|");
-                        arr = arr.replace("note", "|");
-
-
-                        String[] ord = arr.toString().split("\\|=");
-
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[1].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[2].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[3].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[4].toString()));
-                        Log.i("informacja", "  ______________  " + removeLastChar(ord[5].toString()));
-                        Log.i("informacja", "  +++++++++++++++++++++++++++++++++++++++++++++++++++ ");
-                    }
-                }
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-
-        });
-
-
-    }*/
-
 }

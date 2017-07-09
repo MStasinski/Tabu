@@ -55,15 +55,15 @@ public class AddRemoveOrderPopUp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
 
         CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.dish_title);
         titleTxt.setText(name);
         removeAllBtn = (Button) findViewById(R.id.removeAll);
         actualBtn = (Button) findViewById(R.id.actual_order_button);
-        String output = MathUtils.formatDecimal(quantity * price,2);
-        actualBtn.setText("Aktualizuj koszy      " +output);
+        String output = MathUtils.formatDecimal(quantity * price, 2);
+        actualBtn.setText("Aktualizuj koszy      " + output);
         Button removeBtn = (Button) findViewById(R.id.removeItem);
         Button addBtn = (Button) findViewById(R.id.addItem);
 
@@ -94,8 +94,8 @@ public class AddRemoveOrderPopUp extends Activity {
             @Override
             public void onClick(View v) {
                 quantity += 1;
-                String output = MathUtils.formatDecimal(quantity * price,2);
-                actualBtn.setText("Aktualizuj koszy      " +output);
+                String output = MathUtils.formatDecimal(quantity * price, 2);
+                actualBtn.setText("Aktualizuj koszy      " + output);
                 quantity_num.setText(String.valueOf(quantity));
             }
         });
@@ -106,8 +106,8 @@ public class AddRemoveOrderPopUp extends Activity {
             public void onClick(View v) {
                 if (quantity > 0) {
                     quantity -= 1;
-                    String output = MathUtils.formatDecimal(quantity * price,2);
-                    actualBtn.setText("Aktualizuj koszy      " +output);
+                    String output = MathUtils.formatDecimal(quantity * price, 2);
+                    actualBtn.setText("Aktualizuj koszy      " + output);
                     quantity_num.setText(String.valueOf(quantity));
                 }
             }

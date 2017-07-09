@@ -40,9 +40,6 @@
 
         </RelativeLayout>
 
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
 
             <LinearLayout
@@ -51,7 +48,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/news_column"
+                    android:layout_width="160sp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -84,7 +82,8 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/commit_column"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -116,7 +115,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/realization_column"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -148,7 +148,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/reception_column"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -181,7 +182,8 @@
 
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/transport_column"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -211,7 +213,7 @@
                         android:scrollingCache="false" />
                 </LinearLayout>
             </LinearLayout>
-        </HorizontalScrollView>
+
 
 
     </LinearLayout>

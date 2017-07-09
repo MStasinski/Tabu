@@ -40,8 +40,8 @@ public class PaymentPopUp extends Activity {
 
     public static String[] paymentMethods = {
             "GOTÓWKA",
-            "Karta przy odbiorze",
-            "Płatność online"
+            "Karta",
+            "Przelew"
     };
 
 
@@ -55,7 +55,7 @@ public class PaymentPopUp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm. heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
 
 

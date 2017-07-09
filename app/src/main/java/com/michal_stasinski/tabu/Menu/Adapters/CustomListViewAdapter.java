@@ -148,7 +148,6 @@ public class CustomListViewAdapter extends BaseAdapter {
                 //int margin = (int) (mContext.getResources().getDimension(R.dimen.price_margin) / mContext.getResources().getDisplayMetrics().density);
                 int margin = (int) ((screenWidth-(price.size()*priceBtn_width)) /(price.size()+price.size()+2));
 
-                Log.i("informacja",margin+ "  screenWidth  " +  screenWidth);
 
                 lp.setMargins(margin, 0, margin, 0); // left, top, right, bottom
                 priceBtn.setBackgroundResource(R.drawable.price_shape);

@@ -54,8 +54,6 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent();
                 intent.setAction(ShopingCardListView.DOTPAY_SUCCESS);
                 sendBroadcast(intent);
-
-                orderList.clear();
                 Intent intent2 = new Intent();
                 intent2.setClass(getBaseContext(), MainActivity.class);
                 startActivity(intent2);

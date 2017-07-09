@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingBottom="20dp"
     android:background="@color/color_gray_light"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="20dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -15,18 +15,20 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/order_nr"
-                android:layout_width="76dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:layout_marginTop="12dp"
+                android:layout_weight="1"
                 android:background="@drawable/orange_button_background"
-                android:padding="2dp"
+                android:padding="3dp"
                 android:text="NOWE"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
@@ -36,13 +38,15 @@
 
             <TextView
                 android:id="@+id/delivety_method"
-                android:layout_width="76dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="2dp"
                 android:layout_marginTop="12dp"
+                android:layout_weight="1"
                 android:background="@drawable/orange_button_background"
                 android:backgroundTint="@color/color_STARTERY"
-                android:padding="2dp"
+                android:padding="3dp"
                 android:text="DOSTAWA"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
@@ -52,7 +56,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="0dp"
@@ -60,24 +64,27 @@
 
             <TextView
                 android:id="@+id/time_to_finish"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:padding="4dp"
                 android:text="30 min"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/hour_of_deliver"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:padding="4dp"
-                android:text="17:00"
-                android:textAlignment="center"
+                android:text="17.00"
+                android:textAlignment="textEnd"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -87,14 +94,14 @@
         <View
             android:id="@+id/div0"
             android:layout_width="160dp"
-            android:layout_height="3dp"
+            android:layout_height="1dp"
             android:layout_gravity="center"
             android:background="@drawable/custom_divaider_listmenu"
             android:backgroundTint="@color/color_STARTERY"
             android:padding="10dp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
@@ -102,42 +109,50 @@
 
 
             <TextView
-                android:id="@+id/order_fb_item_title"
-                android:layout_width="90dp"
+                android:id="@+id/order_fb_payment_method"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:gravity="left"
                 android:padding="4dp"
                 android:text="GOTÓWKA"
-                android:textAlignment="center"
+                android:textAlignment="viewStart"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="12sp" />
 
 
             <TextView
                 android:id="@+id/order_fb_item_price"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_marginTop="2dp"
+                android:layout_weight="1"
                 android:padding="4dp"
                 android:text="10.00 zł"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/address_txt"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
-            android:layout_marginLeft="6dp"
             android:padding="2dp"
             android:text="adres"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textColor="@color/colorDarkGray"
             android:textSize="12sp"
             android:textStyle="bold" />
+
         <View
             android:id="@+id/div1"
             android:layout_width="160dp"
@@ -150,8 +165,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginRight="2dp"
             android:layout_marginTop="6dp"
             android:orientation="vertical">
 
@@ -159,11 +174,6 @@
 
 
     </LinearLayout>
-    <View
-        android:id="@+id/div3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:background="@drawable/custom_divaider_listmenu" />
+
+
 </LinearLayout>

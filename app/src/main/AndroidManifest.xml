@@ -70,6 +70,11 @@
         <activity
             android:name=".Menu.TimeOfDeliveryPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
+
+        <activity
+            android:name=".CRM.OrderZoomPopUp"
+            android:theme="@style/AppTheme.PopUpWindow" />
+
         <activity
             android:name=".Menu.EditTextPopUp"
             android:theme="@style/AppTheme.PopUpWindow2"

@@ -93,7 +93,7 @@
 
 
         <TextView
-            android:id="@+id/order_fb_payment_method"
+            android:id="@+id/order_fb_payment_method_zoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

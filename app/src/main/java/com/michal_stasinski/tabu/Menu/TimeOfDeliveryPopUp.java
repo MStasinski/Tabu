@@ -46,7 +46,7 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
         //omriFunction();

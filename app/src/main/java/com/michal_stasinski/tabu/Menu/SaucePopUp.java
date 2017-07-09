@@ -39,7 +39,7 @@ public class SaucePopUp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.7));
 
         int size = 0;
@@ -58,8 +58,8 @@ public class SaucePopUp extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Object listItem = mListViewMenu.getItemAtPosition(position);
-                MenuItemProduct item =(MenuItemProduct)saucePopUpAdapter.getItem(position);
-                if(!item.getSold()) {
+                MenuItemProduct item = (MenuItemProduct) saucePopUpAdapter.getItem(position);
+                if (!item.getSold()) {
                     saucePopUpAdapter.setChoooseHowManyItemYouOrder(position);
                 }
 

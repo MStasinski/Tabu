@@ -10,15 +10,42 @@ public class GetOrderFromFB {
     String deliveryDate;
     String deliveryPrice;
     String email;
-
-    ArrayList<String> orderList;
+    ArrayList<ArrayList<String>> orderList;
     String orderMan;
+    String orderNumber;
     String paymentWay;
     String phone;
     String receiptAdres;
     String receiptWay;
     String totalPrice;
     String userId;
+    String orderNo;
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+
+    public ArrayList<ArrayList<String>> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(ArrayList<ArrayList<String>> orderList) {
+        this.orderList = orderList;
+    }
 
     public String getDeliveryPrice() {
         return deliveryPrice;
@@ -44,13 +71,6 @@ public class GetOrderFromFB {
         this.email = email;
     }
 
-    public ArrayList<String> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(ArrayList<String> orderList) {
-        this.orderList = orderList;
-    }
 
     public String getOrderMan() {
         return orderMan;

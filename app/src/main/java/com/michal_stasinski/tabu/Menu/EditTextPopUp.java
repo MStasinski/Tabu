@@ -42,11 +42,10 @@ public class EditTextPopUp extends Activity {
         setContentView(R.layout.edit_text_popup);
 
 
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
+        int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
 
         Intent intent = getIntent();
@@ -95,7 +94,7 @@ public class EditTextPopUp extends Activity {
 
                 }
 
-                if (pos == 6 ) {
+                if (pos == 6) {
                     isValidate = (Boolean) validateLastName(editText.getText().toString().trim());
                     if (editText.getText().length() < 2) {
                         isValidate = false;
@@ -103,7 +102,7 @@ public class EditTextPopUp extends Activity {
 
 
                 }
-                if ( pos == 7) {
+                if (pos == 7) {
                     isValidate = true;
                     if (editText.getText().length() < 2) {
                         isValidate = false;
@@ -188,7 +187,7 @@ public class EditTextPopUp extends Activity {
                 } else {
 
                     Intent intent = new Intent();
-                    Log.i("informacja", " edit editText.getText().toString()  "+editText.getText().toString());
+                    Log.i("informacja", " edit editText.getText().toString()  " + editText.getText().toString());
                     intent.putExtra("edit_text", editText.getText().toString().trim());
                     intent.putExtra("pos", pos);
                     setResult(Activity.RESULT_OK, intent);
@@ -210,10 +209,12 @@ public class EditTextPopUp extends Activity {
         return lastName.matches("[A-Z][a-z]+( [A-Z][a-z]+)*");
         // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     } // end method validateLastName
+
     public static boolean validateAddress(String lastName) {
         return lastName.matches("[a-zA-Z0-9-]*");
         // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
     } // e
+
     public static boolean validatNr(String lastName) {
         return lastName.matches("^[+]?[0-9]{1,13}$*");
         // return lastName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
