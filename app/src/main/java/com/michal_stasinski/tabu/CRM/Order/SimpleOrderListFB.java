@@ -145,7 +145,7 @@ public class SimpleOrderListFB extends Activity {
                     String status = (String)  String.valueOf(map.get("orderStatus"));
                     String orderNumber = (String)  String.valueOf(map.get("orderNumber"));
                     String orderNo = (String)  String.valueOf(map.get("orderNo"));
-                    //int numOfOrderItems = orderList.size();
+
 
                     GetOrderFromFB orderFromFB_Item = new GetOrderFromFB();
 
@@ -158,10 +158,8 @@ public class SimpleOrderListFB extends Activity {
                     orderFromFB_Item.setReceiptWay(receiptWay);
                     orderFromFB_Item.setTotalPrice(totalPrice);
                     orderFromFB_Item.setUserId(userId);
-                    if(orderNumber.equals("null")){
-                        orderNumber="NOWE";
-                    }
                     orderFromFB_Item.setOrderNumber(orderNumber);
+                    orderFromFB_Item.setStatus(status);
                   //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
 

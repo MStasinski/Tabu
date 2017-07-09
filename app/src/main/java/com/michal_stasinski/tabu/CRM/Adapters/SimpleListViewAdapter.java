@@ -9,6 +9,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -182,6 +183,9 @@ public class SimpleListViewAdapter extends BaseAdapter {
         viewHolder.price.setTextSize(width / 120);
         //  viewHolder.order_number.setWidth(width / 100);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
+        if (arr.get(position).getOrderNumber().equals("0")) {
+            viewHolder.order_number.setText("NOWE");
+        }
         viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(color));
         viewHolder.delivety_method.setText(arr.get(position).getReceiptWay().replace("WŁASNY", ""));
         viewHolder.hour_of_deliver.setText("11:00");
@@ -216,20 +220,34 @@ public class SimpleListViewAdapter extends BaseAdapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    Log.i("informacja", "klik"+clikPos);
+                    Log.i("informacja", "klik" + clikPos);
 
 
                     Intent intent = new Intent();
 
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("receiptWay", arr.get(clikPos).getReceiptWay().replace("WŁASNY", ""));
+                    bundle.putString("orderNumber", arr.get(clikPos).getOrderNumber());
+                    bundle.putString("price", arr.get(clikPos).getTotalPrice());
+                    bundle.putString("status", arr.get(clikPos).getStatus());
+                    ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
+
+                    ArrayList<String> iteme = (ArrayList<String>) getOrder.get(0);
+
+
+
+
+                   // intent.putParcelableArrayListExtra("getOrder" , iteme);
+                    for (int i = 0; i < getOrder.size(); i++) {
+
+                        bundle.putSerializable("getOrder"+i , iteme);
+                    }
 
                     intent.setClass(mContext, OrderZoomPopUp.class);
 
-
-                    Bundle bundle = new Bundle();
-                    bundle.putString("payment_method", arr.get(clikPos).getOrderMan());
-
+                    intent.putExtras(bundle);
                     mContext.startActivity(intent);
-                    // intent.putExtras(bundle);
                     // Activity activity = (Activity) mContext;
                     //activity.startActivity(intent);
                     //  activity.overridePendingTransition(R.anim.from_right, R.anim.to_left);

@@ -3,5 +3,14 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
+    <string name="country_prompt">Choose a country</string>
 
+    <string-array name="country_arrays">
+        <item>Przyjęte</item>
+        <item>Odrzucone</item>
+        <item>W realizacji</item>
+        <item>Do odbioru</item>
+        <item>W dostawie</item>
+        <item>Zakończone</item>
+    </string-array>
 </resources>

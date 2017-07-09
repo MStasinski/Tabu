@@ -11,6 +11,8 @@ public class GetOrderFromFB {
     String deliveryPrice;
     String email;
     ArrayList<ArrayList<String>> orderList;
+
+    String status;
     String orderMan;
     String orderNumber;
     String paymentWay;
@@ -20,6 +22,15 @@ public class GetOrderFromFB {
     String totalPrice;
     String userId;
     String orderNo;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getOrderNo() {
         return orderNo;
     }
@@ -27,7 +38,6 @@ public class GetOrderFromFB {
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
-
 
 
     public String getOrderNumber() {

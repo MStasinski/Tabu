@@ -625,6 +625,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         mDatabase.child(databaseName).child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc());
         mDatabase.child(databaseName).child(strDate + uniqueId).child("userId").setValue(uniqueId);
         mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNo").setValue(strDate + uniqueId);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNumber").setValue(0);
         orderList.clear();
 
     }
