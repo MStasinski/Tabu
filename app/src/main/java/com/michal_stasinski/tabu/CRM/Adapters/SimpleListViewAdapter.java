@@ -231,6 +231,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
                     bundle.putString("orderNumber", arr.get(clikPos).getOrderNumber());
                     bundle.putString("price", arr.get(clikPos).getTotalPrice());
                     bundle.putString("status", arr.get(clikPos).getStatus());
+                    bundle.putInt("color", color);
                     ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
 
                     ArrayList<String> iteme = (ArrayList<String>) getOrder.get(0);

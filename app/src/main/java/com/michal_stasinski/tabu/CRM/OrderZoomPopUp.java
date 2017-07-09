@@ -3,6 +3,7 @@ package com.michal_stasinski.tabu.CRM;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
@@ -29,6 +30,7 @@ public class OrderZoomPopUp extends Activity {
     private String receiptWay;
     private String orderNumber;
     private String status;
+    private int color;
     private String orderNo;
     private String actualText;
     private String title;
@@ -74,20 +76,28 @@ public class OrderZoomPopUp extends Activity {
         if (bundle != null) {
             receiptWay = bundle.getString("receiptWay");
             orderNumber = bundle.getString("orderNumber");
-
+            color = bundle.getInt("color");
             status = bundle.getString("status");
         }
-        ArrayList<Object> getOrder = (ArrayList<Object>) bundle.getSerializable("getOrder"+0);
+        ArrayList<Object> getOrder = (ArrayList<Object>) bundle.getSerializable("getOrder" + 0);
 
-        Log.i("informacja", "  getOrder  " +  getOrder.get(1));
+        Log.i("informacja", "  getOrder  " + getOrder.get(1));
         TextView delivety_method = (TextView) findViewById(R.id.crm_delivety_method_zoom);
         TextView orderNr = (TextView) findViewById(R.id.crm_order_nr_zoom);
+
         TextView crm_status_zoom = (TextView) findViewById(R.id.crm_status_zoom);
+        LinearLayout box = (LinearLayout) findViewById(R.id.crm_status_box_zoom);
+
+
+        box.setBackgroundTintList(ColorStateList.valueOf(color));
+        orderNr.setBackgroundTintList(ColorStateList.valueOf(color));
 
         delivety_method.setText(receiptWay);
         orderNr.setText(orderNumber);
+
         if (status.equals("0")) {
             crm_status_zoom.setText("NOWE");
+            orderNr.setText("");
         }
 
         if (status.equals("1")) {

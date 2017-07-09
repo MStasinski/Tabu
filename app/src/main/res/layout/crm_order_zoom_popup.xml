@@ -28,6 +28,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/crm_status_box_zoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
