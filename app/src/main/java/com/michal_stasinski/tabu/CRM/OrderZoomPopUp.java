@@ -4,19 +4,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
 
+import static com.michal_stasinski.tabu.CRM.Order.SimpleOrderListFB.orderFromFB0;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by win8 on 09.07.2017.
@@ -26,10 +34,10 @@ public class OrderZoomPopUp extends Activity {
 
 
     private static Context contex;
-    private int pos;
+    private int position;
     private String receiptWay;
     private String orderNumber;
-    private String status;
+    private int status;
     private int color;
     private String orderNo;
     private String actualText;
@@ -43,20 +51,6 @@ public class OrderZoomPopUp extends Activity {
         contex = this;
         setContentView(R.layout.crm_order_zoom_popup);
 
-
-
-
-
-
-       /* LinearLayout list = (LinearLayout) findViewById(R.id.list_of_order_for_one_item);
-        TextView price = (TextView) findViewById(R.id.order_fb_item_price);
-        View div0 = (View) findViewById(R.id.div0);
-        TextView order_number = (TextView) findViewById(R.id.order_nr);
-        TextView hour_of_deliver = (TextView) findViewById(R.id.hour_of_deliver);
-        TextView time_to_finish = (TextView) findViewById(R.id.time_to_finish);
-        TextView delivety_method = (TextView)findViewById(R.id.delivety_method);
-
-        TextView address_txt = (TextView) findViewById(R.id.address_txt);*/
 
     }
 
@@ -76,12 +70,36 @@ public class OrderZoomPopUp extends Activity {
         if (bundle != null) {
             receiptWay = bundle.getString("receiptWay");
             orderNumber = bundle.getString("orderNumber");
-            color = bundle.getInt("color");
-            status = bundle.getString("status");
+            orderNo = bundle.getString("orderNo");
+            position = bundle.getInt("position");
+            status = bundle.getInt("status");
         }
         ArrayList<Object> getOrder = (ArrayList<Object>) bundle.getSerializable("getOrder" + 0);
 
-        Log.i("informacja", "  getOrder  " + getOrder.get(1));
+        // box.setBackgroundResource(R.drawable.price_shape);
+
+        Button btm = (Button) findViewById(R.id.accept_status);
+
+        btm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                //orderFromFB0.get(position);
+                Log.i("informacja", "   orderFromFB0.get(position)  " + orderNo);
+
+                String databaseName = "OrdersCurrents";
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child(databaseName).child(orderNo).child("orderStatus").setValue(1);
+               changeStatus(1);
+            }
+        });
+        changeStatus(status);
+
+
+
+
+    }
+
+    private void changeStatus(int status_change){
         TextView delivety_method = (TextView) findViewById(R.id.crm_delivety_method_zoom);
         TextView orderNr = (TextView) findViewById(R.id.crm_order_nr_zoom);
 
@@ -89,31 +107,36 @@ public class OrderZoomPopUp extends Activity {
         LinearLayout box = (LinearLayout) findViewById(R.id.crm_status_box_zoom);
 
 
-        box.setBackgroundTintList(ColorStateList.valueOf(color));
-        orderNr.setBackgroundTintList(ColorStateList.valueOf(color));
 
         delivety_method.setText(receiptWay);
         orderNr.setText(orderNumber);
-
-        if (status.equals("0")) {
+        if (status_change == 0) {
+            color = R.color.NOWE;
             crm_status_zoom.setText("NOWE");
             orderNr.setText("");
         }
 
-        if (status.equals("1")) {
+        if (status_change == 1) {
+            color = R.color.PRZYJETE;
             crm_status_zoom.setText("PRZYJĘTE");
         }
-
-        if (status.equals("2")) {
+        if (status_change == 2) {
+            color = R.color.WREALIZACJI;
             crm_status_zoom.setText("W REALIZACJI");
         }
 
-        if (status.equals("3")) {
+        if (status_change == 3) {
+            color = R.color.DOODBIORU;
             crm_status_zoom.setText("DO ODBIORU");
         }
-        if (status.equals("4")) {
+
+        if (status_change == 4) {
+            color = R.color.WDOSTAWIE;
             crm_status_zoom.setText("W DOSTAWIE");
         }
+
+          box.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.SRC_ATOP);
+         orderNr.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.SRC_ATOP);
 
     }
 }

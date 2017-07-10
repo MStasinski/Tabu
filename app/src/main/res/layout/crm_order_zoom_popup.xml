@@ -35,7 +35,6 @@
             android:layout_weight="5"
             android:layout_marginTop="5sp"
             android:background="@drawable/orange_button_background"
-            android:backgroundTint="@color/color_STARTERY"
             android:orientation="vertical">
 
             <TextView
@@ -100,6 +99,7 @@
                 android:prompt="@string/country_prompt" />
 
             <Button
+                android:id="@+id/accept_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
@@ -126,7 +126,6 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/orange_button_background"
-            android:backgroundTint="@color/color_STARTERY"
             android:padding="3dp"
             android:text="DOSTAWA"
             android:textAlignment="center"

@@ -111,8 +111,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
         return position;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -230,7 +229,9 @@ public class SimpleListViewAdapter extends BaseAdapter {
                     bundle.putString("receiptWay", arr.get(clikPos).getReceiptWay().replace("WŁASNY", ""));
                     bundle.putString("orderNumber", arr.get(clikPos).getOrderNumber());
                     bundle.putString("price", arr.get(clikPos).getTotalPrice());
-                    bundle.putString("status", arr.get(clikPos).getStatus());
+                    bundle.putInt("status", arr.get(clikPos).getStatus());
+                    bundle.putString("orderNo", arr.get(clikPos).getOrderNo());
+                    bundle.putInt("position",clikPos);
                     bundle.putInt("color", color);
                     ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
 

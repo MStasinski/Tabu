@@ -31,11 +31,11 @@ public class SimpleOrderListFB extends Activity {
     protected BounceListView bounceListView2;
     protected BounceListView bounceListView3;
     protected BounceListView bounceListView4;
-    private ArrayList<GetOrderFromFB> orderFromFB0;
-    private ArrayList<GetOrderFromFB> orderFromFB1;
-    private ArrayList<GetOrderFromFB> orderFromFB2;
-    private ArrayList<GetOrderFromFB> orderFromFB3;
-    private ArrayList<GetOrderFromFB> orderFromFB4;
+    public static ArrayList<GetOrderFromFB> orderFromFB0;
+    public static ArrayList<GetOrderFromFB> orderFromFB1;
+    public static ArrayList<GetOrderFromFB> orderFromFB2;
+    public static ArrayList<GetOrderFromFB> orderFromFB3;
+    public static ArrayList<GetOrderFromFB> orderFromFB4;
 
     protected LinearLayout news_column;
     protected LinearLayout commit_column;
@@ -142,9 +142,9 @@ public class SimpleOrderListFB extends Activity {
                     String receiptWay = (String) String.valueOf(map.get("receiptWay"));
                     String totalPrice = (String) String.valueOf(map.get("totalPrice"));
                     String userId = (String) String.valueOf(map.get("userId"));
-                    String status = (String)  String.valueOf(map.get("orderStatus"));
-                    String orderNumber = (String)  String.valueOf(map.get("orderNumber"));
-                    String orderNo = (String)  String.valueOf(map.get("orderNo"));
+                    int status = (int) Integer.parseInt(String.valueOf(map.get("orderStatus")));
+                    String orderNumber = (String) String.valueOf(map.get("orderNumber"));
+                    String orderNo = (String) String.valueOf(map.get("orderNo"));
 
 
                     GetOrderFromFB orderFromFB_Item = new GetOrderFromFB();
@@ -160,22 +160,23 @@ public class SimpleOrderListFB extends Activity {
                     orderFromFB_Item.setUserId(userId);
                     orderFromFB_Item.setOrderNumber(orderNumber);
                     orderFromFB_Item.setStatus(status);
-                  //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
+                    orderFromFB_Item.setOrderNo(orderNo);
+                    //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
 
-                    if (status.equals("0")) {
+                    if (status == 0) {
                         orderFromFB0.add(orderFromFB_Item);
                     }
-                    if (status.equals("1")) {
+                    if (status == 1) {
                         orderFromFB1.add(orderFromFB_Item);
                     }
-                    if (status.equals("2")) {
+                    if (status == 2) {
                         orderFromFB2.add(orderFromFB_Item);
                     }
-                    if (status.equals("3")) {
+                    if (status == 3) {
                         orderFromFB3.add(orderFromFB_Item);
                     }
-                    if (status.equals("4")) {
+                    if (status == 4) {
                         orderFromFB4.add(orderFromFB_Item);
                     }
                 }
