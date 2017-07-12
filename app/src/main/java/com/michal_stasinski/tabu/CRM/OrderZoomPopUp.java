@@ -37,7 +37,7 @@ public class OrderZoomPopUp extends Activity {
     private int position;
     private String receiptWay;
     private String orderNumber;
-    private int status;
+    private String status;
     private int color;
     private String orderNo;
     private String actualText;
@@ -72,7 +72,7 @@ public class OrderZoomPopUp extends Activity {
             orderNumber = bundle.getString("orderNumber");
             orderNo = bundle.getString("orderNo");
             position = bundle.getInt("position");
-            status = bundle.getInt("status");
+            status = bundle.getString("status");
         }
         ArrayList<Object> getOrder = (ArrayList<Object>) bundle.getSerializable("getOrder" + 0);
 
@@ -88,8 +88,9 @@ public class OrderZoomPopUp extends Activity {
 
                 String databaseName = "OrdersCurrents";
                 mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.child(databaseName).child(orderNo).child("orderStatus").setValue(1);
-               changeStatus(1);
+
+                mDatabase.child(databaseName).child(orderNo).child("orderStatus").setValue("1");
+               changeStatus("1");
             }
         });
         changeStatus(status);
@@ -99,7 +100,7 @@ public class OrderZoomPopUp extends Activity {
 
     }
 
-    private void changeStatus(int status_change){
+    private void changeStatus(String status_change){
         TextView delivety_method = (TextView) findViewById(R.id.crm_delivety_method_zoom);
         TextView orderNr = (TextView) findViewById(R.id.crm_order_nr_zoom);
 
@@ -110,27 +111,27 @@ public class OrderZoomPopUp extends Activity {
 
         delivety_method.setText(receiptWay);
         orderNr.setText(orderNumber);
-        if (status_change == 0) {
+        if (status_change.equals("0")) {
             color = R.color.NOWE;
             crm_status_zoom.setText("NOWE");
             orderNr.setText("");
         }
 
-        if (status_change == 1) {
+        if (status_change.equals("1")) {
             color = R.color.PRZYJETE;
             crm_status_zoom.setText("PRZYJĘTE");
         }
-        if (status_change == 2) {
+        if (status_change.equals("2")) {
             color = R.color.WREALIZACJI;
             crm_status_zoom.setText("W REALIZACJI");
         }
 
-        if (status_change == 3) {
+        if (status_change.equals("3")) {
             color = R.color.DOODBIORU;
             crm_status_zoom.setText("DO ODBIORU");
         }
 
-        if (status_change == 4) {
+        if (status_change.equals("4")) {
             color = R.color.WDOSTAWIE;
             crm_status_zoom.setText("W DOSTAWIE");
         }

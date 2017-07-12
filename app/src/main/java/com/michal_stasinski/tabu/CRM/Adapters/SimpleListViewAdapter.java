@@ -229,7 +229,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
                     bundle.putString("receiptWay", arr.get(clikPos).getReceiptWay().replace("WŁASNY", ""));
                     bundle.putString("orderNumber", arr.get(clikPos).getOrderNumber());
                     bundle.putString("price", arr.get(clikPos).getTotalPrice());
-                    bundle.putInt("status", arr.get(clikPos).getStatus());
+                    bundle.putString("status", arr.get(clikPos).getStatus());
                     bundle.putString("orderNo", arr.get(clikPos).getOrderNo());
                     bundle.putInt("position",clikPos);
                     bundle.putInt("color", color);

@@ -115,8 +115,9 @@ public class SimpleOrderListFB extends Activity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //DatabaseReference myRef = database.getReference("TEST_ORDER");
-        DatabaseReference myRef = database.getReference("OrdersCurrents");
-
+       // String databaseName = "ZamowieniaBierzs";
+       // DatabaseReference myRef = database.getReference("OrdersCurrents");
+        DatabaseReference myRef = database.getReference("ZamowieniaBierzs");
         // DatabaseReference myRef = database.getReference("Orders");
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -142,7 +143,7 @@ public class SimpleOrderListFB extends Activity {
                     String receiptWay = (String) String.valueOf(map.get("receiptWay"));
                     String totalPrice = (String) String.valueOf(map.get("totalPrice"));
                     String userId = (String) String.valueOf(map.get("userId"));
-                    int status = (int) Integer.parseInt(String.valueOf(map.get("orderStatus")));
+                    String status = (String) String.valueOf(map.get("orderStatus"));
                     String orderNumber = (String) String.valueOf(map.get("orderNumber"));
                     String orderNo = (String) String.valueOf(map.get("orderNo"));
 
@@ -163,20 +164,24 @@ public class SimpleOrderListFB extends Activity {
                     orderFromFB_Item.setOrderNo(orderNo);
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
+                    Log.i("informacja","   status  " +  totalPrice);
 
-                    if (status == 0) {
+                    if(status == null){
+                       // status ="0";
+                    }
+                    if (status.equals("0")) {
                         orderFromFB0.add(orderFromFB_Item);
                     }
-                    if (status == 1) {
+                    if (status.equals("1")) {
                         orderFromFB1.add(orderFromFB_Item);
                     }
-                    if (status == 2) {
+                    if (status.equals("2")) {
                         orderFromFB2.add(orderFromFB_Item);
                     }
-                    if (status == 3) {
+                    if (status.equals("3")) {
                         orderFromFB3.add(orderFromFB_Item);
                     }
-                    if (status == 4) {
+                    if (status.equals("4")) {
                         orderFromFB4.add(orderFromFB_Item);
                     }
                 }

@@ -41,6 +41,7 @@ import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -52,6 +53,7 @@ import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
+import static okhttp3.internal.Util.UTC;
 
 
 public class ShopingCardListView extends SwipeBackActivity {
@@ -562,27 +564,34 @@ public class ShopingCardListView extends SwipeBackActivity {
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("yy-MM-dd_kk:mm:ss");
-        SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd kk:mm");
-        mdformat2.setTimeZone(TimeZone.getTimeZone("Europe/Warsaw"));
-
+        SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd");
+       // mdformat2.setTimeZone(TimeZone.getTimeZone("Europe/Warsaw"));
+       // mdformat2.setTimeZone(TimeZone.getTimeZone("UTC+02:00"));
+       // mdformat.setTimeZone(TimeZone.getTimeZone("UTC+02:00"));
         String strDate = mdformat.format(calendar.getTime());
 
         String strDate2 = mdformat2.format(calendar.getTime());
+
+
+
+
 
 
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
         // String databaseName = "TEST_ORDER";
+        String databaseName = "ZamowieniaBierzs";
+        //String databaseName = "OrdersCurrents";
+        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
 
-        String databaseName = "OrdersCurrents";
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryDate").setValue(strDate2);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(Double.parseDouble(String.valueOf(deliveryCost)));
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("email").setValue(email);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryDate").setValue((strDate2.toString()+" "+selectedTimeItem.getDesc()).toString());
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("deliveryPrice").setValue(String.valueOf(deliveryCost));
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("email").setValue(email.toString());
         mDatabase.child(databaseName).child(strDate + uniqueId).child("orderMan").setValue(firstname + " " + lastname);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderStatus").setValue(0);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderStatus").setValue("0".toString());
 
-        ArrayList orderArray = new ArrayList();
+        ArrayList<ArrayList<String>> orderArray = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < orderList.size(); i++) {
 
             ArrayList<String> arr = new ArrayList<String>();
@@ -619,17 +628,22 @@ public class ShopingCardListView extends SwipeBackActivity {
         mDatabase.child(databaseName).child(strDate + uniqueId).child("ordersList").setValue(orderArray);
 
         //GOTÓWKA?
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("paymentWay").setValue(paymentMethods[SELECTED_PAYMENT_METHOD]);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("paymentWay").setValue((paymentMethods[SELECTED_PAYMENT_METHOD]).toString());
 
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("phone").setValue(phone);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptAdres").setValue(street);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("phone").setValue(phone.toString());
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptAdres").setValue(street.toString());
         mDatabase.child(databaseName).child(strDate + uniqueId).child("receiptWay").setValue(delivery_mode.getDesc().toString());
 
         double dd = Double.parseDouble(selectedItem_all_cost.getDesc());
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("totalPrice").setValue(dd);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("userId").setValue(uniqueId);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNo").setValue(strDate + uniqueId);
-        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNumber").setValue(0);
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("totalPrice").setValue(selectedItem_all_cost.getDesc().toString());
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("userId").setValue(String.valueOf(uniqueId));
+
+
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNo").setValue(String.valueOf(String.valueOf(strDate + uniqueId)));
+        //mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNo").setValue("17-07-11_18:42:19T9kKc1Ti");
+
+
+        mDatabase.child(databaseName).child(strDate + uniqueId).child("orderNumber").setValue("0".toString());
         orderList.clear();
 
     }
