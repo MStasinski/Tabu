@@ -24,6 +24,8 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import java.util.ArrayList;
 import java.util.Map;
 
+import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
+
 public class SimpleOrderListFB extends Activity {
 
     protected BounceListView bounceListView0;
@@ -117,7 +119,7 @@ public class SimpleOrderListFB extends Activity {
         //DatabaseReference myRef = database.getReference("TEST_ORDER");
        // String databaseName = "ZamowieniaBierzs";
        // DatabaseReference myRef = database.getReference("OrdersCurrents");
-        DatabaseReference myRef = database.getReference("ZamowieniaBierzs");
+        DatabaseReference myRef = database.getReference(DB_ORDER_DATABASE);
         // DatabaseReference myRef = database.getReference("Orders");
 
         myRef.addValueEventListener(new ValueEventListener() {

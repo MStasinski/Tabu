@@ -12,9 +12,7 @@ public class MathUtils {
     public static String formatDecimal(Number num , int decimal) {
 
         NumberFormat formatter = new DecimalFormat("0.00");
-        //NumberFormat formatter = NumberFormat.getNumberInstance();
         formatter.setMinimumFractionDigits(decimal);
-        //formatter.setMaximumFractionDigits(decimal);
         String output = formatter.format(num);
         return output.replace(',','.');
     }

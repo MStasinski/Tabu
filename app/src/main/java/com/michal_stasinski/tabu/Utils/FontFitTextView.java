@@ -2,11 +2,8 @@ package com.michal_stasinski.tabu.Utils;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.TextView;
 
 
 public class FontFitTextView extends android.support.v7.widget.AppCompatTextView {
@@ -17,7 +14,7 @@ public class FontFitTextView extends android.support.v7.widget.AppCompatTextView
 
     public FontFitTextView(Context context) {
         super(context);
-      //  this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
+        //  this.setTypeface(Typeface.createFromAsset(context.getAssets(),"fonts/AvenirNextCondensed-DemiBold.ttf"));
         initialize();
     }
 
@@ -44,13 +41,13 @@ public class FontFitTextView extends android.support.v7.widget.AppCompatTextView
         int targetWidth = textWidth - this.getPaddingLeft() - this.getPaddingRight();
 
         // this is most likely a non-relevant call
-        if( targetWidth<=2 )
+        if (targetWidth <= 2)
             return;
 
         // text already fits with the xml-defined font size?
         mTestPaint.set(this.getPaint());
         mTestPaint.setTextSize(defaultTextSize);
-        if(mTestPaint.measureText(text) <= targetWidth) {
+        if (mTestPaint.measureText(text) <= targetWidth) {
             this.setTextSize(TypedValue.COMPLEX_UNIT_PX, defaultTextSize);
             return;
         }
@@ -62,7 +59,7 @@ public class FontFitTextView extends android.support.v7.widget.AppCompatTextView
         while (hi - lo > threshold) {
             float size = (hi + lo) / 2;
             mTestPaint.setTextSize(size);
-            if(mTestPaint.measureText(text) >= targetWidth )
+            if (mTestPaint.measureText(text) >= targetWidth)
                 hi = size; // too big
             else
                 lo = size; // too small

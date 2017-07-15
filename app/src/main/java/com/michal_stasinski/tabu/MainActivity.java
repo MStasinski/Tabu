@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     customDialog.setTitleDialogText("Twoj koszyk jest pusty");
                     customDialog.setDescDialogText("Wybierz coś z menu");
 
-                }else{
+                } else {
 
                     Intent intent = new Intent();
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
                         overridePendingTransition(R.anim.from_right, R.anim.to_left);
                     }
-                    menuIsClick =false;
+                    menuIsClick = false;
                 }
             }
         };
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View v) {
                 //Rezygnujemy z drawera
-               // mDrawerLayout.openDrawer(GravityCompat.END, true);
+                // mDrawerLayout.openDrawer(GravityCompat.END, true);
                 //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
                 Intent intent = new Intent();
@@ -265,23 +265,22 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawer(GravityCompat.START, true);
             }
         });
-
     }
 
     @Override
     protected void onPause() {
-        if(myReceiver!=null) {
+        if (myReceiver != null) {
             unregisterReceiver(myReceiver);
-            myReceiver=null;
+            myReceiver = null;
         }
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        if(myReceiver!=null) {
+        if (myReceiver != null) {
             unregisterReceiver(myReceiver);
-            myReceiver=null;
+            myReceiver = null;
         }
         super.onStop();
     }

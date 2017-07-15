@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -21,6 +20,7 @@ import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 import pl.mobiltek.paymentsmobile.dotpay.AppSDK;
 
@@ -48,8 +48,17 @@ public class SplashScreen extends Activity {
 
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
+    public static String USER_UNIQUE_ID_PREF;
+
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
+
     public static String MINIMAL_PRICE_OF_ORDER = "";
+
+    //public static String DB_ORDER_DATABASE = "ZamowieniaBierzs";
+    public static String DB_ORDER_DATABASE = "TEST_ORDER";
+    public static String DB_TIMES_OPEN_END_OF_RESTAURANT = "SendOrderOnlines";
+    public static String DB_NEWS = "News";
+
 
     private Boolean APPSTART = true;
 
@@ -103,7 +112,6 @@ public class SplashScreen extends Activity {
 
         @Override
         protected String doInBackground(String... params) {
-            Log.i("informacja", "ładuje bazy w tle...czekaj");
 
             newsArrayList = new ArrayList<NewsItem>();
             pizzaList = new ArrayList<MenuItemProduct>();
@@ -140,20 +148,16 @@ public class SplashScreen extends Activity {
         @Override
         protected void onPostExecute(String result) {
 
-            Log.i("informacja", "gotowe...bazy załadowane");
-            // StartApp();
         }
 
         @Override
         protected void onPreExecute() {
-            Log.i("informacja", "musze załadować bazy danych");
 
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
 
-            Log.i("informacja", "progres");
         }
     }
 
@@ -163,11 +167,19 @@ public class SplashScreen extends Activity {
         AppSDK.initialize(this);
 
         setContentView(R.layout.activity_splash_screen);
-
-
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
-        String itemo = prefs.getString(dataDeliveryTextFieldName[0], null);
+
+        /* przydzielam ID urzytkownikowi*/
+
+        SharedPreferences uniqueIdPref = getApplicationContext().getSharedPreferences("uniqueIdPref", MODE_PRIVATE);
+        USER_UNIQUE_ID_PREF = uniqueIdPref.getString("ID", null);
+        if (USER_UNIQUE_ID_PREF == null) {
+            SharedPreferences.Editor editor = uniqueIdPref.edit();
+            USER_UNIQUE_ID_PREF = UUID.randomUUID().toString().toUpperCase();
+            editor.putString("ID", USER_UNIQUE_ID_PREF);
+            editor.commit();
+        }
 
     }
 
@@ -179,7 +191,6 @@ public class SplashScreen extends Activity {
 
     private Task<String> StartApp() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
-
         Intent mainIntent = new Intent(SplashScreen.this, MainActivity.class);
         SplashScreen.this.startActivity(mainIntent);
         SplashScreen.this.finish();
@@ -203,14 +214,12 @@ public class SplashScreen extends Activity {
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
                     String name = (String) map.get("name");
                     String rank = (String) map.get("rank").toString();
-
                     MenuItemProduct menuItemProduct = new MenuItemProduct();
                     menuItemProduct.setName(name);
                     pizzaSizes_CheckMark.add(0);
                     menuItemProduct.setRank(rank);
                     menuItemProduct.setSold(false);
                     pizzaSizesList.add(menuItemProduct);
-
                 }
             }
 
@@ -219,7 +228,6 @@ public class SplashScreen extends Activity {
             }
         });
 
-        Log.i("informacja", " t0 zaladowana baza " + databaseReference);
         return tcs.getTask();
     }
 
@@ -228,19 +236,16 @@ public class SplashScreen extends Activity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef;
-
         myRef = database.getReference(databaseReference);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("informacja", "zmiana w bazie");
 
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
-
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
                     MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalValue").toString();
-                    Log.i("informacja", " MINIMAL_PRICE_OF_ORDER " + map.get("minimalValue"));
+
                 }
 
                 //Intent intent = new Intent();
@@ -254,8 +259,6 @@ public class SplashScreen extends Activity {
 
         });
 
-
-        Log.i("informacja", "cena minimalna zaladowana baza " + databaseReference);
         return tcs.getTask();
     }
 
@@ -269,7 +272,6 @@ public class SplashScreen extends Activity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("informacja", "zmiana w bazie");
                 nameArrayList.clear();
 
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
@@ -304,8 +306,6 @@ public class SplashScreen extends Activity {
 
         });
 
-
-        Log.i("informacja", "t1 zaladowana baza " + databaseReference);
         return tcs.getTask();
     }
 
@@ -325,30 +325,24 @@ public class SplashScreen extends Activity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 
                     DataSnapshot dataitem = item;
-
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
 
                     String price = (String) map.get("price").toString();
                     String dist = (String) map.get("dist").toString();
-
-                    // MenuItemProduct menuItemProduct = new MenuItemProduct();
                     DeliveryCostItem deliveryCostItem = new DeliveryCostItem();
                     deliveryCostItem.setPrice(price);
                     deliveryCostItem.setDistacne(dist);
 
                     deliveryCostArray.add(deliveryCostItem);
                 }
-
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-
             }
 
         });
-        Log.i("informacja", "t2 zaladowana baza " + databaseReference);
         return tcs.getTask();
 
     }
@@ -357,8 +351,7 @@ public class SplashScreen extends Activity {
     public Task<String> loadTimesOfRestaurant() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("SendOrderOnlines");
-        // DatabaseReference myRef2 = database.getReference("SendOrderOnlines");
+        DatabaseReference myRef = database.getReference(DB_TIMES_OPEN_END_OF_RESTAURANT);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -368,7 +361,6 @@ public class SplashScreen extends Activity {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-                    // String end = (String) map.get("end");
                     timeWhenRestaurantIsClose = (ArrayList) map.get("end");
                     timeWhenRestaurantIsOpen = (ArrayList) map.get("start");
                 }
@@ -376,7 +368,6 @@ public class SplashScreen extends Activity {
                     APPSTART = false;
                     StartApp();
                 }
-
 
                 Intent intent = new Intent();
                 intent.setAction(MainActivity.FIREBASE_CHANGED);
@@ -398,7 +389,7 @@ public class SplashScreen extends Activity {
     public Task<String> loadNews() {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("News");
+        DatabaseReference myRef = database.getReference(DB_NEWS);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

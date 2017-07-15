@@ -73,7 +73,7 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
-        viewHolder.hour.setText(this.arr.get(position).getTime());
+        viewHolder.hour.setText(this.arr.get(position).getTextTime()+"     "+this.arr.get(position).getOrderData());
         viewHolder.isSold.setVisibility(View.INVISIBLE);
         if (this.arr.get(position).getMark() == true) {
             viewHolder.check.setText("\u2713");

@@ -60,10 +60,18 @@ public class Check_Time_Open_Close {
 
         String date = df.format(Calendar.getInstance().getTime());
         Calendar c = Calendar.getInstance();
+
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-        ///Log.i("informacja", "aktualna godzina" + strDate + "  dzien: " + date + "  dayOfWeek " + dayOfWeek);
+
+
+        /* Niedziela = 1  Poniedziałek = 2  Sobota = 7*/
+
         day = dayOfWeek - 1;
 
+        int dayOfWeek_yesterday = day - 1;
+        if (dayOfWeek_yesterday == -1) {
+            dayOfWeek_yesterday = 6;
+        }
 
         int hourValue = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]);
 
@@ -78,33 +86,35 @@ public class Check_Time_Open_Close {
             cl = cl + 24 * 60;
         }
         if (hourValue >= op && hourValue <= cl) {
-            Log.i("informacja", "------------------otwarte 1 ");
+            // Log.i("informacja", "------------------otwarte 1 ");
             restaurantIsOpen = true;
         } else {
 
             if (hourValue < Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1])) {
                 Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
 
-                closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
-                openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
 
-                int op1 = Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
+                closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(dayOfWeek_yesterday)).split(":");
+                openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(dayOfWeek_yesterday)).split(":");
+
+                int op1 = 0;//Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
                 int cl1 = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
 
-                if (op1 > cl1) {
-                    cl1 = cl1 + 24 * 60;
-                }
+                //  if (op1 > cl1) {
+                // cl1 = cl1 + 24 * 60;
+                //}
                 if (hourValue >= op1 && hourValue <= cl1) {
                     restaurantIsOpen = true;
-                    Log.i("informacja", "------------------otwarte 2 ");
+                     Log.i("informacja", "------------------otwarte 2 ");
                 } else {
                     restaurantIsOpen = false;
-                    Log.i("informacja", "------------------czas jest w zakresie  dnia 2 zamkniete");
+                    closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");
+                    openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(day)).split(":");
                 }
 
             } else {
                 restaurantIsOpen = false;
-                Log.i("informacja", "------------------zamkniete ");
+                // Log.i("informacja", "------------------zamkniete ");
             }
         }
     }
