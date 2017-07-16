@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.SauceAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
@@ -40,8 +41,8 @@ public class SaucePopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.7));
-
+        //getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+        getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int size = 0;
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

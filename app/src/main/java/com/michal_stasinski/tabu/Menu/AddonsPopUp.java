@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.AddonsAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
@@ -44,8 +45,9 @@ public class AddonsPopUp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
-        int height = dm.widthPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
+        int height = dm.heightPixels;
+        getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
+
 
         int size = 0;
         Intent intent = getIntent();

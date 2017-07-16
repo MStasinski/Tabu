@@ -105,7 +105,7 @@ public class Check_Time_Open_Close {
                 //}
                 if (hourValue >= op1 && hourValue <= cl1) {
                     restaurantIsOpen = true;
-                     Log.i("informacja", "------------------otwarte 2 ");
+                    Log.i("informacja", "------------------otwarte 2 ");
                 } else {
                     restaurantIsOpen = false;
                     closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");

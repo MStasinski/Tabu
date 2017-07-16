@@ -51,7 +51,7 @@ public class OrderComposerOthers extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);

@@ -15,7 +15,7 @@
         android:background="@drawable/circle_background_drawer_icon"
         android:backgroundTint="@color/colorWhite"
         android:elevation="5dp"
-        android:tint="@color/colorPrimary" />
+        android:tint="?colorPrimary" />
 
 
     <TextView

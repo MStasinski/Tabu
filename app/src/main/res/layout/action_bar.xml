@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:theme="@style/AppTheme"
-    app:contentInsetStart="0dp"
-    app:popupTheme="@style/Theme.AppCompat.NoActionBar">
+
+    app:contentInsetStart="0dp">
 
 
     <android.support.v7.widget.ButtonBarLayout
@@ -21,7 +20,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
             android:src="@mipmap/share_icon"
-            android:tint="@color/colorPrimary"
+            android:tint="?colorPrimary"
 
             />
 
@@ -35,7 +34,7 @@
         android:layout_marginTop="4dp"
         android:text="ActionBarTitle"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?colorPrimary"
         android:textSize="@dimen/toolBarTitle" />
 
     <android.support.v7.widget.ButtonBarLayout
@@ -49,7 +48,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@mipmap/ic_more_vert_white_48dp"
-            android:tint="@color/colorPrimary" />
+            android:tint="?colorPrimary" />
 
         />
 

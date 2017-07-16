@@ -48,6 +48,7 @@ public class SimpleOrderListFB extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.crm_simple_order_listview_fb);

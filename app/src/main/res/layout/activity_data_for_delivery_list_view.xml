@@ -6,70 +6,73 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:orientation="vertical">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/closeBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/back_button"
+                android:backgroundTint="?colorPrimary"
+
+                />
+
+            <TextView
+                android:id="@+id/title_shoping_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp">
-
-                <Button
-                    android:id="@+id/closeBtn"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_marginLeft="14dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@mipmap/back_button" />
-
-                <TextView
-                    android:id="@+id/title_shoping_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:text="DANE DO DOSTAWY"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/toolBarTitle" />
-
-
-            </RelativeLayout>
-
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
-                android:id="@+id/data_cost_of_delivery_text"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/orange_button_background"
-                android:elevation="2dp"
-                android:paddingTop="12dp"
-                android:text="KOSZT DOSTAWY"
+                android:layout_marginTop="14dp"
+                android:text="DANE DO DOSTAWY"
                 android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/orange_button_text_size"
-                android:textStyle="bold"
-                android:translationZ="2dp" />
+                android:textColor="?colorPrimary"
+                android:textSize="@dimen/toolBarTitle" />
 
-            <com.michal_stasinski.tabu.Utils.BounceListView
-                android:id="@+id/data_delivery_listView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:animationCache="false"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="0.05sp"
-                android:scrollingCache="false" />
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
+            android:id="@+id/data_cost_of_delivery_text"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/orange_button_background"
+            android:elevation="2dp"
+            android:paddingTop="12dp"
+            android:text="KOSZT DOSTAWY"
+            android:textAlignment="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/orange_button_text_size"
+            android:textStyle="bold"
+            android:translationZ="2dp" />
+
+        <com.michal_stasinski.tabu.Utils.BounceListView
+            android:id="@+id/data_delivery_listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:animationCache="false"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.05sp"
+            android:scrollingCache="false" />
+
+    </LinearLayout>
 
     <com.liuguangqiang.swipeback.SwipeBackLayout
         android:id="@+id/swipe_layout"

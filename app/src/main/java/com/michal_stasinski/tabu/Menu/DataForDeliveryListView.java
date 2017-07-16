@@ -60,7 +60,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_data_for_delivery_list_view);
@@ -102,6 +102,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
 
                 editor.putInt("deliveryCost", deliveryCost);
                 editor.commit();
+               // editor.clear().commit();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
@@ -110,7 +111,6 @@ public class DataForDeliveryListView extends SwipeBackActivity {
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
         for (int i = 0; i <= 13; i++) {
-            Log.i("informacja", " prefs.getString(dataDeliveryTextFieldName[i] " + dataDeliveryTextFieldName[i]);
             String item = prefs.getString(dataDeliveryTextFieldName[i], null);
             if (item != null & i != 12) {
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);

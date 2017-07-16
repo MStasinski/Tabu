@@ -72,7 +72,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        getActivity().setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
 
     }

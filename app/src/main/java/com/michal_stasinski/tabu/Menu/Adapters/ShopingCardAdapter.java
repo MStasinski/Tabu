@@ -57,7 +57,6 @@ public class ShopingCardAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
         return arr.get(position);
     }
 
@@ -114,10 +113,8 @@ public class ShopingCardAdapter extends BaseAdapter {
             }
             convertView.setTag(viewHolder);
         } else {
-
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
-
 
         if (position > arr.size() - 4) {
             viewHolder.title.setText(arr.get(position).getTitle());

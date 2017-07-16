@@ -9,6 +9,16 @@
 
     </style>
 
+    <style name="AppThemeStaffLogged" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="homeAsUpIndicator">@drawable/circle_background_drawer_icon</item>
+
+    </style>
+
+
     <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="spinBars">true</item>
         <item name="color">@color/colorWhite</item>
@@ -29,7 +39,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorForeground">#ebebeb</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name ="android:windowBackground">@drawable/popup_window_background2</item>
+        <item name="android:windowBackground">@drawable/popup_window_background2</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
 
     </style>
@@ -38,10 +48,11 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:colorForeground">#fff</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name ="android:windowBackground">@drawable/popup_window_background2</item>
+        <item name="android:windowBackground">@drawable/popup_window_background2</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
 
     </style>
+
     <style name="Theme.Swipe.Back" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -53,7 +64,6 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-
 
 
 </resources>

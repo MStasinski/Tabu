@@ -3,8 +3,10 @@ package com.michal_stasinski.tabu.Menu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
@@ -14,14 +16,16 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import java.util.ArrayList;
 
 import static com.michal_stasinski.tabu.Menu.ShopingCardListView.SELECTED_TIME;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_DELIVERY;
 import static com.michal_stasinski.tabu.Utils.CountTimesOfDelivery.countAllPossibleTimesOfDelivery;
+import static com.michal_stasinski.tabu.Utils.CountTimesOfDelivery.countTimeOfDelivery_type_asFastYouCan;
 
 public class TimeOfDeliveryPopUp extends AppCompatActivity {
 
     public static ArrayList<TimeListItem> timeList;
     private BounceListView mListViewMenu;
     private String[] hourArr;
-    private TimeOfDeliveryAdapter adapterek;
+    private static TimeOfDeliveryAdapter adapterek;
     private String[] closeTime;
     private String todayAsString;
     private String tomorrowAsString;
@@ -37,23 +41,21 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
+        getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
 
+        if(timeList.size()<10) {
+            getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        checkOpenTime();
 
-    }
-
-    public void checkOpenTime() {
-
-        timeList = new ArrayList<TimeListItem>();
+       // timeList = new ArrayList<TimeListItem>();
 
         /*oblicz wszystkie mozliwe czasy dostwy i wrzuc do adpapterka*/
-        timeList = countAllPossibleTimesOfDelivery();
+        //timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_DELIVERY));
 
          /*TimeOfdeliveryPopUp działą z adapterem TimeOfDeliveryAdapter*/
         adapterek = new TimeOfDeliveryAdapter(this);
@@ -86,4 +88,8 @@ public class TimeOfDeliveryPopUp extends AppCompatActivity {
         });
     }
 
+    public static void reloadTimeOfDeliverPopUp(){
+      if(adapterek!=null)
+        adapterek.notifyDataSetChanged();
+    }
 }

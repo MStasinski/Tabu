@@ -14,27 +14,36 @@ import java.util.Collections;
 import java.util.Date;
 
 import static com.michal_stasinski.tabu.Menu.ShopingCardListView.SELECTED_TIME;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_DELIVERY_INTERVAL;
 
 
 /**
  * Created by win8 on 15.07.2017.
- * Klasa wykonująca oliczenie wszystkich mozliwych czasów dostawy i zwracjąjaca ArrayList z obiektami typu TimeListItem
+ * Klasa wykonująca oliczenie wszystkich mozliwych czasów dostawy
  */
 
 public class CountTimesOfDelivery {
 
 
-    public static ArrayList<TimeListItem> countAllPossibleTimesOfDelivery() {
+    /*funkcja z wszystkimy czasami w lisćie z TimeOdDeliveryPopUp zwracjąjaca ArrayList z obiektami typu TimeListItem*/
 
+    public static ArrayList<TimeListItem> countAllPossibleTimesOfDelivery(int time_Of_realization) {
+
+        /*godzina i minuta zakonczenia*/
         int endHoure = 0;
-        int startHoure = 0;
-        int startMinute = 0;
+        int endMinute = 0;
+        int strDate_with_realization_Houre;
+        int strDate_with_realization_Minute;
+        int interval_Time_in_ListView = Integer.parseInt(TIME_OF_DELIVERY_INTERVAL);
+
+        int realizationTime = time_Of_realization;
+
 
         ArrayList<TimeListItem> arrayOfAllPossibleTimeToSelect = new ArrayList<TimeListItem>();
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
-        String strDate = mdformat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        String startTime = simpleDateFormat.format(calendar.getTime());
 
 
         Date today = calendar.getTime();
@@ -45,33 +54,63 @@ public class CountTimesOfDelivery {
         String tomorrowAsString = dateFormat.format(tomorrow);
 
 
-        String[] hourArr = strDate.split(":");
         Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
 
         String[] closeTime = time_open_close.getCloseTime();
 
-        endHoure = Integer.parseInt(closeTime[0]) + 1;
-        startMinute = Integer.parseInt(closeTime[1]);
 
-        Date Start = null;
-        Date End = null;
+        int eh = Integer.parseInt(closeTime[0]);
+        int em = Integer.parseInt(closeTime[1]);
+        Date eTimeData = null;
+        try {
+
+            eTimeData = simpleDateFormat.parse(eh + ":" + em);
+        } catch (ParseException e) {
+
+        }
+
+        Date startTimeData = null;
+        Date endTimeData = null;
 
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        String[] startHourArr = startTime.split(":");
+        /*czas rozpoczecia realizacji*/
+        strDate_with_realization_Houre = Integer.parseInt(startHourArr[0]) * 60 + Integer.parseInt(startHourArr[1]) + realizationTime;
+        strDate_with_realization_Minute = strDate_with_realization_Houre - (strDate_with_realization_Houre / 60) * 60;
+        strDate_with_realization_Minute = (strDate_with_realization_Minute / 5) * 5;
+
+        int houre = strDate_with_realization_Houre / 60;
+        if (houre >= 24) {
+            houre = houre - 24;
+        }
+
+        String startDateNew = String.valueOf(houre) + ":" + String.valueOf(strDate_with_realization_Minute);
+
+
+        int endH = eh * 60 + em + realizationTime;
+        int endM = endH - (endH / 60) * 60;
+
+
+        String endDateNew = String.valueOf(endH / 60) + ":" + String.valueOf(endM);
+
+        endHoure = endH / 60;
+        endMinute = endM;
 
         try {
-            Start = simpleDateFormat.parse(strDate);
-            End = simpleDateFormat.parse(endHoure + ":" + startMinute);
+
+            startTimeData = simpleDateFormat.parse(startDateNew);
+            endTimeData = simpleDateFormat.parse(endDateNew);
 
         } catch (ParseException e) {
 
         }
 
-        long difference = End.getTime() - Start.getTime();
-
+        long difference = endTimeData.getTime() - startTimeData.getTime();
         int days = (int) (difference / (1000 * 60 * 60 * 24));
         int hours = (int) ((difference - (1000 * 60 * 60 * 24 * days)) / (1000 * 60 * 60));
         int min = (int) (difference - (1000 * 60 * 60 * 24 * days) - (1000 * 60 * 60 * hours)) / (1000 * 60);
+
+
         if (hours < 0) {
             hours += 24;
         }
@@ -81,19 +120,19 @@ public class CountTimesOfDelivery {
             min += 60;
             hours = (int) (hours + newone);
         }
-        String c = hours + ":" + min;
-        String[] d = c.split(":");
-
-        int realizationTime = 30;
-        int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / realizationTime;
+        String ileGodzinRoznicy = hours + ":" + min;
+        String[] d = ileGodzinRoznicy.split(":");
 
 
-        for (int i = 1; i < ilePozycjiczasu + 1; i++) {
+        int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
+
+        for (int i = 0; i < ilePozycjiczasu + 1; i++) {
+
             TimeListItem time = new TimeListItem();
+            float h = (float) ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
+            int ff = ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
 
-            float h = (float) ((endHoure * 60 + startMinute) - (realizationTime * (i))) / 60;
-            int ff = ((endHoure * 60 + startMinute) - (realizationTime * (i))) / 60;
-            float g = ((endHoure * 60 + startMinute) - (realizationTime * (i))) / 60;
+            float g = ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
             String output = MathUtils.formatDecimal(h, 0);
             String r = MathUtils.formatDecimal((h - g) * 60, 0);
             String hh = MathUtils.formatDecimal((h - g) * 60, 2);
@@ -108,12 +147,9 @@ public class CountTimesOfDelivery {
 
             if (Math.ceil(ff) < 0) {
                 ff = ff + 24;
-                time.setDay("2");
             } else if (Math.ceil(ff) >= 24) {
                 ff = ff - 24;
-                time.setDay("0");
             } else {
-                time.setDay("1");
             }
 
             if (Integer.parseInt(r) < 10) {
@@ -129,6 +165,13 @@ public class CountTimesOfDelivery {
                 time.setTextTime(ff + ":" + r);
             }
 
+            int change = strDate_with_realization_Houre / 60;
+            if (ff < change) {
+                time.setOrderData(tomorrowAsString);
+            } else {
+                time.setOrderData(todayAsString);
+            }
+
             time.setMark(false);
             if (SELECTED_TIME == ilePozycjiczasu - i) {
                 time.setMark(true);
@@ -139,29 +182,6 @@ public class CountTimesOfDelivery {
 
         Collections.reverse(arrayOfAllPossibleTimeToSelect);
 
-
-        String isDayChange = "";
-        int count = 0;
-        Boolean isChange = false;
-        for (int i = 0; i < arrayOfAllPossibleTimeToSelect.size(); i++) {
-            if (!isDayChange.equals(arrayOfAllPossibleTimeToSelect.get(i).getDay())) {
-
-                isDayChange = arrayOfAllPossibleTimeToSelect.get(i).getDay();
-
-                if (count > 0) {
-                   // Log.i("informacja", "nastapila zmiana" + arrayOfAllPossibleTimeToSelect.get(i).getTime());
-                    isChange = true;
-                }
-                count++;
-            }
-
-            if (isChange == false) {
-                arrayOfAllPossibleTimeToSelect.get(i).setOrderData(todayAsString);
-            } else {
-                arrayOfAllPossibleTimeToSelect.get(i).setOrderData(tomorrowAsString);
-            }
-        }
-
         if (SELECTED_TIME == 0) {
 
             arrayOfAllPossibleTimeToSelect.get(0).setMark(true);
@@ -170,5 +190,28 @@ public class CountTimesOfDelivery {
 
         return arrayOfAllPossibleTimeToSelect;
     }
+
+
+   /* obliczenie czasu dla dostawy  "Jak Najszybciej... w moencie wysłania zamowienia*/
+
+    public static String countTimeOfDelivery_type_asFastYouCan(int time_Of_realization) {
+        int realizationTime = time_Of_realization;
+
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
+        Calendar calendar = Calendar.getInstance();
+        String strDate = mdformat.format(calendar.getTime());
+
+        String[] hourArr = strDate.split(":");
+
+        int newhourValue = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]) + realizationTime;
+
+        int min = newhourValue - (newhourValue / 60) * 60;
+        //float newhourValue2 = Integer.parseInt(hourArr[0]) * 60 + Integer.parseInt(hourArr[1]) + reslization;
+
+        //String timeAFYC = String.valueOf(newhourValue / 60);
+        String timeAFYC = String.valueOf(newhourValue / 60) + ":" + String.valueOf(min);
+        return timeAFYC;
+    }
+
 }
 

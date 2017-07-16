@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ButtonBarLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -49,9 +50,12 @@ import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_DELIVERY;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_TAKEAWAY;
 import static com.michal_stasinski.tabu.SplashScreen.USER_UNIQUE_ID_PREF;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
+import static com.michal_stasinski.tabu.Utils.CountTimesOfDelivery.countAllPossibleTimesOfDelivery;
 
 
 public class ShopingCardListView extends SwipeBackActivity {
@@ -83,9 +87,14 @@ public class ShopingCardListView extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
 
         Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        timeList = new ArrayList<TimeListItem>();
+        timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
+        // TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
+
 
         if (!time_open_close.getRestaurantIsOpen()) {
             CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
@@ -129,6 +138,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         deliveryCost = prefs.getInt("deliveryCost", 0);
 
         adapter = new ShopingCardAdapter(this);
+
         ShopingCardItem produkt = new ShopingCardItem();
 
         if (firstname != null && !firstname.equals("Imię") &&
@@ -275,8 +285,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     !streetFromData.equals("Ulica") &&
                     !townFromData.equals("Miasto") &&
                     !houseNrFromData.equals("Nr domu") &&
-                    !(delivery_mode.equals("ODBIÓR WŁASNY") &&
-                            DataForDeliveryListView.deliveryCost > 0)) {
+                    !(delivery_mode.equals("ODBIÓR WŁASNY"))) {
 
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(3);
                 el.setDesc(street);
@@ -289,6 +298,7 @@ public class ShopingCardListView extends SwipeBackActivity {
             } else {
                 ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
                 el0.setDesc("ODBIÓR WŁASNY");
+                Log.i("informacja", " ODBIÓR WŁASNY 1");
                 // deliveryCost = 0;
                 selectedItem_del_cost.setDesc("0.00");
                 selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
@@ -300,7 +310,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         if (street != null) {
             if (delivery_mode != null && !streetFromData.equals("Ulica") &&
                     !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") &&
-                    !delivery_mode.equals("ODBIÓR WŁASNY") && DataForDeliveryListView.deliveryCost > 0) {
+                    !delivery_mode.equals("ODBIÓR WŁASNY")) {
 
                 ShopingCardItem el = (ShopingCardItem) adapter.getItem(2);
                 el.setDesc(delivery_mode);
@@ -308,11 +318,20 @@ public class ShopingCardListView extends SwipeBackActivity {
                 deliveryCost = prefs.getInt("deliveryCost", 0);
                 selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
                 adapter.notifyDataSetChanged();
+                timeList = new ArrayList<TimeListItem>();
+                timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_DELIVERY));
+                TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
+                getInfoFromTimeofDeliveryPopUp();
+
 
             } else {
                 ShopingCardItem el0 = (ShopingCardItem) adapter.getItem(2);
                 el0.setDesc("ODBIÓR WŁASNY");
-                // deliveryCost = 0;
+                Log.i("informacja", " ODBIÓR WŁASNY 2");
+                timeList = new ArrayList<TimeListItem>();
+                timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
+                TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
+                getInfoFromTimeofDeliveryPopUp();
                 ShopingCardItem el1 = (ShopingCardItem) adapter.getItem(3);
                 el1.setDesc(RESTAURANT_ADDRES);
             }
@@ -328,9 +347,9 @@ public class ShopingCardListView extends SwipeBackActivity {
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
                 Object listItem = listView.getItemAtPosition(position);
                 Intent intent = new Intent();
-
+                save_state();
                 if (position == 0) {
-                    save_state();
+
                     intent.setClass(view.getContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
@@ -342,6 +361,14 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                     if (selectedItem.getDesc().equals("ODBIÓR WŁASNY")) {
                         selectedItem.setDesc("DOSTAWA");
+                        //Log.i("informacja", " DOSTAWA 1");
+                        timeList = new ArrayList<TimeListItem>();
+                        timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_DELIVERY));
+                        TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
+                        getInfoFromTimeofDeliveryPopUp();
+
+                           /*--------------pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
+
                         selectedItem_del_cost.setDesc(String.valueOf(MathUtils.formatDecimal(deliveryCost, 2)));
                         selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()) + deliveryCost, 2)));
 
@@ -355,7 +382,9 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                         String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
 
-                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && DataForDeliveryListView.deliveryCost > 0) {
+                        //Log.i("informacja", " info "+street+"  "+streetFromData+"  "+townFromData+" "+houseNrFromData+" "+DataForDeliveryListView.deliveryCost);
+                        // if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && DataForDeliveryListView.deliveryCost > 0) {
+                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu")) {
                             selectedAddres.setDesc(street);
                         } else {
                             CustomDialogClass customDialog = new CustomDialogClass(ShopingCardListView.this);
@@ -367,26 +396,36 @@ public class ShopingCardListView extends SwipeBackActivity {
                             selectedItem_del_cost.setDesc("0.00");
                             selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
                             selectedAddres.setDesc(RESTAURANT_ADDRES);
+                            // timeList = new ArrayList<TimeListItem>();
+                            //timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
+                            //TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
                         }
 
 
                     } else {
                         selectedItem.setDesc("ODBIÓR WŁASNY".toUpperCase());
                         selectedItem_del_cost.setDesc("0.00");
+                        timeList = new ArrayList<TimeListItem>();
+                        timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
+                        TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
+                        getInfoFromTimeofDeliveryPopUp();
+
                         selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
                         ShopingCardItem selectedAddres = (ShopingCardItem) adapter.getItem(3);
                         selectedAddres.setDesc(RESTAURANT_ADDRES);
                     }
                     adapter.notifyDataSetChanged();
+                    save_state();
 
                 }
                 if (position == 3) {
-                    save_state();
+
                     intent.setClass(view.getContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
 
                 if (position == 4) {
+
                     Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
                     if (time_open_close.getRestaurantIsOpen()) {
                         intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
@@ -435,6 +474,9 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
+
+        /*   _______________________przycisk wyjścia z koszyka */
+
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
@@ -448,7 +490,8 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
- /*   _______________________przycisk wysyłania    zamówienia do bazy danych */
+
+        /*   ___________________przycisk wysyłania    zamówienia do bazy danych */
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         ButtonBarLayout sendButton = (ButtonBarLayout) findViewById(R.id.send_order);
@@ -529,19 +572,13 @@ public class ShopingCardListView extends SwipeBackActivity {
             }
         });
 
-
         adapter.notifyDataSetChanged();
-        /*pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
 
 
-        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
-        if (timeList != null) {
+        /*--------------pobiera row w shopingcard  i dane z TimeOfDEliver timeList */
 
-            TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
-            selectedTimeItem.setDesc(timeItem.getTime());
-            TIME_OF_DELIVERY = timeItem.getTime();
-            DAY_OF_DELIVERY = timeItem.getOrderData();
-        }
+
+        getInfoFromTimeofDeliveryPopUp();
 
         ShopingCardItem selectedPaymentItem = (ShopingCardItem) adapter.getItem(5);
         if (paymentMethodsList != null) {
@@ -573,7 +610,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
-       //
+        //
         // ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
         //   TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
 
@@ -631,6 +668,24 @@ public class ShopingCardListView extends SwipeBackActivity {
     }
 
 
+    private void getInfoFromTimeofDeliveryPopUp() {
+          /*pobiera wybrany lementz TimeofDeliveryPopUp*/
+        ShopingCardItem selectedTimeItem = (ShopingCardItem) adapter.getItem(4);
+        if (timeList != null) {
+
+            TimeListItem timeItem = (TimeListItem) timeList.get(SELECTED_TIME);
+            if (SELECTED_TIME == 0) {
+                selectedTimeItem.setDesc("JAK NAJSZYBCIEJ");
+            } else {
+                selectedTimeItem.setDesc(timeItem.getTime());
+            }
+
+            TIME_OF_DELIVERY = timeItem.getTime();
+            DAY_OF_DELIVERY = timeItem.getOrderData();
+        }
+
+    }
+
     protected void save_state() {
         SharedPreferences.Editor editor = getSharedPreferences(SHOPING_CARD_PREF, MODE_PRIVATE).edit();
 
@@ -641,6 +696,7 @@ public class ShopingCardListView extends SwipeBackActivity {
         editor.putString("street", street.getDesc().toString());
 
         editor.commit();
+
     }
 
 

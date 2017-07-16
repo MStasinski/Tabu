@@ -73,11 +73,15 @@ public class TimeOfDeliveryAdapter extends BaseAdapter {
 
             viewHolder = (ViewHolderItem) convertView.getTag();
         }
-        viewHolder.hour.setText(this.arr.get(position).getTextTime()+"     "+this.arr.get(position).getOrderData());
+
+       // viewHolder.hour.setText(this.arr.get(position).getTextTime()+" "+this.arr.get(position).getOrderData()+" "+this.arr.get(position).getDay());
+        viewHolder.hour.setText(this.arr.get(position).getTextTime());
         viewHolder.isSold.setVisibility(View.INVISIBLE);
+
+
         if (this.arr.get(position).getMark() == true) {
             viewHolder.check.setText("\u2713");
-            viewHolder.hour.setTextColor(Color.GRAY);
+            viewHolder.hour.setTextColor(Color.rgb(255, 126, 0));
             viewHolder.check.setTextColor(Color.rgb(255, 126, 0));
         } else {
             viewHolder.check.setText("");

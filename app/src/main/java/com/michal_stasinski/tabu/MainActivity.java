@@ -1,11 +1,14 @@
 package com.michal_stasinski.tabu;
 
 
+import android.app.Activity;
+import android.app.Application;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -86,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeStaffLogged);
 
         setContentView(R.layout.activity_main);
 

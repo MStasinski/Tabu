@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -34,8 +35,6 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaColdCutsMeatList;
     public static ArrayList<MenuItemProduct> pizzaWegetables;
     public static ArrayList<MenuItemProduct> pizzaSauces;
-
-
     public static ArrayList<NewsItem> newsArrayList;
     public static ArrayList<Number> timeWhenRestaurantIsOpen;
     public static ArrayList<Number> timeWhenRestaurantIsClose;
@@ -47,16 +46,34 @@ public class SplashScreen extends Activity {
     public static ArrayList<OrderListItem> orderList;
 
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
+
     public static final String SHOPING_CARD_PREF = "ShopingCardPref";
+
+    /*unikalne ID zamawiającego */
     public static String USER_UNIQUE_ID_PREF;
 
+    /*TODO adres restauracji klienta - kązdorazwoaod zmienić*/
     public static final String RESTAURANT_ADDRES = "Gdynia, Jaskółcza 20";
+
 
     public static String MINIMAL_PRICE_OF_ORDER = "";
 
-    //public static String DB_ORDER_DATABASE = "ZamowieniaBierzs";
+    /*interwał dostaw w timeOfDelivery Popup ListView*/
+    public static  String TIME_OF_DELIVERY_INTERVAL = "20";
+
+    /*czas realizacj zamówienia z dostawą*/
+    public static  String TIME_OF_REALIZATION_DELIVERY = "120";
+
+    /*czas realizacji zamówienia przy odbiorze na miejscu*/
+    public static String TIME_OF_REALIZATION_TAKEAWAY = "20";
+
+    /* nazwa wezła bazy danych na które wysyłane jest zamowienie*/;
     public static String DB_ORDER_DATABASE = "TEST_ORDER";
+
+    /*nazwa wezłą bazy danych -czas kiedy możliwe jest skałdadanie zamowien online*/
     public static String DB_TIMES_OPEN_END_OF_RESTAURANT = "SendOrderOnlines";
+
+
     public static String DB_NEWS = "News";
 
 
@@ -134,8 +151,9 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSauces", pizzaSauces),
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
+                  // loadFireBaseMinimalDeliveryPrice("MinimalDeliveryOrders"),
 
-                    loadFireBaseMinimalDeliveryPrice("MinimalDeliveryOrders"),
+                    loadFireOneOValue("Test_ustawienia"),
                     loadTimesOfRestaurant(),
                     loadNews()
 
@@ -231,6 +249,43 @@ public class SplashScreen extends Activity {
         return tcs.getTask();
     }
 
+    public Task<String> loadFireOneOValue(String databaseReference) {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+        myRef = database.getReference(databaseReference);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    TIME_OF_REALIZATION_DELIVERY = (String) map.get("czas_realizacji_dostawa").toString();
+                    TIME_OF_REALIZATION_TAKEAWAY = (String) map.get("czas_realizacji_odbior").toString();
+                    TIME_OF_DELIVERY_INTERVAL = (String) map.get("interwal_czasu_dostaw").toString();
+                    MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalna_wartosc_zamowienia").toString();
+
+                    Log.i("informacja", " TIME_OF_REALIZATION_DELIVERY" +  TIME_OF_REALIZATION_DELIVERY);
+                    //Log.i("informacja", " TIME_OF_REALIZATION_TAKEAWAY" +  TIME_OF_REALIZATION_TAKEAWAY);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+
+        });
+
+        return tcs.getTask();
+    }
+
+
+
+/*
     public Task<String> loadFireBaseMinimalDeliveryPrice(String databaseReference) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
 
@@ -247,10 +302,6 @@ public class SplashScreen extends Activity {
                     MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalValue").toString();
 
                 }
-
-                //Intent intent = new Intent();
-                //intent.setAction(MainActivity.FIREBASE_CHANGED);
-                // sendBroadcast(intent);
             }
 
             @Override
@@ -260,7 +311,7 @@ public class SplashScreen extends Activity {
         });
 
         return tcs.getTask();
-    }
+    }*/
 
     public Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();

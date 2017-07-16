@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.PizzaSizeAdapter;
 import com.michal_stasinski.tabu.R;
@@ -44,7 +45,10 @@ public class PizzaSizePopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+        //getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+        getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
 
         int size = 0;
         int positionIteminMenuListView = 0;

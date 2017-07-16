@@ -26,7 +26,7 @@
                 android:background="@drawable/circle_background_drawer_icon"
                 android:elevation="3dp"
                 android:src="@mipmap/menu_icon"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 android:translationX="-1dp"
                 android:translationY="-1dp"
                 android:translationZ="1dp" />
@@ -62,7 +62,7 @@
                 android:background="@drawable/circle_background_drawer_icon"
                 android:elevation="3dp"
                 android:src="@mipmap/kosz_icon"
-                android:tint="@color/colorPrimary"
+                android:tint="?colorPrimary"
                 android:translationX="-1dp"
                 android:translationY="-1dp"
                 android:translationZ="1dp" />
