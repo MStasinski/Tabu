@@ -284,7 +284,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
                     } else {
                         isClick = true;
                         // view.setOnClickListener(null);
-
+                        listView.setOnItemClickListener(null);
                         Intent intent = new Intent(view.getContext(), EditTextPopUp.class);
                         intent.putExtra("title", dataDeliveryTextFieldName[position]);
                         intent.putExtra("position", position);

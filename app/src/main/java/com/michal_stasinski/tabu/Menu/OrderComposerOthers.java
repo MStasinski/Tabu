@@ -206,32 +206,6 @@ public class OrderComposerOthers extends SwipeBackActivity {
             }
         });
 
-        //***********************************listView*****************************
-
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                Object listItem = listView.getItemAtPosition(position);
-
-                Intent intent = new Intent();
-
-                if (position == 0) {
-
-                    intent.putExtra("position", 13);
-                    intent.putExtra("title", "UWAGI");
-
-                    if (descText[0] == "Dodaj swoje uwagi") {
-                        intent.putExtra("actualText", "");
-                    } else {
-                        intent.putExtra("actualText", descText[3]);
-                    }
-                    intent.setClass(view.getContext(), EditTextPopUp.class);
-                    startActivityForResult(intent, 1);
-                }
-            }
-        });
     }
 
     @Override
@@ -310,6 +284,33 @@ public class OrderComposerOthers extends SwipeBackActivity {
         });
 
         adapter.notifyDataSetChanged();
+
+        //***********************************listView*****************************
+        final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                Object listItem = listView.getItemAtPosition(position);
+
+                Intent intent = new Intent();
+                listView.setOnItemClickListener(null);
+                if (position == 0) {
+
+                    intent.putExtra("position", 13);
+                    intent.putExtra("title", "UWAGI");
+
+                    if (descText[0] == "Dodaj swoje uwagi") {
+                        intent.putExtra("actualText", "");
+                    } else {
+                        intent.putExtra("actualText", descText[3]);
+                    }
+                    intent.setClass(view.getContext(), EditTextPopUp.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
 
     }
 

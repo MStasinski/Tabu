@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.PaymentAdapter;
 import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
@@ -56,8 +57,8 @@ public class PaymentPopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm. heightPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
-
+        //getWindow().setLayout((int) (width * .8), (int) (height * 0.6));
+        getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         paymentMethodsList = new ArrayList<PaymentItem>();
 

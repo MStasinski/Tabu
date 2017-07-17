@@ -238,51 +238,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
             }
         });
 
-        //***********************************listView*****************************
 
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                Object listItem = listView.getItemAtPosition(position);
-
-                Intent intent = new Intent();
-
-                if (position == 0) {
-
-                    intent.putExtra("size", getSize());
-                    intent.putExtra("position", itemPositionInMenuListView);
-                    intent.setClass(view.getContext(), PizzaSizePopUp.class);
-                    startActivity(intent);
-                }
-
-                if (position == 1) {
-                    intent.putExtra("size", getSize());
-                    intent.setClass(view.getContext(), AddonsPopUp.class);
-                    startActivity(intent);
-                }
-
-                if (position == 2) {
-                    intent.putExtra("size", getSize());
-                    intent.setClass(view.getContext(), SaucePopUp.class);
-                    startActivity(intent);
-                }
-
-                if (position == 3) {
-                    intent.putExtra("position", 13);
-                    intent.putExtra("title", "UWAGI");
-
-                    if (descText[3] == "Dodaj swoje uwagi") {
-                        intent.putExtra("actualText", "");
-                    } else {
-                        intent.putExtra("actualText", descText[3]);
-                    }
-                    intent.setClass(view.getContext(), EditTextPopUp.class);
-                    startActivityForResult(intent, 1);
-                }
-            }
-        });
     }
 
     @Override
@@ -417,8 +373,53 @@ public class OrderComposerPizza extends SwipeBackActivity {
             }
         });
 
-
         adapter.notifyDataSetChanged();
+
+        //***********************************listView*****************************
+        final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                Object listItem = listView.getItemAtPosition(position);
+
+                Intent intent = new Intent();
+                listView.setOnItemClickListener(null);
+                if (position == 0) {
+
+                    intent.putExtra("size", getSize());
+                    intent.putExtra("position", itemPositionInMenuListView);
+                    intent.setClass(view.getContext(), PizzaSizePopUp.class);
+                    startActivity(intent);
+                }
+
+                if (position == 1) {
+                    intent.putExtra("size", getSize());
+                    intent.setClass(view.getContext(), AddonsPopUp.class);
+                    startActivity(intent);
+                }
+
+                if (position == 2) {
+                    intent.putExtra("size", getSize());
+                    intent.setClass(view.getContext(), SaucePopUp.class);
+                    startActivity(intent);
+                }
+
+                if (position == 3) {
+                    intent.putExtra("position", 13);
+                    intent.putExtra("title", "UWAGI");
+
+                    if (descText[3] == "Dodaj swoje uwagi") {
+                        intent.putExtra("actualText", "");
+                    } else {
+                        intent.putExtra("actualText", descText[3]);
+                    }
+                    intent.setClass(view.getContext(), EditTextPopUp.class);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
 
     }
 

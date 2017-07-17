@@ -346,6 +346,8 @@ public class ShopingCardListView extends SwipeBackActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterek, View view, int position, long id) {
                 Object listItem = listView.getItemAtPosition(position);
+
+
                 Intent intent = new Intent();
                 save_state();
                 if (position == 0) {
@@ -419,13 +421,13 @@ public class ShopingCardListView extends SwipeBackActivity {
 
                 }
                 if (position == 3) {
-
+                    listView.setOnItemClickListener(null);
                     intent.setClass(view.getContext(), DataForDeliveryListView.class);
                     startActivity(intent);
                 }
 
                 if (position == 4) {
-
+                    listView.setOnItemClickListener(null);
                     Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
                     if (time_open_close.getRestaurantIsOpen()) {
                         intent.setClass(view.getContext(), TimeOfDeliveryPopUp.class);
@@ -441,12 +443,12 @@ public class ShopingCardListView extends SwipeBackActivity {
                 }
 
                 if (position == 5) {
-
+                    listView.setOnItemClickListener(null);
                     intent.setClass(view.getContext(), PaymentPopUp.class);
                     startActivity(intent);
                 }
                 if (position == 6) {
-
+                    listView.setOnItemClickListener(null);
                     intent.putExtra("title", "UWAGI");
                     intent.putExtra("position", 14);
                     ShopingCardItem selectedComments = (ShopingCardItem) adapter.getItem(6);
@@ -466,7 +468,7 @@ public class ShopingCardListView extends SwipeBackActivity {
                     intent.putExtra("quantity", orderList.get(position - 8).getQuantity());
                     intent.putExtra("name", orderList.get(position - 8).getName());
                     intent.putExtra("price", orderList.get(position - 8).getPrice());
-
+                    listView.setOnItemClickListener(null);
                     intent.setClass(view.getContext(), AddRemoveOrderPopUp.class);
                     startActivity(intent);
                 }
