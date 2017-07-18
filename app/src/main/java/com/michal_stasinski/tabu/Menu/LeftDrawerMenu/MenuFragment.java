@@ -9,11 +9,15 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -160,6 +164,25 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
                     }
                 });
                 mMapView = (MapView) myView.findViewById(R.id.map);
+                RelativeLayout layout = (RelativeLayout) myView.findViewById(R.id.mapRelativeLayout);
+                DisplayMetrics dm = new DisplayMetrics();
+                getActivity().getWindow().getWindowManager().getDefaultDisplay().getMetrics(dm);
+                int width = dm.widthPixels;
+                int height = dm. heightPixels;
+
+                Log.i("informacja", " height                  "+ height);
+               // ViewGroup.LayoutParams params = layout.getLayoutParams();
+              //  RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,height/2);
+               // mMapView.setLayoutParams(params);
+              //  mMapView.invalidate();
+
+                if(width>height) {
+                    mMapView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 240));
+                }else{
+                    mMapView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, height/3));
+                }
+                mMapView.invalidate();
+
                 if (mMapView != null) {
                     mMapView.onCreate(null);
                     mMapView.onResume();

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
@@ -24,13 +23,12 @@ public class ShopingCardAdapter extends BaseAdapter {
 
 
     private ArrayList<ShopingCardItem> arr;
-
     private LayoutInflater mInflater;
     private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
     public ShopingCardAdapter(Context context) {
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.arr = new ArrayList<ShopingCardItem>();
     }
 

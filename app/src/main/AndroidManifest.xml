@@ -54,7 +54,7 @@
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
             android:name=".Menu.AddRemoveOrderPopUp"
-            android:theme="@style/AppTheme.PopUpWindow" />
+            android:theme="@style/AppTheme.PopUpWindow3" />
         <activity
             android:name=".Menu.SaucePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />

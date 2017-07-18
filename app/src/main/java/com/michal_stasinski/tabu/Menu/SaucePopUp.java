@@ -32,7 +32,7 @@ public class SaucePopUp extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i("informacja", "onCreate");
+
         super.onCreate(savedInstanceState);
         contex = this;
         setContentView(R.layout.bounce_list_view);
@@ -41,7 +41,7 @@ public class SaucePopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        //getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+
         getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int size = 0;
         Intent intent = getIntent();
@@ -63,6 +63,13 @@ public class SaucePopUp extends Activity {
                 if (!item.getSold()) {
                     saucePopUpAdapter.setChoooseHowManyItemYouOrder(position);
                 }
+
+                /*przekazanaie rozmiaru do OrderCompozerPizza*/
+                //OrderComposerPizza.setSize(position);
+
+                Intent intent = new Intent();
+                intent.setAction(OrderComposerPizza.ORDER_COMPOSER_CHANGE);
+                sendBroadcast(intent);
 
                 saucePopUpAdapter.notifyDataSetChanged();
             }

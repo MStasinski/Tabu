@@ -6,13 +6,14 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/mapRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp">
@@ -20,7 +21,7 @@
             <com.google.android.gms.maps.MapView
                 android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="240dp"
                 android:layout_marginBottom="10dp" />
 
 
@@ -104,7 +105,7 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

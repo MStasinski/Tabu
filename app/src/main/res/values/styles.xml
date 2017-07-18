@@ -52,7 +52,14 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
 
     </style>
+    <style name="AppTheme.PopUpWindow3">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:colorForeground">#ffffff</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowBackground">@drawable/popup_window_background3</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
 
+    </style>
     <style name="Theme.Swipe.Back" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

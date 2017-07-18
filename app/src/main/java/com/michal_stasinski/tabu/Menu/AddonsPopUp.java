@@ -109,11 +109,15 @@ public class AddonsPopUp extends Activity {
                 if(!item.getSold()) {
                     addonsPopUpAdapter.setChoooseHowManyItemYouOrder(position);
                 }
+
+                Intent intent = new Intent();
+                intent.setAction(OrderComposerPizza.ORDER_COMPOSER_CHANGE);
+                sendBroadcast(intent);
+
                 addonsPopUpAdapter.notifyDataSetChanged();
             }
         });
 
     }
-
 
 }

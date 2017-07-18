@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
@@ -30,12 +32,13 @@ public class AddRemoveOrderPopUp extends Activity {
     private float price;
     private String name;
     private TextView quantity_num;
-    private Button actualBtn;
+    private ButtonBarLayout actualBtn;
+    private TextView actualTxt;
     private Button removeAllBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i("informacja", "onCreate");
+
         super.onCreate(savedInstanceState);
         contex = this;
         setContentView(R.layout.activity_add_remove_order_pop_up);
@@ -56,14 +59,17 @@ public class AddRemoveOrderPopUp extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
-
+        //getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
+        getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.dish_title);
         titleTxt.setText(name);
+
         removeAllBtn = (Button) findViewById(R.id.removeAll);
-        actualBtn = (Button) findViewById(R.id.actual_order_button);
+        actualBtn = (ButtonBarLayout) findViewById(R.id.actual_order_button);
+        actualTxt = (TextView) findViewById(R.id.actualTxt);
+
         String output = MathUtils.formatDecimal(quantity * price, 2);
-        actualBtn.setText("Aktualizuj koszy      " + output);
+        actualTxt.setText("AKTUALIZUJ KOSZYK " + output);
         Button removeBtn = (Button) findViewById(R.id.removeItem);
         Button addBtn = (Button) findViewById(R.id.addItem);
 
@@ -95,7 +101,7 @@ public class AddRemoveOrderPopUp extends Activity {
             public void onClick(View v) {
                 quantity += 1;
                 String output = MathUtils.formatDecimal(quantity * price, 2);
-                actualBtn.setText("Aktualizuj koszy      " + output);
+                actualTxt.setText("AKTUALIZUJ KOSZYK " + output);
                 quantity_num.setText(String.valueOf(quantity));
             }
         });
@@ -107,7 +113,7 @@ public class AddRemoveOrderPopUp extends Activity {
                 if (quantity > 0) {
                     quantity -= 1;
                     String output = MathUtils.formatDecimal(quantity * price, 2);
-                    actualBtn.setText("Aktualizuj koszy      " + output);
+                    actualTxt.setText("AKTUALIZUJ KOSZYK " + output);
                     quantity_num.setText(String.valueOf(quantity));
                 }
             }

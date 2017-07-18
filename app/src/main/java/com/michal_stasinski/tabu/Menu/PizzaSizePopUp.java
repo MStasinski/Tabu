@@ -49,7 +49,6 @@ public class PizzaSizePopUp extends Activity {
         getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 
-
         int size = 0;
         int positionIteminMenuListView = 0;
 
@@ -80,8 +79,19 @@ public class PizzaSizePopUp extends Activity {
                 for (int i = 0; i < pizzaSizes_CheckMark.size(); i++) {
                     pizzaSizes_CheckMark.set(i, 0);
                 }
+
+
+                /*przekazanaie rozmiaru do OrderCompozerPizza*/
                 OrderComposerPizza.setSize(position);
+
+
+                Intent intent = new Intent();
+                intent.setAction(OrderComposerPizza.ORDER_COMPOSER_CHANGE);
+                sendBroadcast(intent);
+
+
                 pizzaSizes_CheckMark.set(position, 1);
+               // chooseSize = position;
                 adapterek.notifyDataSetChanged();
 
                 Object listItem = mListViewMenu.getItemAtPosition(position);
@@ -90,25 +100,14 @@ public class PizzaSizePopUp extends Activity {
 
     }
 
-    @Override
-    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-        return super.onCreateView(parent, name, context, attrs);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("informacja", "PopUp_onDestroy");
-    }
-
-
+/*
     public int getChooseSize() {
         return chooseSize;
     }
 
     public void setChooseSize(int chooseSize) {
         this.chooseSize = chooseSize;
-    }
+    }*/
 
 
 }

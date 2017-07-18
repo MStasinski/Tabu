@@ -267,8 +267,6 @@ public class SplashScreen extends Activity {
                     TIME_OF_DELIVERY_INTERVAL = (String) map.get("interwal_czasu_dostaw").toString();
                     MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalna_wartosc_zamowienia").toString();
 
-                    Log.i("informacja", " TIME_OF_REALIZATION_DELIVERY" +  TIME_OF_REALIZATION_DELIVERY);
-                    //Log.i("informacja", " TIME_OF_REALIZATION_TAKEAWAY" +  TIME_OF_REALIZATION_TAKEAWAY);
                 }
 
 
@@ -284,34 +282,6 @@ public class SplashScreen extends Activity {
     }
 
 
-
-/*
-    public Task<String> loadFireBaseMinimalDeliveryPrice(String databaseReference) {
-        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef;
-        myRef = database.getReference(databaseReference);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot item : dataSnapshot.getChildren()) {
-                    DataSnapshot dataitem = item;
-                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
-                    MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalValue").toString();
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-        });
-
-        return tcs.getTask();
-    }*/
 
     public Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
         final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();

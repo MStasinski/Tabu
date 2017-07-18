@@ -3,7 +3,10 @@ package com.michal_stasinski.tabu.Menu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,12 +21,11 @@ import android.widget.TextView;
 import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.OrderComposerListViewAdapter;
+import com.michal_stasinski.tabu.Menu.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
@@ -35,14 +37,21 @@ import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 
 public class OrderComposerPizza extends SwipeBackActivity {
 
+    public static final String ORDER_COMPOSER_CHANGE = "pizzasizechange";
+    public static final String PIZZA_ADDONS_CHANGE = "pizzaaddonschange";
 
     private int itemPositionInMenuListView;
     private OrderComposerListViewAdapter adapter;
+
     private static int size = 0;
-    private int quantity = 1;
+    private String quantity = "1";
     private float sum = 0;
     private String pizzaName;
     private String rank;
+    private String names;
+    private String desc;
+    private String price;
+    private PizzaSizeReceiver orderComposerReceiver;
 
     private String[] titleText = {
             "Rozmiar",
@@ -62,31 +71,52 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         setTheme(R.style.AppThemeStaffLogged);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
 
+        final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
+        Intent intent = getIntent();
+
+        /******************pobranie danych z Menu*********************/
+        names = intent.getExtras().getString("name");
+        desc = intent.getExtras().getString("desc");
+        itemPositionInMenuListView = intent.getExtras().getInt("position");
+        rank = intent.getExtras().getString("rank");
+        price = intent.getExtras().getString("price");
+        size = intent.getExtras().getInt("size");
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         //************************* przycisk close**********************
 
         Button closeButton = (Button) findViewById(R.id.bClose);
-
         closeButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                //************************ kasowanie tego co jest wpisane w komorki poniewaz komonowanie zamowienia nie został ozkaonczone
 
                 if (saucePopUpAdapter != null) {
                     for (int i = 0; i < saucePopUpAdapter.getItemArray().size(); i++) {
                         saucePopUpAdapter.getItemArray().get(i).setHowManyItemSelected(0);
                     }
                 }
+
                 if (addonsPopUpAdapter != null) {
                     for (int i = 0; i < addonsPopUpAdapter.getItemArray().size(); i++) {
                         addonsPopUpAdapter.getItemArray().get(i).setHowManyItemSelected(0);
                     }
                 }
 
+                addElementToAdapter();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
@@ -99,6 +129,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
         bottom_action_bar_btn0.setVisibility(View.INVISIBLE);
 
         bottom_action_bar_btn1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -114,164 +145,47 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     intent.setClass(getBaseContext(), ShopingCardListView.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.from_right, R.anim.to_left);
-
                 }
             }
         });
 
 
-        //********************************************************************************
+        //************************ kasowanie tego co jest wpisane w komorki poniewaz komonowanie zamowienia nie został ozkaonczone
+        orderComposerReceiver = new PizzaSizeReceiver();
+        IntentFilter intentFilter = new IntentFilter(ORDER_COMPOSER_CHANGE);
+        registerReceiver(orderComposerReceiver, intentFilter);
 
 
-        // CustomFont_Avenir_Medium title = (CustomFont_Avenir_Medium) findViewById(R.id.order_composer_positionInList);
-        TextView nameTxt = (TextView) findViewById(R.id.order_composer_titleItem);
-        TextView descTxt = (TextView) findViewById(R.id.order_composer_desc);
-        TextView priceTxt = (TextView) findViewById(R.id.order_composer_price);
+        //************************   dodaje elementy  do ADAPTERA   ************************
 
+        addElementToAdapter();
+        reloadTextInRows();
+        addElementToShopingCard();
 
-        String output = MathUtils.formatDecimal(sum, 2);
+        adapter.registerDataSetObserver(new DataSetObserver() {
 
-        final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
-
-        Intent intent = getIntent();
-
-        String names = intent.getExtras().getString("name");
-        String desc = intent.getExtras().getString("desc");
-        itemPositionInMenuListView = intent.getExtras().getInt("position");
-        rank = intent.getExtras().getString("rank");
-        String price = intent.getExtras().getString("price");
-        size = intent.getExtras().getInt("size");
-
-
-        //  title.setText("-" + String.valueOf(itemPositionInMenuListView + 1) + "-");
-        nameTxt.setText(names.toUpperCase());
-        descTxt.setText(desc);
-        priceTxt.setText(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(size).toString());
-        pizzaName = "PIZZA "+names.toUpperCase();
-
-        descText[0] = String.valueOf(20 + size * 10) + " cm";
-
-        adapter = new OrderComposerListViewAdapter(this, titleText, descText);
-        adapter.notifyDataSetChanged();
-
-        //*********************************** addToCartBtn*********************************************
-
-        final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
-        final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
-        addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-        addToCartBtn_txt.setTransformationMethod(null);
-        addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
-                v.setEnabled(false);
-                v.animate()
+            public void onChanged() {
 
-                        .alpha(0.0f)
-                        .setDuration(500)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                v.setAlpha(1.0f);
-                                v.setEnabled(true);
-                            }
-                        });
+                TextView num = (TextView) findViewById(R.id.order_compositor_quantity_num);
+                quantity = ((String) num.getText());
+                String output = MathUtils.formatDecimal(sum * Integer.parseInt(quantity), 2);
 
-
-                OrderListItem order = new OrderListItem();
-                order.setName(pizzaName);
-                order.setSize(descText[0]);
-                order.setPrice(sum);
-                order.setNr(Integer.parseInt(rank));
-                String addon = descText[1];
-                String sauce = descText[2];
-                String note = descText[3];
-
-                if (descText[1] != "Wybierz dodatki" && descText[1] != null) {
-                    order.setAddon(addon);
-                } else {
-                    order.setAddon("");
-                    addon = "";
-                }
-                if (descText[2] != "Wybierz dodatkowy sos" && descText[2] != null) {
-                    order.setSauce(descText[2]);
-                } else {
-                    sauce = "";
-                    order.setSauce(sauce);
-                }
-                if (descText[3] != "Dodaj swoje uwagi" && descText[3] != null) {
-                    order.setNote("UWAGI: " + descText[3]);
-                } else {
-                    note = "";
-                    order.setNote(note);
-                }
-
-                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce + " " + note;
-                int isAlready = -1;
-
-                for (int i = 0; i < orderList.size(); i++) {
-                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce() + " " + orderList.get(i).getNote();
-
-                    Log.i("informacja",st+ " ________ "+ actualOrder);
-                    if (st.equals(actualOrder)) {
-
-                        isAlready = i;
-                    }
-                }
-
-
-                if (isAlready == -1) {
-
-                    order.setQuantity(quantity);
-                    orderList.add(order);
-                    // orderList.get(0).setQuantity(quantity);
-                } else {
-                    //orderList.add(order);
-                    int quantityOld = orderList.get(isAlready).getQuantity();
-
-                    orderList.get(isAlready).setQuantity(quantity + quantityOld);
-                }
-                FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
-                //CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
-                info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
+                final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
+                final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
+                addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+                addToCartBtn_txt.setTransformationMethod(null);
 
             }
         });
-
+        clickOnListViewElement();
+        addElementToAdapter();
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i("informacja", "resultresult 000 ");
-        if (requestCode == 1) {
+    public void reloadTextInRows() {
 
-            if (resultCode == Activity.RESULT_OK) {
 
-                String result = data.getStringExtra("edit_text");
-
-                Log.i("informacja", "resultresult " + result);
-
-                if (!result.equals("")) {
-                    descText[3] = result;
-
-                } else {
-                    descText[3] = "Dodaj swoje uwagi";
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        //  CustomFont_Avenir_Bold info_about_price= (CustomFont_Avenir_Bold) findViewById(R.id.info_about_price_and_quantity);
         FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
         info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
 
@@ -339,43 +253,11 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
         String output = MathUtils.formatDecimal(sum, 2);
 
-
-       /* Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-        addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-        addToCartBtn.setTransformationMethod(null);*/
-        final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
-        final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
-        addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-        addToCartBtn_txt.setTransformationMethod(null);
-
-        TextView priceTxt = (TextView) findViewById(R.id.order_composer_price);
-
-        String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
-        priceTxt.setText(oputput + " zł");
+    }
 
 
-        adapter.setDescArr(descText);
+    public void clickOnListViewElement() {
 
-        adapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                quantity = adapter.getNum_value();
-                String output = MathUtils.formatDecimal(sum * quantity, 2);
-
-                final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
-                final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
-                addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-                addToCartBtn_txt.setTransformationMethod(null);
-
-               //Button addToCartBtn = (Button) findViewById(R.id.order_composer_button);
-                //addToCartBtn.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
-               // addToCartBtn.setTransformationMethod(null);
-            }
-        });
-
-        adapter.notifyDataSetChanged();
-
-        //***********************************listView*****************************
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -386,7 +268,7 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
                 Intent intent = new Intent();
                 listView.setOnItemClickListener(null);
-                if (position == 0) {
+                if (position == 1) {
 
                     intent.putExtra("size", getSize());
                     intent.putExtra("position", itemPositionInMenuListView);
@@ -394,19 +276,19 @@ public class OrderComposerPizza extends SwipeBackActivity {
                     startActivity(intent);
                 }
 
-                if (position == 1) {
+                if (position == 2) {
                     intent.putExtra("size", getSize());
                     intent.setClass(view.getContext(), AddonsPopUp.class);
                     startActivity(intent);
                 }
 
-                if (position == 2) {
+                if (position == 3) {
                     intent.putExtra("size", getSize());
                     intent.setClass(view.getContext(), SaucePopUp.class);
                     startActivity(intent);
                 }
 
-                if (position == 3) {
+                if (position == 4) {
                     intent.putExtra("position", 13);
                     intent.putExtra("title", "UWAGI");
 
@@ -423,6 +305,158 @@ public class OrderComposerPizza extends SwipeBackActivity {
 
     }
 
+    public void addElementToShopingCard() {
+
+        String output = MathUtils.formatDecimal(sum, 2);
+
+        final TextView addToCartBtn_txt = (TextView) findViewById(R.id.order_composer_button_txt);
+        final ButtonBarLayout addToCartBtn = (ButtonBarLayout) findViewById(R.id.order_composer_button);
+
+        addToCartBtn_txt.setText("DODAJ " + quantity + " DO KOSZYKA " + output + " zł");
+        addToCartBtn_txt.setTransformationMethod(null);
+        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                v.setEnabled(false);
+                v.animate()
+
+                        .alpha(0.0f)
+                        .setDuration(500)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                v.setAlpha(1.0f);
+                                v.setEnabled(true);
+                            }
+                        });
+
+                OrderListItem order = new OrderListItem();
+                order.setName(pizzaName);
+                order.setSize(descText[0]);
+                order.setPrice(sum);
+                order.setNr(Integer.parseInt(rank));
+                String addon = descText[1];
+                String sauce = descText[2];
+                String note = descText[3];
+
+                if (descText[1] != "Wybierz dodatki" && descText[1] != null) {
+                    order.setAddon(addon);
+                } else {
+                    order.setAddon("");
+                    addon = "";
+                }
+                if (descText[2] != "Wybierz dodatkowy sos" && descText[2] != null) {
+                    order.setSauce(descText[2]);
+                } else {
+                    sauce = "";
+                    order.setSauce(sauce);
+                }
+                if (descText[3] != "Dodaj swoje uwagi" && descText[3] != null) {
+                    order.setNote("UWAGI: " + descText[3]);
+                } else {
+                    note = "";
+                    order.setNote(note);
+                }
+
+                String actualOrder = pizzaName + " " + descText[0] + " " + addon + " " + sauce + " " + note;
+                int isAlready = -1;
+
+                for (int i = 0; i < orderList.size(); i++) {
+                    String st = orderList.get(i).getName() + " " + orderList.get(i).getSize() + " " + orderList.get(i).getAddon() + " " + orderList.get(i).getSauce() + " " + orderList.get(i).getNote();
+
+                    if (st.equals(actualOrder)) {
+                        isAlready = i;
+                    }
+                }
+
+                if (isAlready == -1) {
+                    order.setQuantity(Integer.parseInt(quantity));
+                    orderList.add(order);
+                } else {
+                    int quantityOld = orderList.get(isAlready).getQuantity();
+                    orderList.get(isAlready).setQuantity(Integer.parseInt(quantity) + quantityOld);
+                }
+
+                FontFitTextView info_about_price = (FontFitTextView) findViewById(R.id.info_about_price_and_quantity);
+                info_about_price.setText("(" + OrderComposerUtils.sum_of_all_quantities() + ") " + OrderComposerUtils.sum_of_all_the_prices() + " zł");
+
+            }
+        });
+
+    }
+
+    //************************** funkcja odbiera Uwagi z EditTextPopap
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+
+            if (resultCode == Activity.RESULT_OK) {
+
+                String result = data.getStringExtra("edit_text");
+
+                if (!result.equals("")) {
+                    descText[3] = result;
+
+                } else {
+                    descText[3] = "Dodaj swoje uwagi";
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
+    }
+
+    //************************** ładowanie komorek do Adaptera**********************/
+    public void addElementToAdapter() {
+
+        pizzaName = "PIZZA " + names.toUpperCase();
+        adapter = new OrderComposerListViewAdapter(this);
+
+        OrderComposerItem header = new OrderComposerItem();
+        header.setType(OrderComposerListViewAdapter.TYPE_HEADER);
+        header.setTitle(names);
+        header.setDesc(desc);
+
+
+        String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
+        Log.i("informacja", size+"PIZZA_SIZE_CHANGE"+getSize()+ "  " +oputput);
+        header.setPrice(oputput);
+        adapter.addItem(header);
+
+        OrderComposerItem pizzaSizeItem = new OrderComposerItem();
+        pizzaSizeItem.setType(OrderComposerListViewAdapter.TYPE_PIZZA_SIZE);
+        pizzaSizeItem.setTitle(titleText[0]);
+        pizzaSizeItem.setDesc(String.valueOf(20 + getSize() * 10) + " cm");
+        adapter.addItem(pizzaSizeItem);
+
+        OrderComposerItem pizzaAddonsItem = new OrderComposerItem();
+        pizzaAddonsItem.setType(OrderComposerListViewAdapter.TYPE_PIZZA_ADDONS);
+        pizzaAddonsItem.setTitle(titleText[1]);
+        pizzaAddonsItem.setDesc(descText[1]);
+        adapter.addItem(pizzaAddonsItem);
+
+        OrderComposerItem pizzaSouceItem = new OrderComposerItem();
+        pizzaSouceItem.setType(OrderComposerListViewAdapter.TYPE_PIZZA_SOUCE);
+        pizzaSouceItem.setTitle(titleText[2]);
+        pizzaSouceItem.setDesc(descText[2]);
+        adapter.addItem(pizzaSouceItem);
+
+        OrderComposerItem pizzaComments = new OrderComposerItem();
+        pizzaComments.setType(OrderComposerListViewAdapter.TYPE_COMMENTS);
+        pizzaComments.setTitle(titleText[3]);
+        pizzaComments.setDesc(descText[3]);
+        adapter.addItem(pizzaComments);
+
+        OrderComposerItem add_remove_btn = new OrderComposerItem();
+        add_remove_btn.setType(OrderComposerListViewAdapter.TYPE_ADD_REMOVE_PANEL);
+        adapter.addItem(add_remove_btn);
+        adapter.notifyDataSetChanged();
+
+    }
 
     public static int getSize() {
         return size;
@@ -431,4 +465,32 @@ public class OrderComposerPizza extends SwipeBackActivity {
     public static void setSize(int size) {
         OrderComposerPizza.size = size;
     }
+
+
+    @Override
+    protected void onStop() {
+        if (orderComposerReceiver != null) {
+            unregisterReceiver(orderComposerReceiver);
+            orderComposerReceiver = null;
+        }
+        super.onStop();
+    }
+
+
+    public class PizzaSizeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ORDER_COMPOSER_CHANGE)) {
+                Log.i("informacja", size+"PIZZA_SIZE_CHANGE"+getSize());
+
+                addElementToAdapter();
+                reloadTextInRows();
+                addElementToShopingCard();
+                clickOnListViewElement();
+                addElementToAdapter();
+            }
+        }
+    }
 }
+
+
