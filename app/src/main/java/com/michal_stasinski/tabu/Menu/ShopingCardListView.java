@@ -398,8 +398,8 @@ public class ShopingCardListView extends SwipeBackActivity {
                             selectedItem_del_cost.setDesc("0.00");
                             selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
                             selectedAddres.setDesc(RESTAURANT_ADDRES);
-                            // timeList = new ArrayList<TimeListItem>();
-                            //timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
+                             timeList = new ArrayList<TimeListItem>();
+                            timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
                             //TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
                         }
 

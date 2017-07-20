@@ -62,12 +62,12 @@ public class SplashScreen extends Activity {
     public static  String TIME_OF_DELIVERY_INTERVAL = "20";
 
     /*czas realizacj zamówienia z dostawą*/
-    public static  String TIME_OF_REALIZATION_DELIVERY = "120";
+    public static  String TIME_OF_REALIZATION_DELIVERY = "30";
 
     /*czas realizacji zamówienia przy odbiorze na miejscu*/
     public static String TIME_OF_REALIZATION_TAKEAWAY = "20";
 
-    /* nazwa wezła bazy danych na które wysyłane jest zamowienie*/;
+    /* nazwa wezła bazy danych na które wysyłane jest zagiowienie*/;
     public static String DB_ORDER_DATABASE = "TEST_ORDER";
 
     /*nazwa wezłą bazy danych -czas kiedy możliwe jest skałdadanie zamowien online*/
@@ -153,7 +153,7 @@ public class SplashScreen extends Activity {
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                   // loadFireBaseMinimalDeliveryPrice("MinimalDeliveryOrders"),
 
-                    loadFireOneOValue("Test_ustawienia"),
+                    loadFireOneOValue("Ustawienias"),
                     loadTimesOfRestaurant(),
                     loadNews()
 
