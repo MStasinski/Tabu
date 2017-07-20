@@ -1,14 +1,11 @@
 package com.michal_stasinski.tabu;
 
 
-import android.app.Activity;
-import android.app.Application;
 import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,10 +13,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.michal_stasinski.tabu.CRM.RestaurantOwner;
+import com.michal_stasinski.tabu.CRM.CRM_MainMenu_ListView;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
@@ -248,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                 //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
                 Intent intent = new Intent();
-                intent.setClass(getBaseContext(), RestaurantOwner.class);
+                intent.setClass(getBaseContext(), CRM_MainMenu_ListView.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
