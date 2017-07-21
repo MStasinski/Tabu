@@ -121,9 +121,9 @@ public class CountTimesOfDelivery {
         String[] d = ileGodzinRoznicy.split(":");
 
 
-        int ilePozycjiCgit stazasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
+        int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
 
-        for (int i = 0; i < ilePozycjiCzasu+1 ; i++) {
+        for (int i = 0; i < ilePozycjiczasu+1 ; i++) {
 
             TimeListItem time = new TimeListItem();
             float h = (float) ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
@@ -170,7 +170,7 @@ public class CountTimesOfDelivery {
             }
 
             time.setMark(false);
-            if (SELECTED_TIME == ilePozycjiCzasu - i) {
+            if (SELECTED_TIME == ilePozycjiczasu - i) {
                 time.setMark(true);
             }
 
