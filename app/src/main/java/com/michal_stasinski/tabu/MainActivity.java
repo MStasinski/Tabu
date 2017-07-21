@@ -25,7 +25,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.CRM.CRM_MainMenu_ListView;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
-import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
+import com.michal_stasinski.tabu.Utils.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;

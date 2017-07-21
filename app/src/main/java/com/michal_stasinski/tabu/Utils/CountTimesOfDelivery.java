@@ -1,8 +1,5 @@
 package com.michal_stasinski.tabu.Utils;
 
-import android.util.Log;
-
-import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
 
 import java.text.DateFormat;
@@ -126,7 +123,7 @@ public class CountTimesOfDelivery {
 
         int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
 
-        for (int i = 0; i < ilePozycjiczasu + 1; i++) {
+        for (int i = 0; i < ilePozycjiczasu+1 ; i++) {
 
             TimeListItem time = new TimeListItem();
             float h = (float) ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
@@ -181,11 +178,11 @@ public class CountTimesOfDelivery {
         }
 
         Collections.reverse(arrayOfAllPossibleTimeToSelect);
-
+        arrayOfAllPossibleTimeToSelect.get(0).setTextTime("JAK NAJSZYBCIEJ");
         if (SELECTED_TIME == 0) {
 
             arrayOfAllPossibleTimeToSelect.get(0).setMark(true);
-            arrayOfAllPossibleTimeToSelect.get(0).setTextTime("JAK NAJSZYBCIEJ");
+
         }
 
         return arrayOfAllPossibleTimeToSelect;

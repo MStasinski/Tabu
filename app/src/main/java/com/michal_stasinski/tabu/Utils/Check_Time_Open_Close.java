@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Utils;
 
 import android.util.Log;
 

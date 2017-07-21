@@ -1,11 +1,8 @@
 package com.michal_stasinski.tabu.Menu.LeftDrawerMenu;
 
 import android.Manifest;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -14,9 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,12 +26,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
-import com.michal_stasinski.tabu.Menu.Check_Time_Open_Close;
+import com.michal_stasinski.tabu.Utils.Check_Time_Open_Close;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 
 import java.util.ArrayList;
 
