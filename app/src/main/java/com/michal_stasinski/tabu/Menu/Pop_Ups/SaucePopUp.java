@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Menu.Pop_Ups;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.SauceAdapter;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.Menu.Order_Composer_details_Pizza;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -65,10 +65,10 @@ public class SaucePopUp extends Activity {
                 }
 
                 /*przekazanaie rozmiaru do OrderCompozerPizza*/
-                //OrderComposerPizza.setSize(position);
+                //Order_Composer_details_Pizza.setSize(position);
 
                 Intent intent = new Intent();
-                intent.setAction(OrderComposerPizza.ORDER_COMPOSER_CHANGE);
+                intent.setAction(Order_Composer_details_Pizza.ORDER_COMPOSER_CHANGE);
                 sendBroadcast(intent);
 
                 saucePopUpAdapter.notifyDataSetChanged();

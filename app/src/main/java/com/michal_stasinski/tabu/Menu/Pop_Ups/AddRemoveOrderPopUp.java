@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Menu.Pop_Ups;
 
 import android.app.Activity;
 import android.content.Context;

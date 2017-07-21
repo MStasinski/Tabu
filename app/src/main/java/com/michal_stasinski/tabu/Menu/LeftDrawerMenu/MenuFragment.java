@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomListViewAdapter;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomNewsListViewAdapter;
-import com.michal_stasinski.tabu.Utils.Check_Time_Open_Close;
+import com.michal_stasinski.tabu.Utils.Check_if_the_restaurant_is_open;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -198,7 +198,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
             arrayAdapter.setButton_flag_enabled(true);
         }
         if (MainActivity.CHOICE_ACTIVITY == 0) {
-            Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+            Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
 
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
 
@@ -237,7 +237,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
             mListViewMenu = (BounceListView) myView.findViewById(R.id.mListView_BaseMenu);
 
-            Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+            Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
             txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od " + MINIMAL_PRICE_OF_ORDER + " zł");
 

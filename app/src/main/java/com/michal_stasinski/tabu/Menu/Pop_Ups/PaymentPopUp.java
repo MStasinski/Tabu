@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Menu.Pop_Ups;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.michal_stasinski.tabu.Menu.Adapters.PaymentAdapter;
 import com.michal_stasinski.tabu.Menu.Models.PaymentItem;
+import com.michal_stasinski.tabu.Menu.ShopingCard;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -69,7 +70,7 @@ public class PaymentPopUp extends Activity {
             item.setPayment_txt(paymentMethods[i]);
             item.setImage(imgPayment[i]);
             item.setMark(false);
-            if (ShopingCardListView.SELECTED_PAYMENT_METHOD == i) {
+            if (ShopingCard.SELECTED_PAYMENT_METHOD == i) {
                 item.setMark(true);
             }
 
@@ -94,7 +95,7 @@ public class PaymentPopUp extends Activity {
 
                 PaymentItem obj = (PaymentItem) adapter.getItemAtPosition(position);
                 obj.setMark(true);
-                ShopingCardListView.SELECTED_PAYMENT_METHOD = position;
+                ShopingCard.SELECTED_PAYMENT_METHOD = position;
                 adapterek.notifyDataSetChanged();
 
 

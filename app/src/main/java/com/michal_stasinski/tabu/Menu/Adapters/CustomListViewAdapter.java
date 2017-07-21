@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +17,16 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.OrderComposerOthers;
-import com.michal_stasinski.tabu.Menu.OrderComposerPizza;
+import com.michal_stasinski.tabu.Menu.Order_Composer_details_Others;
+import com.michal_stasinski.tabu.Menu.Order_Composer_details_Pizza;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 import com.michal_stasinski.tabu.Utils.MathUtils;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static com.michal_stasinski.tabu.R.dimen.menu_list_view_desc;
 import static com.michal_stasinski.tabu.R.dimen.price_font;
-import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 /**
  * Created by win8 on 27.12.2016.
@@ -202,9 +195,9 @@ public class CustomListViewAdapter extends BaseAdapter {
                             Intent intent = new Intent();
 
                             if (MainActivity.CHOICE_ACTIVITY == 1) {
-                                intent.setClass(mContext, OrderComposerPizza.class);
+                                intent.setClass(mContext, Order_Composer_details_Pizza.class);
                             } else {
-                                intent.setClass(mContext, OrderComposerOthers.class);
+                                intent.setClass(mContext, Order_Composer_details_Others.class);
                             }
 
                             Bundle bundle = new Bundle();

@@ -7,7 +7,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -20,6 +19,7 @@ import com.liuguangqiang.swipeback.SwipeBackActivity;
 import com.liuguangqiang.swipeback.SwipeBackLayout;
 import com.michal_stasinski.tabu.Menu.Adapters.DataForDeliveryAdapter;
 import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
+import com.michal_stasinski.tabu.Menu.Pop_Ups.EditTextPopUp;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -32,7 +32,7 @@ import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
 
-public class DataForDeliveryListView extends SwipeBackActivity {
+public class DataForDelivery extends SwipeBackActivity {
     private DataForDeliveryAdapter adapter;
     private BounceListView listView;
     private Boolean isClick = false;
@@ -308,7 +308,7 @@ public class DataForDeliveryListView extends SwipeBackActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     public Action getIndexApiAction() {
-        return Actions.newView("DataForDeliveryListView", "http://[ENTER-YOUR-URL-HERE]");
+        return Actions.newView("DataForDelivery", "http://[ENTER-YOUR-URL-HERE]");
     }
 
     @Override

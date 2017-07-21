@@ -1,9 +1,8 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Menu.Pop_Ups;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -15,10 +14,7 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 
-import static com.michal_stasinski.tabu.Menu.ShopingCardListView.SELECTED_TIME;
-import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_DELIVERY;
-import static com.michal_stasinski.tabu.Utils.CountTimesOfDelivery.countAllPossibleTimesOfDelivery;
-import static com.michal_stasinski.tabu.Utils.CountTimesOfDelivery.countTimeOfDelivery_type_asFastYouCan;
+import static com.michal_stasinski.tabu.Menu.ShopingCard.SELECTED_TIME;
 
 public class TimeOfDeliveryPopUp extends AppCompatActivity {
 

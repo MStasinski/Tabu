@@ -1,11 +1,7 @@
 package com.michal_stasinski.tabu.Utils;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.michal_stasinski.tabu.MainActivity;
-import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 class DataLongOperationAsynchTask extends AsyncTask<String, Void, String[]> {
-    //ProgressDialog dialog = new ProgressDialog(DataForDeliveryListView.class);
+    //ProgressDialog dialog = new ProgressDialog(DataForDelivery.class);
 
     @Override
     protected void onPreExecute() {

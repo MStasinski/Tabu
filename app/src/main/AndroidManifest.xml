@@ -44,31 +44,31 @@
             android:label="KOSZYK"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Menu.PizzaSizePopUp"
+            android:name=".Menu.Pop_Ups.PizzaSizePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
-            android:name=".Menu.PaymentPopUp"
+            android:name=".Menu.Pop_Ups.PaymentPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
-            android:name=".Menu.AddonsPopUp"
+            android:name=".Menu.Pop_Ups.AddonsPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
-            android:name=".Menu.AddRemoveOrderPopUp"
+            android:name=".Menu.Pop_Ups.AddRemoveOrderPopUp"
             android:theme="@style/AppTheme.PopUpWindow3" />
         <activity
-            android:name=".Menu.SaucePopUp"
+            android:name=".Menu.Pop_Ups.SaucePopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
         <activity
-            android:name=".Menu.OrderComposerPizza"
+            android:name=".Menu.Order_Composer_details_Pizza"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
-            android:name=".Menu.OrderComposerOthers"
+            android:name=".Menu.Order_Composer_details_Others"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
-            android:name=".Menu.ShopingCardListView"
+            android:name=".Menu.ShopingCard"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
-            android:name=".Menu.TimeOfDeliveryPopUp"
+            android:name=".Menu.Pop_Ups.TimeOfDeliveryPopUp"
             android:theme="@style/AppTheme.PopUpWindow" />
 
         <activity
@@ -76,11 +76,11 @@
             android:theme="@style/AppTheme.PopUpWindow" />
 
         <activity
-            android:name=".Menu.EditTextPopUp"
+            android:name=".Menu.Pop_Ups.EditTextPopUp"
             android:theme="@style/AppTheme.PopUpWindow2"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-            android:name=".Menu.DataForDeliveryListView"
+            android:name=".Menu.DataForDelivery"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
             android:name=".CRM.Order.SimpleOrderListFB"
@@ -93,7 +93,7 @@
 
         <activity android:name=".CRM.Customer"></activity>
 
-        <receiver android:name=".Menu.ShopingCardListView$DotPayReceiver" />
+        <receiver android:name=".Menu.ShopingCard$DotPayReceiver" />
     </application>
 
 </manifest>

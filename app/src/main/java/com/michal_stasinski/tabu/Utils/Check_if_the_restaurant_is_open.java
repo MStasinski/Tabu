@@ -15,7 +15,7 @@ import java.util.Calendar;
  * Created by win8 on 21.06.2017.
  */
 
-public class Check_Time_Open_Close {
+public class Check_if_the_restaurant_is_open {
 
     private String[] closeTime;
     private String[] openTime;
@@ -48,7 +48,7 @@ public class Check_Time_Open_Close {
     String strDate = mdformat.format(calendar.getTime());
 
 
-    public Check_Time_Open_Close() {
+    public Check_if_the_restaurant_is_open() {
 
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm");
@@ -62,7 +62,6 @@ public class Check_Time_Open_Close {
         Calendar c = Calendar.getInstance();
 
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-
 
         /* Niedziela = 1  Poniedziałek = 2  Sobota = 7*/
 
@@ -91,21 +90,17 @@ public class Check_Time_Open_Close {
         } else {
 
             if (hourValue < Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1])) {
-                Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
+               // Log.i("informacja", "------------------czas jest w zakresie  dnia 2 ");
 
 
                 closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(dayOfWeek_yesterday)).split(":");
                 openTime = String.valueOf(SplashScreen.timeWhenRestaurantIsOpen.get(dayOfWeek_yesterday)).split(":");
 
-                int op1 = 0;//Integer.parseInt(openTime[0]) * 60 + Integer.parseInt(openTime[1]);
+                int op1 = 0;
                 int cl1 = Integer.parseInt(closeTime[0]) * 60 + Integer.parseInt(closeTime[1]);
-
-                //  if (op1 > cl1) {
-                // cl1 = cl1 + 24 * 60;
-                //}
                 if (hourValue >= op1 && hourValue <= cl1) {
                     restaurantIsOpen = true;
-                    Log.i("informacja", "------------------otwarte 2 ");
+                   // Log.i("informacja", "------------------otwarte 2 ");
                 } else {
                     restaurantIsOpen = false;
                     closeTime = String.valueOf(SplashScreen.timeWhenRestaurantIsClose.get(day)).split(":");

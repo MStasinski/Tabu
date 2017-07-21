@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import static com.michal_stasinski.tabu.Menu.ShopingCardListView.SELECTED_TIME;
+import static com.michal_stasinski.tabu.Menu.ShopingCard.SELECTED_TIME;
 import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_DELIVERY_INTERVAL;
 
 
@@ -51,7 +51,7 @@ public class CountTimesOfDelivery {
         String tomorrowAsString = dateFormat.format(tomorrow);
 
 
-        Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
 
         String[] closeTime = time_open_close.getCloseTime();
 
@@ -121,9 +121,9 @@ public class CountTimesOfDelivery {
         String[] d = ileGodzinRoznicy.split(":");
 
 
-        int ilePozycjiczasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
+        int ilePozycjiCgit stazasu = (Integer.parseInt(d[0]) * 60 + Integer.parseInt(d[1])) / interval_Time_in_ListView;
 
-        for (int i = 0; i < ilePozycjiczasu+1 ; i++) {
+        for (int i = 0; i < ilePozycjiCzasu+1 ; i++) {
 
             TimeListItem time = new TimeListItem();
             float h = (float) ((endHoure * 60 + endMinute) - (interval_Time_in_ListView * (i))) / 60;
@@ -170,7 +170,7 @@ public class CountTimesOfDelivery {
             }
 
             time.setMark(false);
-            if (SELECTED_TIME == ilePozycjiczasu - i) {
+            if (SELECTED_TIME == ilePozycjiCzasu - i) {
                 time.setMark(true);
             }
 
@@ -189,7 +189,7 @@ public class CountTimesOfDelivery {
     }
 
 
-   /* obliczenie czasu dla dostawy  "Jak Najszybciej... w moencie wysłania zamowienia*/
+   /* obliczenie czasu dla dostawy  "Jak Najszybciej... w moencie wysłania zamowienia
 
     public static String countTimeOfDelivery_type_asFastYouCan(int time_Of_realization) {
         int realizationTime = time_Of_realization;
@@ -208,7 +208,7 @@ public class CountTimesOfDelivery {
         //String timeAFYC = String.valueOf(newhourValue / 60);
         String timeAFYC = String.valueOf(newhourValue / 60) + ":" + String.valueOf(min);
         return timeAFYC;
-    }
+    }*/
 
 }
 

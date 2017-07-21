@@ -25,11 +25,11 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.CRM.CRM_MainMenu_ListView;
 import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
-import com.michal_stasinski.tabu.Utils.Check_Time_Open_Close;
-import com.michal_stasinski.tabu.Menu.DataForDeliveryListView;
+import com.michal_stasinski.tabu.Menu.ShopingCard;
+import com.michal_stasinski.tabu.Utils.Check_if_the_restaurant_is_open;
+import com.michal_stasinski.tabu.Menu.DataForDelivery;
 import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.ShopingCardListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
 
                     Intent intent = new Intent();
-                    intent.setClass(getBaseContext(), ShopingCardListView.class);
+                    intent.setClass(getBaseContext(), ShopingCard.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.from_right, R.anim.to_left);
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         fragment = MenuFragment.newInstance(CHOICE_ACTIVITY);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
-        Check_Time_Open_Close time_open_close = new Check_Time_Open_Close();
+        Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
 
         if (!time_open_close.getRestaurantIsOpen()) {
             CustomDialogClass customDialog = new CustomDialogClass(MainActivity.this);
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent();
                         currentActivity = 5;
-                        intent.setClass(getBaseContext(), DataForDeliveryListView.class);
+                        intent.setClass(getBaseContext(), DataForDelivery.class);
                         startActivity(intent);
 
                         overridePendingTransition(R.anim.from_right, R.anim.to_left);

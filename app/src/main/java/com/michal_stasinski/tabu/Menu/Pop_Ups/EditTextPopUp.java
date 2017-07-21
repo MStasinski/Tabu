@@ -1,4 +1,4 @@
-package com.michal_stasinski.tabu.Menu;
+package com.michal_stasinski.tabu.Menu.Pop_Ups;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,13 +10,11 @@ import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Medium;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

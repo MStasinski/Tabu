@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.Menu.Models.ShopData;
-import com.michal_stasinski.tabu.Menu.ShopingCardListView;
+import com.michal_stasinski.tabu.Menu.ShopingCard;
 import com.michal_stasinski.tabu.R;
 
 import java.util.HashMap;
@@ -30,8 +30,6 @@ import pl.mobiltek.paymentsmobile.dotpay.exeptions.OneClickUnableException;
 import pl.mobiltek.paymentsmobile.dotpay.managers.PaymentManager;
 import pl.mobiltek.paymentsmobile.dotpay.model.PaymentInformation;
 import pl.mobiltek.paymentsmobile.dotpay.utils.Settings;
-
-import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 public class DotPayActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,14 +50,14 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
             if (paymentEndedEventArgs.getPaymentResult().getStateType() == StateType.COMPLETED) {
 
                 Intent intent = new Intent();
-                intent.setAction(ShopingCardListView.DOTPAY_SUCCESS);
+                intent.setAction(ShopingCard.DOTPAY_SUCCESS);
                 sendBroadcast(intent);
                 Intent intent2 = new Intent();
                 intent2.setClass(getBaseContext(), MainActivity.class);
                 startActivity(intent2);
             } else if (paymentEndedEventArgs.getPaymentResult().getStateType() == StateType.REJECTED) {
                 Intent intent = new Intent();
-                intent.setAction(ShopingCardListView.DOTPAY_FAILD);
+                intent.setAction(ShopingCard.DOTPAY_FAILD);
                 sendBroadcast(intent);
                 Toast.makeText(DotPayActivity.this, "płatność zakończona odmową", Toast.LENGTH_LONG).show();
 
@@ -72,7 +70,7 @@ public class DotPayActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public void onPaymentFailure(PaymentEndedEventArgs paymentEndedEventArgs) {
             Intent intent = new Intent();
-            intent.setAction(ShopingCardListView.DOTPAY_FAILD);
+            intent.setAction(ShopingCard.DOTPAY_FAILD);
             sendBroadcast(intent);
             Toast.makeText(DotPayActivity.this, "Płatność nie powiodła się", Toast.LENGTH_LONG).show();
         }
