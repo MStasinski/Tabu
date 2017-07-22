@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,8 @@ import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.util.ArrayList;
 
+import static com.michal_stasinski.tabu.SplashScreen.ACTULAL_STATE_OF_LOGGED;
+import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private MyReceiver myReceiver;
 
     protected Toolbar mToolBar;
+
     protected DrawerLayout mDrawerLayout;
     protected ActionBarDrawerToggle mToggle;
     protected int currentActivity = 0;
@@ -79,12 +83,18 @@ public class MainActivity extends AppCompatActivity {
             R.mipmap.person_icon
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
+        if (IS_LOGGED_IN) {
+            setTheme(R.style.AppThemeStaffLogged);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppThemeStaffLogged);
+        Log.v("Example", "onCreate");
+        getIntent().setAction("Already created");
 
         setContentView(R.layout.activity_main);
 
@@ -138,9 +148,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     protected void onResume() {
+        Log.i("informacja", "onResume");
+
+        String action = getIntent().getAction();
+        // Prevent endless loop by adding a unique action, don't restart if action is present
+        if (action == null || !action.equals("Already created")) {
+
+            if (ACTULAL_STATE_OF_LOGGED != IS_LOGGED_IN) {
+                recreate();
+                Log.i("informacja", ACTULAL_STATE_OF_LOGGED + "Force restart" + IS_LOGGED_IN);
+                ACTULAL_STATE_OF_LOGGED= IS_LOGGED_IN;
+
+            }
+        }
+        // Remove the unique action so the next time onResume is called it will restart
+        else
+            getIntent().setAction(null);
+
         super.onResume();
+
 
         myReceiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter(FIREBASE_CHANGED);

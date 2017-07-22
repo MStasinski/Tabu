@@ -72,7 +72,7 @@ public class CRM_MainMenu_ListViewAdapter extends BaseAdapter {
         }
 
         if (viewHolder.title != null) {
-            viewHolder.title.setText(arr.get(position).getTitle().toUpperCase());
+            viewHolder.title.setText(arr.get(position).getTitle()); //.toUpperCase());
         }
 
         return view;

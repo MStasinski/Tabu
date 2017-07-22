@@ -53,6 +53,7 @@ import static com.michal_stasinski.tabu.Menu.Pop_Ups.PaymentPopUp.paymentMethods
 import static com.michal_stasinski.tabu.Menu.Pop_Ups.TimeOfDeliveryPopUp.timeList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
+import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.SHOPING_CARD_PREF;
 import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_DELIVERY;
@@ -92,7 +93,11 @@ public class ShopingCard extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeStaffLogged);
+        if(IS_LOGGED_IN) {
+            setTheme(R.style.AppThemeStaffLogged);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
 
         Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();

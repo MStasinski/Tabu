@@ -34,7 +34,10 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 import java.util.ArrayList;
 
 import static com.michal_stasinski.tabu.MainActivity.CHOICE_ACTIVITY;
+import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.MINIMAL_PRICE_OF_ORDER;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_DELIVERY;
+import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_REALIZATION_TAKEAWAY;
 import static com.michal_stasinski.tabu.SplashScreen.newsArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaSauces;
@@ -69,7 +72,12 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        getActivity().setTheme(R.style.AppThemeStaffLogged);
+
+        if(IS_LOGGED_IN) {
+            getActivity().setTheme(R.style.AppThemeStaffLogged);
+        }else{
+            getActivity().setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
 
     }
@@ -201,8 +209,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
             Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
 
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
-
-            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od " + MINIMAL_PRICE_OF_ORDER + " zł");
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "" + "\nDostawa przy zamówieniu od " + MINIMAL_PRICE_OF_ORDER + " zł"+ "\nRealizacja zamówienia " + TIME_OF_REALIZATION_TAKEAWAY +" - "+ TIME_OF_REALIZATION_DELIVERY+ " min.");
         }
     }
 
@@ -239,7 +246,7 @@ public class MenuFragment extends android.support.v4.app.Fragment implements OnM
 
             Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
             TextView txt = (TextView) myView.findViewById(R.id.order_times);
-            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "\nDostawa przy zamówieniach od " + MINIMAL_PRICE_OF_ORDER + " zł");
+            txt.setText("Zamówienia online: " + time_open_close.getOpenTime()[0] + ":" + time_open_close.getOpenTime()[1] + " - " + time_open_close.getCloseTime()[0] + ":" + time_open_close.getCloseTime()[1] + "" + "\nDostawa przy zamówieniu od " + MINIMAL_PRICE_OF_ORDER + " zł"+ "\nRealizacja zamówienia " + TIME_OF_REALIZATION_TAKEAWAY +" - "+ TIME_OF_REALIZATION_DELIVERY+ " min.");
 
             CustomNewsListViewAdapter arrayAdapter = new CustomNewsListViewAdapter(myView.getContext(), newsArrayList, R.color.color_PIZZA);
 

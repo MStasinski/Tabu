@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
-    <TextView
+        <TextView
+            android:id="@+id/crm_main_menu_manager_row_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4sp"
+            android:text="WYPRZEDANE"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="16sp" />
 
-        android:id="@+id/crm_main_menu_manager_row_title"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="4sp"
-        android:layout_alignParentRight="true"
-        android:text="WYPRZEDANE"
-        android:textColor="@color/colorDarkGray"
-        android:textSize="14sp" />
-
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="10sp"
+            android:layout_height="10sp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="7sp"
+            android:backgroundTint="@color/colorDarkGray"
+            android:background="@mipmap/back_button"
+            android:scaleX="-1"
+            android:scaleY="-1" />
+    </RelativeLayout>
 </LinearLayout>

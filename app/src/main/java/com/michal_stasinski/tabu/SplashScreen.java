@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
@@ -18,6 +17,7 @@ import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
 import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Menu.Models.NewsItem;
 import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
+import com.michal_stasinski.tabu.Menu.Models.StaffMember;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -36,6 +36,7 @@ public class SplashScreen extends Activity {
     public static ArrayList<MenuItemProduct> pizzaWegetables;
     public static ArrayList<MenuItemProduct> pizzaSauces;
     public static ArrayList<NewsItem> newsArrayList;
+    public static ArrayList<StaffMember> staffTeamArray;
     public static ArrayList<Number> timeWhenRestaurantIsOpen;
     public static ArrayList<Number> timeWhenRestaurantIsClose;
 
@@ -44,6 +45,7 @@ public class SplashScreen extends Activity {
     public static ArrayList<Integer> pizzaAddons_CheckMark;
     public static ArrayList<DeliveryCostItem> deliveryCostArray;
     public static ArrayList<OrderListItem> orderList;
+
 
     public static final String DATA_FOR_DELIVERY = "DataForDelivery";
 
@@ -70,11 +72,16 @@ public class SplashScreen extends Activity {
     /* nazwa wezła bazy danych na które wysyłane jest zagiowienie*/;
     public static String DB_ORDER_DATABASE = "TEST_ORDER";
 
+
+    public static Boolean IS_STAFF_MEMBER = false;
+    public static Boolean IS_LOGGED_IN = false;
+    public static Boolean ACTULAL_STATE_OF_LOGGED = false;
+
+
     /*nazwa wezłą bazy danych -czas kiedy możliwe jest skałdadanie zamowien online*/
     public static String DB_TIMES_OPEN_END_OF_RESTAURANT = "SendOrderOnlines";
-
-
     public static String DB_NEWS = "News";
+    public static String DB_STAFFS = "Staffs";
 
 
     private Boolean APPSTART = true;
@@ -130,6 +137,8 @@ public class SplashScreen extends Activity {
         @Override
         protected String doInBackground(String... params) {
 
+
+            staffTeamArray = new ArrayList<StaffMember>();
             newsArrayList = new ArrayList<NewsItem>();
             pizzaList = new ArrayList<MenuItemProduct>();
             saladList = new ArrayList<MenuItemProduct>();
@@ -151,7 +160,7 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSauces", pizzaSauces),
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
-                  // loadFireBaseMinimalDeliveryPrice("MinimalDeliveryOrders"),
+                    loadStaffTeam(),
 
                     loadFireOneOValue("Ustawienias"),
                     loadTimesOfRestaurant(),
@@ -398,7 +407,6 @@ public class SplashScreen extends Activity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-
             }
 
         });
@@ -450,6 +458,48 @@ public class SplashScreen extends Activity {
         return tcs.getTask();
     }
 
+    public Task<String> loadStaffTeam() {
+        final TaskCompletionSource<String> tcs = new TaskCompletionSource<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(DB_STAFFS);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                staffTeamArray.clear();
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    String email = (String) map.get("email");
+                    String firstname = (String) map.get("firstname");
+                    String surname = (String) map.get("surname");
+                    String password = (String) map.get("password");
+                    String phone = (String) map.get("phone").toString();
+                    String userId = (String) map.get("userId");
+
+                    StaffMember staffMember = new StaffMember();
+
+                    staffMember.setEmail(email);
+                    staffMember.setFirstname(firstname);
+                    staffMember.setSurname(surname);
+                    staffMember.setPassword(password);
+                    staffMember.setPhone(phone);
+                    staffMember.setUserId(userId);
+
+                    staffTeamArray.add(staffMember);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return tcs.getTask();
+    }
     private static String removeLastChar(String str) {
         return str.substring(0, str.length() - 2);
     }

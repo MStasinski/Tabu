@@ -36,6 +36,7 @@ import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import static com.michal_stasinski.tabu.Menu.Pop_Ups.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.Menu.Pop_Ups.SaucePopUp.saucePopUpAdapter;
+import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 
@@ -76,7 +77,11 @@ public class Order_Composer_details_Pizza extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        setTheme(R.style.AppThemeStaffLogged);
+        if(IS_LOGGED_IN) {
+            setTheme(R.style.AppThemeStaffLogged);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);

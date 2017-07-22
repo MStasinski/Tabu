@@ -7,9 +7,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.appindexing.Action;
@@ -22,12 +24,14 @@ import com.michal_stasinski.tabu.Menu.Models.ShopingCardItem;
 import com.michal_stasinski.tabu.Menu.Pop_Ups.EditTextPopUp;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.Do_you_belong_to_staff;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
+import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.RESTAURANT_ADDRES;
 import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
 import static com.michal_stasinski.tabu.SplashScreen.deliveryCostArray;
@@ -60,7 +64,12 @@ public class DataForDelivery extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppThemeStaffLogged);
+
+        if(IS_LOGGED_IN) {
+            setTheme(R.style.AppThemeStaffLogged);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_data_for_delivery_list_view);
@@ -92,32 +101,13 @@ public class DataForDelivery extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences.Editor editor = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE).edit();
-
-                for (int i = 0; i <= 13; i++) {
-                    ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
-
-                    editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
-                }
-
-                editor.putInt("deliveryCost", deliveryCost);
-                editor.commit();
-               // editor.clear().commit();
+                saveState();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
         });
 
-        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
-
-        for (int i = 0; i <= 13; i++) {
-            String item = prefs.getString(dataDeliveryTextFieldName[i], null);
-            if (item != null & i != 12) {
-                ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
-                el.setTitle(item);
-                adapter.notifyDataSetChanged();
-            }
-        }
+        loadState();
 
 
     }
@@ -175,6 +165,34 @@ public class DataForDelivery extends SwipeBackActivity {
                 //Write your code if there's no result
             }
         }
+
+        ShopingCardItem firstname = (ShopingCardItem) adapter.getItem(1);
+        ShopingCardItem surname = (ShopingCardItem) adapter.getItem(2);
+        ShopingCardItem email = (ShopingCardItem) adapter.getItem(3);
+        ShopingCardItem phone = (ShopingCardItem) adapter.getItem(4);
+
+
+        String fn = firstname.getTitle().toString();
+        String sn = surname.getTitle().toString();
+        String em = email.getTitle().toString();
+        String ph = phone.getTitle().toString();
+
+        //TODO Sprawdzam czy należy do staffu i czy jest zalogowany
+        if (!IS_LOGGED_IN) {
+            if (!firstname.getTitle().equals("Imię") && !surname.getTitle().equals("Nazwisko") && !email.getTitle().equals("E-Mail") && !phone.getTitle().equals("Telefon")) {
+
+                Do_you_belong_to_staff areYouStaffMember = new Do_you_belong_to_staff(DataForDelivery.this, fn, sn, em, ph);
+
+            }
+        }
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveState();
     }
 
     @Override
@@ -183,13 +201,14 @@ public class DataForDelivery extends SwipeBackActivity {
 
         Address address0 = (Address) getCoordinatesFromAddresse(RESTAURANT_ADDRES);
 
-        ShopingCardItem item0 = (ShopingCardItem) adapter.getItem(6);
-        ShopingCardItem item1 = (ShopingCardItem) adapter.getItem(7);
-        ShopingCardItem item2 = (ShopingCardItem) adapter.getItem(8);
 
-        String town = item0.getTitle();
-        String street = item1.getTitle();
-        String nr = item2.getTitle();
+        ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
+        ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
+        ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
+
+        String town = townEdit.getTitle();
+        String street = streetEdit.getTitle();
+        String nr = nrEdit.getTitle();
 
         Address address1;
 
@@ -220,7 +239,7 @@ public class DataForDelivery extends SwipeBackActivity {
             float distance = locationA.distanceTo(locationB);
 
 
-            if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
+            if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())) {
 
                 if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
                     text_cost_delivery.setText("NIE DOWOZIMY POD WSKAZANY ADRES");
@@ -245,13 +264,9 @@ public class DataForDelivery extends SwipeBackActivity {
             }
 
 
-            ShopingCardItem townEdit = (ShopingCardItem) adapter.getItem(6);
-            ShopingCardItem streetEdit = (ShopingCardItem) adapter.getItem(7);
-            ShopingCardItem nrEdit = (ShopingCardItem) adapter.getItem(8);
-
             if (address1.getLocality() == null || address1.getThoroughfare() == null || address1.getPostalCode() == null) {
 
-                if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals(address1.getLocality()) && ((ShopingCardItem) adapter.getItem(7)).getTitle().equals(address1.getThoroughfare())) {
+                if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())) {
 
                 } else {
                     text_cost_delivery.setText("PODANY ADRES NIE ISTNIEJE");
@@ -265,7 +280,7 @@ public class DataForDelivery extends SwipeBackActivity {
             text_cost_delivery.setText("BRAK ADRESU DOSTAWY");
             deliveryCost = 0;
         }
-        if (((ShopingCardItem) adapter.getItem(6)).getTitle().equals("") || ((ShopingCardItem) adapter.getItem(7)).getTitle().equals("")) {
+        if (townEdit.getTitle().equals("") || streetEdit.getTitle().equals("")) {
             text_cost_delivery.setText("BRAK ADRESU DOSTAWY");
             deliveryCost = 0;
         }
@@ -303,29 +318,31 @@ public class DataForDelivery extends SwipeBackActivity {
         });
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        return Actions.newView("DataForDelivery", "http://[ENTER-YOUR-URL-HERE]");
+    private void saveState() {
+        SharedPreferences.Editor editor = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE).edit();
+
+        for (int i = 0; i <= 13; i++) {
+            ShopingCardItem item = (ShopingCardItem) adapter.getItem(i);
+
+            editor.putString(dataDeliveryTextFieldName[i], item.getTitle().toString());
+        }
+
+        editor.putInt("deliveryCost", deliveryCost);
+        editor.commit();
+        // editor.clear().commit();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void loadState() {
+        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        FirebaseUserActions.getInstance().start(getIndexApiAction());
+        for (int i = 0; i <= 13; i++) {
+            String item = prefs.getString(dataDeliveryTextFieldName[i], null);
+            if (item != null & i != 12) {
+                ShopingCardItem el = (ShopingCardItem) adapter.getItem(i);
+                el.setTitle(item);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
-    @Override
-    public void onStop() {
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        FirebaseUserActions.getInstance().end(getIndexApiAction());
-        super.onStop();
-    }
 }
