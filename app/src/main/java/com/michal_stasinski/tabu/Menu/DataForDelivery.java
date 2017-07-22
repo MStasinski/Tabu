@@ -95,12 +95,12 @@ public class DataForDelivery extends SwipeBackActivity {
         adapter.notifyDataSetChanged();
 
 
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
+        final Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                closeButton.setOnClickListener(null);
                 saveState();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);

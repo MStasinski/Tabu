@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -61,6 +62,28 @@ public class EditTextPopUp extends Activity {
         editText.setText(actualText);
         editText.setSelection(editText.getText().length());
 
+        if (pos == 1) {
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        }
+        if (pos == 2) {
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+        }
+
+        if (pos == 3) {
+            editText.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+
+        if (pos == 4) {
+            editText.setInputType(InputType.TYPE_CLASS_PHONE);
+        }
+
+        if (pos == 8) {
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
+
+        if (pos == 9) {
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
         Button saveButton = (Button) findViewById(R.id.btm_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
 
@@ -71,6 +94,7 @@ public class EditTextPopUp extends Activity {
                 Boolean isValidate = false;
 
                 if (pos == 1) {
+
                     isValidate = (Boolean) validateFirstName(editText.getText().toString().trim());
                     if (editText.getText().length() < 2) {
                         isValidate = false;
@@ -89,7 +113,6 @@ public class EditTextPopUp extends Activity {
 
                 if (pos == 4) {
                     isValidate = (Boolean) isValidPhone(editText.getText().toString().trim());
-
                 }
 
                 if (pos == 6) {
@@ -113,8 +136,6 @@ public class EditTextPopUp extends Activity {
                     if (editText.getText().length() > 0 && validatNr(editText.getText().toString().trim())) {
                         isValidate = true;
                     }
-
-
                 }
 
                 if (pos == 9) {
@@ -122,7 +143,6 @@ public class EditTextPopUp extends Activity {
                     if (editText.getText().length() > 0 && validatNr(editText.getText().toString().trim())) {
                         isValidate = true;
                     }
-
                 }
 
                 if (pos == 10) {
