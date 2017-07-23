@@ -1,9 +1,7 @@
 package com.michal_stasinski.tabu.Utils;
 
-import android.util.Log;
-
-import com.michal_stasinski.tabu.Menu.Adapters.TimeOfDeliveryAdapter;
-import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.User_Side.Adapters.TimeOfDeliveryAdapter;
+import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.SplashScreen;
 
 import java.text.DateFormat;

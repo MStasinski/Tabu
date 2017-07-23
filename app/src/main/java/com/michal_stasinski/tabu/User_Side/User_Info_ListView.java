@@ -1,7 +1,7 @@
-package com.michal_stasinski.tabu.CRM;
+package com.michal_stasinski.tabu.User_Side;
+
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenu_ListViewAdapter;
 import com.michal_stasinski.tabu.MainActivity;
-import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.User_Side.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.R;
@@ -21,44 +20,29 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 
-import static android.R.id.closeButton;
-import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
+import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
 
-public class CRM_MainMenu_ListView extends AppCompatActivity {
+public class User_Info_ListView extends AppCompatActivity {
 
     protected BounceListView main_list_view;
     private ArrayList<MenuItemProduct> menuArrayList;
     private String[] menuText;
 
     @Override
-
-
     protected void onCreate(Bundle savedInstanceState) {
 
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crm_main_menu_manager);
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
+
+
         TextView textTitle = (TextView) findViewById(R.id.crm_title_menu);
-        textTitle.setText("ZARZĄDZANIE");
-        if (IS_LOGGED_IN) {
-            closeButton.setVisibility(View.INVISIBLE);
-
-                    menuText = new String[]{"Powiadomienia",
-                    "Nowy Post",
-                    "Zamówienia",
-                    "Zamówienia zakończone",
-                    "Czas realizacji",
-                    "Wyloguj",
-
-            };
-        } else {
-            closeButton.setVisibility(View.VISIBLE);
+        textTitle.setText("INFORMACJE");
             menuText = new String[]{
-                    "Zaloguj"
+                    "Regulamin",
+                    "Polityka prywatnosci"
             };
-        }
 
 
         main_list_view = (BounceListView) findViewById(R.id.crm_listView_menu);
@@ -80,30 +64,22 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Object listItem = main_list_view.getItemAtPosition(position);
 
-                Intent intent = new Intent();
+                //Intent intent = new Intent();
                 //main_list_view.setOnItemClickListener(null);
-
-                if (!IS_LOGGED_IN) {
-                    if (position == 0) {
-                        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
-                        MenuFragment.isTeamMember(prefs, CRM_MainMenu_ListView.this);
-                    }
-                }
-
-                if (IS_LOGGED_IN) {
-
-                    if (position == 5) {
-                        main_list_view.setOnItemClickListener(null);
-                        IS_LOGGED_IN = false;
-                        Toast.makeText(CRM_MainMenu_ListView.this, "Zostałeś wylogowany", Toast.LENGTH_SHORT).show();
-                        intent.setClass(view.getContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
+               /* Log.i("informacja","position"+position);
+                if (position == 5) {
+                    main_list_view.setOnItemClickListener(null);
+                    IS_LOGGED_IN = false;
+                    Toast.makeText(U.this, "Zostałeś wylogowany", Toast.LENGTH_SHORT).show();
+                    intent.setClass(view.getContext(), MainActivity.class);
+                    startActivity(intent);
+                }*/
 
             }
         });
 
+
+        Button closeButton = (Button) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

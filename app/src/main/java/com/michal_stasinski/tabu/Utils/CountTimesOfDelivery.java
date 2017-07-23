@@ -1,6 +1,6 @@
 package com.michal_stasinski.tabu.Utils;
 
-import com.michal_stasinski.tabu.Menu.Models.TimeListItem;
+import com.michal_stasinski.tabu.User_Side.Models.TimeListItem;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import static com.michal_stasinski.tabu.Menu.ShopingCard.SELECTED_TIME;
+import static com.michal_stasinski.tabu.User_Side.ShopingCard.SELECTED_TIME;
 import static com.michal_stasinski.tabu.SplashScreen.TIME_OF_DELIVERY_INTERVAL;
 
 

@@ -2,17 +2,14 @@ package com.michal_stasinski.tabu.CRM.Adapters;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.michal_stasinski.tabu.Menu.Models.OrderComposerItem;
+import com.michal_stasinski.tabu.User_Side.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.R;
-import com.michal_stasinski.tabu.Utils.MathUtils;
 
 import java.util.ArrayList;
 

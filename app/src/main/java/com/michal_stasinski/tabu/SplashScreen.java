@@ -13,11 +13,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.Menu.Models.DeliveryCostItem;
-import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
-import com.michal_stasinski.tabu.Menu.Models.NewsItem;
-import com.michal_stasinski.tabu.Menu.Models.OrderListItem;
-import com.michal_stasinski.tabu.Menu.Models.StaffMember;
+import com.michal_stasinski.tabu.User_Side.Models.DeliveryCostItem;
+import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.User_Side.Models.NewsItem;
+import com.michal_stasinski.tabu.User_Side.Models.OrderListItem;
+import com.michal_stasinski.tabu.User_Side.Models.StaffMember;
 
 import java.util.ArrayList;
 import java.util.Map;

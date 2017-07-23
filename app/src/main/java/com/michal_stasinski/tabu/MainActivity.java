@@ -25,13 +25,14 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.michal_stasinski.tabu.CRM.CRM_MainMenu_ListView;
-import com.michal_stasinski.tabu.Menu.Adapters.CustomDrawerAdapter;
-import com.michal_stasinski.tabu.Menu.ShopingCard;
-import com.michal_stasinski.tabu.Utils.Check_if_the_restaurant_is_open;
-import com.michal_stasinski.tabu.Menu.DataForDelivery;
-import com.michal_stasinski.tabu.Menu.LeftDrawerMenu.MenuFragment;
-import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.User_Side.Adapters.CustomDrawerAdapter;
+import com.michal_stasinski.tabu.User_Side.DataForDelivery;
+import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
+import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.User_Side.ShopingCard;
+import com.michal_stasinski.tabu.User_Side.User_Info_ListView;
 import com.michal_stasinski.tabu.Utils.BounceListView;
+import com.michal_stasinski.tabu.Utils.Check_if_the_restaurant_is_open;
 import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 
 import static com.michal_stasinski.tabu.SplashScreen.ACTULAL_STATE_OF_LOGGED;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
+import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
 
 
@@ -160,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             if (ACTULAL_STATE_OF_LOGGED != IS_LOGGED_IN) {
                 recreate();
                 Log.i("informacja", ACTULAL_STATE_OF_LOGGED + "Force restart" + IS_LOGGED_IN);
-                ACTULAL_STATE_OF_LOGGED= IS_LOGGED_IN;
+                ACTULAL_STATE_OF_LOGGED = IS_LOGGED_IN;
 
             }
         }
@@ -271,10 +273,18 @@ public class MainActivity extends AppCompatActivity {
                 // mDrawerLayout.openDrawer(GravityCompat.END, true);
                 //mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
-                Intent intent = new Intent();
-                intent.setClass(getBaseContext(), CRM_MainMenu_ListView.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.from_right, R.anim.to_left);
+
+                if (IS_STAFF_MEMBER || IS_LOGGED_IN) {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), CRM_MainMenu_ListView.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.from_right, R.anim.to_left);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getBaseContext(), User_Info_ListView.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.from_right, R.anim.to_left);
+                }
 
             }
         });

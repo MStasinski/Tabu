@@ -2,18 +2,11 @@ package com.michal_stasinski.tabu.Utils;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.michal_stasinski.tabu.MainActivity;
-import com.michal_stasinski.tabu.Menu.DataForDelivery;
-import com.michal_stasinski.tabu.Menu.Models.StaffMember;
-import com.michal_stasinski.tabu.Menu.ShopingCard;
-import com.michal_stasinski.tabu.R;
 
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
@@ -45,8 +38,8 @@ public class Do_you_belong_to_staff extends Activity {
             String sn = staffTeamArray.get(i).getSurname().toString();
             String em = staffTeamArray.get(i).getEmail().toString();
             String ph = staffTeamArray.get(i).getPhone().toString();
-
-
+            IS_STAFF_MEMBER = false;
+            IS_LOGGED_IN = false;
             if (_firstname.equals(fn) && _surname.equals(sn) && _email.equals(em) && _phone.equals(ph)) {
 
                 Log.i("informacja", "przeszło 2");
@@ -54,11 +47,10 @@ public class Do_you_belong_to_staff extends Activity {
                 Log.i("informacja", _surname + " surname " + sn);
                 Log.i("informacja", _email + " email " + em);
                 Log.i("informacja", _phone + " phone " + ph);
-
-                _password = staffTeamArray.get(i).getPassword().toString();
-                Log.i("informacja", " _password " + _password);
-
                 IS_STAFF_MEMBER = true;
+                _password = staffTeamArray.get(i).getPassword().toString();
+                Log.i("informacja", " _IS_STAFF_MEMBER inside  " + IS_STAFF_MEMBER);
+
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
                 alertDialog.setTitle("Witaj " + firstname + " " + surname);
                 alertDialog.setMessage("Wpisz hasło");
@@ -97,6 +89,8 @@ public class Do_you_belong_to_staff extends Activity {
                 alertDialog.setNegativeButton("NIE",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                IS_STAFF_MEMBER = true;
+                                IS_LOGGED_IN = false;
                                 dialog.cancel();
                             }
                         });

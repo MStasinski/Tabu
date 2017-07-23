@@ -1,16 +1,11 @@
 package com.michal_stasinski.tabu.CRM.Adapters;
 
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +18,7 @@ import android.widget.TextView;
 
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.CRM.OrderZoomPopUp;
-import com.michal_stasinski.tabu.Menu.Models.MenuItemProduct;
+import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
