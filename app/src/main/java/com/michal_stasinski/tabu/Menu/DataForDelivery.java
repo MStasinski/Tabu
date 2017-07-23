@@ -239,7 +239,7 @@ public class DataForDelivery extends SwipeBackActivity {
             float distance = locationA.distanceTo(locationB);
 
 
-            if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())) {
+            if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())&&  !nrEdit.getTitle().equals("Nr domu")) {
 
                 if (distance > Integer.parseInt(String.valueOf(deliveryCostArray.get(2).getDistacne())) * 1000) {
                     text_cost_delivery.setText("NIE DOWOZIMY POD WSKAZANY ADRES");
@@ -266,7 +266,7 @@ public class DataForDelivery extends SwipeBackActivity {
 
             if (address1.getLocality() == null || address1.getThoroughfare() == null || address1.getPostalCode() == null) {
 
-                if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())) {
+                if (townEdit.getTitle().equals(address1.getLocality()) && streetEdit.getTitle().equals(address1.getThoroughfare())&&  !nrEdit.getTitle().equals("Nr domu")) {
 
                 } else {
                     text_cost_delivery.setText("PODANY ADRES NIE ISTNIEJE");

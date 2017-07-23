@@ -93,9 +93,9 @@ public class ShopingCard extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(IS_LOGGED_IN) {
+        if (IS_LOGGED_IN) {
             setTheme(R.style.AppThemeStaffLogged);
-        }else{
+        } else {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
@@ -289,6 +289,16 @@ public class ShopingCard extends SwipeBackActivity {
 
         street = townFromData + ", " + streetFromData + " " + houseNrFromData;
 
+        if(streetFromData==null){
+            streetFromData="Ulica";
+        }
+        if(townFromData==null){
+            townFromData="Miasto";
+        }
+
+        if(houseNrFromData==null){
+            houseNrFromData="Nr domu";
+        }
 
         if (street != null) {
             if (street2 != null &&
@@ -393,11 +403,19 @@ public class ShopingCard extends SwipeBackActivity {
                         String houseNrFromData = prefs.getString("Nr domu", null);
 
                         String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
+                        Log.i("informacja", "  war  " +  townFromData + ", " + streetFromData + " " + houseNrFromData);
 
-                        //Log.i("informacja", " info "+street+"  "+streetFromData+"  "+townFromData+" "+houseNrFromData+" "+DataForDelivery.deliveryCost);
-                        // if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu") && DataForDelivery.deliveryCost > 0) {
-                        if (street != null && !streetFromData.equals("Ulica") && !townFromData.equals("Miasto") && !houseNrFromData.equals("Nr domu")) {
+
+                        if (street != null &&
+                                streetFromData != null &&
+                                townFromData != null &&
+                                houseNrFromData != null &&
+                                !streetFromData.equals("Ulica") &&
+                                !townFromData.equals("Miasto") &&
+                                !houseNrFromData.equals("Nr domu")) {
+
                             selectedAddres.setDesc(street);
+
                         } else {
                             CustomDialogClass customDialog = new CustomDialogClass(ShopingCard.this);
                             customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -408,7 +426,7 @@ public class ShopingCard extends SwipeBackActivity {
                             selectedItem_del_cost.setDesc("0.00");
                             selectedItem_all_cost.setDesc(String.valueOf(MathUtils.formatDecimal(Float.valueOf(OrderComposerUtils.sum_of_all_the_prices()), 2)));
                             selectedAddres.setDesc(RESTAURANT_ADDRES);
-                             timeList = new ArrayList<TimeListItem>();
+                            timeList = new ArrayList<TimeListItem>();
                             timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
                             //TimeOfDeliveryPopUp.reloadTimeOfDeliverPopUp();
                         }

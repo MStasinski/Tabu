@@ -63,10 +63,10 @@ public class EditTextPopUp extends Activity {
         editText.setSelection(editText.getText().length());
 
         if (pos == 1) {
-            editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+          //  editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         }
         if (pos == 2) {
-            editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
+           // editText.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         }
 
         if (pos == 3) {
