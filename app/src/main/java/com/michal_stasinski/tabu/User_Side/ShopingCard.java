@@ -284,19 +284,23 @@ public class ShopingCard extends SwipeBackActivity {
         String townFromData = prefs.getString("Miasto", null);
         String streetFromData = prefs.getString("Ulica", null);
         String houseNrFromData = prefs.getString("Nr domu", null);
+        String flatNrFromData = prefs.getString("Nr mieszkania", null);
         int deliveryCostFromData = prefs.getInt("deliveryCost", 0);
 
         street = townFromData + ", " + streetFromData + " " + houseNrFromData;
-
-        if(streetFromData==null){
-            streetFromData="Ulica";
-        }
-        if(townFromData==null){
-            townFromData="Miasto";
+        if (!flatNrFromData.equals("Nr mieszkania")) {
+            street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
         }
 
-        if(houseNrFromData==null){
-            houseNrFromData="Nr domu";
+        if (streetFromData == null) {
+            streetFromData = "Ulica";
+        }
+        if (townFromData == null) {
+            townFromData = "Miasto";
+        }
+
+        if (houseNrFromData == null) {
+            houseNrFromData = "Nr domu";
         }
 
         if (street != null) {
@@ -400,9 +404,12 @@ public class ShopingCard extends SwipeBackActivity {
                         String townFromData = prefs.getString("Miasto", null);
                         String streetFromData = prefs.getString("Ulica", null);
                         String houseNrFromData = prefs.getString("Nr domu", null);
-
-                        String street = townFromData + ", " + streetFromData + " " + houseNrFromData;
-                        Log.i("informacja", "  war  " +  townFromData + ", " + streetFromData + " " + houseNrFromData);
+                        String flatNrFromData = prefs.getString("Nr mieszkania", null);
+                        street = townFromData + ", " + streetFromData + " " + houseNrFromData;
+                        if (!flatNrFromData.equals("Nr mieszkania")) {
+                            street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
+                        }
+                        Log.i("informacja", "  war  " + townFromData + ", " + streetFromData + " " + houseNrFromData);
 
 
                         if (street != null &&
@@ -529,6 +536,8 @@ public class ShopingCard extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
                 Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
+               //Todo tu warunek jak nie ma danych
+
                 if (time_open_close.getRestaurantIsOpen()) {
 
                     if (SELECTED_PAYMENT_METHOD == 2) {
@@ -637,6 +646,7 @@ public class ShopingCard extends SwipeBackActivity {
 
 
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
+        ShopingCardItem notes = (ShopingCardItem) adapter.getItem(6);
         ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
         //
@@ -683,13 +693,29 @@ public class ShopingCard extends SwipeBackActivity {
         String orderNo = String.valueOf(strDate + uniqueId);
         String orderStatus = "0";
         String paymentWay = (paymentMethods[SELECTED_PAYMENT_METHOD]).toString();
-        String tel = phone.toString();
+        String phoneNr = phone.toString();
         String receiptAdres = street.toString();
         String receiptWay = delivery_mode.getDesc().toString();
         String totalPrice = selectedItem_all_cost.getDesc().toString();
         String userId = String.valueOf(uniqueId);
         String orderNumber = "0";
-        Post post = new Post(deliveryDate, deliveryPrice, mail, orderMan, orderNo, orderStatus, orderArray, paymentWay, tel, receiptAdres, receiptWay, totalPrice, userId, orderNumber);
+        String orderNotes = notes.getDesc().toString();
+        Post post = new Post(
+                deliveryDate,
+                deliveryPrice, mail,
+                orderMan, orderNo,
+                orderStatus,
+                orderArray,
+                paymentWay,
+                phoneNr,
+                receiptAdres,
+                receiptWay,
+                totalPrice,
+                userId,
+                orderNumber,
+                orderNotes
+
+        );
 
         mDatabase.child(databaseName).child(strDate + uniqueId).setValue(post);
         orderList.clear();

@@ -23,6 +23,7 @@ public class Post {
     public String totalPrice;
     public String userId;
     public String orderNumber;
+    public String orderNotes;
 
     public Post() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
@@ -41,7 +42,8 @@ public class Post {
                 String receiptWay,
                 String totalPrice,
                 String userId,
-                String orderNumber
+                String orderNumber,
+                String orderNotes
     ) {
 
         this.deliveryDate = deliveryDate;
@@ -57,7 +59,8 @@ public class Post {
         this.receiptWay = receiptWay;
         this.totalPrice = totalPrice;
         this.userId = userId;
-        this.orderNumber=orderNumber;
+        this.orderNumber = orderNumber;
+        this.orderNotes = orderNotes;
     }
 
 }
