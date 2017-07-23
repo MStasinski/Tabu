@@ -536,76 +536,83 @@ public class ShopingCard extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
                 Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
-               //Todo tu warunek jak nie ma danych
+                //Todo tu warunek jak nie ma danych
+                if (!firstname.equals("Imię") && !lastname.equals("Nazwisko") && !phone.equals("Telefon")) {
+                    if (time_open_close.getRestaurantIsOpen()) {
 
-                if (time_open_close.getRestaurantIsOpen()) {
+                        if (SELECTED_PAYMENT_METHOD == 2) {
 
-                    if (SELECTED_PAYMENT_METHOD == 2) {
+                            ShopData.setName(firstname);
+                            ShopData.setLastName(lastname);
+                            ShopData.setEmail(email);
+                            // ShopData.setCurrency("PLN");
+                            ShopData.setDescription("Zamowienie z Pizza Tabu");
+                            ShopData.setProductPrice(Double.parseDouble(selectedItem_all_cost.getDesc()));
 
-                        ShopData.setName(firstname);
-                        ShopData.setLastName(lastname);
-                        ShopData.setEmail(email);
-                        // ShopData.setCurrency("PLN");
-                        ShopData.setDescription("Zamowienie z Pizza Tabu");
-                        ShopData.setProductPrice(Double.parseDouble(selectedItem_all_cost.getDesc()));
+                            dotpay_success = new DotPayReceiver();
+                            IntentFilter intentFilter = new IntentFilter(DOTPAY_SUCCESS);
+                            registerReceiver(dotpay_success, intentFilter);
 
-                        dotpay_success = new DotPayReceiver();
-                        IntentFilter intentFilter = new IntentFilter(DOTPAY_SUCCESS);
-                        registerReceiver(dotpay_success, intentFilter);
+                            Intent intent = new Intent();
+                            intent.setClass(getBaseContext(), DotPayActivity.class);
+                            startActivity(intent);
 
-                        Intent intent = new Intent();
-                        intent.setClass(getBaseContext(), DotPayActivity.class);
-                        startActivity(intent);
+                        } else {
 
+                            AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
+                                    ShopingCard.this);
+
+                            alertDialog2.setTitle("ZAMÓWIENIE");
+
+                            alertDialog2.setMessage("Czy chcesz wysłać zamówienie?");
+
+                            alertDialog2.setPositiveButton("TAK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to execute after dialog
+                                            sendToFirebase(firstname, lastname, email, phone, street);
+                                            Intent intent = new Intent();
+                                            intent.setClass(getBaseContext(), MainActivity.class);
+                                            startActivity(intent);
+                                            dialog.cancel();
+                                            adapter.notifyDataSetChanged();
+                                            Toast.makeText(getApplicationContext(),
+                                                    "Zamówienie zostało wysłane. Dziękujemy", Toast.LENGTH_SHORT)
+
+
+                                                    .show();
+                                        }
+                                    });
+
+                            alertDialog2.setNegativeButton("NIE",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Write your code here to execute after dialog
+                                            Toast.makeText(getApplicationContext(),
+                                                    "Zamwienie nie zostało wysłane", Toast.LENGTH_SHORT)
+                                                    .show();
+                                            dialog.cancel();
+                                        }
+                                    });
+                            // Showing Alert Dialog
+                            alertDialog2.show();
+
+                        }
                     } else {
 
-                        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(
-                                ShopingCard.this);
-
-                        alertDialog2.setTitle("ZAMÓWIENIE");
-
-                        alertDialog2.setMessage("Czy chcesz wysłać zamówienie?");
-
-                        alertDialog2.setPositiveButton("TAK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // Write your code here to execute after dialog
-                                        sendToFirebase(firstname, lastname, email, phone, street);
-                                        Intent intent = new Intent();
-                                        intent.setClass(getBaseContext(), MainActivity.class);
-                                        startActivity(intent);
-                                        dialog.cancel();
-                                        adapter.notifyDataSetChanged();
-                                        Toast.makeText(getApplicationContext(),
-                                                "Zamówienie zostało wysłane. Dziękujemy", Toast.LENGTH_SHORT)
-
-
-                                                .show();
-                                    }
-                                });
-
-                        alertDialog2.setNegativeButton("NIE",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // Write your code here to execute after dialog
-                                        Toast.makeText(getApplicationContext(),
-                                                "Zamwienie nie zostało wysłane", Toast.LENGTH_SHORT)
-                                                .show();
-                                        dialog.cancel();
-                                    }
-                                });
-                        // Showing Alert Dialog
-                        alertDialog2.show();
+                        CustomDialogClass customDialog = new CustomDialogClass(ShopingCard.this);
+                        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        customDialog.show();
+                        customDialog.setTitleDialogText("UWAGA");
+                        customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
 
                     }
-                } else {
-
+                }else{
                     CustomDialogClass customDialog = new CustomDialogClass(ShopingCard.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
                     customDialog.setTitleDialogText("UWAGA");
-                    customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
-
+                    customDialog.setDescDialogText("W DANYCH UŻYTKONIKA wypełnij pola Imię, Nazwisko, Telefon");
                 }
             }
         });
