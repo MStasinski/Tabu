@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.CRM.Adapters.SimpleListViewAdapter;
+import com.michal_stasinski.tabu.CRM.Adapters.CRM_Order_Kanban_Adapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -26,7 +24,7 @@ import java.util.Map;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 
-public class SimpleOrderListFB extends Activity {
+public class CRM_Order_Kanban extends Activity {
 
     protected BounceListView bounceListView0;
     protected BounceListView bounceListView1;
@@ -190,11 +188,11 @@ public class SimpleOrderListFB extends Activity {
                 }
 
 
-                SimpleListViewAdapter arrayAdapter0 = new SimpleListViewAdapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
-                SimpleListViewAdapter arrayAdapter1 = new SimpleListViewAdapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
-                SimpleListViewAdapter arrayAdapter2 = new SimpleListViewAdapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                SimpleListViewAdapter arrayAdapter3 = new SimpleListViewAdapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
-                SimpleListViewAdapter arrayAdapter4 = new SimpleListViewAdapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
+                CRM_Order_Kanban_Adapter arrayAdapter0 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                CRM_Order_Kanban_Adapter arrayAdapter1 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                CRM_Order_Kanban_Adapter arrayAdapter2 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                CRM_Order_Kanban_Adapter arrayAdapter3 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                CRM_Order_Kanban_Adapter arrayAdapter4 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
 
                 bounceListView0.setAdapter(arrayAdapter0);
                 bounceListView0.setScrollingCacheEnabled(false);

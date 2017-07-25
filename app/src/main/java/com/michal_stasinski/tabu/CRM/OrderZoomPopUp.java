@@ -3,12 +3,9 @@ package com.michal_stasinski.tabu.CRM;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -21,10 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.michal_stasinski.tabu.R;
 
 import java.util.ArrayList;
-
-import static com.michal_stasinski.tabu.CRM.Order.SimpleOrderListFB.orderFromFB0;
-import static com.michal_stasinski.tabu.SplashScreen.dataDeliveryTextFieldName;
-import static java.security.AccessController.getContext;
 
 /**
  * Created by win8 on 09.07.2017.

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenu_ListViewAdapter;
+import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -21,7 +21,6 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 
-import static android.R.id.closeButton;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 
@@ -39,13 +38,20 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crm_main_menu_manager);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Button closeButton = (Button) findViewById(R.id.closeBtn);
         TextView textTitle = (TextView) findViewById(R.id.crm_title_menu);
         textTitle.setText("ZARZĄDZANIE");
         if (IS_LOGGED_IN) {
             closeButton.setVisibility(View.INVISIBLE);
 
-                    menuText = new String[]{"Powiadomienia",
+            menuText = new String[]{"Powiadomienia",
                     "Nowy Post",
                     "Zamówienia",
                     "Zamówienia zakończone",
@@ -91,7 +97,11 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
                 }
 
                 if (IS_LOGGED_IN) {
-
+                    if (position == 2) {
+                        main_list_view.setOnItemClickListener(null);
+                        intent.setClass(view.getContext(), CRM_Order_Kanban.class);
+                        startActivity(intent);
+                    }
                     if (position == 5) {
                         main_list_view.setOnItemClickListener(null);
                         IS_LOGGED_IN = false;
@@ -116,5 +126,4 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
         });
 
     }
-
 }

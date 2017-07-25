@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by win8 on 27.12.2016.
  */
 
-public class SimpleListViewAdapter extends BaseAdapter {
+public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
 
     private static LayoutInflater inflater = null;
@@ -50,7 +50,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
 
     private Boolean button_flag_enabled = true;
 
-    public SimpleListViewAdapter(Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort, int col) {
+    public CRM_Order_Kanban_Adapter(Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort, int col) {
         sortOption = sort;
         color = col;
         this.specialSign = specialSign;
@@ -117,7 +117,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             // ArrayList<Number> price = arr.get(position).getPriceArray();
-            view = View.inflate(mContext, R.layout.crm_simple_list_row, null);
+            view = View.inflate(mContext, R.layout.crm_order_kanban_row, null);
             viewHolder = new ViewHolderItem();
             viewHolder.order_fb_payment_method = (TextView) view.findViewById(R.id.order_fb_payment_method);
 
@@ -128,7 +128,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
             viewHolder.hour_of_deliver = (TextView) view.findViewById(R.id.hour_of_deliver);
             viewHolder.time_to_finish = (TextView) view.findViewById(R.id.time_to_finish);
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
-            viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
+           // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
             viewHolder.tableArray = new ArrayList<TextView>();
@@ -164,7 +164,17 @@ public class SimpleListViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolderItem) view.getTag();
         }
-        viewHolder.order_fb_payment_method.setText(arr.get(position).getPaymentWay());
+
+        if(arr.get(position).getPaymentWay().toString().equals("GOTÓWKA")) {
+            viewHolder.order_fb_payment_method.setText("GOT.");
+        }
+
+        if(arr.get(position).getPaymentWay().toString().equals("KARTA")) {
+            viewHolder.order_fb_payment_method.setText("KART.");
+        }
+        if(arr.get(position).getPaymentWay().toString().equals("PRZELEW")) {
+            viewHolder.order_fb_payment_method.setText("PRZE.");
+        }
         viewHolder.price.setText(arr.get(position).getTotalPrice());
         //viewHolder.order_number.setBackgroundColor(color);
         viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
@@ -178,7 +188,7 @@ public class SimpleListViewAdapter extends BaseAdapter {
         //  viewHolder.order_number.setWidth(width / 100);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
         if (arr.get(position).getOrderNumber().equals("0")) {
-            viewHolder.order_number.setText("NOWE");
+            viewHolder.order_number.setText("0");
         }
         viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(color));
         viewHolder.delivety_method.setText(arr.get(position).getReceiptWay().replace("WŁASNY", ""));

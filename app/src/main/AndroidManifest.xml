@@ -83,7 +83,7 @@
             android:name=".User_Side.DataForDelivery"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
-            android:name=".CRM.Order.SimpleOrderListFB"
+            android:name=".CRM.Order.CRM_Order_Kanban"
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity
