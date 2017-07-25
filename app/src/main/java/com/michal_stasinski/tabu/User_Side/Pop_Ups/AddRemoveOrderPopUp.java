@@ -60,7 +60,7 @@ public class AddRemoveOrderPopUp extends Activity {
         int height = dm.heightPixels;
         //getWindow().setLayout((int) (width * .8), (int) (height * 0.4));
         getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        CustomFont_Avenir_Medium titleTxt = (CustomFont_Avenir_Medium) findViewById(R.id.dish_title);
+        TextView titleTxt = (TextView) findViewById(R.id.dish_title);
         titleTxt.setText(name);
 
         removeAllBtn = (Button) findViewById(R.id.removeAll);

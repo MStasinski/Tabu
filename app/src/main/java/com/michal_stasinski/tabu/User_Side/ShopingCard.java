@@ -289,12 +289,11 @@ public class ShopingCard extends SwipeBackActivity {
         int deliveryCostFromData = prefs.getInt("deliveryCost", 0);
 
         street = townFromData + ", " + streetFromData + " " + houseNrFromData;
-        if (flatNrFromData != null)
-            {
-                if (!flatNrFromData.equals("Nr mieszkania")) {
-                    street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
-                }
+        if (flatNrFromData != null) {
+            if (!flatNrFromData.equals("Nr mieszkania")) {
+                street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
             }
+        }
 
         if (streetFromData == null) {
             streetFromData = "Ulica";
@@ -410,9 +409,12 @@ public class ShopingCard extends SwipeBackActivity {
                         String houseNrFromData = prefs.getString("Nr domu", null);
                         String flatNrFromData = prefs.getString("Nr mieszkania", null);
                         street = townFromData + ", " + streetFromData + " " + houseNrFromData;
-                        if (!flatNrFromData.equals("Nr mieszkania")) {
-                            street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
+                        if (flatNrFromData != null) {
+                            if (!flatNrFromData.equals("Nr mieszkania")) {
+                                street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
+                            }
                         }
+
                         Log.i("informacja", "  war  " + townFromData + ", " + streetFromData + " " + houseNrFromData);
 
 
@@ -542,7 +544,7 @@ public class ShopingCard extends SwipeBackActivity {
                 Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
                 ShopingCardItem orderPrice = (ShopingCardItem) adapter.getItem(adapter.getCount() - 3);
 
-                Log.i("informacja", "Integer.parseInt(orderPrice.toString()) "+orderPrice.getDesc().toString());
+                Log.i("informacja", "Integer.parseInt(orderPrice.toString()) " + orderPrice.getDesc().toString());
                 if (Float.parseFloat(orderPrice.getDesc().toString()) > Integer.parseInt(MINIMAL_PRICE_OF_ORDER)) {
                     if (!firstname.equals("Imię") && !lastname.equals("Nazwisko") && !phone.equals("Telefon")) {
                         if (time_open_close.getRestaurantIsOpen()) {
@@ -621,12 +623,12 @@ public class ShopingCard extends SwipeBackActivity {
                         customDialog.setTitleDialogText("UWAGA");
                         customDialog.setDescDialogText("W DANYCH UŻYTKONIKA wypełnij pola Imię, Nazwisko, Telefon");
                     }
-                }else{
+                } else {
                     CustomDialogClass customDialog = new CustomDialogClass(ShopingCard.this);
                     customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     customDialog.show();
                     customDialog.setTitleDialogText("UWAGA");
-                    customDialog.setDescDialogText("Twoje zamowienie nie przekroczyło ceny minimalnej wynoszacej" + MINIMAL_PRICE_OF_ORDER+ "zł");
+                    customDialog.setDescDialogText("Twoje zamowienie nie przekroczyło ceny minimalnej wynoszacej" + MINIMAL_PRICE_OF_ORDER + "zł");
                 }
             }
         });
@@ -667,8 +669,7 @@ public class ShopingCard extends SwipeBackActivity {
         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
 
 
-
-        for (int i = 0; i <dataDeliveryTextFieldName.length ; i++) {
+        for (int i = 0; i < dataDeliveryTextFieldName.length; i++) {
             Log.i("informacja", "dataDeliveryTextFieldName" + prefs.getString(dataDeliveryTextFieldName[i], null));
         }
 /*

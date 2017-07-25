@@ -49,7 +49,7 @@ public class CRM_Order_Kanban extends Activity {
         setTheme(R.style.AppThemeStaffLogged);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.crm_simple_order_listview_fb);
+        setContentView(R.layout.crm_order_kanban_main);
 
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();

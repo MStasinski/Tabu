@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecond"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:padding="10dp">
+
+            <Button
+                android:id="@+id/closeBtn"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/back_button" />
+
+            <TextView
+                android:id="@+id/title_shoping_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="ZAMÓWIENIA"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/toolBarTitle" />
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/div0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_divaider_listmenu"
+            android:backgroundTint="@color/colorSecond"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorSecond"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/news_column"
+                android:layout_width="160sp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="NOWE"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/toolBarTitle"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_divaider_listmenu"
+                    android:backgroundTint="@color/colorSecond"
+                    android:padding="10dp" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/simple_order_list_view0"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+
+                    android:background="@color/colorSecond"
+                    android:divider="@android:color/darker_gray"
+                    android:dividerHeight="0.05sp"
+                    android:paddingBottom="5dp"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/commit_column"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/accepted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:text="PRZYJĘTE"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/toolBarTitle"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_divaider_listmenu"
+                    android:backgroundTint="@color/colorSecond"
+                    android:padding="10dp" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/simple_order_list_view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:background="@color/colorSecond"
+                    android:divider="@android:color/darker_gray"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/realization_column"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/realization"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="W REALIZACJI"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/toolBarTitle"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_divaider_listmenu"
+                    android:backgroundTint="@color/colorSecond"
+                    android:padding="10dp" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/simple_order_list_view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:background="@color/colorSecond"
+                    android:divider="@android:color/darker_gray"
+                    android:scrollingCache="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/reception_column"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/receive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="DO ODBIORU"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/toolBarTitle"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_divaider_listmenu"
+                    android:backgroundTint="@color/colorSecond"
+                    android:padding="10dp" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/simple_order_list_view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:background="@color/colorSecond"
+                    android:divider="@android:color/darker_gray"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/transport_column"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/transport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="W DOSTAWIE"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/toolBarTitle"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_divaider_listmenu"
+                    android:backgroundTint="@color/colorSecond"
+                    android:padding="10dp" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/simple_order_list_view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:background="@color/colorSecond"
+                    android:divider="@android:color/darker_gray"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.liuguangqiang.swipeback.SwipeBackLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.liuguangqiang.swipeback.SwipeBackLayout>
+
+</LinearLayout>

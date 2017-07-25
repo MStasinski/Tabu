@@ -39,6 +39,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
     private int color;
     private int height;
     private int width;
+    private int scale = 140;
 
     public Boolean getButton_flag_enabled() {
         return button_flag_enabled;
@@ -117,7 +118,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
         if (convertView == null) {
             // ArrayList<Number> price = arr.get(position).getPriceArray();
-            view = View.inflate(mContext, R.layout.crm_order_kanban_row, null);
+            view = View.inflate(mContext, R.layout.crm_order_kanban_block, null);
             viewHolder = new ViewHolderItem();
             viewHolder.order_fb_payment_method = (TextView) view.findViewById(R.id.order_fb_payment_method);
 
@@ -128,7 +129,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             viewHolder.hour_of_deliver = (TextView) view.findViewById(R.id.hour_of_deliver);
             viewHolder.time_to_finish = (TextView) view.findViewById(R.id.time_to_finish);
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
-           // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
+            // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
             viewHolder.tableArray = new ArrayList<TextView>();
@@ -165,14 +166,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             viewHolder = (ViewHolderItem) view.getTag();
         }
 
-        if(arr.get(position).getPaymentWay().toString().equals("GOTÓWKA")) {
+        if (arr.get(position).getPaymentWay().toString().equals("GOTÓWKA")) {
             viewHolder.order_fb_payment_method.setText("GOT.");
         }
 
-        if(arr.get(position).getPaymentWay().toString().equals("KARTA")) {
+        if (arr.get(position).getPaymentWay().toString().equals("KARTA")) {
             viewHolder.order_fb_payment_method.setText("KART.");
         }
-        if(arr.get(position).getPaymentWay().toString().equals("PRZELEW")) {
+        if (arr.get(position).getPaymentWay().toString().equals("PRZELEW")) {
             viewHolder.order_fb_payment_method.setText("PRZE.");
         }
         viewHolder.price.setText(arr.get(position).getTotalPrice());
@@ -180,11 +181,11 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
 
         viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(color));
-        viewHolder.order_number.setTextSize(width / 120);
-        viewHolder.delivety_method.setTextSize(width / 120);
-        viewHolder.hour_of_deliver.setTextSize(width / 120);
-        viewHolder.order_fb_payment_method.setTextSize(width / 120);
-        viewHolder.price.setTextSize(width / 120);
+        viewHolder.order_number.setTextSize(width / scale);
+        viewHolder.delivety_method.setTextSize(width / scale);
+        viewHolder.hour_of_deliver.setTextSize(width /scale);
+        viewHolder.order_fb_payment_method.setTextSize(width / scale);
+        viewHolder.price.setTextSize(width / scale);
         //  viewHolder.order_number.setWidth(width / 100);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
         if (arr.get(position).getOrderNumber().equals("0")) {
@@ -194,7 +195,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.delivety_method.setText(arr.get(position).getReceiptWay().replace("WŁASNY", ""));
         viewHolder.hour_of_deliver.setText("11:00");
 
-        viewHolder.time_to_finish.setTextSize(width / 120);
+        viewHolder.time_to_finish.setTextSize(width / scale);
         viewHolder.tableArray.clear();
         viewHolder.list.removeAllViews();
 
@@ -236,19 +237,17 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                     bundle.putString("price", arr.get(clikPos).getTotalPrice());
                     bundle.putString("status", arr.get(clikPos).getStatus());
                     bundle.putString("orderNo", arr.get(clikPos).getOrderNo());
-                    bundle.putInt("position",clikPos);
+                    bundle.putInt("position", clikPos);
                     bundle.putInt("color", color);
                     ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
 
                     ArrayList<String> iteme = (ArrayList<String>) getOrder.get(0);
 
 
-
-
-                   // intent.putParcelableArrayListExtra("getOrder" , iteme);
+                    // intent.putParcelableArrayListExtra("getOrder" , iteme);
                     for (int i = 0; i < getOrder.size(); i++) {
 
-                        bundle.putSerializable("getOrder"+i , iteme);
+                        bundle.putSerializable("getOrder" + i, iteme);
                     }
 
                     intent.setClass(mContext, OrderZoomPopUp.class);
