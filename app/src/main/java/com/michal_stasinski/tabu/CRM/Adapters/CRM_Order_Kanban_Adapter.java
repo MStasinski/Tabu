@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -228,7 +229,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                     Log.i("informacja", "klik" + clikPos);
 
 
-                    Intent intent = new Intent();
+                 /*   Intent intent = new Intent();
 
                     Bundle bundle = new Bundle();
 
@@ -250,10 +251,21 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                         bundle.putSerializable("getOrder" + i, iteme);
                     }
 
-                    intent.setClass(mContext, OrderZoomPopUp.class);
+                  //  intent.setClass(mContext, OrderZoomPopUp.class);
 
                     intent.putExtras(bundle);
+                    mContext.startActivity(intent);*/
+
+
+                    Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
+                    intent.setType("text/plain");
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
+                    intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr");
+                    intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
                     mContext.startActivity(intent);
+
+
                     // Activity activity = (Activity) mContext;
                     //activity.startActivity(intent);
                     //  activity.overridePendingTransition(R.anim.from_right, R.anim.to_left);
