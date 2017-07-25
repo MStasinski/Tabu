@@ -289,9 +289,12 @@ public class ShopingCard extends SwipeBackActivity {
         int deliveryCostFromData = prefs.getInt("deliveryCost", 0);
 
         street = townFromData + ", " + streetFromData + " " + houseNrFromData;
-        if (!flatNrFromData.equals("Nr mieszkania")) {
-            street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
-        }
+        if (flatNrFromData != null)
+            {
+                if (!flatNrFromData.equals("Nr mieszkania")) {
+                    street = townFromData + ", " + streetFromData + " " + houseNrFromData + "/" + flatNrFromData;
+                }
+            }
 
         if (streetFromData == null) {
             streetFromData = "Ulica";
@@ -661,6 +664,26 @@ public class ShopingCard extends SwipeBackActivity {
         SimpleDateFormat mdformat2 = new SimpleDateFormat("yy-MM-dd");
         String strDate = mdformat.format(calendar.getTime());
         String strDate2 = mdformat2.format(calendar.getTime());
+        SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
+
+
+
+        for (int i = 0; i <dataDeliveryTextFieldName.length ; i++) {
+            Log.i("informacja", "dataDeliveryTextFieldName" + prefs.getString(dataDeliveryTextFieldName[i], null));
+        }
+/*
+        var uzupelnAdresu = ""
+        if Pietro != nil && Pietro != "PIĘTRO"{
+            Pietro = "PIĘTRO: " + Pietro! + "\n"
+            uzupelnAdresu.append(Pietro!)}
+
+        if Firma != nil && Pietro != "FIRMA"{
+            Firma = "FIRMA: " + Firma! + "\n"
+            uzupelnAdresu.append(Firma!)}
+
+        if wskazAdr != nil && wskazAdr != "Dodatkowe wskazówki"{
+            wskazAdr = "Dodatkowe wskazówki: " + wskazAdr!
+                    uzupelnAdresu.append(wskazAdr!)}*/
 
 
         ShopingCardItem delivery_mode = (ShopingCardItem) adapter.getItem(2);
