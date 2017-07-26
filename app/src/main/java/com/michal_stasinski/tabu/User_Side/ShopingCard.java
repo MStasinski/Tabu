@@ -113,6 +113,7 @@ public class ShopingCard extends SwipeBackActivity {
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );
+
         Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
         timeList = new ArrayList<TimeListItem>();
         timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
