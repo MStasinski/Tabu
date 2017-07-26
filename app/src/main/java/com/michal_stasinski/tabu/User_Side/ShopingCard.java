@@ -388,7 +388,7 @@ public class ShopingCard extends SwipeBackActivity {
                     ShopingCardItem selectedItem_all_cost = (ShopingCardItem) adapter.getItem(adapter.getCount() - 1);
 
                     if (selectedItem.getDesc().equals("ODBIÓR WŁASNY")) {
-                        selectedItem.setDesc("DOSTAWA");
+                        selectedItem.setDesc("DOWÓZ");
                         //Log.i("informacja", " DOSTAWA 1");
                         timeList = new ArrayList<TimeListItem>();
                         timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_DELIVERY));

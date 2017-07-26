@@ -175,7 +175,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             viewHolder.order_fb_payment_method.setText("KART.");
         }
         if (arr.get(position).getPaymentWay().toString().equals("PRZELEW")) {
-            viewHolder.order_fb_payment_method.setText("PRZE.");
+            viewHolder.order_fb_payment_method.setText("ZAPł.");
         }
         viewHolder.price.setText(arr.get(position).getTotalPrice());
         //viewHolder.order_number.setBackgroundColor(color);
