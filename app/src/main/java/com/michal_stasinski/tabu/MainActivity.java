@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("AvenirNextCondensed-Regular.ttf")
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );

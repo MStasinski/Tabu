@@ -109,7 +109,7 @@ public class ShopingCard extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("AvenirNextCondensed-Regular.ttf")
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );
