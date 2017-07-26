@@ -91,7 +91,7 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
 
         //************************* przycisk close**********************
 
-        Button closeButton = (Button) findViewById(R.id.bClose);
+        ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.bClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -91,7 +92,7 @@ public class DataForDelivery extends SwipeBackActivity {
         adapter.notifyDataSetChanged();
 
 
-        final Button closeButton = (Button) findViewById(R.id.closeBtn);
+        final ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.closeBtn);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

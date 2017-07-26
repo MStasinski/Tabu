@@ -4,6 +4,7 @@ package com.michal_stasinski.tabu.User_Side;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,18 @@ public class User_Info_ListView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crm_main_menu_manager);
 
+
+        ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.bClose);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                finish();
+                overridePendingTransition(R.anim.from_left, R.anim.to_right);
+
+            }
+        });
 
         TextView textTitle = (TextView) findViewById(R.id.crm_title_menu);
         textTitle.setText("INFORMACJE");
@@ -78,18 +91,6 @@ public class User_Info_ListView extends AppCompatActivity {
             }
         });
 
-
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                finish();
-                overridePendingTransition(R.anim.from_left, R.anim.to_right);
-
-            }
-        });
 
     }
 

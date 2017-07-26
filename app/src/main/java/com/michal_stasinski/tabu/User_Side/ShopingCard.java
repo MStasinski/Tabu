@@ -519,7 +519,7 @@ public class ShopingCard extends SwipeBackActivity {
 
         /*   _______________________przycisk wyjścia z koszyka */
 
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
+        ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.bClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -18,16 +18,21 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp">
 
-            <Button
+            <android.support.v7.widget.ButtonBarLayout
                 android:id="@+id/closeBtn"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="10dp"
-                android:background="@mipmap/back_button"
-                android:backgroundTint="?colorPrimary"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content">
 
-                />
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/back_button"
+                    android:backgroundTint="?colorPrimary"
+                    />
+
+            </android.support.v7.widget.ButtonBarLayout>
 
             <TextView
                 android:id="@+id/title_shoping_card"

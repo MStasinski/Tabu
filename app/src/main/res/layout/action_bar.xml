@@ -39,14 +39,15 @@
 
     <android.support.v7.widget.ButtonBarLayout
         android:id="@+id/bottom_info"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginRight="20dp">
 
         <ImageView
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
+            android:layout_gravity="center"
             android:src="@mipmap/ic_more_vert_white_48dp"
             android:tint="?colorPrimary" />
 
