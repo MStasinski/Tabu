@@ -34,12 +34,6 @@ dependencies {
 
 
 
-
-
-
-
-
-
     compile(name: 'dotpay-sdk', ext: 'aar')
     compile 'com.android.support:percent:25.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -73,7 +67,10 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:4.47'
     compile 'com.j256.ormlite:ormlite-android:4.47'
     compile 'io.card:android-sdk:5.4.1'
+
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
     testCompile 'junit:junit:4.12'
+
     apt 'com.google.dagger:dagger-compiler:2.6.1'
     provided 'javax.annotation:jsr250-api:1.0'
 }

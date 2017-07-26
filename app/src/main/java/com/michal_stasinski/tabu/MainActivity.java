@@ -39,6 +39,9 @@ import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static com.michal_stasinski.tabu.SplashScreen.ACTULAL_STATE_OF_LOGGED;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
@@ -66,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
     protected BounceListView mListViewDrawer;
     protected BounceListView mListViewMenu;
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
 
     public static String[] largeTextArr = {
             "START",
@@ -99,6 +106,13 @@ public class MainActivity extends AppCompatActivity {
         getIntent().setAction("Already created");
 
         setContentView(R.layout.activity_main);
+
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNextCondensed-Regular.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
 
         //-------------------------- bottom menu button------------------------------------

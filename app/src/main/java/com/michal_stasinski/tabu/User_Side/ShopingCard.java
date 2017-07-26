@@ -48,6 +48,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static com.michal_stasinski.tabu.SplashScreen.MINIMAL_PRICE_OF_ORDER;
 import static com.michal_stasinski.tabu.User_Side.Pop_Ups.PaymentPopUp.paymentMethods;
 import static com.michal_stasinski.tabu.User_Side.Pop_Ups.PaymentPopUp.paymentMethodsList;
@@ -92,6 +96,10 @@ public class ShopingCard extends SwipeBackActivity {
     public static final String DOTPAY_FAILD = "dotpay_faild";
 
     @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (IS_LOGGED_IN) {
             setTheme(R.style.AppThemeStaffLogged);
@@ -99,7 +107,12 @@ public class ShopingCard extends SwipeBackActivity {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
-
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNextCondensed-Regular.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
         Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
         timeList = new ArrayList<TimeListItem>();
         timeList = countAllPossibleTimesOfDelivery(Integer.parseInt(TIME_OF_REALIZATION_TAKEAWAY));
@@ -114,6 +127,7 @@ public class ShopingCard extends SwipeBackActivity {
             customDialog.setDescDialogText("Zamówienia online nieczynne.\nZapraszamy w godzinach otwarcia.");
         }
     }
+
 
 
     @Override
