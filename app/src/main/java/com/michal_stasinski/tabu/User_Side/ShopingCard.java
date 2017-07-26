@@ -99,14 +99,18 @@ public class ShopingCard extends SwipeBackActivity {
     protected void attachBaseContext(Context context) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         if (IS_LOGGED_IN) {
             setTheme(R.style.AppThemeStaffLogged);
         } else {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
+
+
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
                         .setDefaultFontPath("AvenirNext-Medium.ttf")

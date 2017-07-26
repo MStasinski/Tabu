@@ -1,6 +1,7 @@
 package com.michal_stasinski.tabu.User_Side;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
@@ -25,6 +26,9 @@ import com.michal_stasinski.tabu.Utils.Do_you_belong_to_staff;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
@@ -58,6 +62,10 @@ public class DataForDelivery extends SwipeBackActivity {
             R.mipmap.uwagi_icon,
     };
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +77,16 @@ public class DataForDelivery extends SwipeBackActivity {
         }
         super.onCreate(savedInstanceState);
 
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
+
         setContentView(R.layout.activity_data_for_delivery_list_view);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+
 
         listView = (BounceListView) findViewById(R.id.data_delivery_listView);
         adapter = new DataForDeliveryAdapter(this, imgid);

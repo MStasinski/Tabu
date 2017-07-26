@@ -64,14 +64,14 @@
             android:translationZ="1dp">
 
 
-            <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
+            <TextView
                 android:id="@+id/order_composer_button_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="(0) 0.00zł"
                 android:textAlignment="center"
-
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/orange_button_text_size" />
 

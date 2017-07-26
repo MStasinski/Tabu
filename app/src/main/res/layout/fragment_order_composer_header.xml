@@ -49,7 +49,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorDarkGray"
         android:textSize="@dimen/activity_order_price"
-        android:textStyle="bold"
+        fontPath="AvenirNextCondensed-DemiBold.ttf"
         android:layout_margin="20dp"
 
         />

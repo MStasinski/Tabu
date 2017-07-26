@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            fontPath="AvenirNext-DemiBold.ttf"
             android:textColor="@color/color_zmien"
             android:textSize="12sp"
             android:textStyle="bold" />

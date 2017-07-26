@@ -30,7 +30,8 @@
             android:text="18.90"
             android:textColor="@color/colorDarkGray"
             android:textSize="15dp"
-            android:textStyle="bold"
+            fontPath="AvenirNext-DemiBold.ttf"
+
 
             />
 

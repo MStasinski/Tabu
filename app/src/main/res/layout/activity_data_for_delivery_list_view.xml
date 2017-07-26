@@ -47,7 +47,7 @@
 
         </RelativeLayout>
 
-        <com.michal_stasinski.tabu.Utils.CustomFont_Avenir_Condensed_DemiBold
+        <TextView
             android:id="@+id/data_cost_of_delivery_text"
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -62,7 +62,7 @@
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/orange_button_text_size"
-            android:textStyle="bold"
+            fontPath="AvenirNextCondensed-DemiBold.ttf"
             android:translationZ="2dp" />
 
         <com.michal_stasinski.tabu.Utils.BounceListView

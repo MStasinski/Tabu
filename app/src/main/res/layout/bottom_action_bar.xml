@@ -39,6 +39,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="14dp"
                 android:text="MENU"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:textStyle="bold" />
         </android.support.v7.widget.ButtonBarLayout>
@@ -75,6 +76,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="14dp"
                 android:text="(0) 0.00zł"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
                 android:textAppearance="@style/TextAppearance.AppCompat.Menu"
                 android:textStyle="bold" />
 

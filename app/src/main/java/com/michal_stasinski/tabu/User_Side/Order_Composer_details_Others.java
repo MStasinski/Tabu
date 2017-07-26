@@ -4,6 +4,7 @@ package com.michal_stasinski.tabu.User_Side;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
@@ -28,6 +29,9 @@ import com.michal_stasinski.tabu.Utils.CustomDialogClass;
 import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.orderList;
@@ -58,6 +62,10 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
             "addRemoveButton"
     };
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +78,13 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         final BounceListView listView = (BounceListView) findViewById(R.id.order_composer_listView);
         Intent intent = getIntent();

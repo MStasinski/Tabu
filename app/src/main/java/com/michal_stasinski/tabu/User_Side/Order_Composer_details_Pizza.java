@@ -34,6 +34,9 @@ import com.michal_stasinski.tabu.Utils.FontFitTextView;
 import com.michal_stasinski.tabu.Utils.MathUtils;
 import com.michal_stasinski.tabu.Utils.OrderComposerUtils;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 import static com.michal_stasinski.tabu.User_Side.Pop_Ups.AddonsPopUp.addonsPopUpAdapter;
 import static com.michal_stasinski.tabu.User_Side.Pop_Ups.SaucePopUp.saucePopUpAdapter;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
@@ -75,6 +78,11 @@ public class Order_Composer_details_Pizza extends SwipeBackActivity {
 
 
     @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         if(IS_LOGGED_IN) {
@@ -83,6 +91,12 @@ public class Order_Composer_details_Pizza extends SwipeBackActivity {
             setTheme(R.style.AppTheme);
         }
 
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_composer);
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);

@@ -41,6 +41,7 @@
             android:layout_marginLeft="60dp"
             android:layout_marginRight="40dp"
             android:textColor="@color/order_list_rozmiar"
+            fontPath="AvenirNext-DemiBold.ttf"
             android:textSize="14sp" />
 
         <TextView
@@ -54,6 +55,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:text="18.90"
+            fontPath="AvenirNext-DemiBold.ttf"
             android:textColor="@color/colorDarkGray"
             android:textSize="15sp"
             android:textStyle="bold" />
