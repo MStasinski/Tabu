@@ -87,14 +87,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginBottom="1dp"
                     android:layout_weight="1"
                     android:animationCache="false"
-
                     android:background="@color/colorSecond"
                     android:divider="@android:color/darker_gray"
-                    android:dividerHeight="0.05sp"
-                    android:paddingBottom="5dp"
                     android:scrollingCache="false" />
             </LinearLayout>
 
@@ -190,7 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
                     android:gravity="center_vertical"
-                    android:text="DO ODBIORU"
+                    android:text="GOTOWE"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
                     android:textSize="@dimen/toolBarTitle" />

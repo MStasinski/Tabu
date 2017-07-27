@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -42,11 +44,18 @@ public class CRM_Order_Kanban extends Activity {
     public static ArrayList<GetOrderFromFB> orderFromFB3;
     public static ArrayList<GetOrderFromFB> orderFromFB4;
 
+    private CRM_Order_Kanban_Adapter arrayAdapter0;
+    private CRM_Order_Kanban_Adapter arrayAdapter1;
+    private CRM_Order_Kanban_Adapter arrayAdapter2;
+    private CRM_Order_Kanban_Adapter arrayAdapter3;
+    private CRM_Order_Kanban_Adapter arrayAdapter4;
     protected LinearLayout news_column;
     protected LinearLayout commit_column;
     protected LinearLayout realization_column;
     protected LinearLayout reception_column;
     protected LinearLayout transport_column;
+    private Handler handler;
+    private int AFTER_ONE_MINUTE;
 
     @Override
     protected void attachBaseContext(Context context) {
@@ -139,6 +148,41 @@ public class CRM_Order_Kanban extends Activity {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
+
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        handler = new Handler(new Handler.Callback() {
+
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == AFTER_ONE_MINUTE) {
+                    Log.i("informacja", "BUM");
+                    if (arrayAdapter0 != null) arrayAdapter0.notifyDataSetChanged();
+                    if (arrayAdapter1 != null) arrayAdapter1.notifyDataSetChanged();
+                    if (arrayAdapter2 != null) arrayAdapter2.notifyDataSetChanged();
+                    if (arrayAdapter3 != null) arrayAdapter3.notifyDataSetChanged();
+                    if (arrayAdapter4 != null) arrayAdapter4.notifyDataSetChanged();
+
+                    handler.sendEmptyMessageDelayed(AFTER_ONE_MINUTE, 60000);
+                }
+
+                return true;
+            }
+        });
+        handler.sendEmptyMessageDelayed(AFTER_ONE_MINUTE, 60000);
+
+
+    }
+
     public void loadAllOrders() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -215,11 +259,11 @@ public class CRM_Order_Kanban extends Activity {
                 }
 
 
-                CRM_Order_Kanban_Adapter arrayAdapter0 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
-                CRM_Order_Kanban_Adapter arrayAdapter1 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
-                CRM_Order_Kanban_Adapter arrayAdapter2 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                CRM_Order_Kanban_Adapter arrayAdapter3 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
-                CRM_Order_Kanban_Adapter arrayAdapter4 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
+                arrayAdapter0 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                arrayAdapter1 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                arrayAdapter2 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                arrayAdapter3 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                arrayAdapter4 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
 
                 bounceListView0.setAdapter(arrayAdapter0);
                 bounceListView0.setScrollingCacheEnabled(false);

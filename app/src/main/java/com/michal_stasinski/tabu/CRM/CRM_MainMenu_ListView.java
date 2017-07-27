@@ -3,12 +3,10 @@ package com.michal_stasinski.tabu.CRM;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +18,8 @@ import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.User_Side.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
-import com.michal_stasinski.tabu.Utils.CountDownTask;
 
 import java.util.ArrayList;
-import java.util.Timer;
 
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
@@ -42,12 +38,6 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crm_main_menu_manager);
-
-
-        Timer timer = new Timer(); //init the timer
-        CountDownTask task = new CountDownTask();
-        timer.scheduleAtFixedRate(task,500,1000); //(which task to run,forget the usage try google, looping must be milisecond eg.1000 = 1 second)
-
 
 
 

@@ -22,10 +22,12 @@ import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.CRM.OrderZoomPopUp;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.Utils.Diffrence_Between_Two_Times;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
 
 /**
  * Created by win8 on 27.12.2016.
@@ -44,6 +46,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
     private int height;
     private int width;
     private int scale = 140;
+
     private int counter = 0; //counter to indicate the total second whenever timer fire
 
     public Boolean getButton_flag_enabled() {
@@ -137,7 +140,6 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
-
             viewHolder.tableArray = new ArrayList<TextView>();
             ArrayList<ArrayList<String>> getOrder = arr.get(position).getOrderList();
 
@@ -157,7 +159,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
                 txt_order.setTypeface(null, Typeface.BOLD);
                 txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-               //txt_order.setTextSize(width / 160);
+                //txt_order.setTextSize(width / 160);
                 // txt_order.setText(it.get(1) + " szt." + it.get(3));
 
                 row.addView(txt_order);
@@ -172,7 +174,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             viewHolder = (ViewHolderItem) view.getTag();
         }
 
-        Log.i("informacja", "arr.get(position).getPaymentWay()" +arr.get(position).getPaymentWay().toString());
+        //Log.i("informacja", "arr.get(position).getPaymentWay()" +arr.get(position).getPaymentWay().toString());
         if (arr.get(position).getPaymentWay().toString().equals("GOTÓWKA")) {
             viewHolder.order_fb_payment_method.setText("GOT.");
         }
@@ -183,7 +185,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         if (arr.get(position).getPaymentWay().toString().equals("Przelew")) {
             viewHolder.order_fb_payment_method.setText("ZAPł.");
         }
-        viewHolder.price.setText(arr.get(position).getTotalPrice()+ " zł");
+        viewHolder.price.setText(arr.get(position).getTotalPrice() + " zł");
         //viewHolder.order_number.setBackgroundColor(color);
         viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
 
@@ -191,7 +193,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
         viewHolder.order_number.setTextSize(width / scale);
         viewHolder.delivety_method.setTextSize(width / scale);
-        viewHolder.hour_of_deliver.setTextSize(width /scale);
+        viewHolder.hour_of_deliver.setTextSize(width / scale);
         viewHolder.order_fb_payment_method.setTextSize(width / scale);
         viewHolder.price.setTextSize(width / scale);
 
@@ -208,9 +210,13 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.hour_of_deliver.setText(time[1].trim());
 
 
-
         viewHolder.time_to_finish.setTextSize(width / scale);
-        //viewHolder.time_to_finish.setText();
+
+
+        String count = Diffrence_Between_Two_Times.getTimeDifferance(time[1].trim());
+
+
+        viewHolder.time_to_finish.setText(String.valueOf(count));
         viewHolder.tableArray.clear();
         viewHolder.list.removeAllViews();
 
@@ -229,7 +235,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
             //txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-            txt_order.setTextSize(width / (scale+40));
+            txt_order.setTextSize(width / (scale + 40));
             txt_order.setText(it.get(1) + " szt." + it.get(3));
 
 
