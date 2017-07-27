@@ -1,6 +1,8 @@
 package com.michal_stasinski.tabu.CRM.Order;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,6 +23,9 @@ import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
 import java.util.Map;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 
@@ -43,6 +48,11 @@ public class CRM_Order_Kanban extends Activity {
     protected LinearLayout reception_column;
     protected LinearLayout transport_column;
 
+    @Override
+    protected void attachBaseContext(Context context) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(context));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +60,13 @@ public class CRM_Order_Kanban extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.crm_order_kanban_main);
+
+        CalligraphyConfig.initDefault(
+                new CalligraphyConfig.Builder()
+                        .setDefaultFontPath("AvenirNext-Medium.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
+        );
 
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();
@@ -77,9 +94,11 @@ public class CRM_Order_Kanban extends Activity {
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
+
+        //int height = getScreenWidth();
+        //int width = getScreenHeight();
 
         news_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
         commit_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -112,12 +131,20 @@ public class CRM_Order_Kanban extends Activity {
         loadAllOrders();
     }
 
+    public static int getScreenWidth() {
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    public static int getScreenHeight() {
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
+    }
+
     public void loadAllOrders() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         //DatabaseReference myRef = database.getReference("TEST_ORDER");
-       // String databaseName = "ZamowieniaBierzs";
-       // DatabaseReference myRef = database.getReference("OrdersCurrents");
+        // String databaseName = "ZamowieniaBierzs";
+        // DatabaseReference myRef = database.getReference("OrdersCurrents");
         DatabaseReference myRef = database.getReference(DB_ORDER_DATABASE);
         // DatabaseReference myRef = database.getReference("Orders");
 
@@ -165,10 +192,10 @@ public class CRM_Order_Kanban extends Activity {
                     orderFromFB_Item.setOrderNo(orderNo);
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
-                    Log.i("informacja","   status  " +  totalPrice);
+                    Log.i("informacja", "   status  " + totalPrice);
 
-                    if(status == null){
-                       // status ="0";
+                    if (status == null) {
+                        // status ="0";
                     }
                     if (status.equals("0")) {
                         orderFromFB0.add(orderFromFB_Item);

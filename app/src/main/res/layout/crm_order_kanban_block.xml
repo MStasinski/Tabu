@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/color_gray_light"
@@ -18,85 +19,105 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/order_nr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="12dp"
-                android:layout_weight="1"
+                fontPath="AvenirNext-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="2"
+
                 android:background="@drawable/orange_button_background"
                 android:backgroundTint="@color/colorSecond"
-                android:padding="3dp"
-                android:text="0"
+                android:text="12"
+                android:gravity="center_vertical"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
 
             <TextView
                 android:id="@+id/delivety_method"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                fontPath="AvenirNext-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:gravity="center_vertical"
                 android:layout_marginLeft="3dp"
-                android:layout_marginRight="2dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:background="@drawable/orange_button_background"
                 android:backgroundTint="@color/colorSecond"
-                android:padding="3dp"
                 android:text="DOSTAWA"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="13sp" />
 
         </android.support.v7.widget.ButtonBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/time_to_finish"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="4dp"
-                android:text="30 min"
-                android:textAlignment="viewStart"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time_to_finish"
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="30"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="min."
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="8sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/hour_of_deliver"
+                fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:padding="4dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="2"
                 android:text="17.00"
-                android:textAlignment="textEnd"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <View
             android:id="@+id/div0"
-            android:layout_width="160dp"
+            android:layout_width="154dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
             android:background="@drawable/custom_divaider_listmenu"
             android:backgroundTint="@color/colorSecond"
             android:padding="10dp" />
@@ -111,55 +132,60 @@
 
             <TextView
                 android:id="@+id/order_fb_payment_method"
+                fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginTop="2dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:padding="4dp"
-                android:text="GOTÓWKA"
-                android:textAlignment="viewStart"
+                android:gravity="center"
+                android:text="GOT"
+                android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
 
             <TextView
                 android:id="@+id/order_fb_item_price"
+                fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1"
-                android:padding="4dp"
+                android:layout_marginRight="3dp"
+                android:layout_weight="2"
                 android:text="10.00 zł"
-                android:textAlignment="textEnd"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:textSize="12sp" />
+
 
         </LinearLayout>
 
-       <!-- <TextView
-            android:id="@+id/address_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="2dp"
-            android:padding="2dp"
-            android:text="adres"
-            android:textAlignment="textStart"
-            android:textColor="@color/colorDarkGray"
-            android:textSize="12sp"
-            android:textStyle="bold" />-->
+        <!-- <TextView
+             android:id="@+id/address_txt"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="2dp"
+             android:layout_marginRight="2dp"
+             android:layout_marginTop="2dp"
+             android:padding="2dp"
+             android:text="adres"
+             android:textAlignment="textStart"
+             android:textColor="@color/colorDarkGray"
+             android:textSize="12sp"
+             android:textStyle="bold" />-->
 
         <View
             android:id="@+id/div1"
-            android:layout_width="160dp"
+            android:layout_width="154dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:background="@drawable/custom_divaider_listmenu" />
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/custom_divaider_listmenu"
+            android:backgroundTint="@color/colorSecond"
+            android:padding="10dp" />
 
         <LinearLayout
             android:id="@+id/list_of_order_for_one_item"

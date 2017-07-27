@@ -57,6 +57,7 @@
 
             <LinearLayout
                 android:id="@+id/news_column"
+
                 android:layout_width="160sp"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
@@ -64,15 +65,14 @@
 
                 <TextView
                     android:id="@+id/news"
+                    fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center"
+                    android:layout_height="34dp"
+                    android:gravity="center_vertical"
                     android:text="NOWE"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/toolBarTitle" />
 
                 <View
                     android:layout_width="match_parent"
@@ -108,16 +108,15 @@
 
                 <TextView
                     android:id="@+id/accepted"
+                    fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_height="34dp"
+                    android:gravity="center_vertical"
                     android:background="@color/colorWhite"
-                    android:gravity="center"
                     android:text="PRZYJĘTE"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/toolBarTitle" />
 
                 <View
                     android:layout_width="match_parent"
@@ -148,15 +147,14 @@
 
                 <TextView
                     android:id="@+id/realization"
+                    fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center"
+                    android:layout_height="34dp"
+                    android:gravity="center_vertical"
                     android:text="W REALIZACJI"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/toolBarTitle" />
 
                 <View
                     android:layout_width="match_parent"
@@ -188,15 +186,14 @@
 
                 <TextView
                     android:id="@+id/receive"
+                    fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center"
+                    android:layout_height="34dp"
+                    android:gravity="center_vertical"
                     android:text="DO ODBIORU"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/toolBarTitle" />
 
                 <View
                     android:layout_width="match_parent"
@@ -228,14 +225,13 @@
 
                 <TextView
                     android:id="@+id/transport"
+                    fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center"
+                    android:layout_height="34dp"
+                    android:gravity="center_vertical"
                     android:text="W DOSTAWIE"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/toolBarTitle" />
 
                 <View
                     android:layout_width="match_parent"
