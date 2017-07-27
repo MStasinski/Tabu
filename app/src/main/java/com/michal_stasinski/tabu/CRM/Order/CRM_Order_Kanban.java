@@ -165,7 +165,7 @@ public class CRM_Order_Kanban extends Activity {
             @Override
             public boolean handleMessage(Message msg) {
                 if (msg.what == AFTER_ONE_MINUTE) {
-                    Log.i("informacja", "BUM");
+
                     if (arrayAdapter0 != null) arrayAdapter0.notifyDataSetChanged();
                     if (arrayAdapter1 != null) arrayAdapter1.notifyDataSetChanged();
                     if (arrayAdapter2 != null) arrayAdapter2.notifyDataSetChanged();

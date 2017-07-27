@@ -137,6 +137,8 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             viewHolder.hour_of_deliver = (TextView) view.findViewById(R.id.hour_of_deliver);
             viewHolder.time_to_finish = (TextView) view.findViewById(R.id.time_to_finish);
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
+
+            viewHolder.time_to_finish_min = (TextView) view.findViewById(R.id.time_to_finish_min);
             // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
@@ -213,10 +215,17 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.time_to_finish.setTextSize(width / scale);
 
 
-        String count = Diffrence_Between_Two_Times.getTimeDifferance(time[1].trim());
-
+        // String count = Diffrence_Between_Two_Times.getTimeDifferance(time[1].trim());
+        String count = Diffrence_Between_Two_Times.twoDatesBetweenTime(arr.get(position).getDeliveryDate());
 
         viewHolder.time_to_finish.setText(String.valueOf(count));
+        if(Integer.parseInt(count)>0) {
+            int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.color_SALATKI);
+            viewHolder.time_to_finish_min.setTextColor(timeColor);
+            viewHolder.time_to_finish.setTextColor(timeColor);
+        }
+
+
         viewHolder.tableArray.clear();
         viewHolder.list.removeAllViews();
 
@@ -305,6 +314,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         TextView txt_order;
         TextView order_fb_payment_method;
         TextView price;
+        TextView time_to_finish_min;
         View div0;
         TextView time_to_finish;
         TextView address_txt;
