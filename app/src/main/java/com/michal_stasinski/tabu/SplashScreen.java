@@ -61,16 +61,18 @@ public class SplashScreen extends Activity {
     public static String MINIMAL_PRICE_OF_ORDER = "";
 
     /*interwał dostaw w timeOfDelivery Popup ListView*/
-    public static  String TIME_OF_DELIVERY_INTERVAL = "20";
+    public static String TIME_OF_DELIVERY_INTERVAL = "20";
 
     /*czas realizacj zamówienia z dostawą*/
-    public static  String TIME_OF_REALIZATION_DELIVERY = "30";
+    public static String TIME_OF_REALIZATION_DELIVERY = "30";
 
     /*czas realizacji zamówienia przy odbiorze na miejscu*/
     public static String TIME_OF_REALIZATION_TAKEAWAY = "20";
-
-    /* nazwa wezła bazy danych na które wysyłane jest zagiowienie*/;
     public static String DB_ORDER_DATABASE = "TEST_ORDER";
+    public static String DB_SETTINGS_DATABASE = "Ustawienias";
+    public static String DB_ORDER_SERIAL_DATABASE = "Numeros";
+    /* nazwa wezła bazy danych na które wysyłane jest zagiowienie*/;
+    public static String DB_ORDER_SERIAL_NUMBER = "0";
 
 
     public static Boolean IS_STAFF_MEMBER = false;
@@ -161,8 +163,7 @@ public class SplashScreen extends Activity {
                     loadFireBaseData("PizzaSpices", pizzaSpices),
                     loadFireBaseDeliverCost("DeliveryCosts", deliveryCostArray),
                     loadStaffTeam(),
-
-                    loadFireOneOValue("Ustawienias"),
+                    loadFireOneOValue(DB_SETTINGS_DATABASE),
                     loadTimesOfRestaurant(),
                     loadNews()
 
@@ -275,7 +276,6 @@ public class SplashScreen extends Activity {
                     TIME_OF_REALIZATION_TAKEAWAY = (String) map.get("czas_realizacji_odbior").toString();
                     TIME_OF_DELIVERY_INTERVAL = (String) map.get("interwal_czasu_dostaw").toString();
                     MINIMAL_PRICE_OF_ORDER = (String) map.get("minimalna_wartosc_zamowienia").toString();
-
                 }
 
 
@@ -289,7 +289,6 @@ public class SplashScreen extends Activity {
 
         return tcs.getTask();
     }
-
 
 
     public Task<String> loadFireBaseData(String databaseReference, final ArrayList<MenuItemProduct> nameArrayList) {
@@ -500,6 +499,7 @@ public class SplashScreen extends Activity {
         });
         return tcs.getTask();
     }
+
     private static String removeLastChar(String str) {
         return str.substring(0, str.length() - 2);
     }

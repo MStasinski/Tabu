@@ -30,6 +30,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
+import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
+import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 
 public class CRM_Order_Kanban extends Activity {
 
@@ -159,7 +161,7 @@ public class CRM_Order_Kanban extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        load_order_serial_number();
         handler = new Handler(new Handler.Callback() {
 
             @Override
@@ -182,6 +184,33 @@ public class CRM_Order_Kanban extends Activity {
 
 
     }
+    public void load_order_serial_number() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(DB_ORDER_SERIAL_DATABASE);
+        // DatabaseReference myRef = database.getReference("Orders");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
+                    DataSnapshot dataitem = item;
+                    Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
+                    DB_ORDER_SERIAL_NUMBER = (String) map.get("nr").toString();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 
     public void loadAllOrders() {
 
@@ -259,11 +288,11 @@ public class CRM_Order_Kanban extends Activity {
                 }
 
 
-                arrayAdapter0 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
-                arrayAdapter1 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
-                arrayAdapter2 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                arrayAdapter3 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
-                arrayAdapter4 = new CRM_Order_Kanban_Adapter(getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
+                arrayAdapter0 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                arrayAdapter1 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                arrayAdapter2 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(),orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                arrayAdapter3 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                arrayAdapter4 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
 
                 bounceListView0.setAdapter(arrayAdapter0);
                 bounceListView0.setScrollingCacheEnabled(false);

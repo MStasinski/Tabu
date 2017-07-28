@@ -35,11 +35,8 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crm_main_menu_manager);
-
-
 
     }
 
