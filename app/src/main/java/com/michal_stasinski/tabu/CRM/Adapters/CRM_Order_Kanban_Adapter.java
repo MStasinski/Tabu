@@ -205,14 +205,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
         viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(color));
 
-        viewHolder.order_number.setTextSize(width / scale);
+       /* viewHolder.order_number.setTextSize(width / scale);
         viewHolder.delivety_method.setTextSize(width / scale);
         viewHolder.hour_of_deliver.setTextSize(width / scale);
         viewHolder.order_fb_payment_method.setTextSize(width / scale);
-        viewHolder.price.setTextSize(width / scale);
+        viewHolder.price.setTextSize(width / scale);*/
 
 
-        viewHolder.order_number.setWidth(width / scale);
+        //viewHolder.order_number.setWidth(width / scale);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
         if (arr.get(position).getOrderNumber().equals("0")) {
             viewHolder.order_number.setText(("143").trim());
@@ -224,14 +224,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.hour_of_deliver.setText(time[1].trim());
 
 
-        viewHolder.time_to_finish.setTextSize(width / scale);
+       // viewHolder.time_to_finish.setTextSize(width / scale);
 
 
         // String count = Diffrence_Between_Two_Times.getTimeDifferance(time[1].trim());
-        String count = Diffrence_Between_Two_Times.twoDatesBetweenTime(arr.get(position).getDeliveryDate());
+        viewHolder.count = Diffrence_Between_Two_Times.twoDatesBetweenTime(arr.get(position).getDeliveryDate());
 
-        viewHolder.time_to_finish.setText(String.valueOf(count));
-        if (Integer.parseInt(count) > 0) {
+        viewHolder.time_to_finish.setText(String.valueOf( viewHolder.count));
+       if (Integer.parseInt( viewHolder.count) > 0) {
             int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.color_SALATKI);
             viewHolder.time_to_finish_min.setTextColor(timeColor);
             viewHolder.time_to_finish.setTextColor(timeColor);
@@ -257,7 +257,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
             //txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-            txt_order.setTextSize(width / (scale + 40));
+           // txt_order.setTextSize(width / (scale + 40));
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
@@ -366,6 +366,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
     static class ViewHolderItem {
         //String[] ordreS;
+        String count;
         ArrayList<ArrayList<String>> getOrderHold;
         TextView txt_order;
         TextView order_fb_payment_method;

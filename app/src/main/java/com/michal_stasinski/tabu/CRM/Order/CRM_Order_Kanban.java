@@ -118,19 +118,19 @@ public class CRM_Order_Kanban extends Activity {
         transport_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
 
         TextView transportTxt0 = (TextView) findViewById(R.id.news);
-        transportTxt0.setTextSize(width / 100);
+       //transportTxt0.setTextSize(width / 100);
 
 
         TextView transportTxt1 = (TextView) findViewById(R.id.realization);
-        transportTxt1.setTextSize(width / 100);
+       // transportTxt1.setTextSize(width / 100);
 
         TextView transportTxt2 = (TextView) findViewById(R.id.accepted);
-        transportTxt2.setTextSize(width / 100);
+       // transportTxt2.setTextSize(width / 100);
         TextView transportTxt3 = (TextView) findViewById(R.id.receive);
-        transportTxt3.setTextSize(width / 100);
+        //transportTxt3.setTextSize(width / 100);
 
         TextView transportTxt4 = (TextView) findViewById(R.id.transport);
-        transportTxt4.setTextSize(width / 100);
+        // transportTxt4.setTextSize(width / 100);
 
 
         bounceListView0 = (BounceListView) findViewById(R.id.simple_order_list_view0);

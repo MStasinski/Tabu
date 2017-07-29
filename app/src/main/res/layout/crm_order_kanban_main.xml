@@ -27,7 +27,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@mipmap/back_button" />
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/title_shoping_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,21 +58,23 @@
             <LinearLayout
                 android:id="@+id/news_column"
 
-                android:layout_width="160sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/news"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
                     android:text="NOWE"
+
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle" />
+                    android:textSize="@dimen/toolBarTitle"  />
 
                 <View
                     android:layout_width="match_parent"
@@ -84,7 +86,7 @@
 
                 <com.michal_stasinski.tabu.Utils.BounceListView
                     android:id="@+id/simple_order_list_view0"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
@@ -97,19 +99,20 @@
 
             <LinearLayout
                 android:id="@+id/commit_column"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/accepted"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
-                    android:background="@color/colorWhite"
                     android:text="PRZYJĘTE"
+
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
                     android:textSize="@dimen/toolBarTitle" />
@@ -124,7 +127,7 @@
 
                 <com.michal_stasinski.tabu.Utils.BounceListView
                     android:id="@+id/simple_order_list_view1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
@@ -136,18 +139,20 @@
 
             <LinearLayout
                 android:id="@+id/realization_column"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/realization"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
                     android:text="W REALIZACJI"
+                    android:singleLine="true"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
                     android:textSize="@dimen/toolBarTitle" />
@@ -162,7 +167,7 @@
 
                 <com.michal_stasinski.tabu.Utils.BounceListView
                     android:id="@+id/simple_order_list_view2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
@@ -175,18 +180,20 @@
 
             <LinearLayout
                 android:id="@+id/reception_column"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/receive"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
                     android:text="GOTOWE"
+                    android:singleLine="true"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
                     android:textSize="@dimen/toolBarTitle" />
@@ -214,18 +221,22 @@
 
             <LinearLayout
                 android:id="@+id/transport_column"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/transport"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
+
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
+                    android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
                     android:text="W DOSTAWIE"
+                    android:singleLine="true"
+                    android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
                     android:textSize="@dimen/toolBarTitle" />
 
@@ -239,7 +250,7 @@
 
                 <com.michal_stasinski.tabu.Utils.BounceListView
                     android:id="@+id/simple_order_list_view4"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"

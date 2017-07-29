@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -15,98 +16,111 @@
         android:orientation="vertical">
 
 
-        <android.support.v7.widget.ButtonBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="26dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"
             android:layout_marginTop="12dp"
+
             android:orientation="horizontal">
 
-            <TextView
+
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/order_nr"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="match_parent"
-                android:layout_height="26dp"
-                android:layout_marginLeft="3dp"
-                android:layout_weight="2"
-
-                android:background="@drawable/orange_button_background"
-                android:backgroundTint="@color/colorSecond"
-                android:text="12"
-                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2sp"
+                android:layout_weight="0.6"
+                android:background="@drawable/crm_block_header_left"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="1sp"
+                android:text="112"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="14sp" />
+                android:textSize="18sp"
+                autofit:minTextSize="5sp" />
 
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/delivety_method"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="match_parent"
-                android:layout_height="26dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="0.4"
+                android:background="@drawable/crm_block_header_right"
                 android:gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/orange_button_background"
-                android:backgroundTint="@color/colorSecond"
-                android:text="DOSTAWA"
+                android:maxLines="1"
+                android:padding="1sp"
+                android:text="Dostawa"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="13sp" />
+                android:textSize="17sp"
+                autofit:minTextSize="5sp" />
 
-        </android.support.v7.widget.ButtonBarLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="3dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"
+            android:layout_marginTop="3dp"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2sp"
+            android:layout_weight="0.4"
                 android:orientation="vertical">
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/time_to_finish"
                     fontPath="AvenirNext-DemiBold.ttf"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="30"
+                    android:layout_gravity="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="20"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="14sp" />
+                    android:textSize="17sp"
+                    autofit:minTextSize="5sp" />
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:id="@+id/time_to_finish_min"
                     fontPath="AvenirNext-DemiBold.ttf"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:maxLines="1"
                     android:text="min."
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="8sp" />
             </LinearLayout>
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/hour_of_deliver"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:layout_weight="2"
-                android:text="17.00"
+
+                android:layout_weight="0.6"
                 android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="17.00"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -115,10 +129,10 @@
             android:layout_width="154dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/custom_divaider_listmenu"
             android:backgroundTint="@color/colorSecond"
             android:padding="10dp" />
@@ -131,32 +145,35 @@
             android:orientation="horizontal">
 
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/order_fb_payment_method"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_marginLeft="4sp"
+                android:layout_weight="0.6"
                 android:gravity="center"
+                android:maxLines="1"
                 android:text="GOT"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="11sp" />
+                android:textSize="15sp" />
 
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/order_fb_item_price"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:layout_marginRight="3dp"
-                android:layout_weight="2"
-                android:text="10.00 zł"
+                android:layout_marginRight="4sp"
+                android:layout_weight="0.4"
                 android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="10.00 zł"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="12sp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>
@@ -180,10 +197,10 @@
             android:layout_width="154dp"
             android:layout_height="1dp"
             android:layout_gravity="center"
-            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/custom_divaider_listmenu"
             android:backgroundTint="@color/colorSecond"
             android:padding="10dp" />

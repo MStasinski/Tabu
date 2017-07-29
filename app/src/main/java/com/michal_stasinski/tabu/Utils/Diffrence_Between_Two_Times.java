@@ -62,27 +62,42 @@ public class Diffrence_Between_Two_Times {
         int hh = 0;
         int mm = 0;
         try {
+
             //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Date oldDate = dateFormat.parse(oldtime);
             Date cDate = new Date();
+
+            Log.i("informacja", "old " + oldDate);
+            Log.i("informacja", "cd " + cDate);
             Long timeDiff = oldDate.getTime() - cDate.getTime();
+            Log.i("informacja", "timeDiff " + timeDiff);
+
+
             day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
             hh = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
             mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
+
+            Log.i("informacja", "day " + day);
+            Log.i("informacja", "hh " + hh);
+            Log.i("informacja", "mm " + mm);
+            Log.i("informacja", "___________________________");
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if (day == 0) {
-            return String.valueOf((60 * hh) + mm);
-            //return hh + " hour " + mm + " min";
+        Log.i("informacja", "String.valueOf((24 * 60) + (60 * hh) + mm); " + String.valueOf((day *24 * 60) + (60 * hh) + mm));
+        return String.valueOf((day * 24 * 60) + (60 * hh) + mm);
+        /*if (day == 0) {
+            //return String.valueOf((60 * hh) + mm);
+            return day + " days " + hh + " hour " + mm + " min";
         } else if (hh == 0) {
-            return String.valueOf(mm);
-            //return mm + " min";
+           // return String.valueOf(mm);
+            return day + " days " + hh + " hour " + mm + " min";
         } else {
-            return String.valueOf((24 * 60) + (60 * hh) + mm);
-            //  return day + " days " + hh + " hour " + mm + " min";
-        }
+           // return String.valueOf((24 * 60) + (60 * hh) + mm);
+             return day + " days " + hh + " hour " + mm + " min";
+        }*/
     }
 
 

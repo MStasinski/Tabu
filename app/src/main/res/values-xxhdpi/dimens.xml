@@ -2,7 +2,7 @@
 
 
     <!-- górny toolbar START,KOSZYK,KONTAKT,PIZZA itd.  -->
-    <dimen name="toolBarTitle">17sp</dimen>
+    <dimen name="toolBarTitle">14sp</dimen>
 
     <!-- ceny na buttonach w listView -->
     <dimen name="price_font">18dp</dimen>
