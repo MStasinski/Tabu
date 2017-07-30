@@ -41,7 +41,7 @@
                 android:text="112"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="18sp"
+                android:textSize="@dimen/NR_ZAMOWIENIA"
                 autofit:minTextSize="5sp" />
 
 
@@ -59,14 +59,14 @@
                 android:text="Dostawa"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="17sp"
+                android:textSize="@dimen/ODBOIR_DOSTAWA"
                 autofit:minTextSize="5sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="4sp"
             android:layout_marginRight="4sp"
@@ -74,59 +74,61 @@
             android:orientation="horizontal">
 
             <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2sp"
-            android:layout_weight="0.4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginRight="2sp"
+                android:layout_weight="0.6"
                 android:orientation="vertical">
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/time_to_finish"
                     fontPath="AvenirNext-DemiBold.ttf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18sp"
+                    android:layout_gravity="center_horizontal"
                     android:maxLines="1"
                     android:text="20"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="17sp"
-                    autofit:minTextSize="5sp" />
+                    android:textSize="@dimen/IL_MINUT"
+                    autofit:minTextSize="10sp" />
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/time_to_finish_min"
                     fontPath="AvenirNext-DemiBold.ttf"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18sp"
                     android:layout_gravity="center_horizontal"
                     android:maxLines="1"
-                    android:text="min."
+                    android:text=" min."
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
+                    autofit:minTextSize="6sp"
                     android:textSize="8sp" />
             </LinearLayout>
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/hour_of_deliver"
                 fontPath="AvenirNext-DemiBold.ttf"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-                android:layout_weight="0.6"
-                android:gravity="center_vertical"
+
+                android:layout_weight="0.4"
+
                 android:maxLines="1"
                 android:text="17.00"
+                autofit:minTextSize="5sp"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18sp" />
+                android:textSize="@dimen/GODZ" />
 
         </LinearLayout>
 
         <View
             android:id="@+id/div0"
-            android:layout_width="154dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
             android:layout_marginBottom="2dp"
@@ -151,10 +153,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4sp"
-                android:layout_weight="0.6"
+                android:layout_weight="0.4"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="GOT"
+                android:layout_marginRight="2sp"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="15sp" />
@@ -167,7 +170,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_marginRight="4sp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.6"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:text="10.00 zł"
@@ -194,7 +197,7 @@
 
         <View
             android:id="@+id/div1"
-            android:layout_width="154dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="center"
             android:layout_marginBottom="2dp"
@@ -210,7 +213,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginRight="2dp"
             android:layout_marginTop="6dp"
             android:orientation="vertical">

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="ODBOIR_DOSTAWA">16sp</dimen>
+    <dimen name="GODZ">17sp</dimen>
+    <dimen name="IL_MINUT">17sp</dimen>
+    <dimen name="NR_ZAMOWIENIA">17sp</dimen>
+
+</resources>

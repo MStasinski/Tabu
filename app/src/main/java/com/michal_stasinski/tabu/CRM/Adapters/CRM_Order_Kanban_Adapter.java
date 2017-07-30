@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.grantland.widget.AutofitTextView;
+
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
@@ -165,13 +167,16 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                 TableRow row = new TableRow(mContext);
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
-                TextView txt_order = new TextView(mContext);
+                lp.setMargins(2,2,2,2);
+                //TextView txt_order = new TextView(mContext);
+                AutofitTextView txt_order = new AutofitTextView(mContext);
                 //txt_order.setHeight(40);
 
                 // ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
 
                 txt_order.setTypeface(null, Typeface.BOLD);
                 txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
+                txt_order.setTextSize(8);
                 //txt_order.setTextSize(width / 160);
                 // txt_order.setText(it.get(1) + " szt." + it.get(3));
 
@@ -235,7 +240,9 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.color_SALATKI);
             viewHolder.time_to_finish_min.setTextColor(timeColor);
             viewHolder.time_to_finish.setTextColor(timeColor);
-        }
+        }else{
+           viewHolder.time_to_finish.setText(String.valueOf( Math.abs(Integer.parseInt( viewHolder.count))));
+       }
 
 
         viewHolder.tableArray.clear();
@@ -249,7 +256,8 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             TableRow row = new TableRow(mContext);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
-            TextView txt_order = new TextView(mContext);
+            lp.setMargins(2,2,2,2);
+            AutofitTextView txt_order = new AutofitTextView(mContext);
             // txt_order.setHeight(40);
             //checkBox.setText("hello");
 
@@ -257,7 +265,9 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
             //txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-           // txt_order.setTextSize(width / (scale + 40));
+            //txt_order.setTextSize(width / (scale + 40));
+
+            txt_order.setTextSize(8);
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
