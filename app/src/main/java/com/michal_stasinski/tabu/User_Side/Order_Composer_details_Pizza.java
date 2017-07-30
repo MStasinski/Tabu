@@ -376,7 +376,7 @@ public class Order_Composer_details_Pizza extends SwipeBackActivity {
                     order.setSauce(sauce);
                 }
                 if (descText[3] != "Dodaj swoje uwagi" && descText[3] != null) {
-                    order.setNote("UWAGI: " + descText[3]);
+                    order.setNote("\nUWAGI: " + descText[3]);
                 } else {
                     note = "";
                     order.setNote(note);

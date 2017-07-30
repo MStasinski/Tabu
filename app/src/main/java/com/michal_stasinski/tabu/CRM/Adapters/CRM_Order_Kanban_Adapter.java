@@ -31,11 +31,28 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.Diffrence_Between_Two_Times;
 
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 import me.grantland.widget.AutofitTextView;
 
+import static android.R.attr.data;
+import static android.app.Activity.RESULT_OK;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
@@ -286,7 +303,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                 // alertDialog.setMessage("Wpisz hasło");
                 ListView modeList = new ListView(activity);
                 //String[] stringArray = new String[] { "Bright Mode", "Normal Mode" };
-
+                String txt ="";
                 ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
                 ordreS = new String[arr.get(clikPos).getOrderList().size()];
                 for (int i = 0; i < getOrder.size(); i++) {
@@ -294,28 +311,106 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                     ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
                     ordreS[i] = it.get(1) + " szt." + it.get(3);
 
+                    txt +=  ordreS[i]+ "\n";
+
                 }
 
                  String[] stringArray =  ordreS;
                 ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(activity, R.layout.payment_methods_row, R.id.payment_method_text, stringArray);
                 modeList.setAdapter(modeAdapter);
-                alertDialog.setView(modeList);
-                alertDialog.setPositiveButton("TAK",
+               // alertDialog.setView(modeList);
+                alertDialog.setMessage(txt);
+
+                alertDialog.setPositiveButton("POTWIERDŹ",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
-                                Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-                                intent.setType("text/plain");
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
-                                intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr");
-                                intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
-                                mContext.startActivity(intent);
-                                activity.startActivityForResult(intent,0);
+                                Intent intent = new Intent(Intent.ACTION_SEND); // it's not ACTION_SEND
+                              //  intent.setType("text/plain");
+                              //  intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
+                              //  intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr"+arr.get(clikPos).getOrderNumber());
+                              //  intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
+                                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+                               /* intent.setType("message/rfc822");
+
+                                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"michal.stasinski80@gmail.com"});
+
+                                intent.putExtra(Intent.EXTRA_SUBJECT, "Zamówienie");
+
+                                intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr"+arr.get(clikPos).getOrderNumber());
+
+                                activity.startActivityForResult(Intent.createChooser(intent, "Send Email"),1);*/
+
+                                String to = "ktomasz@me.com";//change accordingly
+
+                                // Sender's email ID needs to be mentioned
+                                String from = "michal.stasinski80@gmail.com";//change accordingly
+                                final String email = "michal.stasinski80@gmail.com";//change accordingly
+                                final String password = "Monte#Video1";//change accordingly
+
+                                // Assuming you are sending email through relay.jangosmtp.net
+                                String host = "smtp.gmail.com";
+
+                                Properties props = new Properties();
+                                props.put("mail.smtp.auth", "true");
+                                props.put("mail.smtp.starttls.enable", "true");
+                                props.put("mail.smtp.host", host);
+                                props.put("mail.smtp.port", "465");
+                                props.put("mail.smtp.socketFactory.port", "465");
+                                props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+
+
+                                props.put("mail.smtp.starttls.enable", "true");
+
+                                // Get the Session object.
+                                Session session = Session.getInstance(props,
+                                        new javax.mail.Authenticator() {
+                                            protected PasswordAuthentication getPasswordAuthentication() {
+                                                return new PasswordAuthentication(email, password);
+                                            }
+                                        });
+
+                                try {
+                                    // Create a default MimeMessage object.
+                                    Message message = new MimeMessage(session);
+
+                                    // Set From: header field of the header.
+                                    message.setFrom(new InternetAddress(from));
+
+                                    // Set To: header field of the header.
+                                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+                                    // Set Subject: header field
+                                    message.setSubject("Wiadomośc Tabu");
+                                    Log.i("informacja", "tu zmienie status");
+                                    // Now set the actual message
+                                    message.setText("Własnie potwierdziłeś zamowienie testow");
+
+                                    // Send message
+                                    Transport.send(message);
+
+                                    System.out.println("Próbuje wysłac zamowienie po SMTP bezposrednio z apki bez poczty ....jesli coś dostałeś toz znaczy ze działa");
+
+                                } catch (MessagingException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+
+                                //  activity.startActivity(Intent.createChooser(intent , "Choose an Email client :"));
+
+                                // activity.startActivity(intent);
+                              //  activity.startActivityForResult(intent,0);
                             }
                         });
 
-                alertDialog.setNegativeButton("NIE",
+                alertDialog.setNegativeButton("ODRZUĆ",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
+                            }
+                        });
+
+                alertDialog.setNeutralButton("ZA CHWILE",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
@@ -393,5 +488,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         ArrayList<String> it;
         LinearLayout list;
     }
+
+
 
 }

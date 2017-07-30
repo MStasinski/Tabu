@@ -92,6 +92,9 @@ public class ShopingCardAdapter extends BaseAdapter {
                     convertView = mInflater.inflate(R.layout.order_rule_row, null);
                     viewHolder.title = (TextView) convertView.findViewById(R.id.order_rule_title);
                     viewHolder.desc = (TextView) convertView.findViewById(R.id.order_rule_desc);
+                    viewHolder.div = (View) convertView.findViewById(R.id.div_shop);
+                    if(position==6)
+                    viewHolder.div.setVisibility(View.INVISIBLE);
 
                     break;
                 case TYPE_ORDER_ITEM:
@@ -138,7 +141,7 @@ public class ShopingCardAdapter extends BaseAdapter {
         TextView desc;
         TextView quantity;
         TextView price;
-
+        View div;
     }
 
 

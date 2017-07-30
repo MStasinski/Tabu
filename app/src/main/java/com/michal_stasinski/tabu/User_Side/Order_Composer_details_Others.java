@@ -260,7 +260,7 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
 
 
                 if (descText[0] != "Dodaj swoje uwagi" && descText[0] != null) {
-                    order.setNote("UWAGI: " + descText[0]);
+                    order.setNote("\nUWAGI: " + descText[0]);
                 } else {
                     note = "";
                     order.setNote(note);

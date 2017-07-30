@@ -41,8 +41,7 @@
             android:layout_marginTop="@dimen/activity_order_margin_bottom"
             android:layout_weight="0.46"
             android:animationCache="false"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="0.05sp"
+            
             android:scrollingCache="false" />
 
 

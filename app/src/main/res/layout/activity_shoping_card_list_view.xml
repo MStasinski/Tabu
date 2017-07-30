@@ -55,7 +55,8 @@
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:animationCache="false"
-            android:divider="@android:color/darker_gray"
+            android:divider="@color/colorWhite"
+
             android:dividerHeight="0.05sp"
             android:scrollingCache="false" />
 

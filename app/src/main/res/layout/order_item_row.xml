@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +54,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:text="18.90"

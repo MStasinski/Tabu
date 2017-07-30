@@ -68,25 +68,21 @@ public class Diffrence_Between_Two_Times {
             Date oldDate = dateFormat.parse(oldtime);
             Date cDate = new Date();
 
-            Log.i("informacja", "old " + oldDate);
-            Log.i("informacja", "cd " + cDate);
+
             Long timeDiff = oldDate.getTime() - cDate.getTime();
-            Log.i("informacja", "timeDiff " + timeDiff);
+
 
 
             day = (int) TimeUnit.MILLISECONDS.toDays(timeDiff);
             hh = (int) (TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day));
             mm = (int) (TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
 
-            Log.i("informacja", "day " + day);
-            Log.i("informacja", "hh " + hh);
-            Log.i("informacja", "mm " + mm);
-            Log.i("informacja", "___________________________");
+
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.i("informacja", "String.valueOf((24 * 60) + (60 * hh) + mm); " + String.valueOf((day *24 * 60) + (60 * hh) + mm));
+       // Log.i("informacja", "String.valueOf((24 * 60) + (60 * hh) + mm); " + String.valueOf((day *24 * 60) + (60 * hh) + mm));
         return String.valueOf((day * 24 * 60) + (60 * hh) + mm);
         /*if (day == 0) {
             //return String.valueOf((60 * hh) + mm);

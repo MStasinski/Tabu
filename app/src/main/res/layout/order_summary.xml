@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingTop="6dp"
+   >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,25 +16,37 @@
             android:id="@+id/order_summary_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
             android:text="TextView"
             android:textColor="@color/colorDarkGray"
             android:textSize="15dp" />
 
 
-
         <TextView
             android:id="@+id/order_summary_sum_of_all_prices"
+            fontPath="AvenirNext-DemiBold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
             android:text="18.90"
             android:textColor="@color/colorDarkGray"
-            android:textSize="15dp"
-            fontPath="AvenirNext-DemiBold.ttf"
+            android:textSize="15dp" />
 
-
-            />
+        <View
+            android:id="@+id/div_shop"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/order_summary_title"
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/custom_divaider_listmenu"
+            android:backgroundTint="@color/colorSecond" />
 
     </RelativeLayout>
 

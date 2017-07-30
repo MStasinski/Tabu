@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu.CRM.Order;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -150,6 +151,23 @@ public class CRM_Order_Kanban extends Activity {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub if(requestCode == 0) {
+        Log.i("informacja", "Wysałalem maila");
+
+
+        if (requestCode == 1) {
+            Log.i("informacja",  data+"Wysałalem maila 0"+resultCode);
+            if (resultCode == Activity.RESULT_OK) {
+
+                Log.i("informacja", "Wysałalem maila  ok");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                Log.i("informacja", "Wysałalem maila  canc");
+            }
+        }
+    }
 
 
     @Override
