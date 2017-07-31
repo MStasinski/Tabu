@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
@@ -40,7 +41,6 @@ import static com.michal_stasinski.tabu.SplashScreen.pizzaList;
 public class Order_Composer_details_Others extends SwipeBackActivity {
 
 
-
     private int itemPositionInMenuListView;
     private OrderComposerListViewAdapter adapter;
     private static int size = 0;
@@ -70,9 +70,9 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        if(IS_LOGGED_IN) {
+        if (IS_LOGGED_IN) {
             setTheme(R.style.AppThemeStaffLogged);
-        }else{
+        } else {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
@@ -100,6 +100,23 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
 
     }
 
+
+    private class LongOperation extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            addElementToAdapter();
+            return "Executed";
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+
+        }
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -112,8 +129,8 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
             @Override
             public void onClick(View v) {
 
-
-                addElementToAdapter();
+                new LongOperation().execute("");
+                // addElementToAdapter();
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
             }
@@ -187,7 +204,6 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
         sum = pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()).floatValue();
 
 
-
         String output = MathUtils.formatDecimal(sum, 2);
     }
 
@@ -258,7 +274,6 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
                 String note = descText[0];
 
 
-
                 if (descText[0] != "Dodaj swoje uwagi" && descText[0] != null) {
                     order.setNote("\nUWAGI: " + descText[0]);
                 } else {
@@ -269,11 +284,11 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
                 String actualOrder = pizzaName + " " + note;
                 int isAlready = -1;
 
-                Log.i("informacja", "actualOrder "+ actualOrder);
+                Log.i("informacja", "actualOrder " + actualOrder);
                 for (int i = 0; i < orderList.size(); i++) {
 
                     String st = orderList.get(i).getName() + " " + orderList.get(i).getNote();
-                    Log.i("informacja", "st "+ st);
+                    Log.i("informacja", "st " + st);
                     if (st.equals(actualOrder)) {
 
                         isAlready = i;
@@ -337,7 +352,6 @@ public class Order_Composer_details_Others extends SwipeBackActivity {
 
 
         String oputput = MathUtils.formatDecimal(pizzaList.get(itemPositionInMenuListView).getPriceArray().get(getSize()), 2);
-        Log.i("informacja", size+"PIZZA_SIZE_CHANGE"+getSize()+ "  " +oputput);
         header.setPrice(oputput);
         adapter.addItem(header);
 
