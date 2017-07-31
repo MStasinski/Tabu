@@ -332,7 +332,6 @@ public class CRM_Order_Kanban extends Activity {
                 bounceListView4.setScrollingCacheEnabled(false);
                 arrayAdapter4.notifyDataSetChanged();
 
-
                /* try {
                     File f = File.createTempFile("file", ".txt", Environment.getExternalStorageDirectory ());
                     FileWriter fw = new FileWriter(f);
