@@ -75,7 +75,7 @@ public class CRM_Order_Kanban extends Activity {
 
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
-                        .setDefaultFontPath("AvenirNext-Medium.ttf")
+                        .setDefaultFontPath("AvenirNext-DemiBold.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         );

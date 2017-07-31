@@ -27,7 +27,7 @@
             android:orientation="horizontal">
 
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/order_nr"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="match_parent"
@@ -42,10 +42,10 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/NR_ZAMOWIENIA"
-                autofit:minTextSize="5sp" />
+                />
 
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/delivety_method"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/ODBOIR_DOSTAWA"
-                autofit:minTextSize="5sp" />
+                />
 
         </LinearLayout>
 
@@ -81,7 +81,7 @@
                 android:layout_weight="0.6"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+               <TextView
                     android:id="@+id/time_to_finish"
                     fontPath="AvenirNext-DemiBold.ttf"
                     android:layout_width="wrap_content"
@@ -94,7 +94,7 @@
                     android:textSize="@dimen/IL_MINUT"
                     autofit:minTextSize="10sp" />
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/time_to_finish_min"
                     fontPath="AvenirNext-DemiBold.ttf"
                     android:layout_width="wrap_content"
@@ -108,7 +108,7 @@
                     android:textSize="8sp" />
             </LinearLayout>
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/hour_of_deliver"
                 fontPath="AvenirNext-DemiBold.ttf"
                 android:layout_width="match_parent"
@@ -147,10 +147,10 @@
             android:orientation="horizontal">
 
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/order_fb_payment_method"
                 fontPath="AvenirNext-DemiBold.ttf"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="4sp"
                 android:layout_weight="0.4"
@@ -160,13 +160,13 @@
                 android:layout_marginRight="2sp"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="15sp" />
+                android:textSize="@dimen/ODBOIR_DOSTAWA" />
 
 
-            <me.grantland.widget.AutofitTextView
+            <TextView
                 android:id="@+id/order_fb_item_price"
                 fontPath="AvenirNext-DemiBold.ttf"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:layout_marginRight="4sp"
@@ -176,7 +176,7 @@
                 android:text="10.00 zł"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="18sp" />
+                android:textSize="@dimen/ODBOIR_DOSTAWA" />
 
 
         </LinearLayout>
