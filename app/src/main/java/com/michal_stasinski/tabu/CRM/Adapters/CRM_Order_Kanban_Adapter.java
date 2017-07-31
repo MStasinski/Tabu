@@ -2,17 +2,21 @@ package com.michal_stasinski.tabu.CRM.Adapters;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +28,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.CRM.OrderZoomPopUp;
+import com.michal_stasinski.tabu.User_Side.DotPay.DotPayActivity;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.Diffrence_Between_Two_Times;
@@ -52,10 +59,13 @@ import javax.mail.internet.MimeMultipart;
 import me.grantland.widget.AutofitTextView;
 
 import static android.R.attr.data;
+import static android.R.attr.handle;
 import static android.app.Activity.RESULT_OK;
+import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
+import static com.michal_stasinski.tabu.SplashScreen.USER_UNIQUE_ID_PREF;
 
 
 /**
@@ -76,7 +86,8 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
     private int width;
     private String[] ordreS;
     private int scale = 140;
-
+    private int progressStatus = 0;
+    private Handler handler = new Handler();
     private int counter = 0; //counter to indicate the total second whenever timer fire
 
     public Boolean getButton_flag_enabled() {
@@ -184,14 +195,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                 TableRow row = new TableRow(mContext);
                 TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
                 row.setLayoutParams(lp);
-                lp.setMargins(2,2,2,2);
+                lp.setMargins(2, 2, 2, 2);
                 //TextView txt_order = new TextView(mContext);
                 AutofitTextView txt_order = new AutofitTextView(mContext);
                 //txt_order.setHeight(40);
 
                 // ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
 
-                txt_order.setTypeface(null, Typeface.BOLD);
+                //txt_order.setTypeface(null, Typeface.BOLD);
                 txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
                 txt_order.setTextSize(8);
                 //txt_order.setTextSize(width / 160);
@@ -221,7 +232,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         if (arr.get(position).getPaymentWay().toString().equals("Przelew")) {
             viewHolder.order_fb_payment_method.setText("ZAPł.");
         }
-        viewHolder.price.setText(arr.get(position).getTotalPrice() + " zł");
+        viewHolder.price.setText(arr.get(position).getTotalPrice());
         //viewHolder.order_number.setBackgroundColor(color);
         viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
 
@@ -246,20 +257,20 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.hour_of_deliver.setText(time[1].trim());
 
 
-       // viewHolder.time_to_finish.setTextSize(width / scale);
+        // viewHolder.time_to_finish.setTextSize(width / scale);
 
 
         // String count = Diffrence_Between_Two_Times.getTimeDifferance(time[1].trim());
         viewHolder.count = Diffrence_Between_Two_Times.twoDatesBetweenTime(arr.get(position).getDeliveryDate());
 
-        viewHolder.time_to_finish.setText(String.valueOf( viewHolder.count));
-       if (Integer.parseInt( viewHolder.count) > 0) {
+        viewHolder.time_to_finish.setText(String.valueOf(viewHolder.count));
+        if (Integer.parseInt(viewHolder.count) > 0) {
             int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.color_SALATKI);
             viewHolder.time_to_finish_min.setTextColor(timeColor);
             viewHolder.time_to_finish.setTextColor(timeColor);
-        }else{
-           viewHolder.time_to_finish.setText(String.valueOf( Math.abs(Integer.parseInt( viewHolder.count))));
-       }
+        } else {
+            viewHolder.time_to_finish.setText(String.valueOf(Math.abs(Integer.parseInt(viewHolder.count))));
+        }
 
 
         viewHolder.tableArray.clear();
@@ -273,18 +284,18 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             TableRow row = new TableRow(mContext);
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
-            lp.setMargins(2,2,2,2);
+            lp.setMargins(2, 2, 2, 2);
             AutofitTextView txt_order = new AutofitTextView(mContext);
             // txt_order.setHeight(40);
             //checkBox.setText("hello");
 
             ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
 
-            //txt_order.setTypeface(null, Typeface.BOLD);
+            txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
             //txt_order.setTextSize(width / (scale + 40));
 
-            txt_order.setTextSize(8);
+            txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX,activity.getResources().getDimension(R.dimen.LISTA));
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
@@ -297,40 +308,37 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             @Override
             public void onClick(View arg0) {
 
+                if (arr.get(clikPos).getStatus().equals("0")) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+                    alertDialog.setTitle("Potwierdzenie zamówienia");
+                    ListView modeList = new ListView(activity);
+                    String txt = "";
+                    ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
+                    ordreS = new String[arr.get(clikPos).getOrderList().size()];
+                    for (int i = 0; i < getOrder.size(); i++) {
 
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                alertDialog.setTitle("Potwierdzenie zamówienia");
-                // alertDialog.setMessage("Wpisz hasło");
-                ListView modeList = new ListView(activity);
-                //String[] stringArray = new String[] { "Bright Mode", "Normal Mode" };
-                String txt ="";
-                ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
-                ordreS = new String[arr.get(clikPos).getOrderList().size()];
-                for (int i = 0; i < getOrder.size(); i++) {
+                        ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
+                        ordreS[i] = it.get(1) + " szt." + it.get(3);
+                        txt += ordreS[i] + "\n";
 
-                    ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
-                    ordreS[i] = it.get(1) + " szt." + it.get(3);
+                    }
 
-                    txt +=  ordreS[i]+ "\n";
+                    String[] stringArray = ordreS;
+                    ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(activity, R.layout.payment_methods_row, R.id.payment_method_text, stringArray);
+                    modeList.setAdapter(modeAdapter);
+                    // alertDialog.setView(modeList);
+                    alertDialog.setMessage(txt);
 
-                }
-
-                 String[] stringArray =  ordreS;
-                ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(activity, R.layout.payment_methods_row, R.id.payment_method_text, stringArray);
-                modeList.setAdapter(modeAdapter);
-               // alertDialog.setView(modeList);
-                alertDialog.setMessage(txt);
-
-                alertDialog.setPositiveButton("POTWIERDŹ",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
-                                Intent intent = new Intent(Intent.ACTION_SEND); // it's not ACTION_SEND
-                              //  intent.setType("text/plain");
-                              //  intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
-                              //  intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr"+arr.get(clikPos).getOrderNumber());
-                              //  intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
-                                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
+                    alertDialog.setPositiveButton("POTWIERDŹ",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
+                                    Intent intent = new Intent(Intent.ACTION_SEND); // it's not ACTION_SEND
+                                    //  intent.setType("text/plain");
+                                    //  intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
+                                    //  intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr"+arr.get(clikPos).getOrderNumber());
+                                    //  intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
+                                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
                                /* intent.setType("message/rfc822");
 
                                 intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"michal.stasinski80@gmail.com"});
@@ -341,128 +349,145 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
                                 activity.startActivityForResult(Intent.createChooser(intent, "Send Email"),1);*/
 
-                                String to = "ktomasz@me.com";//change accordingly
+                                    String to = "michal.stasinski80@gmail.com";//change accordingly
 
-                                // Sender's email ID needs to be mentioned
-                                String from = "michal.stasinski80@gmail.com";//change accordingly
-                                final String email = "michal.stasinski80@gmail.com";//change accordingly
-                                final String password = "Monte#Video1";//change accordingly
+                                    // Sender's email ID needs to be mentioned
 
-                                // Assuming you are sending email through relay.jangosmtp.net
-                                String host = "smtp.gmail.com";
-
-                                Properties props = new Properties();
-                                props.put("mail.smtp.auth", "true");
-                                props.put("mail.smtp.starttls.enable", "true");
-                                props.put("mail.smtp.host", host);
-                                props.put("mail.smtp.port", "465");
-                                props.put("mail.smtp.socketFactory.port", "465");
-                                props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+                                    //String from = "michal.stasinski80@gmail.com";//change accordingly
+                                    // final String email = "michal.stasinski80@gmail.com";//change accordingly
+                                    //  final String password = "Monte#Video1";//change accordingly
 
 
-                                props.put("mail.smtp.starttls.enable", "true");
+                                    String from = "michal.stasinski@poczta.fm";//change accordingly
+                                    final String email = "michal.stasinski@poczta.fm";//change accordingly
+                                    final String password = "bosfor1234";//change accordingly
 
-                                // Get the Session object.
-                                Session session = Session.getInstance(props,
-                                        new javax.mail.Authenticator() {
-                                            protected PasswordAuthentication getPasswordAuthentication() {
-                                                return new PasswordAuthentication(email, password);
+                                    // Assuming you are sending email through relay.jangosmtp.net
+                                    //String host = "smtp.gmail.com";
+                                    String host = "smtp.poczta.fm";
+
+
+                                    Properties props = new Properties();
+                                    props.put("mail.smtp.auth", "true");
+                                    props.put("mail.smtp.starttls.enable", "true");
+                                    props.put("mail.smtp.host", host);
+                                    props.put("mail.smtp.port", "465");
+                                    props.put("mail.smtp.socketFactory.port", "465");
+                                    props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                                    props.put("mail.smtp.starttls.enable", "true");
+
+                                    // Get the Session object.
+                                    Session session = Session.getInstance(props,
+                                            new javax.mail.Authenticator() {
+                                                protected PasswordAuthentication getPasswordAuthentication() {
+                                                    return new PasswordAuthentication(email, password);
+                                                }
+                                            });
+
+                                    try {
+                                        DatabaseReference mDatabase;
+                                        String databaseName = DB_ORDER_DATABASE;
+                                        String uniqueId = USER_UNIQUE_ID_PREF;
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        mDatabase.child(databaseName).child(arr.get(clikPos).getOrderNo()).child("orderStatus").setValue("1");
+
+
+                                        final ProgressDialog pd = new ProgressDialog(activity);
+
+                                        // Set progress dialog style spinner
+                                        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+                                        // Set the progress dialog title and message
+                                        pd.setTitle("POTWIERDZENIE ZAMÓWIENIA.");
+                                        pd.setMessage("Wysyłam.........");
+
+                                        // Set the progress dialog background color
+                                        pd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD4D9D0")));
+
+                                        pd.setIndeterminate(false);
+
+                                        // Finally, show the progress dialog
+                                        pd.show();
+                                        // Set the progress status zero on each button click
+                                        progressStatus = 0;
+
+                                        // Start the lengthy operation in a background thread
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                while (progressStatus < 100) {
+                                                    // Update the progress status
+                                                    progressStatus += 1;
+
+                                                    // Try to sleep the thread for 20 milliseconds
+                                                    try {
+                                                        Thread.sleep(20);
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                    // Update the progress bar
+                                                    handler.post(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            // Update the progress status
+                                                            pd.setProgress(progressStatus);
+                                                            // If task execution completed
+                                                            if (progressStatus == 100) {
+                                                                Toast.makeText(activity, "Zamówienie zostało PRZYJĘTE.", Toast.LENGTH_LONG).show();
+                                                                pd.dismiss();
+                                                            }
+                                                        }
+                                                    });
+                                                }
                                             }
-                                        });
+                                        }).start(); // Start the operation
 
-                                try {
-                                    // Create a default MimeMessage object.
-                                    Message message = new MimeMessage(session);
+                                        // Create a default MimeMessage object.
+                                        Message message = new MimeMessage(session);
 
-                                    // Set From: header field of the header.
-                                    message.setFrom(new InternetAddress(from));
+                                        // Set From: header field of the header.
+                                        message.setFrom(new InternetAddress(from));
 
-                                    // Set To: header field of the header.
-                                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+                                        // Set To: header field of the header.
+                                        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-                                    // Set Subject: header field
-                                    message.setSubject("Wiadomośc Tabu");
-                                    Log.i("informacja", "tu zmienie status");
-                                    // Now set the actual message
-                                    message.setText("Własnie potwierdziłeś zamowienie testow");
+                                        // Set Subject: header field
+                                        message.setSubject("Wiadomośc Tabu");
 
-                                    // Send message
-                                    Transport.send(message);
+                                        // Now set the actual message
+                                        message.setText("Własnie potwierdziłeś zamowienie testow");
 
-                                    System.out.println("Próbuje wysłac zamowienie po SMTP bezposrednio z apki bez poczty ....jesli coś dostałeś toz znaczy ze działa");
+                                        // Send message
+                                        Transport.send(message);
 
-                                } catch (MessagingException e) {
-                                    throw new RuntimeException(e);
+
+                                    } catch (MessagingException e) {
+                                        throw new RuntimeException(e);
+                                    }
+
                                 }
+                            });
 
+                    alertDialog.setNegativeButton("ODRZUĆ",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
+                                    Toast.makeText(activity, "Zamówienie zostało ODRZUCONE.", Toast.LENGTH_LONG).show();
+                                }
+                            });
 
-                                //  activity.startActivity(Intent.createChooser(intent , "Choose an Email client :"));
+                    alertDialog.setNeutralButton("ZA CHWILE",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
+                                    Toast.makeText(activity, "Zamówienie czeka na potwierdzenie przyjęcia", Toast.LENGTH_LONG).show();
+                                }
+                            });
 
-                                // activity.startActivity(intent);
-                              //  activity.startActivityForResult(intent,0);
-                            }
-                        });
-
-                alertDialog.setNegativeButton("ODRZUĆ",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
-                            }
-                        });
-
-                alertDialog.setNeutralButton("ZA CHWILE",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
-                            }
-                        });
-
-
-                alertDialog.create();
-                alertDialog.show();
-
-                 /*   Intent intent = new Intent();
-
-                    Bundle bundle = new Bundle();
-
-                    bundle.putString("receiptWay", arr.get(clikPos).getReceiptWay().replace("WŁASNY", ""));
-                    bundle.putString("orderNumber", arr.get(clikPos).getOrderNumber());
-                    bundle.putString("price", arr.get(clikPos).getTotalPrice());
-                    bundle.putString("status", arr.get(clikPos).getStatus());
-                    bundle.putString("orderNo", arr.get(clikPos).getOrderNo());
-                    bundle.putInt("position", clikPos);
-                    bundle.putInt("color", color);
-                    ArrayList<ArrayList<String>> getOrder = arr.get(clikPos).getOrderList();
-
-                    ArrayList<String> iteme = (ArrayList<String>) getOrder.get(0);
-
-
-                    // intent.putParcelableArrayListExtra("getOrder" , iteme);
-                    for (int i = 0; i < getOrder.size(); i++) {
-
-                        bundle.putSerializable("getOrder" + i, iteme);
-                    }
-
-                  //  intent.setClass(mContext, OrderZoomPopUp.class);
-
-                    intent.putExtras(bundle);
-                    mContext.startActivity(intent);*/
-
-
-                    /*Intent intent = new Intent(Intent.ACTION_SENDTO); // it's not ACTION_SEND
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
-                    intent.putExtra(Intent.EXTRA_TEXT, "Przyjeliśmy do realizacji zamowienie nr");
-                    intent.setData(Uri.parse("mailto:michal.stasinski80@gmail.com")); // or just "mailto:" for blank
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // this will make such that when user returns to your app, your app is displayed, instead of the email app.
-                    mContext.startActivity(intent);*/
-
-
-                // Activity activity = (Activity) mContext;
-                //activity.startActivity(intent);
-                //  activity.overridePendingTransition(R.anim.from_right, R.anim.to_left);
-
-
+                    alertDialog.create();
+                    alertDialog.show();
+                }
             }
         });
 
@@ -488,7 +513,6 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         ArrayList<String> it;
         LinearLayout list;
     }
-
 
 
 }

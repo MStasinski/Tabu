@@ -151,7 +151,7 @@ public class CRM_Order_Kanban extends Activity {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
-    @Override
+   /* @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub if(requestCode == 0) {
         Log.i("informacja", "Wysałalem maila");
@@ -167,7 +167,7 @@ public class CRM_Order_Kanban extends Activity {
                 Log.i("informacja", "Wysałalem maila  canc");
             }
         }
-    }
+    }*/
 
 
     @Override

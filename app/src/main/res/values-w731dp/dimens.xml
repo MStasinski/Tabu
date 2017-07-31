@@ -6,4 +6,9 @@
     <dimen name="IL_MINUT">17sp</dimen>
     <dimen name="NR_ZAMOWIENIA">17sp</dimen>
 
+    <dimen name="SPOSOB_ZAPLATY">13sp</dimen>
+    <dimen name="CENA">17sp</dimen>
+    <dimen name="ZL">11sp</dimen>
+    <dimen name="LISTA">9sp</dimen>
+
 </resources>
