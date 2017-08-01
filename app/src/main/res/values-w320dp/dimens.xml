@@ -11,5 +11,5 @@
     <dimen name="ZL">4.4sp</dimen>
     <dimen name="LISTA">6.6sp</dimen>
 
-
+    <dimen name="HEADER">11sp</dimen>
 </resources>

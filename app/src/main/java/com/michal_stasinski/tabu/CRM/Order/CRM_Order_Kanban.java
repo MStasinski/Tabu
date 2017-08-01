@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.ButtonBarLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -86,7 +87,7 @@ public class CRM_Order_Kanban extends Activity {
         orderFromFB3 = new ArrayList<GetOrderFromFB>();
         orderFromFB4 = new ArrayList<GetOrderFromFB>();
 
-        Button closeButton = (Button) findViewById(R.id.closeBtn);
+        ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.bClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -233,9 +234,6 @@ public class CRM_Order_Kanban extends Activity {
     public void loadAllOrders() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("TEST_ORDER");
-        // String databaseName = "ZamowieniaBierzs";
-        // DatabaseReference myRef = database.getReference("OrdersCurrents");
         DatabaseReference myRef = database.getReference(DB_ORDER_DATABASE);
         // DatabaseReference myRef = database.getReference("Orders");
 
@@ -281,6 +279,7 @@ public class CRM_Order_Kanban extends Activity {
                     orderFromFB_Item.setOrderNumber(orderNumber);
                     orderFromFB_Item.setStatus(status);
                     orderFromFB_Item.setOrderNo(orderNo);
+
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
                     Log.i("informacja", "   status  " + totalPrice);

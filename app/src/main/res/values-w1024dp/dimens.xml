@@ -10,4 +10,5 @@
     <dimen name="CENA">17sp</dimen>
     <dimen name="ZL">11sp</dimen>
     <dimen name="LISTA">9sp</dimen>
+    <dimen name="HEADER">17sp</dimen>
 </resources>

@@ -13,32 +13,89 @@
         android:background="@color/colorSecond"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorWhite"
+            android:orientation="horizontal"
             android:padding="10dp">
 
-            <Button
-                android:id="@+id/closeBtn"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="20dp"
-                android:background="@mipmap/back_button" />
-
-            <me.grantland.widget.AutofitTextView
-                android:id="@+id/title_shoping_card"
-                android:layout_width="match_parent"
+            <android.support.v7.widget.ButtonBarLayout
+                android:id="@+id/bClose"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:padding="10dp">
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@mipmap/back_button"
+                    android:backgroundTint="?colorPrimary" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/lista_w_dostawie"
+                    android:backgroundTint="?colorPrimary" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+
+            <TextView
+                android:id="@+id/title_shoping_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
                 android:text="ZAMÓWIENIA"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/toolBarTitle" />
+                android:textSize="@dimen/HEADER" />
+
+            <android.support.v7.widget.ButtonBarLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:background="@mipmap/gotowe_gora"
+                    android:backgroundTint="?colorPrimary" />
 
 
-        </RelativeLayout>
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <android.support.v7.widget.ButtonBarLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="@mipmap/w_realizacji"
+                    android:backgroundTint="?colorPrimary" />
+
+
+            </android.support.v7.widget.ButtonBarLayout>
+        </LinearLayout>
 
         <View
             android:id="@+id/div0"
@@ -63,7 +120,7 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/news"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
@@ -74,7 +131,7 @@
 
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle"  />
+                    android:textSize="@dimen/HEADER" />
 
                 <View
                     android:layout_width="match_parent"
@@ -104,7 +161,7 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/accepted"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
@@ -115,7 +172,7 @@
 
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle" />
+                    android:textSize="@dimen/HEADER" />
 
                 <View
                     android:layout_width="match_parent"
@@ -144,18 +201,18 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/realization"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
                     android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
-                    android:text="W REALIZACJI"
                     android:singleLine="true"
+                    android:text="W REALIZACJI"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle" />
+                    android:textSize="@dimen/HEADER" />
 
                 <View
                     android:layout_width="match_parent"
@@ -185,18 +242,18 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/receive"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
                     android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
-                    android:text="GOTOWE"
                     android:singleLine="true"
+                    android:text="GOTOWE"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle" />
+                    android:textSize="@dimen/HEADER" />
 
                 <View
                     android:layout_width="match_parent"
@@ -226,7 +283,7 @@
                 android:background="@color/colorWhite"
                 android:orientation="vertical">
 
-                <me.grantland.widget.AutofitTextView
+                <TextView
                     android:id="@+id/transport"
                     fontPath="AvenirNextCondensed-DemiBold.ttf"
 
@@ -234,11 +291,11 @@
                     android:layout_height="34dp"
                     android:background="@drawable/customshape_kanban_top_menu"
                     android:gravity="center_vertical"
-                    android:text="W DOSTAWIE"
                     android:singleLine="true"
+                    android:text="W DOSTAWIE"
                     android:textAlignment="center"
                     android:textColor="@color/colorDarkGray"
-                    android:textSize="@dimen/toolBarTitle" />
+                    android:textSize="@dimen/HEADER" />
 
                 <View
                     android:layout_width="match_parent"
@@ -268,7 +325,9 @@
     <com.liuguangqiang.swipeback.SwipeBackLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.liuguangqiang.swipeback.SwipeBackLayout>
+        android:layout_height="match_parent">
+
+    </com.liuguangqiang.swipeback.SwipeBackLayout>
 
 
 </LinearLayout>

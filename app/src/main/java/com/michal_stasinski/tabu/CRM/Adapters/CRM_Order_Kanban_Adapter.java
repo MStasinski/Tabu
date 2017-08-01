@@ -38,6 +38,8 @@ import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.Diffrence_Between_Two_Times;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -62,6 +64,7 @@ import static android.R.attr.data;
 import static android.R.attr.handle;
 import static android.app.Activity.RESULT_OK;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
+import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
@@ -105,14 +108,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         color = col;
         this.activity = activity;
         this.specialSign = specialSign;
-       /* Collections.sort(mListArray, new Comparator() {
+        Collections.sort(mListArray, new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
 
 
                 if (sortOption) {
-                    int id1 = Integer.parseInt(((MenuItemProduct) o1).getRank());
-                    int id2 = Integer.parseInt(((MenuItemProduct) o2).getRank());
+                    int id1 = Integer.parseInt(((GetOrderFromFB) o1).getDeliveryDate());
+                    int id2 = Integer.parseInt(((GetOrderFromFB) o2).getDeliveryDate());
 
                     if (id1 > id2) {
                         return 1;
@@ -124,12 +127,12 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                     }
 
                 } else {
-                    String s1 = (((MenuItemProduct) o1).getRank());
-                    String s2 = (((MenuItemProduct) o2).getRank());
+                    String s1 = (((GetOrderFromFB) o1).getDeliveryDate());
+                    String s2 = (((GetOrderFromFB) o2).getDeliveryDate());
                     return s1.compareToIgnoreCase(s2);
                 }
             }
-        });*/
+        });
 
 
         this.arr = mListArray;
@@ -247,9 +250,9 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
         //viewHolder.order_number.setWidth(width / scale);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
-        if (arr.get(position).getOrderNumber().equals("0")) {
-            viewHolder.order_number.setText(("143").trim());
-        }
+
+        viewHolder.order_number.setText(arr.get(position).getOrderNumber());
+
         viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(color));
         viewHolder.delivety_method.setText(arr.get(position).getReceiptWay().replace("WŁASNY", ""));
 
@@ -295,7 +298,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
             //txt_order.setTextSize(width / (scale + 40));
 
-            txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX,activity.getResources().getDimension(R.dimen.LISTA));
+            txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
@@ -332,7 +335,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                     alertDialog.setPositiveButton("POTWIERDŹ",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Log.i("informacja", "klik" + DB_ORDER_SERIAL_NUMBER);
+
                                     Intent intent = new Intent(Intent.ACTION_SEND); // it's not ACTION_SEND
                                     //  intent.setType("text/plain");
                                     //  intent.putExtra(Intent.EXTRA_SUBJECT, "TABU PRZYJECIE ZAMOWIENIA");
@@ -387,11 +390,14 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                                     try {
                                         DatabaseReference mDatabase;
                                         String databaseName = DB_ORDER_DATABASE;
+                                        String databaseName1= DB_ORDER_SERIAL_DATABASE;
                                         String uniqueId = USER_UNIQUE_ID_PREF;
                                         mDatabase = FirebaseDatabase.getInstance().getReference();
+
                                         mDatabase.child(databaseName).child(arr.get(clikPos).getOrderNo()).child("orderStatus").setValue("1");
-
-
+                                        int orNum = Integer.parseInt(DB_ORDER_SERIAL_NUMBER)+1;
+                                        mDatabase.child(databaseName).child(arr.get(clikPos).getOrderNo()).child("orderNumber").setValue(String.valueOf(orNum));
+                                        mDatabase.child(databaseName1).child("numer").child("nr").setValue(orNum);
                                         final ProgressDialog pd = new ProgressDialog(activity);
 
                                         // Set progress dialog style spinner
@@ -456,7 +462,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                                         message.setSubject("Wiadomośc Tabu");
 
                                         // Now set the actual message
-                                        message.setText("Własnie potwierdziłeś zamowienie testow");
+                                        message.setText("Potierdzenie zamówienia "+orNum);
 
                                         // Send message
                                         Transport.send(message);
