@@ -164,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="2dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.3"
                 android:gravity="right"
                 android:layout_marginRight="4sp"
                 android:orientation="horizontal">
@@ -188,7 +188,7 @@
                     fontPath="AvenirNext-DemiBold.ttf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4sp"
+                    android:layout_marginRight="2sp"
                     android:gravity="right"
                     android:maxLines="1"
                     android:text="zł"
