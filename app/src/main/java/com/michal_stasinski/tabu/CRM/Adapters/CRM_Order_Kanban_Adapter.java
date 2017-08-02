@@ -251,7 +251,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
         viewHolder.time_to_finish.setText(String.valueOf(viewHolder.count));
         if (Integer.parseInt(viewHolder.count) > 0) {
-            int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.color_SALATKI);
+            int timeColor = viewHolder.time_to_finish.getResources().getColor(R.color.PRZYJETE);
             viewHolder.time_to_finish_min.setTextColor(timeColor);
             viewHolder.time_to_finish.setTextColor(timeColor);
         } else {
@@ -273,10 +273,11 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             lp.setMargins(2, 2, 2, 2);
             TextView txt_order = new TextView(mContext);
             txt_order.setHeight(40);
+            txt_order.setTextColor(Color.rgb(85, 85, 85));
             //checkBox.setText("hello");
 
             ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
-
+           // txt_order.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirNext-Bold.ttf"));
             txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
 

@@ -89,7 +89,7 @@
                     android:maxLines="1"
                     android:text="20"
                     android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/NOWE"
                     android:textSize="@dimen/IL_MINUT"
                     autofit:minTextSize="10sp" />
 
@@ -102,7 +102,7 @@
                     android:maxLines="1"
                     android:text=" min."
                     android:textAlignment="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/NOWE"
                     android:textSize="8sp"
                     autofit:minTextSize="6sp" />
             </LinearLayout>
