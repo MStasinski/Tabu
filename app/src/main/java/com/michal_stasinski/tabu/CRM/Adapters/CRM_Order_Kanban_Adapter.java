@@ -277,8 +277,8 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             //checkBox.setText("hello");
 
             ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
-           // txt_order.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirNext-Bold.ttf"));
-            txt_order.setTypeface(null, Typeface.BOLD);
+            txt_order.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "fonts/AvenirNext-DemiBold.ttf"));
+           // txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
 
             txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
