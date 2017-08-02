@@ -10,8 +10,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
@@ -31,43 +29,28 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
-import com.michal_stasinski.tabu.CRM.OrderZoomPopUp;
-import com.michal_stasinski.tabu.User_Side.DotPay.DotPayActivity;
-import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.R;
+import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.Utils.Diffrence_Between_Two_Times;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import me.grantland.widget.AutofitTextView;
 
-import static android.R.attr.data;
-import static android.R.attr.handle;
-import static android.app.Activity.RESULT_OK;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
-import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
-import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
 import static com.michal_stasinski.tabu.SplashScreen.USER_UNIQUE_ID_PREF;
 
 
@@ -288,17 +271,17 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
             row.setLayoutParams(lp);
             lp.setMargins(2, 2, 2, 2);
-            AutofitTextView txt_order = new AutofitTextView(mContext);
-            // txt_order.setHeight(40);
+            TextView txt_order = new TextView(mContext);
+            txt_order.setHeight(40);
             //checkBox.setText("hello");
 
             ArrayList<String> it = (ArrayList<String>) getOrder.get(i);
 
             txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-            txt_order.setTextSize(width / (scale + 40));
 
-            //txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
+            txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
+
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
@@ -390,12 +373,12 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                                     try {
                                         DatabaseReference mDatabase;
                                         String databaseName = DB_ORDER_DATABASE;
-                                        String databaseName1= DB_ORDER_SERIAL_DATABASE;
+                                        String databaseName1 = DB_ORDER_SERIAL_DATABASE;
                                         String uniqueId = USER_UNIQUE_ID_PREF;
                                         mDatabase = FirebaseDatabase.getInstance().getReference();
 
                                         mDatabase.child(databaseName).child(arr.get(clikPos).getOrderNo()).child("orderStatus").setValue("1");
-                                        int orNum = Integer.parseInt(DB_ORDER_SERIAL_NUMBER)+1;
+                                        int orNum = Integer.parseInt(DB_ORDER_SERIAL_NUMBER) + 1;
                                         mDatabase.child(databaseName).child(arr.get(clikPos).getOrderNo()).child("orderNumber").setValue(String.valueOf(orNum));
                                         mDatabase.child(databaseName1).child("numer").child("nr").setValue(orNum);
                                         final ProgressDialog pd = new ProgressDialog(activity);
@@ -462,7 +445,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                                         message.setSubject("Wiadomośc Tabu");
 
                                         // Now set the actual message
-                                        message.setText("Potierdzenie zamówienia "+orNum);
+                                        message.setText("Potierdzenie zamówienia " + orNum);
 
                                         // Send message
                                         Transport.send(message);
