@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSecond"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:id="@+id/bClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@mipmap/back_button"
+                    android:backgroundTint="?colorPrimary" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <android.support.v7.widget.ButtonBarLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/lista_w_dostawie"
+                    android:backgroundTint="?colorPrimary" />
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+
+            <TextView
+                android:id="@+id/title_shoping_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="ZAMÓWIENIA"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/HEADER" />
+
+            <android.support.v7.widget.ButtonBarLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/gotowe_gora"
+                    android:backgroundTint="?colorPrimary"
+                    android:gravity="center_horizontal" />
+
+
+            </android.support.v7.widget.ButtonBarLayout>
+
+            <android.support.v7.widget.ButtonBarLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="@mipmap/w_realizacji"
+                    android:backgroundTint="?colorPrimary" />
+
+
+            </android.support.v7.widget.ButtonBarLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/div0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custom_divaider_listmenu"
+            android:backgroundTint="@color/colorSecond" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal">
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.65"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="0.35"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+            <include
+                layout="@layout/bottom_action_bar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <com.liuguangqiang.swipeback.SwipeBackLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.liuguangqiang.swipeback.SwipeBackLayout>
+
+
+</LinearLayout>

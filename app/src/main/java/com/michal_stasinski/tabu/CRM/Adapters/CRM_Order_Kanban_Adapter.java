@@ -272,7 +272,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
             row.setLayoutParams(lp);
             lp.setMargins(2, 2, 2, 2);
             TextView txt_order = new TextView(mContext);
-            txt_order.setHeight(40);
+
             txt_order.setTextColor(Color.rgb(85, 85, 85));
             //checkBox.setText("hello");
 
