@@ -296,9 +296,9 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
             txt_order.setTypeface(null, Typeface.BOLD);
             txt_order.setTextAlignment(view.TEXT_ALIGNMENT_TEXT_END);
-            //txt_order.setTextSize(width / (scale + 40));
+            txt_order.setTextSize(width / (scale + 40));
 
-            txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
+            //txt_order.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.getResources().getDimension(R.dimen.LISTA));
             txt_order.setText(it.get(1) + " szt." + it.get(3));
             row.addView(txt_order);
             viewHolder.tableArray.add(txt_order);
