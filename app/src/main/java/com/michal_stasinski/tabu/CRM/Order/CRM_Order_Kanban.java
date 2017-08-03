@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -74,6 +75,7 @@ public class CRM_Order_Kanban extends Activity {
 
         setContentView(R.layout.crm_order_kanban_main);
 
+
         CalligraphyConfig.initDefault(
                 new CalligraphyConfig.Builder()
                         .setDefaultFontPath("AvenirNext-DemiBold.ttf")
@@ -89,15 +91,37 @@ public class CRM_Order_Kanban extends Activity {
 
         ButtonBarLayout closeButton = (ButtonBarLayout) findViewById(R.id.bClose);
         closeButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 finish();
                 overridePendingTransition(R.anim.from_left, R.anim.to_right);
 
             }
         });
+
+
+        ButtonBarLayout deliveryBtn = (ButtonBarLayout) findViewById(R.id.btn_w_dostawie);
+
+        deliveryBtn.setOnClickListener(new View.OnClickListener() {
+            Boolean deliveryBtnState = false;
+            @Override
+            public void onClick(View v) {
+                if(deliveryBtnState==false) {
+                    deliveryBtnState=true;
+                    ImageView img = (ImageView) findViewById(R.id.img_w_dostawie);
+                    img.setBackgroundResource(R.mipmap.lista_zamowien);
+                }else{
+                    deliveryBtnState=false;
+                    ImageView img = (ImageView) findViewById(R.id.img_w_dostawie);
+                    img.setBackgroundResource(R.mipmap.lista_w_dostawie);
+                }
+
+            }
+        });
+
+
+
+
         news_column = (LinearLayout) findViewById(R.id.news_column);
         commit_column = (LinearLayout) findViewById(R.id.commit_column);
         realization_column = (LinearLayout) findViewById(R.id.realization_column);
@@ -110,30 +134,11 @@ public class CRM_Order_Kanban extends Activity {
         int height = metrics.heightPixels;
         int width = metrics.widthPixels;
 
-        //int height = getScreenWidth();
-        //int width = getScreenHeight();
-
         news_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
         commit_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
         realization_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
         reception_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
         transport_column.setLayoutParams(new LinearLayout.LayoutParams(width / 5, LinearLayout.LayoutParams.WRAP_CONTENT));
-
-        TextView transportTxt0 = (TextView) findViewById(R.id.news);
-       //transportTxt0.setTextSize(width / 100);
-
-
-        TextView transportTxt1 = (TextView) findViewById(R.id.realization);
-       // transportTxt1.setTextSize(width / 100);
-
-        TextView transportTxt2 = (TextView) findViewById(R.id.accepted);
-       // transportTxt2.setTextSize(width / 100);
-        TextView transportTxt3 = (TextView) findViewById(R.id.receive);
-        //transportTxt3.setTextSize(width / 100);
-
-        TextView transportTxt4 = (TextView) findViewById(R.id.transport);
-        // transportTxt4.setTextSize(width / 100);
-
 
         bounceListView0 = (BounceListView) findViewById(R.id.simple_order_list_view0);
         bounceListView1 = (BounceListView) findViewById(R.id.simple_order_list_view1);
@@ -151,25 +156,6 @@ public class CRM_Order_Kanban extends Activity {
     public static int getScreenHeight() {
         return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
-
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub if(requestCode == 0) {
-        Log.i("informacja", "Wysałalem maila");
-
-
-        if (requestCode == 1) {
-            Log.i("informacja",  data+"Wysałalem maila 0"+resultCode);
-            if (resultCode == Activity.RESULT_OK) {
-
-                Log.i("informacja", "Wysałalem maila  ok");
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i("informacja", "Wysałalem maila  canc");
-            }
-        }
-    }*/
-
 
     @Override
     protected void onDestroy() {
@@ -216,9 +202,7 @@ public class CRM_Order_Kanban extends Activity {
                     DataSnapshot dataitem = item;
                     Map<String, Object> map = (Map<String, Object>) dataitem.getValue();
                     DB_ORDER_SERIAL_NUMBER = (String) map.get("nr").toString();
-
                 }
-
             }
 
             @Override
@@ -228,7 +212,6 @@ public class CRM_Order_Kanban extends Activity {
         });
 
     }
-
 
 
     public void loadAllOrders() {
@@ -281,7 +264,6 @@ public class CRM_Order_Kanban extends Activity {
                     orderFromFB_Item.setOrderNo(orderNo);
 
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
-
                     Log.i("informacja", "   status  " + totalPrice);
 
                     if (status == null) {
@@ -303,7 +285,6 @@ public class CRM_Order_Kanban extends Activity {
                         orderFromFB4.add(orderFromFB_Item);
                     }
                 }
-
 
                 arrayAdapter0 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
                 arrayAdapter1 = new CRM_Order_Kanban_Adapter(CRM_Order_Kanban.this,getBaseContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
@@ -331,16 +312,6 @@ public class CRM_Order_Kanban extends Activity {
                 bounceListView4.setScrollingCacheEnabled(false);
                 arrayAdapter4.notifyDataSetChanged();
 
-               /* try {
-                    File f = File.createTempFile("file", ".txt", Environment.getExternalStorageDirectory ());
-                    FileWriter fw = new FileWriter(f);
-                    fw.write("DUPAAAAAAAAAA");
-                    fw.close();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Error while saving file", Toast.LENGTH_LONG).show();
-                }*/
             }
 
             @Override

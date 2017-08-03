@@ -36,12 +36,14 @@
             </android.support.v7.widget.ButtonBarLayout>
 
             <android.support.v7.widget.ButtonBarLayout
+                android:id="@+id/btn_w_dostawie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 >
                 <ImageView
+                    android:id="@+id/img_w_dostawie"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/lista_w_dostawie"
@@ -63,13 +65,14 @@
                 android:textSize="@dimen/HEADER" />
 
             <android.support.v7.widget.ButtonBarLayout
-
+                android:id="@+id/btn_gotowe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_weight="1">
-
+git
                 <ImageView
+                    android:id="@+id/img_gotowe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
