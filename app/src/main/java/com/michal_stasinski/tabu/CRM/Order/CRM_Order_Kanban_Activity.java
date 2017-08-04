@@ -26,7 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 
-public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_SplitView_Fragment.SplitViewFragmentInteractionListener {
+public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_SplitView_Fragment.SplitViewFragmentInteractionListener {
     private Crm_Kanban_Fragment fragment;
     private Crm_SplitView_Fragment fragment1;
 

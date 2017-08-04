@@ -10,9 +10,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenu_ListViewAdapter;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_MainView;
+import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenuAdapter;
+import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_Activity;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import static com.michal_stasinski.tabu.SplashScreen.DATA_FOR_DELIVERY;
 import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
 
-public class CRM_MainMenu_ListView extends AppCompatActivity {
+public class CRM_MainMenu extends AppCompatActivity {
 
     protected BounceListView main_list_view;
     private ArrayList<MenuItemProduct> menuArrayList;
@@ -67,7 +66,7 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
 
 
         main_list_view = (BounceListView) findViewById(R.id.crm_listView_menu);
-        CRM_MainMenu_ListViewAdapter arrayAdapter = new CRM_MainMenu_ListViewAdapter(this);
+        CRM_MainMenuAdapter arrayAdapter = new CRM_MainMenuAdapter(this);
 
         for (int i = 0; i < menuText.length; i++) {
             OrderComposerItem item = new OrderComposerItem();
@@ -91,7 +90,7 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
                 if (!IS_LOGGED_IN) {
                     if (position == 0) {
                         SharedPreferences prefs = getSharedPreferences(DATA_FOR_DELIVERY, MODE_PRIVATE);
-                        MenuFragment.isTeamMember(prefs, CRM_MainMenu_ListView.this);
+                        MenuFragment.isTeamMember(prefs, CRM_MainMenu.this);
                     }
                 }
 
@@ -99,13 +98,13 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
 
                     if (position == 2) {
                         main_list_view.setOnItemClickListener(null);
-                        intent.setClass(view.getContext(), CRM_Order_Kanban_MainView.class);
+                        intent.setClass(view.getContext(), CRM_Order_Kanban_Activity.class);
                         startActivity(intent);
                     }
                     if (position == 5) {
                         main_list_view.setOnItemClickListener(null);
                         IS_LOGGED_IN = false;
-                        Toast.makeText(CRM_MainMenu_ListView.this, "Zostałeś wylogowany", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CRM_MainMenu.this, "Zostałeś wylogowany", Toast.LENGTH_SHORT).show();
                         intent.setClass(view.getContext(), MainActivity.class);
                         startActivity(intent);
                     }

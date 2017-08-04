@@ -1,28 +1,20 @@
 package com.michal_stasinski.tabu.User_Side;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenu_ListViewAdapter;
-import com.michal_stasinski.tabu.MainActivity;
+import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenuAdapter;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.User_Side.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
 import java.util.ArrayList;
-
-import static com.michal_stasinski.tabu.SplashScreen.IS_LOGGED_IN;
-import static com.michal_stasinski.tabu.SplashScreen.IS_STAFF_MEMBER;
 
 public class User_Info_ListView extends AppCompatActivity {
 
@@ -59,7 +51,7 @@ public class User_Info_ListView extends AppCompatActivity {
 
 
         main_list_view = (BounceListView) findViewById(R.id.crm_listView_menu);
-        CRM_MainMenu_ListViewAdapter arrayAdapter = new CRM_MainMenu_ListViewAdapter(this);
+        CRM_MainMenuAdapter arrayAdapter = new CRM_MainMenuAdapter(this);
 
         for (int i = 0; i < menuText.length; i++) {
             OrderComposerItem item = new OrderComposerItem();

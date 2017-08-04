@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10sp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="10sp"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="26sp"
+            android:layout_height="26sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/order_nr"
+                fontPath="AvenirNext-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="1sp"
+                android:layout_weight="1"
+                android:background="@drawable/orange_button_background"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="1sp"
+                android:text="112"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/NR_ZAMOWIENIA" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginRight="2sp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/hour_of_deliver"
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="17.00"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="@dimen/GODZ"
+                    autofit:minTextSize="5sp" />
+
+
+                <TextView
+                    android:id="@+id/delivety_method"
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_marginLeft="1sp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:padding="1sp"
+                    android:text="Dostawa"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/ODBOIR_DOSTAWA" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginRight="2sp"
+                android:layout_weight="1.4"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/time_to_finish"
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text="20"
+                    android:textAlignment="center"
+                    android:textColor="@color/NOWE"
+                    android:textSize="@dimen/IL_MINUT"
+                    autofit:minTextSize="10sp" />
+
+                <TextView
+                    android:id="@+id/time_to_finish_min"
+                    fontPath="AvenirNext-DemiBold.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text=" min."
+                    android:textAlignment="center"
+                    android:textColor="@color/NOWE"
+                    android:textSize="8sp"
+                    autofit:minTextSize="6sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginRight="2sp"
+                android:layout_weight="1.6"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/appCompatImageView"
+                    android:layout_width="10sp"
+                    android:layout_height="10sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="8sp"
+                    android:layout_gravity="center"
+                    android:background="@mipmap/back_button"
+                    android:backgroundTint="@color/colorDarkGray"
+                    android:scaleX="-1"
+                    android:scaleY="-1" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+

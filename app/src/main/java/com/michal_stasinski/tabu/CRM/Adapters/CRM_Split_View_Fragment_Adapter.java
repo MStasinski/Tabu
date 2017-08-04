@@ -156,18 +156,14 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
         if (convertView == null) {
             // ArrayList<Number> price = arr.get(position).getPriceArray();
-            view = View.inflate(mContext, R.layout.crm_order_kanban_block, null);
+            view = View.inflate(mContext, R.layout.crm_order_split_view_block, null);
             viewHolder = new ViewHolderItem();
             viewHolder.order_fb_payment_method = (TextView) view.findViewById(R.id.order_fb_payment_method);
-
             viewHolder.list = (LinearLayout) view.findViewById(R.id.list_of_order_for_one_item);
-            viewHolder.price = (TextView) view.findViewById(R.id.order_fb_item_price);
-            viewHolder.div0 = (View) view.findViewById(R.id.div0);
             viewHolder.order_number = (TextView) view.findViewById(R.id.order_nr);
             viewHolder.hour_of_deliver = (TextView) view.findViewById(R.id.hour_of_deliver);
             viewHolder.time_to_finish = (TextView) view.findViewById(R.id.time_to_finish);
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
-
             viewHolder.time_to_finish_min = (TextView) view.findViewById(R.id.time_to_finish_min);
             // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
@@ -176,7 +172,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             ArrayList<ArrayList<String>> getOrder = arr.get(position).getOrderList();
 
 
-            viewHolder.getOrderHold = getOrder;
+           /* viewHolder.getOrderHold = getOrder;
 
             for (int i = 0; i < arr.get(position).getOrderList().size(); i++) {
 
@@ -200,7 +196,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
                 viewHolder.tableArray.add(txt_order);
                 viewHolder.list.addView(row, i);
-            }
+            }*/
 
 
             view.setTag(viewHolder);
@@ -209,18 +205,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             viewHolder = (ViewHolderItem) view.getTag();
         }
 
-        //Log.i("informacja", "arr.get(position).getPaymentWay()" +arr.get(position).getPaymentWay().toString());
-        if (arr.get(position).getPaymentWay().toString().equals("GOTÓWKA")) {
-            viewHolder.order_fb_payment_method.setText("GOT.");
-        }
 
-        if (arr.get(position).getPaymentWay().toString().equals("Karta")) {
-            viewHolder.order_fb_payment_method.setText("KART.");
-        }
-        if (arr.get(position).getPaymentWay().toString().equals("Przelew")) {
-            viewHolder.order_fb_payment_method.setText("ZAPł.");
-        }
-        viewHolder.price.setText(arr.get(position).getTotalPrice());
         //viewHolder.order_number.setBackgroundColor(color);
 
         //TODO tu kolorrrrrrrrrrrrrrrrrrrrrrrr
@@ -249,20 +234,9 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WDOSTAWIE)));
             viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WDOSTAWIE)));
         }
-       // viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(color));
 
 
 
-
-
-       /* viewHolder.order_number.setTextSize(width / scale);
-        viewHolder.delivety_method.setTextSize(width / scale);
-        viewHolder.hour_of_deliver.setTextSize(width / scale);
-        viewHolder.order_fb_payment_method.setTextSize(width / scale);
-        viewHolder.price.setTextSize(width / scale);*/
-
-
-        //viewHolder.order_number.setWidth(width / scale);
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
 
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
@@ -291,7 +265,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
 
 
-        viewHolder.tableArray.clear();
+       /* viewHolder.tableArray.clear();
         viewHolder.list.removeAllViews();
 
         ArrayList<ArrayList<String>> getOrder = arr.get(position).getOrderList();
@@ -321,7 +295,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             viewHolder.list.addView(row, i);
 
 
-        }
+        }*/
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.michal_stasinski.tabu.CRM.CRM_MainMenu_ListView;
+import com.michal_stasinski.tabu.CRM.CRM_MainMenu;
 import com.michal_stasinski.tabu.User_Side.Adapters.CustomDrawerAdapter;
 import com.michal_stasinski.tabu.User_Side.DataForDelivery;
 import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (IS_STAFF_MEMBER || IS_LOGGED_IN) {
                     Intent intent = new Intent();
-                    intent.setClass(getBaseContext(), CRM_MainMenu_ListView.class);
+                    intent.setClass(getBaseContext(), CRM_MainMenu.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.from_right, R.anim.to_left);
                 } else {

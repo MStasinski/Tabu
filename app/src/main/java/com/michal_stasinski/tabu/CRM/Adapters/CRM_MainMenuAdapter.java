@@ -17,13 +17,13 @@ import java.util.ArrayList;
  * Created by mstasinski on 20.07.2017.
  */
 
-public class CRM_MainMenu_ListViewAdapter extends BaseAdapter {
+public class CRM_MainMenuAdapter extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mInflater;
     private ArrayList<OrderComposerItem> arr;
 
-    public CRM_MainMenu_ListViewAdapter(Context context) {
+    public CRM_MainMenuAdapter(Context context) {
 
         this.mContext = context;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,17 +55,17 @@ public class CRM_MainMenu_ListViewAdapter extends BaseAdapter {
 
         View view = convertView;
 
-        CRM_MainMenu_ListViewAdapter.ViewHolderItem viewHolder = null;
+        CRM_MainMenuAdapter.ViewHolderItem viewHolder = null;
 
         int rowType = getItemViewType(position);
 
         if (convertView == null) {
             view = View.inflate(mContext, R.layout.crm_main_menu_manager_row, null);
-            viewHolder = new CRM_MainMenu_ListViewAdapter.ViewHolderItem();
+            viewHolder = new CRM_MainMenuAdapter.ViewHolderItem();
             viewHolder.title = (TextView) view.findViewById(R.id.crm_main_menu_manager_row_title);
             view.setTag(viewHolder);
         } else {
-            viewHolder = (CRM_MainMenu_ListViewAdapter.ViewHolderItem) view.getTag();
+            viewHolder = (CRM_MainMenuAdapter.ViewHolderItem) view.getTag();
         }
 
         if (viewHolder.title != null) {

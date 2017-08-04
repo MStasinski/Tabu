@@ -35,14 +35,39 @@
                     android:animationCache="false"
                     android:scrollingCache="false" />
 
-                <com.michal_stasinski.tabu.Utils.BounceListView
-                    android:id="@+id/right_listView"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:animationCache="false"
-                    android:scrollingCache="false" />
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/top_left_split_view"
+                        layout="@layout/crm_split_view_left_top_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                       />
+
+                    <com.michal_stasinski.tabu.Utils.BounceListView
+                        android:id="@+id/right_listView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:animationCache="false"
+                        android:scrollingCache="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                    <include
+                        android:id="@+id/bottom_left_split_view"
+                        layout="@layout/crm_split_view_left_top_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                </RelativeLayout>
             </LinearLayout>
 
 

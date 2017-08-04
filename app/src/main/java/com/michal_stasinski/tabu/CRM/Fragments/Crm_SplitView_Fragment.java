@@ -17,10 +17,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_Order_Kanban_Adapter;
 import com.michal_stasinski.tabu.CRM.Adapters.CRM_Split_View_Fragment_Adapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_MainView;
+import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_Activity;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -41,7 +40,8 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
     public static ArrayList<GetOrderFromFB> orderFromFB0;
     public static ArrayList<GetOrderFromFB> orderFromFB1;
     public static ArrayList<GetOrderFromFB> orderFromFB2;
-    public static ArrayList<GetOrderFromFB> orderFromFB3;
+    public static ArrayList<GetOrderFromFB> orderFromFB3o;
+    public static ArrayList<GetOrderFromFB> orderFromFB3d;
     public static ArrayList<GetOrderFromFB> orderFromFB4;
 
     private CRM_Split_View_Fragment_Adapter arrayAdapter;
@@ -70,7 +70,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        listener=null;
+        listener = null;
     }
 
     @Override
@@ -79,10 +79,15 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
         myView = inflater.inflate(R.layout.crm_split_view_fragment, container, false);
 
         all = (ButtonBarLayout) myView.findViewById(R.id.all_btn);
+
+
+
+
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();
         orderFromFB2 = new ArrayList<GetOrderFromFB>();
-        orderFromFB3 = new ArrayList<GetOrderFromFB>();
+        orderFromFB3o = new ArrayList<GetOrderFromFB>();
+        orderFromFB3d = new ArrayList<GetOrderFromFB>();
         orderFromFB4 = new ArrayList<GetOrderFromFB>();
 
 
@@ -110,10 +115,10 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
         ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
         ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
-        if(!CRM_Order_Kanban_MainView.btn3_is_mark) {
+        if (!CRM_Order_Kanban_Activity.btn3_is_mark) {
             odbior_btn.setVisibility(View.INVISIBLE);
             dowoz_btn.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             odbior_btn.setVisibility(View.VISIBLE);
             dowoz_btn.setVisibility(View.VISIBLE);
         }
@@ -150,7 +155,8 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                 orderFromFB0.clear();
                 orderFromFB1.clear();
                 orderFromFB2.clear();
-                orderFromFB3.clear();
+                orderFromFB3o.clear();
+                orderFromFB3d.clear();
                 orderFromFB4.clear();
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
 
@@ -204,7 +210,8 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                         orderFromFB2.add(orderFromFB_Item);
                     }
                     if (status.equals("3")) {
-                        orderFromFB3.add(orderFromFB_Item);
+                        orderFromFB3o.add(orderFromFB_Item);
+                        orderFromFB3d.add(orderFromFB_Item);
                     }
                     if (status.equals("4")) {
                         orderFromFB4.add(orderFromFB_Item);
@@ -217,32 +224,31 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                 ArrayList<GetOrderFromFB> orderFromFB = new ArrayList<GetOrderFromFB>();
 
 
-                if(CRM_Order_Kanban_MainView.btn0_is_mark) {
+                if (CRM_Order_Kanban_Activity.btn0_is_mark) {
                     orderFromFB.addAll(orderFromFB0);
                 }
-                if(CRM_Order_Kanban_MainView.btn1_is_mark) {
+                if (CRM_Order_Kanban_Activity.btn1_is_mark) {
                     orderFromFB.addAll(orderFromFB1);
                 }
-                if(CRM_Order_Kanban_MainView.btn2_is_mark) {
+                if (CRM_Order_Kanban_Activity.btn2_is_mark) {
                     orderFromFB.addAll(orderFromFB2);
                 }
-                if(CRM_Order_Kanban_MainView.btn3_is_mark) {
-                    orderFromFB.addAll(orderFromFB3);
+                if (CRM_Order_Kanban_Activity.btn3_is_mark) {
+                    orderFromFB.addAll(orderFromFB3o);
+                    orderFromFB.addAll(orderFromFB3d);
                 }
-                if(CRM_Order_Kanban_MainView.btn4_is_mark) {
+                if (CRM_Order_Kanban_Activity.btn4_is_mark) {
                     orderFromFB.addAll(orderFromFB4);
                 }
 
-
-                arrayAdapter = new CRM_Split_View_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB);
-
-
-
-                bounceListView0.setAdapter(arrayAdapter);
-                bounceListView0.setScrollingCacheEnabled(false);
-                arrayAdapter.notifyDataSetChanged();
+                if (getActivity() != null) {
+                    arrayAdapter = new CRM_Split_View_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB);
 
 
+                    bounceListView0.setAdapter(arrayAdapter);
+                    bounceListView0.setScrollingCacheEnabled(false);
+                    arrayAdapter.notifyDataSetChanged();
+                }
 
 
             }

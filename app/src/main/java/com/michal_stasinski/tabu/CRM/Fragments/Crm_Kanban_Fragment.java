@@ -1,5 +1,6 @@
 package com.michal_stasinski.tabu.CRM.Fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.michal_stasinski.tabu.CRM.Adapters.CRM_Order_Kanban_Adapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_MainView;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -33,7 +33,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     private View myView;
     private Handler handler;
     private int AFTER_ONE_MINUTE;
-
+    private Activity activity;
     private CRM_Order_Kanban_Adapter arrayAdapter0;
     private CRM_Order_Kanban_Adapter arrayAdapter1;
     private CRM_Order_Kanban_Adapter arrayAdapter2;
@@ -54,6 +54,8 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     public static Crm_Kanban_Fragment newInstance(int num) {
 
         Crm_Kanban_Fragment fragment = new Crm_Kanban_Fragment();
+
+        Log.i("informacja", "  tu fragment  ");
         return fragment;
     }
 
@@ -63,12 +65,11 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.crm_kanban_fragment, container, false);
-
+        activity = getActivity();
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();
         orderFromFB2 = new ArrayList<GetOrderFromFB>();
@@ -76,6 +77,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
         orderFromFB4 = new ArrayList<GetOrderFromFB>();
 
 
+        loadAllOrders();
 
         return myView;
     }
@@ -83,6 +85,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
 
@@ -91,8 +94,8 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadAllOrders();
 
+        Log.i("informacja", "  resume  ");
 
 
         handler = new Handler(new Handler.Callback() {
@@ -114,6 +117,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
             }
         });
         handler.sendEmptyMessageDelayed(AFTER_ONE_MINUTE, 60000);
+
 
     }
 
@@ -168,7 +172,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
 
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
-                    Log.i("informacja", "   status  " + totalPrice);
 
                     if (status == null) {
                         // status ="0";
@@ -196,33 +199,37 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                 BounceListView bounceListView3 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_3);
                 BounceListView bounceListView4 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_4);
 
-                arrayAdapter0 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
-                arrayAdapter1 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
-                arrayAdapter2 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                arrayAdapter3 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
-                arrayAdapter4 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
+
+                Log.i("informacja", "  getActivity()  " + getActivity());
+
+                if (getActivity() != null) {
+                    arrayAdapter0 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                    arrayAdapter1 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                    arrayAdapter2 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                    arrayAdapter3 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                    arrayAdapter4 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB4, false, getResources().getColor(R.color.WDOSTAWIE));
 
 
-                bounceListView0.setAdapter(arrayAdapter0);
-                bounceListView0.setScrollingCacheEnabled(false);
-                arrayAdapter0.notifyDataSetChanged();
+                    bounceListView0.setAdapter(arrayAdapter0);
+                    bounceListView0.setScrollingCacheEnabled(false);
+                    arrayAdapter0.notifyDataSetChanged();
 
-                bounceListView1.setAdapter(arrayAdapter1);
-                bounceListView1.setScrollingCacheEnabled(false);
-                arrayAdapter1.notifyDataSetChanged();
+                    bounceListView1.setAdapter(arrayAdapter1);
+                    bounceListView1.setScrollingCacheEnabled(false);
+                    arrayAdapter1.notifyDataSetChanged();
 
-                bounceListView2.setAdapter(arrayAdapter2);
-                bounceListView2.setScrollingCacheEnabled(false);
-                arrayAdapter2.notifyDataSetChanged();
+                    bounceListView2.setAdapter(arrayAdapter2);
+                    bounceListView2.setScrollingCacheEnabled(false);
+                    arrayAdapter2.notifyDataSetChanged();
 
-                bounceListView3.setAdapter(arrayAdapter3);
-                bounceListView3.setScrollingCacheEnabled(false);
-                arrayAdapter3.notifyDataSetChanged();
+                    bounceListView3.setAdapter(arrayAdapter3);
+                    bounceListView3.setScrollingCacheEnabled(false);
+                    arrayAdapter3.notifyDataSetChanged();
 
-                bounceListView4.setAdapter(arrayAdapter4);
-                bounceListView4.setScrollingCacheEnabled(false);
-                arrayAdapter4.notifyDataSetChanged();
-
+                    bounceListView4.setAdapter(arrayAdapter4);
+                    bounceListView4.setScrollingCacheEnabled(false);
+                    arrayAdapter4.notifyDataSetChanged();
+                }
 
             }
 

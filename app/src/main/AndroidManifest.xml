@@ -83,19 +83,16 @@
         <activity
             android:name=".User_Side.DataForDelivery"
             android:theme="@style/Theme.Swipe.Back" />
-        <activity
-            android:name=".CRM.Order.CRM_Order_Kanban"
-            android:theme="@style/Theme.Swipe.Back" />
 
         <activity
-            android:name=".CRM.Order.CRM_Order_Kanban_MainView"
+            android:name=".CRM.Order.CRM_Order_Kanban_Activity"
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity
             android:name=".User_Side.User_Info_ListView"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
-            android:name=".CRM.CRM_MainMenu_ListView"
+            android:name=".CRM.CRM_MainMenu"
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity android:name=".CRM.Customer"></activity>
