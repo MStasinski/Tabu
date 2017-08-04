@@ -30,11 +30,11 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
     private Crm_Kanban_Fragment fragment;
     private Crm_SplitView_Fragment fragment1;
 
-    private Boolean btn0_is_mark = false;
-    private Boolean btn1_is_mark = false;
-    private Boolean btn2_is_mark = false;
-    private Boolean btn3_is_mark = false;
-    private Boolean btn4_is_mark = false;
+    public static Boolean btn0_is_mark = false;
+    public static Boolean btn1_is_mark = false;
+    public static Boolean btn2_is_mark = false;
+    public static Boolean btn3_is_mark = false;
+    public static Boolean btn4_is_mark = false;
     // private Handler handler;
     //private int AFTER_ONE_MINUTE;
 
@@ -96,12 +96,11 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
 
                 Log.i("informacja", "   click " + btn0_is_mark);
                 if (!btn0_is_mark) {
-
                     nowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment1 = Crm_SplitView_Fragment.newInstance(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 }
+                FragmentManager fragmentManager = getFragmentManager();
+                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
 
                 btn0_is_mark = !btn0_is_mark;
             }
@@ -120,11 +119,11 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
                 if (!btn1_is_mark) {
 
                     przyjete_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment1 = Crm_SplitView_Fragment.newInstance(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 }
 
+                FragmentManager fragmentManager = getFragmentManager();
+                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn1_is_mark = !btn1_is_mark;
             }
         });
@@ -141,11 +140,11 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
                 if (!btn2_is_mark) {
 
                     wrealizacji_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment1 = Crm_SplitView_Fragment.newInstance(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 }
 
+                FragmentManager fragmentManager = getFragmentManager();
+                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn2_is_mark = !btn2_is_mark;
             }
         });
@@ -159,15 +158,14 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
                 gotowe_text.setTextColor(getResources().getColor(R.color.colorSecondGrey));
 
                 Log.i("informacja", "   click " + btn3_is_mark);
+
                 if (!btn3_is_mark) {
-
-
                     gotowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment1 = Crm_SplitView_Fragment.newInstance(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 }
 
+                FragmentManager fragmentManager = getFragmentManager();
+                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn3_is_mark = !btn3_is_mark;
             }
         });
@@ -183,12 +181,11 @@ public class CRM_Order_Kanban_MainView extends AppCompatActivity implements Crm_
                 if (!btn4_is_mark) {
 
                     wdostawie_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
-
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragment1 = Crm_SplitView_Fragment.newInstance(0);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 }
 
+                FragmentManager fragmentManager = getFragmentManager();
+                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn4_is_mark = !btn4_is_mark;
             }
         });

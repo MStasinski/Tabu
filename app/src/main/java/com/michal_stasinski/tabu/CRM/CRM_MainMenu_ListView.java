@@ -96,12 +96,8 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
                 }
 
                 if (IS_LOGGED_IN) {
+
                     if (position == 2) {
-                        main_list_view.setOnItemClickListener(null);
-                        intent.setClass(view.getContext(), CRM_Order_Kanban.class);
-                        startActivity(intent);
-                    }
-                    if (position == 4) {
                         main_list_view.setOnItemClickListener(null);
                         intent.setClass(view.getContext(), CRM_Order_Kanban_MainView.class);
                         startActivity(intent);
