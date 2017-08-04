@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.michal_stasinski.tabu.CRM.Fragments.Crm_SplitView_Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/main_frame_pizza"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/fragment_contener"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/kanban_bounce_list_view_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/kanban_bounce_list_view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/kanban_bounce_list_view_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/kanban_bounce_list_view_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+
+                <com.michal_stasinski.tabu.Utils.BounceListView
+                    android:id="@+id/kanban_bounce_list_view_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:animationCache="false"
+                    android:scrollingCache="false" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

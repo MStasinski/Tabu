@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/news_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/nowe"
+                android:backgroundTint="@color/NOWE"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/nowe_txt"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="NOWE"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/commit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/przyjete"
+                android:backgroundTint="@color/PRZYJETE"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/przyjete_txt"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="PRZYJĘTE"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+
+        </android.support.v7.widget.ButtonBarLayout>
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/realization_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/realizacja"
+                android:backgroundTint="@color/WREALIZACJI"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/wrealizacji_txt"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="W REALIZACJI"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/reception_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/gotowe_gora"
+                android:backgroundTint="@color/DOODBIORU"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/gotowe_txt"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="GOTOWE"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/transport_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/lista_w_dostawie"
+                android:backgroundTint="@color/WDOSTAWIE"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/wdostawie_txt"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="W DOSTAWIE"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+    </LinearLayout>
+
+    <com.liuguangqiang.swipeback.SwipeBackLayout
+        android:id="@+id/swipe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.liuguangqiang.swipeback.SwipeBackLayout>
+</LinearLayout>

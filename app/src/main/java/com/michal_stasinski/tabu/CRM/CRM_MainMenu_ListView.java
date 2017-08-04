@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenu_ListViewAdapter;
 import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban;
+import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_MainView;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -98,6 +99,11 @@ public class CRM_MainMenu_ListView extends AppCompatActivity {
                     if (position == 2) {
                         main_list_view.setOnItemClickListener(null);
                         intent.setClass(view.getContext(), CRM_Order_Kanban.class);
+                        startActivity(intent);
+                    }
+                    if (position == 4) {
+                        main_list_view.setOnItemClickListener(null);
+                        intent.setClass(view.getContext(), CRM_Order_Kanban_MainView.class);
                         startActivity(intent);
                     }
                     if (position == 5) {

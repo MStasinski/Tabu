@@ -29,6 +29,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile(name: 'dotpay-sdk', ext: 'aar')
+    compile files('libs/activation.jar')
     compile 'com.android.support:percent:25.1.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:percent:25.1.1'
@@ -63,11 +64,10 @@ dependencies {
     compile 'io.card:android-sdk:5.4.1'
     compile 'me.grantland:autofittextview:0.2.+'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
-    testCompile 'junit:junit:4.12'
     compile 'javax.persistence:persistence-api:1.0'
+    testCompile 'junit:junit:4.12'
     apt 'com.google.dagger:dagger-compiler:2.6.1'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile files('libs/activation.jar')
 }
 
 

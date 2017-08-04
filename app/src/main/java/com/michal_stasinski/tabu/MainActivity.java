@@ -156,6 +156,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getFragmentManager();
         fragment = MenuFragment.newInstance(CHOICE_ACTIVITY);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_contener, fragment).commit();
+
+
         Check_if_the_restaurant_is_open time_open_close = new Check_if_the_restaurant_is_open();
 
         if (!time_open_close.getRestaurantIsOpen()) {

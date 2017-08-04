@@ -147,6 +147,9 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
+        Log.i("informacja", " adapter getView ");
+
         View view = convertView;
         ViewHolderItem viewHolder;
 
@@ -257,6 +260,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         } else {
             viewHolder.time_to_finish.setText(String.valueOf(Math.abs(Integer.parseInt(viewHolder.count))));
         }
+
 
 
         viewHolder.tableArray.clear();

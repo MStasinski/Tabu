@@ -88,6 +88,10 @@
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity
+            android:name=".CRM.Order.CRM_Order_Kanban_MainView"
+            android:theme="@style/Theme.Swipe.Back" />
+
+        <activity
             android:name=".User_Side.User_Info_ListView"
             android:theme="@style/Theme.Swipe.Back" />
         <activity
