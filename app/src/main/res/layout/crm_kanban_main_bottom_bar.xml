@@ -37,7 +37,7 @@
                 android:layout_height="34dp"
                 android:background="@drawable/customshape_kanban_top_menu"
                 android:gravity="center_vertical"
-                android:text="WSZYSTKIE"
+                android:text="KOLUMNY"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="@dimen/HEADER" />
