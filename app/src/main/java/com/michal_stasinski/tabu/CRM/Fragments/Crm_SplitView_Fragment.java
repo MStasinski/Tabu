@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,6 +44,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
     public static ArrayList<GetOrderFromFB> orderFromFB3o;
     public static ArrayList<GetOrderFromFB> orderFromFB3d;
     public static ArrayList<GetOrderFromFB> orderFromFB4;
+
 
     private CRM_Split_View_Fragment_Adapter arrayAdapter;
 
@@ -80,16 +82,12 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
         all = (ButtonBarLayout) myView.findViewById(R.id.all_btn);
 
-
-
-
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();
         orderFromFB2 = new ArrayList<GetOrderFromFB>();
         orderFromFB3o = new ArrayList<GetOrderFromFB>();
         orderFromFB3d = new ArrayList<GetOrderFromFB>();
         orderFromFB4 = new ArrayList<GetOrderFromFB>();
-
 
         return myView;
 
@@ -98,6 +96,41 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        // btn3o_is_mark = true;
+        //btn3d_is_mark = true;
+
+
+        ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
+        ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
+
+        if (!CRM_Order_Kanban_Activity.btn3_is_mark) {
+            odbior_btn.setVisibility(View.INVISIBLE);
+            dowoz_btn.setVisibility(View.INVISIBLE);
+        } else {
+            odbior_btn.setVisibility(View.VISIBLE);
+            dowoz_btn.setVisibility(View.VISIBLE);
+
+            // CRM_Order_Kanban_Activity.btn3o_is_mark = true;
+            // CRM_Order_Kanban_Activity.btn3d_is_mark = true;
+        }
+
+        TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
+
+        if (CRM_Order_Kanban_Activity.btn3d_is_mark) {
+            dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        } else {
+            dowoz_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
+        }
+
+        TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
+
+
+        if (CRM_Order_Kanban_Activity.btn3o_is_mark) {
+            odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
+        } else {
+            odbior_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
+        }
+
 
         all.setOnClickListener(new View.OnClickListener() {
 
@@ -111,17 +144,41 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
             }
         });
 
+
+        odbior_btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
+                odbior_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
+                if (!CRM_Order_Kanban_Activity.btn3o_is_mark) {
+                    odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
+                }
+
+                CRM_Order_Kanban_Activity.btn3o_is_mark = !CRM_Order_Kanban_Activity.btn3o_is_mark;
+                loadAllOrders();
+
+            }
+        });
+
+        dowoz_btn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
+                dowoz_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
+                if (!CRM_Order_Kanban_Activity.btn3d_is_mark) {
+                    dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
+                }
+
+                CRM_Order_Kanban_Activity.btn3d_is_mark = !CRM_Order_Kanban_Activity.btn3d_is_mark;
+                loadAllOrders();
+            }
+        });
+
         loadAllOrders();
 
-        ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
-        ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
-        if (!CRM_Order_Kanban_Activity.btn3_is_mark) {
-            odbior_btn.setVisibility(View.INVISIBLE);
-            dowoz_btn.setVisibility(View.INVISIBLE);
-        } else {
-            odbior_btn.setVisibility(View.VISIBLE);
-            dowoz_btn.setVisibility(View.VISIBLE);
-        }
 
         handler = new Handler(new Handler.Callback() {
 
@@ -195,8 +252,6 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
                     //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
-                    Log.i("informacja", "   status  " + totalPrice);
-
                     if (status == null) {
                         // status ="0";
                     }
@@ -210,8 +265,11 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                         orderFromFB2.add(orderFromFB_Item);
                     }
                     if (status.equals("3")) {
-                        orderFromFB3o.add(orderFromFB_Item);
-                        orderFromFB3d.add(orderFromFB_Item);
+                        if (receiptWay.equals("ODBIÓR WŁASNY")) {
+                            orderFromFB3o.add(orderFromFB_Item);
+                        } else {
+                            orderFromFB3d.add(orderFromFB_Item);
+                        }
                     }
                     if (status.equals("4")) {
                         orderFromFB4.add(orderFromFB_Item);
@@ -234,8 +292,13 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                     orderFromFB.addAll(orderFromFB2);
                 }
                 if (CRM_Order_Kanban_Activity.btn3_is_mark) {
-                    orderFromFB.addAll(orderFromFB3o);
-                    orderFromFB.addAll(orderFromFB3d);
+                    if (CRM_Order_Kanban_Activity.btn3o_is_mark) {
+                        orderFromFB.addAll(orderFromFB3o);
+                    }
+
+                    if (CRM_Order_Kanban_Activity.btn3d_is_mark) {
+                        orderFromFB.addAll(orderFromFB3d);
+                    }
                 }
                 if (CRM_Order_Kanban_Activity.btn4_is_mark) {
                     orderFromFB.addAll(orderFromFB4);

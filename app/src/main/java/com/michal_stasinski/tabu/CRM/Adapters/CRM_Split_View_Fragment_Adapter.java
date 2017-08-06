@@ -226,13 +226,18 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
         }
 
         if(arr.get(position).getStatus().equals("3")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.DOODBIORU)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.DOODBIORU)));
+            if(arr.get(position).getReceiptWay().equals("DOWÓZ")) {
+                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
+                viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
+            }else{
+                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR1)));
+                viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR1)));
+            }
         }
 
         if(arr.get(position).getStatus().equals("4")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WDOSTAWIE)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WDOSTAWIE)));
+            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.ODBIOR3)));
+            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.ODBIOR3)));
         }
 
 

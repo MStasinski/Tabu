@@ -34,7 +34,10 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
     public static Boolean btn1_is_mark = false;
     public static Boolean btn2_is_mark = false;
     public static Boolean btn3_is_mark = false;
+    public static Boolean btn3o_is_mark = true;
+    public static Boolean btn3d_is_mark = true;
     public static Boolean btn4_is_mark = false;
+
     // private Handler handler;
     //private int AFTER_ONE_MINUTE;
 
@@ -94,7 +97,6 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                 TextView nowe_text = (TextView) findViewById(R.id.nowe_txt);
                 nowe_text.setTextColor(getResources().getColor(R.color.colorSecondGrey));
 
-                Log.i("informacja", "   click " + btn0_is_mark);
                 if (!btn0_is_mark) {
                     nowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 }
@@ -161,6 +163,8 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
 
                 if (!btn3_is_mark) {
                     gotowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+                    btn3o_is_mark = true;
+                    btn3d_is_mark = true;
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
@@ -191,6 +195,12 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        load_order_serial_number();
     }
 
     public void resetButtons() {
@@ -224,7 +234,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
     }
 
 
-    public void load_order_serial_number() {
+    public static void load_order_serial_number() {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(DB_ORDER_SERIAL_DATABASE);

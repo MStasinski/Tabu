@@ -17,7 +17,7 @@
             android:id="@+id/fragment_contener"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="51dp"
+            android:layout_marginBottom="70dp"
             android:layout_marginTop="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -35,6 +35,12 @@
                     android:animationCache="false"
                     android:scrollingCache="false" />
 
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@color/colorPrimaryDark" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -46,26 +52,24 @@
                         layout="@layout/crm_split_view_left_top_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                       />
+                        android:layout_centerHorizontal="true" />
 
                     <com.michal_stasinski.tabu.Utils.BounceListView
                         android:id="@+id/right_listView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:animationCache="false"
-                        android:scrollingCache="false"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true" />
+                        android:animationCache="false"
+                        android:scrollingCache="false" />
 
                     <include
                         android:id="@+id/bottom_left_split_view"
-                        layout="@layout/crm_split_view_left_top_header"
+                        layout="@layout/crm_split_view_left_bottom_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        />
+                        android:layout_centerHorizontal="true" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -73,7 +77,19 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/bottom_bar"
+            android:background="@color/colorPrimaryDark" />
+
         <include
+            android:id="@+id/bottom_bar"
             layout="@layout/crm_kanban_main_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

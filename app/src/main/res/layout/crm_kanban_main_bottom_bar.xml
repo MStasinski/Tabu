@@ -65,11 +65,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@mipmap/odbior"
-                android:backgroundTint="@color/DOODBIORU"
+                android:backgroundTint="@color/ODBIOR1"
                 android:gravity="center_horizontal" />
 
             <TextView
-                android:id="@+id/accepted"
+                android:id="@+id/odbior_txt"
                 fontPath="AvenirNextCondensed-DemiBold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
@@ -105,11 +105,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@mipmap/dostawa_dol"
-                android:backgroundTint="@color/WDOSTAWIE"
+                android:backgroundTint="@color/ODBIOR2"
                 android:gravity="center_horizontal" />
 
             <TextView
-
+                android:id="@+id/dowoz_txt"
                 fontPath="AvenirNextCondensed-DemiBold.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@mipmap/drukuj"
-                android:backgroundTint="@color/DOODBIORU"
+                android:backgroundTint="@color/colorPrimary"
                 android:gravity="center_horizontal" />
 
             <TextView
