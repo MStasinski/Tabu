@@ -223,6 +223,8 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         }
         viewHolder.price.setText(arr.get(position).getTotalPrice());
         //viewHolder.order_number.setBackgroundColor(color);
+
+
         viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(color));
 
         viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(color));
@@ -240,6 +242,22 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
 
         viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(color));
+
+
+        if(arr.get(position).getStatus().equals("3")){
+
+            if(arr.get(position).getReceiptWay().equals("DOWÓZ")){
+                viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf( viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR2)));
+                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR2)));
+                viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR2)));
+            }else{
+                viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf( viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1)));
+                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1g)));
+                viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1)));
+            }
+        }
+
+
         viewHolder.delivety_method.setText(arr.get(position).getReceiptWay().replace("WŁASNY", ""));
 
         String[] time = arr.get(position).getDeliveryDate().split(" ");

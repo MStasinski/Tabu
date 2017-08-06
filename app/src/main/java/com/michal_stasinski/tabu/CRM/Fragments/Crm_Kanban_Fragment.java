@@ -206,7 +206,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                     arrayAdapter0 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
                     arrayAdapter1 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
                     arrayAdapter2 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                    arrayAdapter3 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.DOODBIORU));
+                    arrayAdapter3 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.ODBIOR1));
                     arrayAdapter4 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB4, false, getResources().getColor(R.color.ODBIOR3));
 
 
