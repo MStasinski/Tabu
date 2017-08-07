@@ -138,6 +138,10 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v) {
+                ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
+                ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
+                odbior_btn.setVisibility(View.INVISIBLE);
+                dowoz_btn.setVisibility(View.INVISIBLE);
                 CRM_Order_Kanban_Activity.btn0_is_mark = false;
                 CRM_Order_Kanban_Activity.btn1_is_mark = false;
                 CRM_Order_Kanban_Activity.btn2_is_mark = false;
@@ -152,12 +156,18 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
         });
 
 
-
         zaznacz_wszystko.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
+                ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
+                odbior_btn.setVisibility(View.VISIBLE);
+                dowoz_btn.setVisibility(View.VISIBLE);
+                TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
+                TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
+                odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
+                dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 CRM_Order_Kanban_Activity.btn0_is_mark = true;
                 CRM_Order_Kanban_Activity.btn1_is_mark = true;
                 CRM_Order_Kanban_Activity.btn2_is_mark = true;
@@ -228,7 +238,6 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                 if (msg.what == AFTER_ONE_MINUTE) {
 
                     if (arrayAdapter != null) arrayAdapter.notifyDataSetChanged();
-
 
                     handler.sendEmptyMessageDelayed(AFTER_ONE_MINUTE, 60000);
                 }
