@@ -227,6 +227,31 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
         wdostawie_text.setTextColor(getResources().getColor(R.color.colorSecondGrey));
     }
 
+    public void selectAllButtons() {
+
+        btn0_is_mark = true;
+        btn1_is_mark = true;
+        btn2_is_mark = true;
+        btn3_is_mark = true;
+        btn4_is_mark = true;
+
+        TextView nowe_text = (TextView) findViewById(R.id.nowe_txt);
+        nowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+
+        TextView przyjete_text = (TextView) findViewById(R.id.przyjete_txt);
+        przyjete_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+
+        TextView wrealizacji_text = (TextView) findViewById(R.id.wrealizacji_txt);
+        wrealizacji_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+
+        TextView gotowe_text = (TextView) findViewById(R.id.gotowe_txt);
+        gotowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+
+        TextView wdostawie_text = (TextView) findViewById(R.id.wdostawie_txt);
+        wdostawie_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
+    }
+
+
     @Override
     protected void onDestroy() {
         //  handler.removeCallbacksAndMessages(null);
@@ -260,6 +285,11 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
 
     @Override
     public void messageFromSplitViewFragmentToActivity(String myString) {
-        resetButtons();
+        if(myString.equals("reset")) {
+            resetButtons();
+        }
+        if(myString.equals("selectAll")) {
+           selectAllButtons();
+        }
     }
 }

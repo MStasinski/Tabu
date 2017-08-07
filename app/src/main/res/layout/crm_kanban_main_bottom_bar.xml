@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+
+
         <android.support.v7.widget.ButtonBarLayout
-            android:id="@+id/all_btn"
+            android:id="@+id/selectAll_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -23,10 +25,10 @@
 
             <ImageView
                 android:id="@+id/news_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
                 android:layout_gravity="center"
-                android:background="@mipmap/lista_zamowien"
+                android:background="@mipmap/ic_select_all_black_48dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:gravity="center_horizontal" />
 
@@ -37,7 +39,7 @@
                 android:layout_height="34dp"
                 android:background="@drawable/customshape_kanban_top_menu"
                 android:gravity="center_vertical"
-                android:text="KOLUMNY"
+                android:text="ZAZNACZ\nWSZYSTKO"
                 android:textAlignment="center"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="@dimen/HEADER" />
@@ -50,6 +52,46 @@
                 android:backgroundTint="@color/colorSecond"
                 android:padding="10dp" />
         </android.support.v7.widget.ButtonBarLayout>
+
+
+        <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/clearAll_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_clear_all_black_48dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/news"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="WYCZYŚĆ\nWSZYSTKO"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+
 
 
         <android.support.v7.widget.ButtonBarLayout
@@ -131,6 +173,44 @@
 
 
         <android.support.v7.widget.ButtonBarLayout
+            android:id="@+id/all_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/lista_zamowien"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/news"
+                fontPath="AvenirNextCondensed-DemiBold.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/customshape_kanban_top_menu"
+                android:gravity="center_vertical"
+                android:text="KOLUMNY"
+                android:textAlignment="center"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="@dimen/HEADER" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_divaider_listmenu"
+                android:backgroundTint="@color/colorSecond"
+                android:padding="10dp" />
+        </android.support.v7.widget.ButtonBarLayout>
+
+       <!-- <android.support.v7.widget.ButtonBarLayout
 
             android:id="@+id/paragon_btn"
             android:layout_width="match_parent"
@@ -168,7 +248,7 @@
                 android:background="@drawable/custom_divaider_listmenu"
                 android:backgroundTint="@color/colorSecond"
                 android:padding="10dp" />
-        </android.support.v7.widget.ButtonBarLayout>
+        </android.support.v7.widget.ButtonBarLayout>-->
 
 
 

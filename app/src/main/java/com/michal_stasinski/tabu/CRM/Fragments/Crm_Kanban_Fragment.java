@@ -55,7 +55,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
 
         Crm_Kanban_Fragment fragment = new Crm_Kanban_Fragment();
 
-        Log.i("informacja", "  tu fragment  ");
         return fragment;
     }
 
@@ -75,8 +74,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
         orderFromFB2 = new ArrayList<GetOrderFromFB>();
         orderFromFB3 = new ArrayList<GetOrderFromFB>();
         orderFromFB4 = new ArrayList<GetOrderFromFB>();
-
-
         loadAllOrders();
 
         return myView;
@@ -95,9 +92,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     public void onResume() {
         super.onResume();
 
-        Log.i("informacja", "  resume  ");
-
-
         handler = new Handler(new Handler.Callback() {
 
             @Override
@@ -112,7 +106,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
 
                     handler.sendEmptyMessageDelayed(AFTER_ONE_MINUTE, 60000);
                 }
-
                 return true;
             }
         });
@@ -125,7 +118,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(DB_ORDER_DATABASE);
-        // DatabaseReference myRef = database.getReference("Orders");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,7 +146,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                     String orderNumber = (String) String.valueOf(map.get("orderNumber"));
                     String orderNo = (String) String.valueOf(map.get("orderNo"));
 
-
                     GetOrderFromFB orderFromFB_Item = new GetOrderFromFB();
 
                     orderFromFB_Item.setDeliveryDate(deliveryDate);
@@ -169,8 +160,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                     orderFromFB_Item.setOrderNumber(orderNumber);
                     orderFromFB_Item.setStatus(status);
                     orderFromFB_Item.setOrderNo(orderNo);
-
-                    //  orderFromFB_Item.setNumberOFOrderItem(numOfOrderItems);
 
 
                     if (status == null) {
@@ -198,9 +187,6 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                 BounceListView bounceListView2 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_2);
                 BounceListView bounceListView3 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_3);
                 BounceListView bounceListView4 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_4);
-
-
-                Log.i("informacja", "  getActivity()  " + getActivity());
 
                 if (getActivity() != null) {
                     arrayAdapter0 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));

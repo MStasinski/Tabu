@@ -102,6 +102,8 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
         ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
         ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
+        ButtonBarLayout zaznacz_wszystko = (ButtonBarLayout) myView.findViewById(R.id.selectAll_btn);
+        ButtonBarLayout odznacz_wszystko = (ButtonBarLayout) myView.findViewById(R.id.clearAll_btn);
 
         if (!CRM_Order_Kanban_Activity.btn3_is_mark) {
             odbior_btn.setVisibility(View.INVISIBLE);
@@ -132,11 +134,49 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
         }
 
 
+       odznacz_wszystko.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                CRM_Order_Kanban_Activity.btn0_is_mark = false;
+                CRM_Order_Kanban_Activity.btn1_is_mark = false;
+                CRM_Order_Kanban_Activity.btn2_is_mark = false;
+                CRM_Order_Kanban_Activity.btn3_is_mark = false;
+                CRM_Order_Kanban_Activity.btn3o_is_mark = false;
+                CRM_Order_Kanban_Activity.btn3d_is_mark = false;
+                CRM_Order_Kanban_Activity.btn4_is_mark = false;
+                listener.messageFromSplitViewFragmentToActivity("reset");
+                loadAllOrders();
+
+            }
+        });
+
+
+
+        zaznacz_wszystko.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                CRM_Order_Kanban_Activity.btn0_is_mark = true;
+                CRM_Order_Kanban_Activity.btn1_is_mark = true;
+                CRM_Order_Kanban_Activity.btn2_is_mark = true;
+                CRM_Order_Kanban_Activity.btn3_is_mark = true;
+                CRM_Order_Kanban_Activity.btn3o_is_mark = true;
+                CRM_Order_Kanban_Activity.btn3d_is_mark = true;
+                CRM_Order_Kanban_Activity.btn4_is_mark = true;
+                listener.messageFromSplitViewFragmentToActivity("selectAll");
+
+                loadAllOrders();
+
+            }
+        });
+
         all.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                listener.messageFromSplitViewFragmentToActivity("I am the parent fragment.");
+                listener.messageFromSplitViewFragmentToActivity("reset");
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.crm_fragment_contener, new Crm_Kanban_Fragment());
                 ft.commit();
@@ -149,6 +189,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v) {
+
                 TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
                 odbior_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
                 if (!CRM_Order_Kanban_Activity.btn3o_is_mark) {
