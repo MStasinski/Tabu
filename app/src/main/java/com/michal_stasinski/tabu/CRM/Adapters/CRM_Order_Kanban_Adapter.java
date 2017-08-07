@@ -252,7 +252,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
                 viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR2)));
             }else{
                 viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf( viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1)));
-                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1g)));
+                viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1)));
                 viewHolder.div0.setBackgroundTintList(ColorStateList.valueOf(viewHolder.delivety_method.getResources().getColor(R.color.ODBIOR1)));
             }
         }
