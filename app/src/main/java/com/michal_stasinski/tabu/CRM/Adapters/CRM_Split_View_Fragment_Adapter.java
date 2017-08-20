@@ -8,13 +8,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,8 +42,6 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import me.grantland.widget.AutofitTextView;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
@@ -165,6 +160,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             viewHolder.time_to_finish = (TextView) view.findViewById(R.id.time_to_finish);
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
             viewHolder.time_to_finish_min = (TextView) view.findViewById(R.id.time_to_finish_min);
+            viewHolder.restLayout = (LinearLayout) view.findViewById(R.id.rest_layout);
             // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
@@ -210,36 +206,35 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
         //TODO tu kolorrrrrrrrrrrrrrrrrrrrrrrr
 
-        if(arr.get(position).getStatus().equals("0")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.NOWE)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.NOWE)));
+        if (arr.get(position).getStatus().equals("0")) {
+            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.NOWE)));
+            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.NOWE)));
         }
 
-        if(arr.get(position).getStatus().equals("1")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.PRZYJETE)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.PRZYJETE)));
+        if (arr.get(position).getStatus().equals("1")) {
+            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.PRZYJETE)));
+            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.PRZYJETE)));
         }
 
-        if(arr.get(position).getStatus().equals("2")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WREALIZACJI)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.WREALIZACJI)));
+        if (arr.get(position).getStatus().equals("2")) {
+            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.WREALIZACJI)));
+            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.WREALIZACJI)));
         }
 
-        if(arr.get(position).getStatus().equals("3")) {
-            if(arr.get(position).getReceiptWay().equals("DOWÓZ")) {
+        if (arr.get(position).getStatus().equals("3")) {
+            if (arr.get(position).getReceiptWay().equals("DOWÓZ")) {
                 viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
                 viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
-            }else{
+            } else {
                 viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR1)));
                 viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR1)));
             }
         }
 
-        if(arr.get(position).getStatus().equals("4")) {
-            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.ODBIOR3)));
-            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(  activity.getResources().getColor(R.color.ODBIOR3)));
+        if (arr.get(position).getStatus().equals("4")) {
+            viewHolder.order_number.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR3)));
+            viewHolder.delivety_method.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR3)));
         }
-
 
 
         viewHolder.order_number.setText(arr.get(position).getOrderNumber());
@@ -302,7 +297,17 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
         }*/
 
-        view.setOnClickListener(new View.OnClickListener() {
+
+        viewHolder.restLayout.setOnClickListener(new View.OnClickListener() {
+                                                     @Override
+                                                     public void onClick(View arg0) {
+                                                         Log.i("informacja", "kliker");
+
+                                                         arg0.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
+                                                     }
+                                                 });
+
+        viewHolder.order_number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
 
@@ -513,6 +518,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
         ArrayList<TextView> tableArray;
         ArrayList<String> it;
         LinearLayout list;
+        LinearLayout restLayout;
     }
 
 

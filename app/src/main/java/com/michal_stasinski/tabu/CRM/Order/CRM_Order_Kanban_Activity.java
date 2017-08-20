@@ -288,7 +288,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
         if(myString.equals("reset")) {
             resetButtons();
         }
-        if(myString.equals("selectAll")) {
+        if(myString.equals("g")) {
            selectAllButtons();
         }
     }
