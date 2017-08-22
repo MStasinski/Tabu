@@ -2,6 +2,7 @@ package com.michal_stasinski.tabu.CRM.Order;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
@@ -80,8 +81,6 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
 
 
         ButtonBarLayout noweButton = (ButtonBarLayout) findViewById(R.id.news_btn);
-
-
         ButtonBarLayout przyjeteButton = (ButtonBarLayout) findViewById(R.id.commit_btn);
         ButtonBarLayout realizacjaButton = (ButtonBarLayout) findViewById(R.id.realization_btn);
         ButtonBarLayout gotoweButton = (ButtonBarLayout) findViewById(R.id.reception_btn);
@@ -200,6 +199,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("informacja", "onResume");
         load_order_serial_number();
     }
 
@@ -288,8 +288,19 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
         if(myString.equals("reset")) {
             resetButtons();
         }
-        if(myString.equals("g")) {
+        if(myString.equals("selectAll")) {
            selectAllButtons();
         }
     }
+
+    @Override
+    public void clickPosition(int position,View arg) {
+       // fragment1.loadAllOrders();
+        fragment1.refreshAdapter(position);
+       // arg.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.ODBIOR3)));
+
+        Log.i("informacja", "arg "+arg);
+    }
+
+
 }

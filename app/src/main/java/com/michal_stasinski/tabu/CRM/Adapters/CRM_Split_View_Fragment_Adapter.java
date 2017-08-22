@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.michal_stasinski.tabu.CRM.Fragments.Crm_SplitView_Fragment;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -67,8 +68,24 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
     private String[] ordreS;
     private int scale = 140;
     private int progressStatus = 0;
+
+    public int getSelectItem() {
+        return selectItem;
+    }
+
+    public void setSelectItem(int selectItem) {
+        this.selectItem = selectItem;
+    }
+
+    private int selectItem =0;
     private Handler handler = new Handler();
     private int counter = 0; //counter to indicate the total second whenever timer fire
+
+
+
+    public interface SplitViewAdapterSetClick {
+        void setClick(String myString);
+    }
 
     public Boolean getButton_flag_enabled() {
         return button_flag_enabled;
@@ -122,6 +139,9 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
     }
 
+
+
+
     @Override
     public int getCount() {
         return arr.size();
@@ -161,6 +181,10 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
             viewHolder.delivety_method = (TextView) view.findViewById(R.id.delivety_method);
             viewHolder.time_to_finish_min = (TextView) view.findViewById(R.id.time_to_finish_min);
             viewHolder.restLayout = (LinearLayout) view.findViewById(R.id.rest_layout);
+            viewHolder.restLayout.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR0)));
+            if(this.selectItem==position) {
+                viewHolder.restLayout.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR3)));
+            }
             // viewHolder.address_txt = (TextView) view.findViewById(R.id.address_txt);
 
 
@@ -301,9 +325,11 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
         viewHolder.restLayout.setOnClickListener(new View.OnClickListener() {
                                                      @Override
                                                      public void onClick(View arg0) {
-                                                         Log.i("informacja", "kliker");
+                                                         Log.i("informacja", "kliker"+clikPos);
+                                                         Crm_SplitView_Fragment.SplitViewFragmentInteractionListener listener = (Crm_SplitView_Fragment.SplitViewFragmentInteractionListener) activity;
+                                                         ((Crm_SplitView_Fragment.SplitViewFragmentInteractionListener) activity).clickPosition(clikPos, arg0);
+                                                        // arg0.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR3)));
 
-                                                         arg0.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR2)));
                                                      }
                                                  });
 

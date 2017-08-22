@@ -29,7 +29,7 @@ import java.util.Map;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 
-public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
+public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment implements CRM_Split_View_Fragment_Adapter.SplitViewAdapterSetClick {
     private View myView;
     private Crm_Kanban_Fragment fragment1;
     private ButtonBarLayout all;
@@ -37,7 +37,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
 
     private Handler handler;
     private int AFTER_ONE_MINUTE;
-
+    private ArrayList<GetOrderFromFB> orderFromFB;
     public static ArrayList<GetOrderFromFB> orderFromFB0;
     public static ArrayList<GetOrderFromFB> orderFromFB1;
     public static ArrayList<GetOrderFromFB> orderFromFB2;
@@ -52,8 +52,14 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void setClick(String myString) {
+
+    }
+
     public interface SplitViewFragmentInteractionListener {
         void messageFromSplitViewFragmentToActivity(String myString);
+        void clickPosition(int pos, View arg);
     }
 
     public static Crm_SplitView_Fragment newInstance(int num) {
@@ -98,6 +104,8 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
         super.onResume();
         // btn3o_is_mark = true;
         //btn3d_is_mark = true;
+
+        Log.i("informacja", "onResume splitview");
 
 
         ButtonBarLayout odbior_btn = (ButtonBarLayout) myView.findViewById(R.id.odbior_btn);
@@ -326,10 +334,10 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                     }
                 }
 
-                BounceListView bounceListView0 = (BounceListView) myView.findViewById(R.id.left_listView);
 
 
-                ArrayList<GetOrderFromFB> orderFromFB = new ArrayList<GetOrderFromFB>();
+
+                 orderFromFB = new ArrayList<GetOrderFromFB>();
 
 
                 if (CRM_Order_Kanban_Activity.btn0_is_mark) {
@@ -354,14 +362,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
                     orderFromFB.addAll(orderFromFB4);
                 }
 
-                if (getActivity() != null) {
-                    arrayAdapter = new CRM_Split_View_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB);
-
-
-                    bounceListView0.setAdapter(arrayAdapter);
-                    bounceListView0.setScrollingCacheEnabled(false);
-                    arrayAdapter.notifyDataSetChanged();
-                }
+                refreshAdapter(0);
 
 
             }
@@ -372,5 +373,17 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment {
             }
         });
 
+    }
+
+    public void refreshAdapter(int pos){
+
+        if (getActivity() != null) {
+            BounceListView bounceListView0 = (BounceListView) myView.findViewById(R.id.left_listView);
+            arrayAdapter = new CRM_Split_View_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB);
+            arrayAdapter.setSelectItem(pos);
+            bounceListView0.setAdapter(arrayAdapter);
+            bounceListView0.setScrollingCacheEnabled(false);
+            arrayAdapter.notifyDataSetChanged();
+        }
     }
 }
