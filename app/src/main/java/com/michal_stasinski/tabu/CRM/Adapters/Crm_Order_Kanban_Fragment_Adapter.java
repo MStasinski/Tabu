@@ -58,7 +58,7 @@ import static com.michal_stasinski.tabu.SplashScreen.USER_UNIQUE_ID_PREF;
  * Created by win8 on 27.12.2016.
  */
 
-public class CRM_Order_Kanban_Adapter extends BaseAdapter {
+public class Crm_Order_Kanban_Fragment_Adapter extends BaseAdapter {
 
 
     private static LayoutInflater inflater = null;
@@ -86,7 +86,7 @@ public class CRM_Order_Kanban_Adapter extends BaseAdapter {
 
     private Boolean button_flag_enabled = true;
 
-    public CRM_Order_Kanban_Adapter(final Activity activity, Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort, int col) {
+    public Crm_Order_Kanban_Fragment_Adapter(final Activity activity, Context context, ArrayList<GetOrderFromFB> mListArray, Boolean sort, int col) {
         sortOption = sort;
         color = col;
         this.activity = activity;

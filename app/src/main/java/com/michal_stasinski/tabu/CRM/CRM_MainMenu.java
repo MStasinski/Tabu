@@ -10,8 +10,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenuAdapter;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_Activity;
+import com.michal_stasinski.tabu.CRM.Adapters.Crm_MainMenu_Adapter;
+import com.michal_stasinski.tabu.CRM.Order.Crm_Order_Main_Activity;
 import com.michal_stasinski.tabu.MainActivity;
 import com.michal_stasinski.tabu.User_Side.LeftDrawerMenu.MenuFragment;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -66,7 +66,7 @@ public class CRM_MainMenu extends AppCompatActivity {
 
 
         main_list_view = (BounceListView) findViewById(R.id.crm_listView_menu);
-        CRM_MainMenuAdapter arrayAdapter = new CRM_MainMenuAdapter(this);
+        Crm_MainMenu_Adapter arrayAdapter = new Crm_MainMenu_Adapter(this);
 
         for (int i = 0; i < menuText.length; i++) {
             OrderComposerItem item = new OrderComposerItem();
@@ -98,7 +98,7 @@ public class CRM_MainMenu extends AppCompatActivity {
 
                     if (position == 2) {
                         main_list_view.setOnItemClickListener(null);
-                        intent.setClass(view.getContext(), CRM_Order_Kanban_Activity.class);
+                        intent.setClass(view.getContext(), Crm_Order_Main_Activity.class);
                         startActivity(intent);
                     }
                     if (position == 5) {

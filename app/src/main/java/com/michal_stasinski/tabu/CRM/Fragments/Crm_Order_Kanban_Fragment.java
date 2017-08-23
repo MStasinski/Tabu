@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_Order_Kanban_Adapter;
+import com.michal_stasinski.tabu.CRM.Adapters.Crm_Order_Kanban_Fragment_Adapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
@@ -28,17 +27,17 @@ import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 /**
 
  */
-public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
+public class Crm_Order_Kanban_Fragment extends android.support.v4.app.Fragment {
 
     private View myView;
     private Handler handler;
     private int AFTER_ONE_MINUTE;
     private Activity activity;
-    private CRM_Order_Kanban_Adapter arrayAdapter0;
-    private CRM_Order_Kanban_Adapter arrayAdapter1;
-    private CRM_Order_Kanban_Adapter arrayAdapter2;
-    private CRM_Order_Kanban_Adapter arrayAdapter3;
-    private CRM_Order_Kanban_Adapter arrayAdapter4;
+    private Crm_Order_Kanban_Fragment_Adapter arrayAdapter0;
+    private Crm_Order_Kanban_Fragment_Adapter arrayAdapter1;
+    private Crm_Order_Kanban_Fragment_Adapter arrayAdapter2;
+    private Crm_Order_Kanban_Fragment_Adapter arrayAdapter3;
+    private Crm_Order_Kanban_Fragment_Adapter arrayAdapter4;
 
 
     public static ArrayList<GetOrderFromFB> orderFromFB0;
@@ -48,12 +47,12 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     public static ArrayList<GetOrderFromFB> orderFromFB4;
 
 
-    public Crm_Kanban_Fragment() {
+    public Crm_Order_Kanban_Fragment() {
     }
 
-    public static Crm_Kanban_Fragment newInstance(int num) {
+    public static Crm_Order_Kanban_Fragment newInstance(int num) {
 
-        Crm_Kanban_Fragment fragment = new Crm_Kanban_Fragment();
+        Crm_Order_Kanban_Fragment fragment = new Crm_Order_Kanban_Fragment();
 
         return fragment;
     }
@@ -67,7 +66,7 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.crm_kanban_fragment, container, false);
+        myView = inflater.inflate(R.layout.crm_order_kanban_fragment, container, false);
         activity = getActivity();
         orderFromFB0 = new ArrayList<GetOrderFromFB>();
         orderFromFB1 = new ArrayList<GetOrderFromFB>();
@@ -189,11 +188,11 @@ public class Crm_Kanban_Fragment extends android.support.v4.app.Fragment {
                 BounceListView bounceListView4 = (BounceListView) myView.findViewById(R.id.kanban_bounce_list_view_4);
 
                 if (getActivity() != null) {
-                    arrayAdapter0 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
-                    arrayAdapter1 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
-                    arrayAdapter2 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
-                    arrayAdapter3 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.ODBIOR1));
-                    arrayAdapter4 = new CRM_Order_Kanban_Adapter(getActivity(), myView.getContext(), orderFromFB4, false, getResources().getColor(R.color.ODBIOR3));
+                    arrayAdapter0 = new Crm_Order_Kanban_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB0, false, getResources().getColor(R.color.NOWE));
+                    arrayAdapter1 = new Crm_Order_Kanban_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB1, false, getResources().getColor(R.color.PRZYJETE));
+                    arrayAdapter2 = new Crm_Order_Kanban_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB2, false, getResources().getColor(R.color.WREALIZACJI));
+                    arrayAdapter3 = new Crm_Order_Kanban_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB3, false, getResources().getColor(R.color.ODBIOR1));
+                    arrayAdapter4 = new Crm_Order_Kanban_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB4, false, getResources().getColor(R.color.ODBIOR3));
 
 
                     bounceListView0.setAdapter(arrayAdapter0);

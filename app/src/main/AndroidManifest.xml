@@ -85,7 +85,7 @@
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity
-            android:name=".CRM.Order.CRM_Order_Kanban_Activity"
+            android:name=".CRM.Order.Crm_Order_Main_Activity"
             android:theme="@style/Theme.Swipe.Back" />
 
         <activity

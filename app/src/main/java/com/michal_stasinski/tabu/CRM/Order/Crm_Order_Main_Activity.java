@@ -2,7 +2,6 @@ package com.michal_stasinski.tabu.CRM.Order;
 
 import android.app.FragmentManager;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ButtonBarLayout;
@@ -15,8 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.CRM.Fragments.Crm_Kanban_Fragment;
-import com.michal_stasinski.tabu.CRM.Fragments.Crm_SplitView_Fragment;
+import com.michal_stasinski.tabu.CRM.Fragments.Crm_Order_Kanban_Fragment;
+import com.michal_stasinski.tabu.CRM.Fragments.Crm_Order_SplitView_Fragment;
 import com.michal_stasinski.tabu.R;
 
 import java.util.Map;
@@ -27,9 +26,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_DATABASE;
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_SERIAL_NUMBER;
 
-public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_SplitView_Fragment.SplitViewFragmentInteractionListener {
-    private Crm_Kanban_Fragment fragment;
-    private Crm_SplitView_Fragment fragment1;
+public class Crm_Order_Main_Activity extends AppCompatActivity implements Crm_Order_SplitView_Fragment.SplitViewFragmentInteractionListener {
+    private Crm_Order_Kanban_Fragment fragment;
+    private Crm_Order_SplitView_Fragment fragment1;
 
     public static Boolean btn0_is_mark = false;
     public static Boolean btn1_is_mark = false;
@@ -76,7 +75,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
         });
 
         FragmentManager fragmentManager = getFragmentManager();
-        fragment = Crm_Kanban_Fragment.newInstance(0);
+        fragment = Crm_Order_Kanban_Fragment.newInstance(0);
         getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment).commit();
 
 
@@ -100,7 +99,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                     nowe_text.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 }
                 FragmentManager fragmentManager = getFragmentManager();
-                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                fragment1 = Crm_Order_SplitView_Fragment.newInstance(0);
                 getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
 
                 btn0_is_mark = !btn0_is_mark;
@@ -123,7 +122,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                fragment1 = Crm_Order_SplitView_Fragment.newInstance(0);
                 getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn1_is_mark = !btn1_is_mark;
             }
@@ -144,7 +143,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                fragment1 = Crm_Order_SplitView_Fragment.newInstance(0);
                 getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn2_is_mark = !btn2_is_mark;
             }
@@ -167,7 +166,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                fragment1 = Crm_Order_SplitView_Fragment.newInstance(0);
                 getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn3_is_mark = !btn3_is_mark;
             }
@@ -187,7 +186,7 @@ public class CRM_Order_Kanban_Activity extends AppCompatActivity implements Crm_
                 }
 
                 FragmentManager fragmentManager = getFragmentManager();
-                fragment1 = Crm_SplitView_Fragment.newInstance(0);
+                fragment1 = Crm_Order_SplitView_Fragment.newInstance(0);
                 getSupportFragmentManager().beginTransaction().replace(R.id.crm_fragment_contener, fragment1).commit();
                 btn4_is_mark = !btn4_is_mark;
             }

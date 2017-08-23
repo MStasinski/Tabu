@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.michal_stasinski.tabu.CRM.Fragments.Crm_SplitView_Fragment;
+import com.michal_stasinski.tabu.CRM.Fragments.Crm_Order_SplitView_Fragment;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
@@ -54,7 +54,7 @@ import static com.michal_stasinski.tabu.SplashScreen.USER_UNIQUE_ID_PREF;
  * Created by win8 on 27.12.2016.
  */
 
-public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
+public class Crm_Order_SplitView_Fragment_Adapter extends BaseAdapter {
 
 
     private static LayoutInflater inflater = null;
@@ -82,9 +82,10 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
     private int counter = 0; //counter to indicate the total second whenever timer fire
 
 
+    private SplitViewAdapterSetClick mCallback;
 
     public interface SplitViewAdapterSetClick {
-        void setClick(String myString);
+        void setClick(int position);
     }
 
     public Boolean getButton_flag_enabled() {
@@ -97,9 +98,9 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
     private Boolean button_flag_enabled = true;
 
-    public CRM_Split_View_Fragment_Adapter(final Activity activity, Context context, ArrayList<GetOrderFromFB> mListArray) {
+    public Crm_Order_SplitView_Fragment_Adapter(final Activity activity, Context context, ArrayList<GetOrderFromFB> mListArray, SplitViewAdapterSetClick mCallback) {
 
-
+        this.mCallback = mCallback;
         this.activity = activity;
         this.specialSign = specialSign;
         Collections.sort(mListArray, new Comparator() {
@@ -171,7 +172,7 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
 
         if (convertView == null) {
             // ArrayList<Number> price = arr.get(position).getPriceArray();
-            view = View.inflate(mContext, R.layout.crm_order_split_view_block, null);
+            view = View.inflate(mContext, R.layout.crm_order_splitview_block, null);
             viewHolder = new ViewHolderItem();
             viewHolder.order_fb_payment_method = (TextView) view.findViewById(R.id.order_fb_payment_method);
             viewHolder.list = (LinearLayout) view.findViewById(R.id.list_of_order_for_one_item);
@@ -326,9 +327,10 @@ public class CRM_Split_View_Fragment_Adapter extends BaseAdapter {
                                                      @Override
                                                      public void onClick(View arg0) {
                                                          Log.i("informacja", "kliker"+clikPos);
-                                                         Crm_SplitView_Fragment.SplitViewFragmentInteractionListener listener = (Crm_SplitView_Fragment.SplitViewFragmentInteractionListener) activity;
-                                                         ((Crm_SplitView_Fragment.SplitViewFragmentInteractionListener) activity).clickPosition(clikPos, arg0);
+                                                         Crm_Order_SplitView_Fragment.SplitViewFragmentInteractionListener listener = (Crm_Order_SplitView_Fragment.SplitViewFragmentInteractionListener) activity;
+                                                         ((Crm_Order_SplitView_Fragment.SplitViewFragmentInteractionListener) activity).clickPosition(clikPos, arg0);
                                                         // arg0.setBackgroundTintList(ColorStateList.valueOf(activity.getResources().getColor(R.color.ODBIOR3)));
+                                                            mCallback.setClick(clikPos);
 
                                                      }
                                                  });

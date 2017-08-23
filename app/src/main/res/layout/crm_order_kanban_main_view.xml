@@ -70,7 +70,7 @@
         android:layout_height="wrap_content">
 
         <include
-            layout="@layout/crm_kanban_main_header"
+            layout="@layout/crm_order_kanban_main_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

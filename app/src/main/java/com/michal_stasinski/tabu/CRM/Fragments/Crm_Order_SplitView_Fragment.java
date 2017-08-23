@@ -18,9 +18,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_Split_View_Fragment_Adapter;
+import com.michal_stasinski.tabu.CRM.Adapters.Crm_Order_SplitView_Fragment_Adapter;
 import com.michal_stasinski.tabu.CRM.Model.GetOrderFromFB;
-import com.michal_stasinski.tabu.CRM.Order.CRM_Order_Kanban_Activity;
+import com.michal_stasinski.tabu.CRM.Order.Crm_Order_Main_Activity;
 import com.michal_stasinski.tabu.R;
 import com.michal_stasinski.tabu.Utils.BounceListView;
 
@@ -29,9 +29,9 @@ import java.util.Map;
 
 import static com.michal_stasinski.tabu.SplashScreen.DB_ORDER_DATABASE;
 
-public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment implements CRM_Split_View_Fragment_Adapter.SplitViewAdapterSetClick {
+public class Crm_Order_SplitView_Fragment extends android.support.v4.app.Fragment implements Crm_Order_SplitView_Fragment_Adapter.SplitViewAdapterSetClick {
     private View myView;
-    private Crm_Kanban_Fragment fragment1;
+    private Crm_Order_Kanban_Fragment fragment1;
     private ButtonBarLayout all;
     private SplitViewFragmentInteractionListener listener;
 
@@ -46,25 +46,29 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
     public static ArrayList<GetOrderFromFB> orderFromFB4;
 
 
-    private CRM_Split_View_Fragment_Adapter arrayAdapter;
+    private Crm_Order_SplitView_Fragment_Adapter arrayAdapter;
 
-    public Crm_SplitView_Fragment() {
+
+    public Crm_Order_SplitView_Fragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void setClick(String myString) {
 
+    @Override
+    public void setClick(int pos) {
+        orderFromFB.get(pos).getOrderNo();
+        Log.i("informacja", "orderFromFB.get(pos).getOrderNo() "+ orderFromFB.get(pos).getOrderList());
     }
 
     public interface SplitViewFragmentInteractionListener {
         void messageFromSplitViewFragmentToActivity(String myString);
+
         void clickPosition(int pos, View arg);
     }
 
-    public static Crm_SplitView_Fragment newInstance(int num) {
+    public static Crm_Order_SplitView_Fragment newInstance(int num) {
 
-        Crm_SplitView_Fragment fragment = new Crm_SplitView_Fragment();
+        Crm_Order_SplitView_Fragment fragment = new Crm_Order_SplitView_Fragment();
         return fragment;
     }
 
@@ -84,7 +88,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.crm_split_view_fragment, container, false);
+        myView = inflater.inflate(R.layout.crm_order_splitview_fragment, container, false);
 
         all = (ButtonBarLayout) myView.findViewById(R.id.all_btn);
 
@@ -113,20 +117,20 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
         ButtonBarLayout zaznacz_wszystko = (ButtonBarLayout) myView.findViewById(R.id.selectAll_btn);
         ButtonBarLayout odznacz_wszystko = (ButtonBarLayout) myView.findViewById(R.id.clearAll_btn);
 
-        if (!CRM_Order_Kanban_Activity.btn3_is_mark) {
+        if (!Crm_Order_Main_Activity.btn3_is_mark) {
             odbior_btn.setVisibility(View.INVISIBLE);
             dowoz_btn.setVisibility(View.INVISIBLE);
         } else {
             odbior_btn.setVisibility(View.VISIBLE);
             dowoz_btn.setVisibility(View.VISIBLE);
 
-            // CRM_Order_Kanban_Activity.btn3o_is_mark = true;
-            // CRM_Order_Kanban_Activity.btn3d_is_mark = true;
+            // Crm_Order_Main_Activity.btn3o_is_mark = true;
+            // Crm_Order_Main_Activity.btn3d_is_mark = true;
         }
 
         TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
 
-        if (CRM_Order_Kanban_Activity.btn3d_is_mark) {
+        if (Crm_Order_Main_Activity.btn3d_is_mark) {
             dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
         } else {
             dowoz_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
@@ -135,14 +139,14 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
         TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
 
 
-        if (CRM_Order_Kanban_Activity.btn3o_is_mark) {
+        if (Crm_Order_Main_Activity.btn3o_is_mark) {
             odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
         } else {
             odbior_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
         }
 
 
-       odznacz_wszystko.setOnClickListener(new View.OnClickListener() {
+        odznacz_wszystko.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -150,13 +154,13 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
                 ButtonBarLayout dowoz_btn = (ButtonBarLayout) myView.findViewById(R.id.dowoz_btn);
                 odbior_btn.setVisibility(View.INVISIBLE);
                 dowoz_btn.setVisibility(View.INVISIBLE);
-                CRM_Order_Kanban_Activity.btn0_is_mark = false;
-                CRM_Order_Kanban_Activity.btn1_is_mark = false;
-                CRM_Order_Kanban_Activity.btn2_is_mark = false;
-                CRM_Order_Kanban_Activity.btn3_is_mark = false;
-                CRM_Order_Kanban_Activity.btn3o_is_mark = false;
-                CRM_Order_Kanban_Activity.btn3d_is_mark = false;
-                CRM_Order_Kanban_Activity.btn4_is_mark = false;
+                Crm_Order_Main_Activity.btn0_is_mark = false;
+                Crm_Order_Main_Activity.btn1_is_mark = false;
+                Crm_Order_Main_Activity.btn2_is_mark = false;
+                Crm_Order_Main_Activity.btn3_is_mark = false;
+                Crm_Order_Main_Activity.btn3o_is_mark = false;
+                Crm_Order_Main_Activity.btn3d_is_mark = false;
+                Crm_Order_Main_Activity.btn4_is_mark = false;
                 listener.messageFromSplitViewFragmentToActivity("reset");
                 loadAllOrders();
 
@@ -176,13 +180,13 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
                 TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
                 odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
-                CRM_Order_Kanban_Activity.btn0_is_mark = true;
-                CRM_Order_Kanban_Activity.btn1_is_mark = true;
-                CRM_Order_Kanban_Activity.btn2_is_mark = true;
-                CRM_Order_Kanban_Activity.btn3_is_mark = true;
-                CRM_Order_Kanban_Activity.btn3o_is_mark = true;
-                CRM_Order_Kanban_Activity.btn3d_is_mark = true;
-                CRM_Order_Kanban_Activity.btn4_is_mark = true;
+                Crm_Order_Main_Activity.btn0_is_mark = true;
+                Crm_Order_Main_Activity.btn1_is_mark = true;
+                Crm_Order_Main_Activity.btn2_is_mark = true;
+                Crm_Order_Main_Activity.btn3_is_mark = true;
+                Crm_Order_Main_Activity.btn3o_is_mark = true;
+                Crm_Order_Main_Activity.btn3d_is_mark = true;
+                Crm_Order_Main_Activity.btn4_is_mark = true;
                 listener.messageFromSplitViewFragmentToActivity("selectAll");
 
                 loadAllOrders();
@@ -196,7 +200,7 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
             public void onClick(View v) {
                 listener.messageFromSplitViewFragmentToActivity("reset");
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.crm_fragment_contener, new Crm_Kanban_Fragment());
+                ft.replace(R.id.crm_fragment_contener, new Crm_Order_Kanban_Fragment());
                 ft.commit();
 
             }
@@ -210,11 +214,11 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
 
                 TextView odbior_txt = (TextView) myView.findViewById(R.id.odbior_txt);
                 odbior_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
-                if (!CRM_Order_Kanban_Activity.btn3o_is_mark) {
+                if (!Crm_Order_Main_Activity.btn3o_is_mark) {
                     odbior_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 }
 
-                CRM_Order_Kanban_Activity.btn3o_is_mark = !CRM_Order_Kanban_Activity.btn3o_is_mark;
+                Crm_Order_Main_Activity.btn3o_is_mark = !Crm_Order_Main_Activity.btn3o_is_mark;
                 loadAllOrders();
 
             }
@@ -227,11 +231,11 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
             public void onClick(View v) {
                 TextView dowoz_txt = (TextView) myView.findViewById(R.id.dowoz_txt);
                 dowoz_txt.setTextColor(getResources().getColor(R.color.colorSecondGrey));
-                if (!CRM_Order_Kanban_Activity.btn3d_is_mark) {
+                if (!Crm_Order_Main_Activity.btn3d_is_mark) {
                     dowoz_txt.setTextColor(getResources().getColor(R.color.colorDarkGray));
                 }
 
-                CRM_Order_Kanban_Activity.btn3d_is_mark = !CRM_Order_Kanban_Activity.btn3d_is_mark;
+                Crm_Order_Main_Activity.btn3d_is_mark = !Crm_Order_Main_Activity.btn3d_is_mark;
                 loadAllOrders();
             }
         });
@@ -335,30 +339,28 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
                 }
 
 
+                orderFromFB = new ArrayList<GetOrderFromFB>();
 
 
-                 orderFromFB = new ArrayList<GetOrderFromFB>();
-
-
-                if (CRM_Order_Kanban_Activity.btn0_is_mark) {
+                if (Crm_Order_Main_Activity.btn0_is_mark) {
                     orderFromFB.addAll(orderFromFB0);
                 }
-                if (CRM_Order_Kanban_Activity.btn1_is_mark) {
+                if (Crm_Order_Main_Activity.btn1_is_mark) {
                     orderFromFB.addAll(orderFromFB1);
                 }
-                if (CRM_Order_Kanban_Activity.btn2_is_mark) {
+                if (Crm_Order_Main_Activity.btn2_is_mark) {
                     orderFromFB.addAll(orderFromFB2);
                 }
-                if (CRM_Order_Kanban_Activity.btn3_is_mark) {
-                    if (CRM_Order_Kanban_Activity.btn3o_is_mark) {
+                if (Crm_Order_Main_Activity.btn3_is_mark) {
+                    if (Crm_Order_Main_Activity.btn3o_is_mark) {
                         orderFromFB.addAll(orderFromFB3o);
                     }
 
-                    if (CRM_Order_Kanban_Activity.btn3d_is_mark) {
+                    if (Crm_Order_Main_Activity.btn3d_is_mark) {
                         orderFromFB.addAll(orderFromFB3d);
                     }
                 }
-                if (CRM_Order_Kanban_Activity.btn4_is_mark) {
+                if (Crm_Order_Main_Activity.btn4_is_mark) {
                     orderFromFB.addAll(orderFromFB4);
                 }
 
@@ -375,11 +377,11 @@ public class Crm_SplitView_Fragment extends android.support.v4.app.Fragment impl
 
     }
 
-    public void refreshAdapter(int pos){
+    public void refreshAdapter(int pos) {
 
         if (getActivity() != null) {
             BounceListView bounceListView0 = (BounceListView) myView.findViewById(R.id.left_listView);
-            arrayAdapter = new CRM_Split_View_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB);
+            arrayAdapter = new Crm_Order_SplitView_Fragment_Adapter(getActivity(), myView.getContext(), orderFromFB, this);
             arrayAdapter.setSelectItem(pos);
             bounceListView0.setAdapter(arrayAdapter);
             bounceListView0.setScrollingCacheEnabled(false);

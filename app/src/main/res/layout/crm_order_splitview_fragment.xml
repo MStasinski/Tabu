@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.michal_stasinski.tabu.CRM.Fragments.Crm_SplitView_Fragment">
+    tools:context="com.michal_stasinski.tabu.CRM.Fragments.Crm_Order_SplitView_Fragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -59,13 +59,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
+                        android:layout_below="@+id/top_left_split_view"
                         android:animationCache="false"
                         android:scrollingCache="false" />
 
                     <include
                         android:id="@+id/bottom_left_split_view"
-                        layout="@layout/crm_split_view_left_bottom_header"
+                        layout="@layout/crm_order_splitview_left_bottom_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
@@ -90,7 +90,7 @@
 
         <include
             android:id="@+id/bottom_bar"
-            layout="@layout/crm_kanban_main_bottom_bar"
+            layout="@layout/crm_order_main_bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

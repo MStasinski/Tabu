@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.michal_stasinski.tabu.CRM.Adapters.CRM_MainMenuAdapter;
+import com.michal_stasinski.tabu.CRM.Adapters.Crm_MainMenu_Adapter;
 import com.michal_stasinski.tabu.User_Side.Models.MenuItemProduct;
 import com.michal_stasinski.tabu.User_Side.Models.OrderComposerItem;
 import com.michal_stasinski.tabu.R;
@@ -51,7 +51,7 @@ public class User_Info_ListView extends AppCompatActivity {
 
 
         main_list_view = (BounceListView) findViewById(R.id.crm_listView_menu);
-        CRM_MainMenuAdapter arrayAdapter = new CRM_MainMenuAdapter(this);
+        Crm_MainMenu_Adapter arrayAdapter = new Crm_MainMenu_Adapter(this);
 
         for (int i = 0; i < menuText.length; i++) {
             OrderComposerItem item = new OrderComposerItem();
